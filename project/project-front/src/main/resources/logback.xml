@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true" scanPeriod="60 seconds" debug="true">
+    <contextName>project-front</contextName>
+    
+    <property name="LOG_PATH" value="/var/log/webapps/sapling/"/>
+    <property name="FILE_NAME" value="project-front"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{0}:%L-%X{ID}- %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- ***************************************************************** -->
+    <!-- info级别的日志appender -->
+    <!-- ***************************************************************** -->
+    <appender name="${FILE_NAME}-info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/${FILE_NAME}-info.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${FILE_NAME}-info.log.%d{yyyy-MM}.%i</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>1024MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{0}:%L-%X{ID}- %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- ***************************************************************** -->
+    <!-- error级别日志appender -->
+    <!-- ***************************************************************** -->
+    <appender name="${FILE_NAME}-error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/${FILE_NAME}-error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${FILE_NAME}-error.%d{yyyy-MM}.%i</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>1024MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{0}:%L-%X{ID}- %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <!-- 根日志logger -->
+    <root level="INFO">
+    	<appender-ref ref="STDOUT"/>
+        <appender-ref ref="${FILE_NAME}-info"/>
+        <appender-ref ref="${FILE_NAME}-error"/>
+    </root>
+</configuration>

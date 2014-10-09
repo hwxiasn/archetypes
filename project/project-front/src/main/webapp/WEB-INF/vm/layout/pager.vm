@@ -1,0 +1,36 @@
+<div class="feiye">
+#if($!pager.currentPage>1)
+    <a href="javascript:page($!{pager.currentPage}-1);"><span class="feiye1">上一页</span></a>
+#else
+    <a href="javascript:void(0);"><span class="feiye1">上一页</span></a>
+#end
+
+#if($!pager.currentPage < 4)
+	#set($startPage=1)
+#else	
+	#set($startPage=$!pager.currentPage - 3)
+#end
+
+#set($endPage=$!startPage + 6)
+#if($!endPage > $!pager.totalPages)
+	#set($endPage=$!pager.totalPages)
+#end
+#if($!endPage < $!startPage)
+	#set($endPage=$!startPage)
+#end
+
+#foreach($!page in [$!startPage .. $!endPage])
+	#if($!page==$!pager.currentPage)
+		<a href="javascript:page($!page);" class="feiye2"><span class="feiye2" id="on">$!page</span></a>
+	#else
+		<a href="javascript:page($!page);"><span class="feiye2" id="on">$!page</span></a>
+	#end	
+#end
+
+
+#if($!pager.currentPage<$!pager.totalPages)
+    <a href="javascript:page($!{pager.currentPage}+1);"><span class="feiye1_R">下一页</span></a>
+#else
+    <a href="javascript:void(0);"><span class="feiye1_R">下一页</span></a>
+#end
+</div>
