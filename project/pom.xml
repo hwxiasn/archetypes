@@ -384,10 +384,10 @@
 		<module>project-domain</module>
 		<module>project-service</module>
 		<module>project-web</module>
-		<module>project-user-facade</module>
-		<module>project-user</module>
+		<!-- <module>project-user-facade</module>
+		<module>project-user</module> -->
 		<module>project-front</module>
-		<module>project-upload</module>
-		<module>project-facade-server</module>
+		<!-- <module>project-upload</module>
+		<module>project-facade-server</module> -->
 	</modules>
 </project>

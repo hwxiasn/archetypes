@@ -2,7 +2,7 @@
 <configuration scan="true" scanPeriod="60 seconds" debug="true">
     <contextName>project-upload</contextName>
     
-    <property name="LOG_PATH" value="/var/log/webapps/sapling/"/>
+    <property name="LOG_PATH" value="D:\Hongwei\project\works\qingbo\Servers\logs"/>
     <property name="FILE_NAME" value="project-upload"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">

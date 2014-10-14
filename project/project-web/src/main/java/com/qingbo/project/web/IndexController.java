@@ -26,7 +26,7 @@ import com.qingbo.project.service.UserService;
 public class IndexController {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
-	@Autowired private UserService userService;
+//	@Autowired private UserService userService;
 
 	@RequestMapping("index")
 	public String index(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -56,27 +56,27 @@ public class IndexController {
 	
 	@RequestMapping(value="login", method=RequestMethod.POST)
 	public String login(String userName, String password) {
-		Subject subject = SecurityUtils.getSubject();
-		try {
-			subject.login(new UsernamePasswordToken(userName, password));
-        } catch (IncorrectCredentialsException | UnknownAccountException e) {
-            logger.warn("fail to login with userName:"+userName+",password:"+password, e);
-            return "login";
-        }
-		
-		if (subject.isAuthenticated()) {
-			if(RoleUtil.isFrontRole() == false) {
-				logger.warn("用户"+userName+"不是前台用户角色");
-				SecurityUtils.getSubject().logout();
-				return "login";
-			}
-			
-			User user = userService.getUser(userName);
-			logger.info("user login success: " + user.getUserName());
-		}else {
-			logger.info("user login failed: "+userName);
-			return "login";
-		}
+//		Subject subject = SecurityUtils.getSubject();
+//		try {
+//			subject.login(new UsernamePasswordToken(userName, password));
+//        } catch (IncorrectCredentialsException | UnknownAccountException e) {
+//            logger.warn("fail to login with userName:"+userName+",password:"+password, e);
+//            return "login";
+//        }
+//		
+//		if (subject.isAuthenticated()) {
+//			if(RoleUtil.isFrontRole() == false) {
+//				logger.warn("用户"+userName+"不是前台用户角色");
+//				SecurityUtils.getSubject().logout();
+//				return "login";
+//			}
+//			
+//			User user = userService.getUser(userName);
+//			logger.info("user login success: " + user.getUserName());
+//		}else {
+//			logger.info("user login failed: "+userName);
+//			return "login";
+//		}
 		
 		return "index";
 	}
