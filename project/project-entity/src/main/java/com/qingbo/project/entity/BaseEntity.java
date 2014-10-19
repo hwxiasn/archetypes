@@ -1,8 +1,11 @@
 package com.qingbo.project.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 @MappedSuperclass
@@ -15,8 +18,8 @@ public abstract class BaseEntity implements Serializable {
 //	private String createBy;
 //	private String updateBy;
 //	private String deleteBy;
-//	private Boolean deleted;
-//	@Temporal(TemporalType.TIMESTAMP) private Date createAt;
+	private Boolean deleted;
+	@Temporal(TemporalType.TIMESTAMP) private Date createAt;
 //	@Temporal(TemporalType.TIMESTAMP) private Date updateAt;
 //	@Temporal(TemporalType.TIMESTAMP) private Date deleteAt;
 
@@ -44,18 +47,18 @@ public abstract class BaseEntity implements Serializable {
 //	public void setDeleteBy(String deleteBy) {
 //		this.deleteBy = deleteBy;
 //	}
-//	public Boolean getDeleted() {
-//		return deleted;
-//	}
-//	public void setDeleted(Boolean deleted) {
-//		this.deleted = deleted;
-//	}
-//	public Date getCreateAt() {
-//		return createAt;
-//	}
-//	public void setCreateAt(Date createAt) {
-//		this.createAt = createAt;
-//	}
+	public Boolean getDeleted() {
+		return deleted;
+	}
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+	public Date getCreateAt() {
+		return createAt;
+	}
+	public void setCreateAt(Date createAt) {
+		this.createAt = createAt;
+	}
 //	public Date getUpdateAt() {
 //		return updateAt;
 //	}
