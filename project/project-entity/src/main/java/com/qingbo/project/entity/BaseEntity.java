@@ -18,7 +18,7 @@ public abstract class BaseEntity implements Serializable {
 //	private String createBy;
 //	private String updateBy;
 //	private String deleteBy;
-	private Boolean deleted;
+	private boolean deleted;
 	@Temporal(TemporalType.TIMESTAMP) private Date createAt;
 //	@Temporal(TemporalType.TIMESTAMP) private Date updateAt;
 //	@Temporal(TemporalType.TIMESTAMP) private Date deleteAt;
@@ -47,10 +47,10 @@ public abstract class BaseEntity implements Serializable {
 //	public void setDeleteBy(String deleteBy) {
 //		this.deleteBy = deleteBy;
 //	}
-	public Boolean getDeleted() {
+	public boolean isDeleted() {
 		return deleted;
 	}
-	public void setDeleted(Boolean deleted) {
+	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}
 	public Date getCreateAt() {
