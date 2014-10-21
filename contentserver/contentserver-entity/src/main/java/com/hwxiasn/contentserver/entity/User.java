@@ -1,16 +1,11 @@
 package com.hwxiasn.contentserver.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 @Entity
 public class User extends BaseEntity {
 	private static final long serialVersionUID = 4267467282380976239L;
 
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY) private Integer userId;
-	
 	private String userName;
 	private String password;
 	private String salt;
@@ -19,12 +14,6 @@ public class User extends BaseEntity {
 	private String roleIds;
 	private String permissionIds;
 	
-	public Integer getUserId() {
-		return userId;
-	}
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
 	public String getUserName() {
 		return userName;
 	}

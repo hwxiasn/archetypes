@@ -1,25 +1,16 @@
 package com.hwxiasn.contentserver.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 
 @Entity
 public class Role extends BaseEntity {
 	private static final long serialVersionUID = 8603825964037642906L;
 
-	@Id private Integer id;
-	
 	private String name;
 	private String nameEn;
 	private String nameZh;
 	private String permissionIds;
 	
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
 	public String getName() {
 		return name;
 	}

@@ -1,12 +1,12 @@
 create table user(
-user_id int(11) auto_increment,
+id int(11) auto_increment,
 user_name varchar(30),
 password varchar(50),
 salt varchar(50),
 status char(1),
 role_ids varchar(255),
 permission_ids varchar(255),
-primary key(user_id)
+primary key(id)
 );
 
 create table role(

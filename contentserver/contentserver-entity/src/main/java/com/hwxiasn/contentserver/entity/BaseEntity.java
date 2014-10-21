@@ -3,15 +3,19 @@ package com.hwxiasn.contentserver.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 @MappedSuperclass
+@SuppressWarnings("serial")
 public abstract class BaseEntity implements Serializable {
-	private static final long serialVersionUID = -8460995755252776456L;
-
+	//所有实体都有自增的整型主键
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY) private Integer id;
 	//hibernate 乐观锁使用version字段
 	@Version private Integer version;
 	
@@ -23,6 +27,12 @@ public abstract class BaseEntity implements Serializable {
 //	@Temporal(TemporalType.TIMESTAMP) private Date updateAt;
 //	@Temporal(TemporalType.TIMESTAMP) private Date deleteAt;
 
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public Integer getVersion() {
 		return version;
 	}
