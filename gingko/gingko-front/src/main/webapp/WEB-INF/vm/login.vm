@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>index</title>
+#parse("layout/head.vm")
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<form action="$front_url/login.html" method="post">
+	<input name="userName">
+		<input name="password" type="password">
+			<input type="submit">
+</form>
+
+#parse("layout/footer.vm")
+</body>
+</html>

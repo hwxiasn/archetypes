@@ -1,0 +1,11 @@
+#set($front_url="http://localhost:8080")
+#set($upload="http://localhost:8090")
+
+#set($static_url=$front_url+"/resources")
+#set($admin_url=$front_url+"/admin")
+#set($uploads=$upload+"/uploads")
+
+##<script src="$static_url/admin/js/jquery.min.js"></script>
+##<script src="$static_url/admin/js/jquery.validate.js"></script>
+##<script src="$static_url/admin/js/jquery.metadata.js"></script>
+##<script src="$static_url/admin/js/messages_cn.js"></script>

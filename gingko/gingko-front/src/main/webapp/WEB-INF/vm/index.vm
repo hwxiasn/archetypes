@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>index</title>
+#parse("layout/head.vm")
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<a href="/login.html">登录</a>
+
+#parse("layout/footer.vm")
+</body>
+</html>
