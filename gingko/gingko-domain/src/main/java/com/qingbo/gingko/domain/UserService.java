@@ -13,7 +13,7 @@ public interface UserService {
 	/**
 	 * 添加或更新用户
 	 */
-	void saveUser(User user);
+	Integer saveUser(User user);
 	/**
 	 * 分页查询用户
 	 */
