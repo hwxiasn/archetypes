@@ -13,11 +13,15 @@ import org.springframework.stereotype.Service;
 import com.qingbo.gingko.common.util.Pager;
 import com.qingbo.gingko.domain.UserService;
 import com.qingbo.gingko.entity.User;
+import com.qingbo.gingko.repository.UserEnterpriseProfileRepository;
+import com.qingbo.gingko.repository.UserProfileRepository;
 import com.qingbo.gingko.repository.UserRepository;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
 	@Autowired private UserRepository userRepository;
+	@Autowired private UserProfileRepository userProfileRepository;
+	@Autowired private UserEnterpriseProfileRepository userEnterpriseProfileRepository;
 	@Autowired private PasswordServiceImpl passwordHelper;
 	
 	@Override
@@ -26,8 +30,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void saveUser(User user) {
-		userRepository.save(user);
+	public Integer saveUser(User user) {
+		User save = userRepository.save(user);
+		if(user.getUserProfile()!=null) userProfileRepository.save(user.getUserProfile());
+		if(user.getEnterpriseProfile()!=null) userEnterpriseProfileRepository.save(user.getEnterpriseProfile());
+		return save!=null ? save.getId() : null;
 	}
 
 	@Override
