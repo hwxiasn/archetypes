@@ -13,6 +13,7 @@ public class PagerUtil {
 	 * Pager => Pageable
 	 */
 	public static Pageable pagable(Pager pager) {
+		if(pager == null) return null;
 		Pageable pageable = pager.getDirection()==null || pager.getProperties()==null ? 
 				new PageRequest(pager.getCurrentPage()-1, pager.getPageSize()) :
 					new PageRequest(pager.getCurrentPage()-1, pager.getPageSize(), Direction.valueOf(pager.getDirection()), pager.getProperties().split(","));
@@ -30,6 +31,7 @@ public class PagerUtil {
 	 * Pager => limit
 	 */
 	public static String limit(Pager pager) {
+		if(pager == null) return null;
 		return pager.getCurrentPage() == 1 ? ""+pager.getPageSize() : ""+pager.getStartRow()+","+pager.getPageSize();
 	}
 }

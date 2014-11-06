@@ -16,11 +16,14 @@ import org.springframework.data.jpa.domain.Specification;
 import com.qingbo.gingko.common.result.SpecParam;
 
 public class SpecUtil {
+	/**
+	 * 将SpecParam转换为Specification
+	 */
 	public static <T> Specification<T> spec(final SpecParam<T> specParam) {
     	return new Specification<T>() {
 			@SuppressWarnings({ "unchecked", "rawtypes" })
 			public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-				if(specParam.getSpecs().size() > 0) {
+				if(specParam!=null && specParam.getSpecs().size() > 0) {
 					List<Predicate> predicates = new ArrayList<>(specParam.getSpecs().size());
 					for(Object[] specTuple : specParam.getSpecs()) {
 						Path path = getPath(root, specTuple[0].toString());

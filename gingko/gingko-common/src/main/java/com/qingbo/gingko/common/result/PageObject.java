@@ -23,4 +23,12 @@ public class PageObject<T> implements Serializable {
 	public void setList(List<T> list) {
 		this.list = list;
 	}
+	public String toString() {
+		StringBuilder result = new StringBuilder(getClass().getSimpleName());
+		if(list!=null && list.size()>0) result.append("<"+list.get(0).getClass().getSimpleName()+">");
+		result.append("{total="+total);
+		if(list!=null && list.size()>0) result.append(", list="+list);
+		result.append("}");
+		return result.toString();
+	}
 }
