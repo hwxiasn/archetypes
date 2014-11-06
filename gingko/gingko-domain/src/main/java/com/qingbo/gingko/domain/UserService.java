@@ -1,7 +1,8 @@
 package com.qingbo.gingko.domain;
 
-import org.springframework.data.jpa.domain.Specification;
-
+import com.qingbo.gingko.common.result.PageObject;
+import com.qingbo.gingko.common.result.Result;
+import com.qingbo.gingko.common.result.SpecParam;
 import com.qingbo.gingko.common.util.Pager;
 import com.qingbo.gingko.entity.User;
 
@@ -17,7 +18,7 @@ public interface UserService {
 	/**
 	 * 分页查询用户
 	 */
-	void pageUser(Specification<User> spec, Pager pager);
+	Result<PageObject<User>> page(SpecParam<User> specs, Pager pager);
 	/**
 	 * 校验用户密码
 	 */

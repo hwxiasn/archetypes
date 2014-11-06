@@ -7,11 +7,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.qingbo.gingko.common.result.PageObject;
+import com.qingbo.gingko.common.result.Result;
+import com.qingbo.gingko.common.result.SpecParam;
 import com.qingbo.gingko.common.util.Pager;
 import com.qingbo.gingko.domain.UserService;
+import com.qingbo.gingko.domain.util.SpecUtil;
 import com.qingbo.gingko.entity.User;
 import com.qingbo.gingko.repository.UserEnterpriseProfileRepository;
 import com.qingbo.gingko.repository.UserProfileRepository;
@@ -38,13 +41,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void pageUser(Specification<User> spec, Pager pager) {
+	public Result<PageObject<User>> page(SpecParam<User> specs, Pager pager) {
 		Pageable pageable = pager.getDirection()==null || pager.getProperties()!=null ? 
 				new PageRequest(pager.getCurrentPage()-1, pager.getPageSize()) :
 					new PageRequest(pager.getCurrentPage()-1, pager.getPageSize(), Direction.valueOf(pager.getDirection()), pager.getProperties().split(","));
-		Page<User> page = userRepository.findAll(spec, pageable);
-		if(pager.notInitialized()) pager.init((int)page.getTotalElements());
-		pager.setElements(page.getContent());
+		Page<User> findAll = userRepository.findAll(SpecUtil.spec(specs), pageable);
+		return Result.newSuccess(new PageObject<User>((int)findAll.getTotalElements(), findAll.getContent()));
 	}
 
 	@Override

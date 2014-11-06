@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,10 +47,12 @@ public class PropertiesUtil {
 				InputStream is = connection.getInputStream();
 				prop.properties.load(is);
 				is.close();
+				extractPropertyValues(prop.properties);
 				log.info("加载属性文件("+resource+")："+url);
 				log.debug(prop.properties);
 			} catch (IOException e) {
 				log.warn("加载属性文件出错："+resource, e);
+				return null;
 			}
 			props.put(resource, prop);
 			
@@ -83,15 +86,53 @@ public class PropertiesUtil {
 					prop.properties.load(is);
 				}
 				is.close();
+				extractPropertyValues(prop.properties);
 				log.info("加载属性文件("+resource+")："+url);
 				log.debug(prop.properties);
 			} catch (IOException e) {
 				log.warn("加载属性文件出错："+resource, e);
+				return null;
 			}
 			props.put(resource, prop);
 			
 			checkMonitoring();
 		}
+		return prop.properties;
+	}
+	
+	/**
+	 * 重新加载属性文件，用于合并多个配置文件，然后计算变量，extractPropertyValues
+	 */
+	public static Properties reload(String resource, String charset) {
+		PropertiesHolder prop = props.get(resource);
+		
+		try {
+			URL url = getResource(resource);
+			if(url == null) return null;
+			
+			boolean charsetChange = (prop != null) && (prop.charset == null ? charset != null : !prop.charset.equalsIgnoreCase(charset));
+			if(prop == null) {
+				prop = new PropertiesHolder();
+				prop.charset = charset;
+				prop.resource = resource;
+			}else if(charsetChange) prop.charset = charset;
+			URLConnection connection = url.openConnection();
+			prop.lastModified = connection.getLastModified();
+			InputStream is = connection.getInputStream();
+			if(prop.charset != null) {
+				prop.properties.load(new InputStreamReader(is, prop.charset));
+			}else {
+				prop.properties.load(is);
+			}
+			is.close();
+			log.info("加载属性文件("+resource+")："+url);
+			log.debug(prop.properties);
+		} catch (IOException e) {
+			log.warn("加载属性文件出错："+resource, e);
+			return null;
+		}
+		props.put(resource, prop);
+			
 		return prop.properties;
 	}
 	
@@ -139,8 +180,39 @@ public class PropertiesUtil {
 	}
 	
 	/**
+	 * 解析配置变量{name}，uploads={upload}/uploads
+	 */
+	public static void extractPropertyValues(Properties prop) {
+		List<String> remains = new ArrayList<String>();
+		for(String name : prop.stringPropertyNames()) {
+			String value = prop.getProperty(name);
+			StringBuilder b = new StringBuilder();
+			Matcher matcher = tagPattern.matcher(value);
+			int idx = 0;
+			while(matcher.find()) {
+				int start = matcher.start();
+				b.append(value.substring(idx, start));
+				idx = matcher.end();
+				
+				String k = matcher.group(1);
+				String v = prop.getProperty(k);
+				b.append(v!=null ? v : "");
+			}
+			if(idx > 0) {
+				b.append(value.substring(idx));
+				String extractValue = b.toString();
+				prop.setProperty(name, extractValue);
+				log.info(name+"="+value+" ==> "+extractValue);
+				
+				matcher = tagPattern.matcher(extractValue);
+				if(matcher.find()) remains.add(name);
+			}
+		}
+		if(remains.size()>0) extractPropertyValues(prop);
+	}
+	
+	/**
 	 * 双向属性映射支持key <=> property
-	 * @author hongwei
 	 */
 	public static class BidiProperties extends Properties {
 		private static final long serialVersionUID = 1671513358615520262L;
@@ -208,6 +280,7 @@ public class PropertiesUtil {
 					PropertiesHolder prop = props.get(resource);
 					try {
 						URL url = getResource(resource);
+						if(url==null) continue;
 						URLConnection connection = url.openConnection();
 						long lastModified = connection.getLastModified();
 						if(lastModified > prop.lastModified) {
@@ -220,6 +293,7 @@ public class PropertiesUtil {
 							}
 							is.close();
 							prop.lastModified = lastModified;
+							extractPropertyValues(prop.properties);
 							notifyListeners(prop);
 							log.info("更新属性文件("+resource+")："+url);
 							log.debug(prop.properties);

@@ -25,7 +25,7 @@ public class UserServiceTester extends BaseTester {
 	@Test
 	public void pageUser() {
 		Pager pager = new Pager();
-		userService.pageUser(null, pager);
+		userService.page(null, pager);
 		printPage(pager);
 	}
 }
