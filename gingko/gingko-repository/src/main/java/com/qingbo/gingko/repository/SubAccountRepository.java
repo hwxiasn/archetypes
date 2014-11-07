@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.qingbo.gingko.entity.SubAccount;
 
-public interface SubAccountRepository extends BaseRepository<SubAccount, Integer> {
+public interface SubAccountRepository extends BaseRepository<SubAccount> {
 	List<SubAccount> findByAccountId(Integer accountId);
 	SubAccount findByAccountIdAndType(Integer accountId, String type);
 }
