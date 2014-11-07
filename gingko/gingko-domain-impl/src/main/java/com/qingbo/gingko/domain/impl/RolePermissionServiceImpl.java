@@ -8,6 +8,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.qingbo.gingko.common.util.NumberUtil;
 import com.qingbo.gingko.domain.RolePermissionService;
 import com.qingbo.gingko.entity.Permission;
 import com.qingbo.gingko.entity.Role;
@@ -29,22 +30,28 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 		String roleIds = user.getRoleIds();
 		if(roleIds!=null && roleIds.length()>0) {
 			for(String roleId : roleIds.split(",")) {
-				Role role = roleRepository.findOne(Integer.parseInt(roleId));
-				if(role!=null) roles.add(role.getName());
+				Long id = NumberUtil.parseLong(roleId, null);
+				if(id!=null) {
+					Role role = roleRepository.findOne(id);
+					if(role!=null) roles.add(role.getName());
+				}
 			}
 		}
 		return roles;
 	}
 	
 	@Override
-	public Role[] getRoles(Integer userId) {
+	public Role[] getRoles(Long userId) {
 		User user = userRepository.findOne(userId);
 		List<Role> roles = new ArrayList<Role>();
 		String roleIds = user.getRoleIds();
 		if(roleIds!=null && roleIds.length()>0) {
 			for(String roleId : roleIds.split(",")) {
-				Role role = roleRepository.findOne(Integer.parseInt(roleId));
-				if(role!=null) roles.add(role);
+				Long id = NumberUtil.parseLong(roleId, null);
+				if(id!=null) {
+					Role role = roleRepository.findOne(id);
+					if(role!=null) roles.add(role);
+				}
 			}
 		}
 		return roles.toArray(new Role[roles.size()]);
@@ -59,7 +66,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 		String roleIds = user.getRoleIds();
 		if(roleIds!=null && roleIds.length()>0) {
 			for(String roleId : roleIds.split(",")) {
-				Role role = roleRepository.findOne(Integer.parseInt(roleId));
+				Role role = roleRepository.findOne(Long.parseLong(roleId));
 				String permissionIds = role.getPermissionIds();
 				if(permissionIds!=null && permissionIds.length()>0) {
 					for(String permissionId : permissionIds.split(",")) {
@@ -78,9 +85,11 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 		//convert permission ids to permission names
 		for(String permissionId : new HashSet<String>(permissions)) {
 			permissions.remove(permissionId);
-			Permission permission = permissionRepository.findOne(Integer.parseInt(permissionId));
-			if(permission!=null) permissions.add(permission.getName());
-			
+			Long id = NumberUtil.parseLong(permissionId, null);
+			if(id!=null) {
+				Permission permission = permissionRepository.findOne(id);
+				if(permission!=null) permissions.add(permission.getName());
+			}
 		}
 		return permissions;
 	}

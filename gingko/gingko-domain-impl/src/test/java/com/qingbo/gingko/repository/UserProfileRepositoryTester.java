@@ -11,7 +11,7 @@ public class UserProfileRepositoryTester extends BaseTester {
 	
 	@Test
 	public void findByUserId() {
-		UserProfile userProfile = userProfileRepository.findByUserId(1);
+		UserProfile userProfile = userProfileRepository.findByUserId(1L);
 		System.out.println(JSON.toJSONString(userProfile));
 	}
 }

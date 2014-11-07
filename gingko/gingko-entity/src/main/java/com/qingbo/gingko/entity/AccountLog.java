@@ -10,16 +10,17 @@ import com.qingbo.gingko.entity.base.BaseEntity;
 public class AccountLog extends BaseEntity {
 	private static final long serialVersionUID = -6113403037086109874L;
 
-	private String type;//类型：in收入，out支出，freeze冻结或解冻
-	private String subType;//子类型：deposit充值，withdraw提现，transfer转账（investment投资、commission分佣），freeze冻结，un_freeze解冻，prize奖励，fee手续费
-	private Integer transactionId;
-	private String outBizNo;//外部流水号
-	private Integer subAccountId;//日志操作账户，其他信息如userName+accountId+orderNo等通过查询获得，或直接使用sql连接查询
-	private Integer otherSubAccountId;//日志操作相关账户，如转账交易的另一方等
-	private BigDecimal balance;//账户变化金额
-	private BigDecimal transAmount;//交易金额，充值+转账时与账户变化金额相等，提现时可能会有不同
-	private BigDecimal fee;//手续费
-	private Integer feeSubAccountId;//手续费支付方，如果不是subAccountId支付手续费，则另记一笔日志
+	private String type;//类型AccountLogType，in收入，out支出，freeze冻结，unfreeze解冻
+	private String subType;//子类型AccountLogSubType，deposit充值，withdraw提现，transfer转账，fee手续费
+	private String transferType;//转账类型AccountLogTransferType，investment投资、commission分佣，repay还款，prize奖励，transfer转账
+	private Long transactionId;//交易
+	private Long subAccountId;//账户
+	private Long otherSubAccountId;//相关账户，如转账交易的另一方等
+	private BigDecimal balance = BigDecimal.ZERO;//账户变化金额
+	private BigDecimal transAmount = BigDecimal.ZERO;//交易金额，充值+转账时与账户变化金额相等，提现时可能会有不同
+	private BigDecimal fee = BigDecimal.ZERO;//手续费
+	private Long feeSubAccountId;//手续费支付方，如果不是subAccountId支付手续费，则另记一笔日志
+	private String memo;//备注或描述
 	private boolean executed;//是否已同步到账户金额
 	private BigDecimal accountBalance;//账务日志同步后，账户的余额和冻结金额
 	private BigDecimal accountFreezeBalance;
@@ -36,28 +37,28 @@ public class AccountLog extends BaseEntity {
 	public void setSubType(String subType) {
 		this.subType = subType;
 	}
-	public Integer getTransactionId() {
+	public String getTransferType() {
+		return transferType;
+	}
+	public void setTransferType(String transferType) {
+		this.transferType = transferType;
+	}
+	public Long getTransactionId() {
 		return transactionId;
 	}
-	public void setTransactionId(Integer transactionId) {
+	public void setTransactionId(Long transactionId) {
 		this.transactionId = transactionId;
 	}
-	public String getOutBizNo() {
-		return outBizNo;
-	}
-	public void setOutBizNo(String outBizNo) {
-		this.outBizNo = outBizNo;
-	}
-	public Integer getSubAccountId() {
+	public Long getSubAccountId() {
 		return subAccountId;
 	}
-	public void setSubAccountId(Integer subAccountId) {
+	public void setSubAccountId(Long subAccountId) {
 		this.subAccountId = subAccountId;
 	}
-	public Integer getOtherSubAccountId() {
+	public Long getOtherSubAccountId() {
 		return otherSubAccountId;
 	}
-	public void setOtherSubAccountId(Integer otherSubAccountId) {
+	public void setOtherSubAccountId(Long otherSubAccountId) {
 		this.otherSubAccountId = otherSubAccountId;
 	}
 	public BigDecimal getBalance() {
@@ -78,11 +79,17 @@ public class AccountLog extends BaseEntity {
 	public void setFee(BigDecimal fee) {
 		this.fee = fee;
 	}
-	public Integer getFeeSubAccountId() {
+	public Long getFeeSubAccountId() {
 		return feeSubAccountId;
 	}
-	public void setFeeSubAccountId(Integer feeSubAccountId) {
+	public void setFeeSubAccountId(Long feeSubAccountId) {
 		this.feeSubAccountId = feeSubAccountId;
+	}
+	public String getMemo() {
+		return memo;
+	}
+	public void setMemo(String memo) {
+		this.memo = memo;
 	}
 	public boolean isExecuted() {
 		return executed;

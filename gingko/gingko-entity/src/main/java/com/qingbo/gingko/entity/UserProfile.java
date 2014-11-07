@@ -8,7 +8,7 @@ import com.qingbo.gingko.entity.base.BaseEntity;
 public class UserProfile extends BaseEntity {
 	private static final long serialVersionUID = 4276497957897571247L;
 	
-	private Integer userId;
+	private Long userId;
 	private String realName;
 	private String mobile;
 	private String email;
@@ -16,10 +16,10 @@ public class UserProfile extends BaseEntity {
 	private Integer age;
 	private Boolean sex;
 	
-	public Integer getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
-	public void setUserId(Integer userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 	public String getRealName() {

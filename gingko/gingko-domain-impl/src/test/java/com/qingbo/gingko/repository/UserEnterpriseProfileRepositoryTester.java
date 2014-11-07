@@ -11,7 +11,7 @@ public class UserEnterpriseProfileRepositoryTester extends BaseTester {
 	
 	@Test
 	public void findByUserId() {
-		UserEnterpriseProfile userEnterpriseProfile = userEnterpriseProfileRepository.findByUserId(1);
+		UserEnterpriseProfile userEnterpriseProfile = userEnterpriseProfileRepository.findByUserId(1L);
 		System.out.println(JSON.toJSONString(userEnterpriseProfile));
 	}
 }

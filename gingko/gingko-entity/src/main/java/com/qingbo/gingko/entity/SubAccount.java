@@ -10,15 +10,15 @@ import com.qingbo.gingko.entity.base.BaseEntity;
 public class SubAccount extends BaseEntity {
 	private static final long serialVersionUID = 8642927456566456659L;
 
-	private Integer accountId;//主账户
+	private Long accountId;//主账户
 	private String type;//子账户类型，如默认账户、乾多多账户等
-	private BigDecimal balance;//账户可用余额
-	private BigDecimal freezeBalance;//账户冻结金额
+	private BigDecimal balance = BigDecimal.ZERO;//账户可用余额
+	private BigDecimal freezeBalance = BigDecimal.ZERO;//账户冻结金额
 	
-	public Integer getAccountId() {
+	public Long getAccountId() {
 		return accountId;
 	}
-	public void setAccountId(Integer accountId) {
+	public void setAccountId(Long accountId) {
 		this.accountId = accountId;
 	}
 	public String getType() {

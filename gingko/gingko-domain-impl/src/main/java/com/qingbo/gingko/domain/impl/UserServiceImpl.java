@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Integer saveUser(User user) {
+	public Long saveUser(User user) {
 		User save = userRepository.save(user);
 		if(user.getUserProfile()!=null) userProfileRepository.save(user.getUserProfile());
 		if(user.getEnterpriseProfile()!=null) userEnterpriseProfileRepository.save(user.getEnterpriseProfile());

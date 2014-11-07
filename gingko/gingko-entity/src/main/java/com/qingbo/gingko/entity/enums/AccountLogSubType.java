@@ -1,9 +1,10 @@
 package com.qingbo.gingko.entity.enums;
 
 public enum AccountLogSubType {
-	DEPOSIT("DEPOSIT", "充值"), WITHDRAW("WITHDRAW", "提现"), FREEZE("FREEZE","冻结"), UNFREEZE("UNFREEZE", "解冻")
-	, TRANSFER("TRANSFER", "转账"), INVESTMENT("INVESTMENT", "投资"), COMMISSION("COMMISSION", "分佣"), REPAY("REPAY","还款")
-	, FEE("FEE", "手续费"), PRIZE("PRIZE","奖励");
+	DEPOSIT("DEPOSIT", "充值"), 
+	WITHDRAW("WITHDRAW", "提现"), 
+	TRANSFER("TRANSFER", "转账"),//直接转账TRANSFER，投资INVESTMENT，分佣COMMISSION，还款REPAY，奖励PRIZE，
+	FEE("FEE","手续费"); //手续费FEE
 	private String code, name;
 	private AccountLogSubType(String code, String name) {
 		this.code = code;

@@ -8,14 +8,14 @@ import com.qingbo.gingko.entity.base.BaseEntity;
 public class UserEnterpriseProfile extends BaseEntity {
 	private static final long serialVersionUID = 473163279717143760L;
 
-	private Integer userId;
+	private Long userId;
 	private String enterpriseName;
 	private String licenseNumber;
 	
-	public Integer getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
-	public void setUserId(Integer userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 	public String getEnterpriseName() {

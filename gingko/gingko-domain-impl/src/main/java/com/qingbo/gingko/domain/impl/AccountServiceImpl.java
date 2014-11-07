@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.qingbo.gingko.common.result.PageObject;
 import com.qingbo.gingko.common.result.Result;
+import com.qingbo.gingko.common.util.GinkgoConfig;
 import com.qingbo.gingko.common.util.Pager;
 import com.qingbo.gingko.common.util.SqlBuilder;
 import com.qingbo.gingko.domain.AccountService;
@@ -32,6 +33,7 @@ import com.qingbo.gingko.repository.TongjiRepository;
 @Service("accountServiceImpl")
 public class AccountServiceImpl implements AccountService {
 	private Logger logger = LoggerFactory.getLogger(getClass());
+	private List<Map<String, String>> emptyList = new ArrayList<>();
 	
 	@Autowired private AccountRepository accountRepository;
 	@Autowired private SubAccountRepository subAccountRepository;
@@ -40,7 +42,7 @@ public class AccountServiceImpl implements AccountService {
 	@Autowired private PasswordServiceImpl passwordHelper;
 
 	@Override
-	public Result<Account> getAccount(Integer userId) {
+	public Result<Account> getAccount(Long userId) {
 		try {
 			Account account = accountRepository.findOne(userId);
 			if(account == null) {
@@ -69,7 +71,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public Result<SubAccount> getSubAccount(Integer userId, String type) {
+	public Result<SubAccount> getSubAccount(Long userId, String type) {
 		try {
 			SubAccountType subAccountType = SubAccountType.getByCode(type);
 			if(subAccountType==null) {
@@ -90,7 +92,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Transactional
-	public Result<Account> createAccount(Integer userId) {
+	public Result<Account> createAccount(Long userId) {
 		try {
 			Account account = accountRepository.findOne(userId);
 			if(account != null) {//账户已存在
@@ -101,7 +103,7 @@ public class AccountServiceImpl implements AccountService {
 			account = new Account();
 			account.setId(userId);
 			String generateSalt = passwordHelper.generateSalt();
-			String encryptPassword = passwordHelper.encryptPassword("12345678", "", generateSalt);
+			String encryptPassword = passwordHelper.encryptPassword(GinkgoConfig.getProperty("com.qingbo.ginkgo.domain.initPaymentPassword", "12345678"), "", generateSalt);
 			account.setSalt(generateSalt);
 			account.setPassword(encryptPassword);
 			accountRepository.save(account);
@@ -124,7 +126,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Transactional
-	public Result<SubAccount> createSubAccount(Integer userId, String type) {
+	public Result<SubAccount> createSubAccount(Long userId, String type) {
 		try {
 			SubAccountType subAccountType = SubAccountType.getByCode(type);
 			if(subAccountType==null) {
@@ -151,7 +153,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public Result<Boolean> validatePassword(Integer userId, String password) {
+	public Result<Boolean> validatePassword(Long userId, String password) {
 		try {
 			Account account = accountRepository.findOne(userId);
 			if(account == null) {
@@ -168,7 +170,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Transactional
-	public Result<Boolean> updatePassword(Integer userId, String oldPassword, String newPassword) {
+	public Result<Boolean> updatePassword(Long userId, String oldPassword, String newPassword) {
 		try {
 			Account account = accountRepository.findOne(userId);
 			if(account == null) {
@@ -194,7 +196,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Transactional
-	public Result<Boolean> resetPassword(Integer userId, String password) {
+	public Result<Boolean> resetPassword(Long userId, String password) {
 		try {
 			Account account = accountRepository.findOne(userId);
 			if(account == null) {
@@ -215,17 +217,26 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public Result<PageObject<Map<String, String>>> depositPage(Integer userId, Pager pager) {
+	public Result<PageObject<Map<String, String>>> depositPage(Long userId, Pager pager) {
 		try {
-			String[] names = {"accountId", "subAccountId", "accountLogId", "balance", "accountBalance"};//names与select次序一致
-			//这里select多个id需要提供别名，不然会报错，javax.persistence.PersistenceException: org.hibernate.loader.custom.NonUniqueDiscoveredSqlAliasException: Encountered a duplicated sql alias [id] during auto-discovery of a native-sql query
-			SqlBuilder sqlBuilder = new SqlBuilder("ac.id acId,sub.id subId,log.id logId,log.balance,log.account_balance", "account_log log left join sub_account sub on log.sub_account_id=sub.id left join account ac on sub.account_id=ac.id");
-			sqlBuilder.eq("executed", "1");
+			SqlBuilder sqlBuilder = new SqlBuilder("count(log.id)", "account_log log left join sub_account sub on log.sub_account_id=sub.id left join account ac on sub.account_id=ac.id");
+			sqlBuilder.eq("log.deleted", "0");
+			sqlBuilder.eq("log.executed", "1");
 			sqlBuilder.eq("ac.id", userId.toString());
 			sqlBuilder.eq("log.type", AccountLogType.IN.getCode());
 			sqlBuilder.eq("log.sub_type", AccountLogSubType.DEPOSIT.getCode());
 			sqlBuilder.limit(PagerUtil.limit(pager));
 			
+			int count = 0;
+			if(pager==null || pager.notInitialized()) {
+				count = tongjiRepository.count(sqlBuilder.sql());
+				if(count < 1) return Result.newSuccess(new PageObject<Map<String, String>>(0, emptyList));
+			}else {
+				count = pager.getTotalRows();
+			}
+			
+			String[] names = {"accountId", "subAccountId", "accountLogId", "balance", "accountBalance"};//names与select次序一致
+			sqlBuilder.select("ac.id accountId,sub.id subAccountId,log.id accountLogId,log.balance balance,log.account_balance accountBalance");
 			List<?> list = tongjiRepository.list(sqlBuilder.sql());
 			List<Map<String, String>> content = new ArrayList<>();
 			for(Object item : list) {
@@ -237,7 +248,7 @@ public class AccountServiceImpl implements AccountService {
 				}
 				content.add(map);
 			}
-			return Result.newSuccess(new PageObject<Map<String, String>>(10, content));
+			return Result.newSuccess(new PageObject<Map<String, String>>(count, content));
 		}catch(Exception e) {
 			logger.info("depositPage failed for "+userId);
 			return Result.newException(e);
@@ -245,17 +256,27 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public Result<PageObject<Map<String, String>>> withdrawPage(Integer userId, Pager pager) {
+	public Result<PageObject<Map<String, String>>> withdrawPage(Long userId, Pager pager) {
 		try {
-			String[] names = {"accountId", "subAccountId", "accountLogId", "balance", "accountBalance", "fee", "feeAccountId", "feeSubAccountId"};//names与select次序一致
-			SqlBuilder sqlBuilder = new SqlBuilder("ac.id acId,sub.id subId,log.id logId,log.balance,log.account_balance,log.fee,ac2.id feeAccountId,sub2.id feeSubAccountId", "account_log log left join sub_account sub on log.sub_account_id=sub.id left join account ac on sub.account_id=ac.id" +
+			SqlBuilder sqlBuilder = new SqlBuilder("count(log.id)", "account_log log left join sub_account sub on log.sub_account_id=sub.id left join account ac on sub.account_id=ac.id" +
 					" left join sub_account sub2 on log.fee_sub_account_id=sub2.id left join account ac2 on sub2.account_id=ac2.id");
-			sqlBuilder.eq("executed", "1");
+			sqlBuilder.eq("log.deleted", "0");
+			sqlBuilder.eq("log.executed", "1");
 			sqlBuilder.eq("ac.id", userId.toString());
 			sqlBuilder.eq("log.type", AccountLogType.OUT.getCode());
 			sqlBuilder.eq("log.sub_type", AccountLogSubType.WITHDRAW.getCode());
 			sqlBuilder.limit(PagerUtil.limit(pager));
 			
+			int count = 0;
+			if(pager==null || pager.notInitialized()) {
+				count = tongjiRepository.count(sqlBuilder.sql());
+				if(count < 1) return Result.newSuccess(new PageObject<Map<String, String>>(0, emptyList));
+			}else {
+				count = pager.getTotalRows();
+			}
+			
+			String[] names = {"accountId", "subAccountId", "accountLogId", "balance", "accountBalance", "fee", "feeAccountId", "feeSubAccountId"};//names与select次序一致
+			sqlBuilder.select("ac.id accountId,sub.id subAccountId,log.id accountLogId,log.balance balance,log.account_balance accountBalance,log.fee fee,ac2.id feeAccountId,sub2.id feeSubAccountId");
 			List<?> list = tongjiRepository.list(sqlBuilder.sql());
 			List<Map<String, String>> content = new ArrayList<>();
 			for(Object item : list) {
@@ -267,7 +288,7 @@ public class AccountServiceImpl implements AccountService {
 				}
 				content.add(map);
 			}
-			return Result.newSuccess(new PageObject<Map<String, String>>(10, content));
+			return Result.newSuccess(new PageObject<Map<String, String>>(count, content));
 		}catch(Exception e) {
 			logger.info("depositPage failed for "+userId);
 			return Result.newException(e);
@@ -275,16 +296,27 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public Result<PageObject<Map<String, String>>> transferPage(Integer userId, Pager pager) {
+	public Result<PageObject<Map<String, String>>> transferPage(Long userId, Pager pager) {
 		try {
-			String[] names = {"accountId", "subAccountId", "accountLogId", "balance", "accountBalance", "otherAccountId", "otherSubAccountId"};//names与select次序一致
-			SqlBuilder sqlBuilder = new SqlBuilder("ac.id acId,sub.id subId,log.id logId,log.balance,log.account_balance,ac2.id acId2,sub2.id subId2", "account_log log left join sub_account sub on log.sub_account_id=sub.id left join account ac on sub.account_id=ac.id" +
+			SqlBuilder sqlBuilder = new SqlBuilder("count(log.id)", "account_log log left join sub_account sub on log.sub_account_id=sub.id left join account ac on sub.account_id=ac.id" +
 					" left join sub_account sub2 on log.other_sub_account_id=sub2.id left join account ac2 on sub2.account_id=ac2.id");
+			sqlBuilder.eq("log.deleted", "0");
+			sqlBuilder.eq("log.executed", "1");
 			sqlBuilder.eq("ac.id", userId.toString());
-			sqlBuilder.in("log.sub_type", AccountLogSubType.TRANSFER.getCode(), AccountLogSubType.INVESTMENT.getCode(), AccountLogSubType.COMMISSION.getCode()
-					, AccountLogSubType.REPAY.getCode(), AccountLogSubType.FEE.getCode(), AccountLogSubType.PRIZE.getCode());
+			sqlBuilder.in("log.type", AccountLogType.IN.getCode(), AccountLogType.OUT.getCode());
+			sqlBuilder.eq("log.sub_type", AccountLogSubType.TRANSFER.getCode());
 			sqlBuilder.limit(PagerUtil.limit(pager));
 			
+			int count = 0;
+			if(pager==null || pager.notInitialized()) {
+				count = tongjiRepository.count(sqlBuilder.sql());
+				if(count < 1) return Result.newSuccess(new PageObject<Map<String, String>>(0, emptyList));
+			}else {
+				count = pager.getTotalRows();
+			}
+			
+			String[] names = {"accountId", "subAccountId", "accountLogId", "balance", "accountBalance", "transferType", "otherAccountId", "otherSubAccountId"};//names与select次序一致
+			sqlBuilder.select("ac.id accountId,sub.id subAccountId,log.id accountLogId,log.balance balance,log.account_balance accountBalance,log.transfer_type,ac2.id otherAccountId,sub2.id otherSubAccountId");
 			List<?> list = tongjiRepository.list(sqlBuilder.sql());
 			List<Map<String, String>> content = new ArrayList<>();
 			for(Object item : list) {
@@ -296,7 +328,7 @@ public class AccountServiceImpl implements AccountService {
 				}
 				content.add(map);
 			}
-			return Result.newSuccess(new PageObject<Map<String, String>>(10, content));
+			return Result.newSuccess(new PageObject<Map<String, String>>(count, content));
 		}catch(Exception e) {
 			logger.info("depositPage failed for "+userId);
 			return Result.newException(e);
@@ -304,16 +336,27 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public Result<PageObject<Map<String, String>>> accountLogPage(Integer userId, Pager pager) {
+	public Result<PageObject<Map<String, String>>> accountLogPage(Long userId, Pager pager) {
 		try {
-			String[] names = {"accountId", "subAccountId", "accountLogId", "balance", "accountBalance", "fee", "feeAccountId", "feeSubAccountId", "otherAccountId", "otherSubAccountId"};//names与select次序一致
-			SqlBuilder sqlBuilder = new SqlBuilder("ac.id acId,sub.id subId,log.id logId,log.balance,log.account_balance,log.fee,ac2.id feeAccountId,sub2.id feeSubAccountId,ac3.id otherAccountId,sub3.id otherSubAccountId", "account_log log left join sub_account sub on log.sub_account_id=sub.id left join account ac on sub.account_id=ac.id" +
+			SqlBuilder sqlBuilder = new SqlBuilder("count(log.id)", "account_log log left join sub_account sub on log.sub_account_id=sub.id left join account ac on sub.account_id=ac.id" +
 					" left join sub_account sub2 on log.fee_sub_account_id=sub2.id left join account ac2 on sub2.account_id=ac2.id" +
 					" left join sub_account sub3 on log.other_sub_account_id=sub3.id left join account ac3 on sub3.account_id=ac3.id");
+			sqlBuilder.eq("log.deleted", "0");
+			sqlBuilder.eq("log.executed", "1");
 			sqlBuilder.eq("ac.id", userId.toString());
-			sqlBuilder.notIn("log.sub_type", AccountLogSubType.FREEZE.getCode(), AccountLogSubType.UNFREEZE.getCode());
+			sqlBuilder.notIn("log.type", AccountLogType.FREEZE.getCode(), AccountLogType.UNFREEZE.getCode());
 			sqlBuilder.limit(PagerUtil.limit(pager));
 			
+			int count = 0;
+			if(pager==null || pager.notInitialized()) {
+				count = tongjiRepository.count(sqlBuilder.sql());
+				if(count < 1) return Result.newSuccess(new PageObject<Map<String, String>>(0, emptyList));
+			}else {
+				count = pager.getTotalRows();
+			}
+			
+			String[] names = {"accountId", "subAccountId", "accountLogId", "balance", "accountBalance","transferType", "fee", "feeAccountId", "feeSubAccountId", "otherAccountId", "otherSubAccountId"};//names与select次序一致
+			sqlBuilder.select("ac.id acId,sub.id subId,log.id logId,log.balance,log.account_balance,log.transfer_type,log.fee,ac2.id feeAccountId,sub2.id feeSubAccountId,ac3.id otherAccountId,sub3.id otherSubAccountId");
 			List<?> list = tongjiRepository.list(sqlBuilder.sql());
 			List<Map<String, String>> content = new ArrayList<>();
 			for(Object item : list) {
@@ -325,7 +368,7 @@ public class AccountServiceImpl implements AccountService {
 				}
 				content.add(map);
 			}
-			return Result.newSuccess(new PageObject<Map<String, String>>(10, content));
+			return Result.newSuccess(new PageObject<Map<String, String>>(count, content));
 		}catch(Exception e) {
 			logger.info("accountLogPage failed for "+userId);
 			return Result.newException(e);

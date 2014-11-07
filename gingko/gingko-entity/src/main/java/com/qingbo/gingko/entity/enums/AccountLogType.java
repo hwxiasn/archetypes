@@ -1,7 +1,10 @@
 package com.qingbo.gingko.entity.enums;
 
 public enum AccountLogType {
-	IN("IN", "收入"), OUT("OUT", "支出"), FREEZE("FREEZE","冻结或解冻");
+	IN("IN", "收入"), //充值DEPOSIT，转入TRANSFER（投资INVESTMENT，分佣COMMISSION，还款REPAY，奖励PRIZE）
+	OUT("OUT", "支出"), //提现WITHDRAW，转出TRANSFER（投资INVESTMENT，分佣COMMISSION，还款REPAY，奖励PRIZE，手续费FEE）
+	FREEZE("FREEZE","冻结"), //（投资INVESTMENT，分佣COMMISSION，还款REPAY）
+	UNFREEZE("UNFREEZE","解冻"); //（投资INVESTMENT，分佣COMMISSION，还款REPAY）
 	private String code, name;
 	private AccountLogType(String code, String name) {
 		this.code = code;

@@ -32,12 +32,12 @@ public class AccountLogServiceInnerImpl implements AccountLogServiceInner {
 	@Autowired private SubAccountRepository subAccountRepository;
 	@Autowired private AccountServiceInner accountServiceInner;
 	
-	private BlockingQueue<Integer> accountLogIds = new LinkedBlockingQueue<>();
+	private BlockingQueue<Long> accountLogIds = new LinkedBlockingQueue<>();
 	public AccountLogServiceInnerImpl() {
 		TaskUtil.submitKeepRunning(new Runnable() {
 			public void run() {
 				try {
-					Integer accountLogId = accountLogIds.take();
+					Long accountLogId = accountLogIds.take();
 					accountServiceInner.handle(accountLogId);
 				} catch (InterruptedException e) {
 					logger.warn("accountLogIds blocking queue exception: ", e);
@@ -47,7 +47,7 @@ public class AccountLogServiceInnerImpl implements AccountLogServiceInner {
 	}
 
 	@Transactional
-	public Result<Boolean> deposit(Integer transactionId) {
+	public Result<Boolean> deposit(Long transactionId) {
 		try {
 			//TODO 检查交易是否已执行
 			
@@ -59,10 +59,10 @@ public class AccountLogServiceInnerImpl implements AccountLogServiceInner {
 				return Result.newSuccess(true);
 			}
 			
-			Integer subAccountId = 1;
+			Long subAccountId = 1L;
 			BigDecimal balance = new BigDecimal("10");//充值
 			String subType = "TRANSFER";//转账子类型
-			Integer otherSubAccountId=2;//转出方
+			Long otherSubAccountId=2L;//转出方
 			
 			SubAccount subAccount = subAccountRepository.findOne(subAccountId);
 			if(subAccount==null) {
@@ -78,7 +78,7 @@ public class AccountLogServiceInnerImpl implements AccountLogServiceInner {
 				accountLog.setOtherSubAccountId(otherSubAccountId);//转出方
 				accountLog = accountLogRepository.save(accountLog);
 				
-				final Integer accountLogId = accountLog.getId();
+				final Long accountLogId = accountLog.getId();
 //				TaskUtil.submit(new Runnable() {
 //					public void run() {
 //						accountServiceInner.deposit(accountLogId);
@@ -94,7 +94,7 @@ public class AccountLogServiceInnerImpl implements AccountLogServiceInner {
 	}
 
 	@Transactional
-	public synchronized Result<Boolean> withdraw(Integer transactionId) {
+	public synchronized Result<Boolean> withdraw(Long transactionId) {
 		try {
 			//TODO 检查交易是否已执行
 			
@@ -106,12 +106,12 @@ public class AccountLogServiceInnerImpl implements AccountLogServiceInner {
 				return Result.newSuccess(true);
 			}
 			
-			Integer subAccountId = 1;
+			Long subAccountId = 1L;
 			BigDecimal balance = new BigDecimal("10");//充值
 			String subType = "TRANSFER";//转账子类型
-			Integer otherSubAccountId=2;//转入方
+			Long otherSubAccountId=2L;//转入方
 			BigDecimal fee = new BigDecimal("1");//手续费
-			Integer feeSubAccountId = 2;//手续费支付方
+			Long feeSubAccountId = 2L;//手续费支付方
 			
 			SubAccount subAccount = subAccountRepository.findOne(subAccountId);
 			if(subAccount==null) {
@@ -151,7 +151,7 @@ public class AccountLogServiceInnerImpl implements AccountLogServiceInner {
 	}
 
 	@Transactional
-	public Result<Boolean> transfer(Integer transactionId) {
+	public Result<Boolean> transfer(Long transactionId) {
 		Result<Boolean> withdraw = withdraw(transactionId);
 		if(withdraw.success() && withdraw.getObject()) {
 			Result<Boolean> deposit = deposit(transactionId);
@@ -166,19 +166,19 @@ public class AccountLogServiceInnerImpl implements AccountLogServiceInner {
 	}
 
 	@Transactional
-	public synchronized Result<Boolean> freeze(Integer transactionId) {
+	public synchronized Result<Boolean> freeze(Long transactionId) {
 		try {
 			//TODO 检查交易是否已执行
 			
 			SpecParam<AccountLog> specs = new SpecParam<>();
-			specs.eq("subType", AccountLogSubType.FREEZE.getCode());
+			specs.eq("type", AccountLogType.FREEZE.getCode());
 			specs.eq("transactionId", transactionId);
 			List<AccountLog> list = accountLogRepository.findAll(SpecUtil.spec(specs));
 			if(list!=null && list.size()>0) {
 				return Result.newSuccess(true);
 			}
 			
-			Integer subAccountId = 1;
+			Long subAccountId = 1L;
 			BigDecimal balance = new BigDecimal("10");
 			
 			SubAccount subAccount = subAccountRepository.findOne(subAccountId);
@@ -188,7 +188,7 @@ public class AccountLogServiceInnerImpl implements AccountLogServiceInner {
 			}else if(subAccount.getBalance().compareTo(balance) >= 0) {
 				AccountLog accountLog = new AccountLog();
 				accountLog.setType(AccountLogType.FREEZE.getCode());
-				accountLog.setSubType(AccountLogSubType.FREEZE.getCode());
+//				accountLog.setSubType(AccountLogSubType.FREEZE.getCode());
 				accountLog.setTransactionId(transactionId);
 				accountLog.setSubAccountId(subAccountId);//冻结账户
 				accountLog.setBalance(balance);//冻结金额
@@ -207,19 +207,19 @@ public class AccountLogServiceInnerImpl implements AccountLogServiceInner {
 	}
 
 	@Transactional
-	public synchronized Result<Boolean> unfreeze(Integer transactionId) {
+	public synchronized Result<Boolean> unfreeze(Long transactionId) {
 		try {
 			//TODO 检查交易是否已执行
 			
 			SpecParam<AccountLog> specs = new SpecParam<>();
-			specs.eq("subType", AccountLogSubType.UNFREEZE.getCode());
+			specs.eq("type", AccountLogType.UNFREEZE.getCode());
 			specs.eq("transactionId", transactionId);
 			List<AccountLog> list = accountLogRepository.findAll(SpecUtil.spec(specs));
 			if(list!=null && list.size()>0) {
 				return Result.newSuccess(true);
 			}
 			
-			Integer subAccountId = 1;
+			Long subAccountId = 1L;
 			BigDecimal balance = new BigDecimal("10");
 			
 			SubAccount subAccount = subAccountRepository.findOne(subAccountId);
@@ -229,7 +229,7 @@ public class AccountLogServiceInnerImpl implements AccountLogServiceInner {
 			}else if(subAccount.getFreezeBalance().compareTo(balance) >= 0) {
 				AccountLog accountLog = new AccountLog();
 				accountLog.setType(AccountLogType.FREEZE.getCode());
-				accountLog.setSubType(AccountLogSubType.UNFREEZE.getCode());
+//				accountLog.setSubType(AccountLogSubType.UNFREEZE.getCode());
 				accountLog.setTransactionId(transactionId);
 				accountLog.setSubAccountId(subAccountId);//冻结账户
 				accountLog.setBalance(balance);//冻结金额

@@ -22,8 +22,8 @@ public class UserServiceImpl implements UserService {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Override
-	public Integer register(User user) {
-		Integer userId = userService.saveUser(user);
+	public Long register(User user) {
+		Long userId = userService.saveUser(user);
 		return userId;
 	}
 

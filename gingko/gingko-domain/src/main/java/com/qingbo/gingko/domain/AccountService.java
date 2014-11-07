@@ -16,49 +16,49 @@ public interface AccountService {
 	/**
 	 * 获取账户和子账户信息
 	 */
-	Result<Account> getAccount(Integer userId);
+	Result<Account> getAccount(Long userId);
 	/**
 	 * 获取子账户信息
 	 * @param type {@link com.qingbo.ginkgo.entity.enums.SubAccountType SubAccountType.DEFAULT.getCode()}
 	 */
-	Result<SubAccount> getSubAccount(Integer userId, String type);
+	Result<SubAccount> getSubAccount(Long userId, String type);
 	/**
 	 * 创建账户和默认子账户
 	 */
-	Result<Account> createAccount(Integer userId);
+	Result<Account> createAccount(Long userId);
 	/**
 	 * 创建子账户
 	 * @param type {@link com.qingbo.ginkgo.entity.enums.SubAccountType SubAccountType.DEFAULT.getCode()}
 	 */
-	Result<SubAccount> createSubAccount(Integer userId, String type);
+	Result<SubAccount> createSubAccount(Long userId, String type);
 	
 	/**
 	 * 校验账户密码
 	 */
-	Result<Boolean> validatePassword(Integer userId, String password);
+	Result<Boolean> validatePassword(Long userId, String password);
 	/**
 	 * 更新账户密码
 	 */
-	Result<Boolean> updatePassword(Integer userId, String oldPassword, String newPassword);
+	Result<Boolean> updatePassword(Long userId, String oldPassword, String newPassword);
 	/**
 	 * 重置账户密码
 	 */
-	Result<Boolean> resetPassword(Integer userId, String password);
+	Result<Boolean> resetPassword(Long userId, String password);
 	
 	/**
 	 * 用户充值记录，键值有："accountId", "subAccountId", "accountLogId", "balance", "accountBalance"
 	 */
-	Result<PageObject<Map<String, String>>> depositPage(Integer userId, Pager pager);
+	Result<PageObject<Map<String, String>>> depositPage(Long userId, Pager pager);
 	/**
 	 * 用户提现记录，键值有："accountId", "subAccountId", "accountLogId", "balance", "accountBalance", "fee", "feeAccountId", "feeSubAccountId"
 	 */
-	Result<PageObject<Map<String, String>>> withdrawPage(Integer userId, Pager pager);
+	Result<PageObject<Map<String, String>>> withdrawPage(Long userId, Pager pager);
 	/**
 	 * 用户转账记录，涉及到转账双方，"accountId", "subAccountId", "accountLogId", "balance", "accountBalance", "otherAccountId", "otherSubAccountId"
 	 */
-	Result<PageObject<Map<String, String>>> transferPage(Integer userId, Pager pager);
+	Result<PageObject<Map<String, String>>> transferPage(Long userId, Pager pager);
 	/**
 	 * 用户账户变化记录，显示用户账户的详细变化记录，"accountId", "subAccountId", "accountLogId", "balance", "accountBalance", "fee", "feeAccountId", "feeSubAccountId", "otherAccountId", "otherSubAccountId"
 	 */
-	Result<PageObject<Map<String, String>>> accountLogPage(Integer userId, Pager pager);
+	Result<PageObject<Map<String, String>>> accountLogPage(Long userId, Pager pager);
 }

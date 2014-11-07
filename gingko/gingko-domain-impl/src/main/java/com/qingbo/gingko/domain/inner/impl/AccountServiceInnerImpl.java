@@ -12,7 +12,6 @@ import com.qingbo.gingko.common.result.Result;
 import com.qingbo.gingko.domain.inner.AccountServiceInner;
 import com.qingbo.gingko.entity.AccountLog;
 import com.qingbo.gingko.entity.SubAccount;
-import com.qingbo.gingko.entity.enums.AccountLogSubType;
 import com.qingbo.gingko.entity.enums.AccountLogType;
 import com.qingbo.gingko.repository.AccountLogRepository;
 import com.qingbo.gingko.repository.AccountRepository;
@@ -27,7 +26,7 @@ public class AccountServiceInnerImpl implements AccountServiceInner {
 	@Autowired private SubAccountRepository subAccountRepository;
 
 	@Transactional
-	public Result<Boolean> deposit(Integer accountLogId) {
+	public Result<Boolean> deposit(Long accountLogId) {
 		try {
 			AccountLog accountLog = accountLogRepository.findOne(accountLogId);
 			if(accountLog.isExecuted() || accountLog.isDeleted()) {
@@ -56,7 +55,7 @@ public class AccountServiceInnerImpl implements AccountServiceInner {
 	}
 
 	@Transactional
-	public Result<Boolean> withdraw(Integer accountLogId) {
+	public Result<Boolean> withdraw(Long accountLogId) {
 		try {
 			AccountLog accountLog = accountLogRepository.findOne(accountLogId);
 			if(accountLog.isExecuted() || accountLog.isDeleted()) {
@@ -89,7 +88,7 @@ public class AccountServiceInnerImpl implements AccountServiceInner {
 	}
 
 	@Transactional
-	public Result<Boolean> freeze(Integer accountLogId) {
+	public Result<Boolean> freeze(Long accountLogId) {
 		try {
 			AccountLog accountLog = accountLogRepository.findOne(accountLogId);
 			if(accountLog.isExecuted() || accountLog.isDeleted()) {
@@ -123,7 +122,7 @@ public class AccountServiceInnerImpl implements AccountServiceInner {
 	}
 
 	@Transactional
-	public Result<Boolean> unfreeze(Integer accountLogId) {
+	public Result<Boolean> unfreeze(Long accountLogId) {
 		try {
 			AccountLog accountLog = accountLogRepository.findOne(accountLogId);
 			if(accountLog.isExecuted() || accountLog.isDeleted()) {
@@ -131,7 +130,7 @@ public class AccountServiceInnerImpl implements AccountServiceInner {
 				return Result.newSuccess(false);
 			}
 			
-			if(!AccountLogType.FREEZE.getCode().equals(accountLog.getType())) {
+			if(!AccountLogType.UNFREEZE.getCode().equals(accountLog.getType())) {
 				return Result.newFailure(-1, "account_log.id="+accountLogId+" bad type: "+accountLog.getType());
 			}
 			
@@ -157,7 +156,7 @@ public class AccountServiceInnerImpl implements AccountServiceInner {
 	}
 
 	@Override
-	public Result<Boolean> handle(Integer accountLogId) {
+	public Result<Boolean> handle(Long accountLogId) {
 		try {
 			AccountLog accountLog = accountLogRepository.findOne(accountLogId);
 			if(accountLog.isExecuted() || accountLog.isDeleted()) {
@@ -170,13 +169,9 @@ public class AccountServiceInnerImpl implements AccountServiceInner {
 			}else if(AccountLogType.OUT.getCode().equals(accountLog.getType())) {
 				return withdraw(accountLogId);
 			}else if(AccountLogType.FREEZE.getCode().equals(accountLog.getType())) {
-				if(AccountLogSubType.FREEZE.getCode().equals(accountLog.getSubType())) {
 					return freeze(accountLogId);
-				}else if(AccountLogSubType.UNFREEZE.getCode().equals(accountLog.getSubType())) {
-					return unfreeze(accountLogId);
-				}else {
-					return Result.newFailure(-1, "account_log.id="+accountLogId+" bad sub type: "+accountLog.getSubType());
-				}
+			}else if(AccountLogType.UNFREEZE.getCode().equals(accountLog.getType())){
+				return unfreeze(accountLogId);
 			}else {
 				return Result.newFailure(-1, "account_log.id="+accountLogId+" bad type: "+accountLog.getType());
 			}

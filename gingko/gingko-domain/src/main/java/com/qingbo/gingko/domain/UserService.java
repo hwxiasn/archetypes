@@ -14,7 +14,7 @@ public interface UserService {
 	/**
 	 * 添加或更新用户
 	 */
-	Integer saveUser(User user);
+	Long saveUser(User user);
 	/**
 	 * 分页查询用户
 	 */

@@ -12,7 +12,7 @@ public interface RolePermissionService {
 	/**
 	 * 获取用户角色，用于判断是否前台用户或后台用户
 	 */
-	Role[] getRoles(Integer userId);
+	Role[] getRoles(Long userId);
 	/**
 	 * 获取用户权限，user.permission_ids+user.role_ids
 	 */

@@ -5,7 +5,7 @@ import java.util.List;
 import com.qingbo.gingko.entity.UserProfile;
 
 public interface UserProfileRepository extends BaseRepository<UserProfile> {
-	UserProfile findByUserId(Integer userId);
+	UserProfile findByUserId(Long userId);
 	List<UserProfile> findByMobile(String mobile);
 	List<UserProfile> findByEmail(String email);
 }

@@ -10,7 +10,7 @@ public class Permission extends BaseEntity {
 
 	private String name;
 	private String nameZh;
-	private Integer parentId;
+	private Long parentId;
 	
 	public String getName() {
 		return name;
@@ -24,10 +24,10 @@ public class Permission extends BaseEntity {
 	public void setNameZh(String nameZh) {
 		this.nameZh = nameZh;
 	}
-	public Integer getParentId() {
+	public Long getParentId() {
 		return parentId;
 	}
-	public void setParentId(Integer parentId) {
+	public void setParentId(Long parentId) {
 		this.parentId = parentId;
 	}
 }

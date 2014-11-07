@@ -15,22 +15,22 @@ import javax.persistence.Version;
 @MappedSuperclass
 @SuppressWarnings("serial")
 public abstract class BaseEntity implements Serializable {
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY) private Integer id;
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY) private Long id;
 	
 	@Temporal(TemporalType.TIMESTAMP) private Date createAt;
 	@Column private boolean deleted;
-	@Version private Integer version;
+	@Version private Long version;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
-	public Integer getVersion() {
+	public Long getVersion() {
 		return version;
 	}
-	public void setVersion(Integer version) {
+	public void setVersion(Long version) {
 		this.version = version;
 	}
 	public boolean isDeleted() {
