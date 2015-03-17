@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+#set($left="trade")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/menu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Trading_inquiry.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Financiers.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="$static_url/js/My97DatePicker/WdatePicker.js"></script>
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color: #FFF;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+</style>
+
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+#parse("myAccount/header.vm")
+
+<form action="$front_url/myAccount/investAcceptRecord.html" method="post">
+<div class="customer_main2_new">
+<div class="customer_main2_new_all">
+	#parse("myAccount/left.vm")
+    
+    <div class="customer_main2_R">
+    <div class="customer_main2_R_all">
+    	<div class="quick_signing_cx">
+		#set($record = "investAccept")	
+			
+		#if($!shiro.hasRole("I"))<a href="$front_url/myAccount/investRevRecord.html"><span #if($!record == "invest") class="Trading_inquiry_color1" #else class="Trading_inquiry_color2" #end>投资记录</span></a> &nbsp;|&nbsp;#end
+        #if($!shiro.hasRole("B"))<a href="$front_url/myAccount/investAcceptRecord.html"><span #if($!record == "investAccept") class="Trading_inquiry_color1" #else class="Trading_inquiry_color2" #end>投资接受记录</span></a> &nbsp;|&nbsp;#end
+        <a href="$front_url/account/myAccountIn.html"><span #if($!record == "in") class="Trading_inquiry_color1" #else class="Trading_inquiry_color2" #end>划入记录</span></a> &nbsp;|&nbsp;
+        <a href="$front_url/account/myAccountOut.html"><span #if($!record == "out") class="Trading_inquiry_color1" #else class="Trading_inquiry_color2" #end>划出记录</span></a>
+      	</div>
+        
+		
+        <div class="Trading_inquiry1">
+       	  <div class="Trading_inquiry1_1">
+##            <div class="Trading_inquiry1_1_1_new1">起止日期：</div>
+##            <div class="Trading_inquiry1_1_2"><input name="dateFrom" value="$!search.dateFrom" type="text" class="Trading_inquiry——text1" id="beginDate" onfocus="WdatePicker({isShowClear:false,readOnly:true,maxDate:'#F{$dp.$D(\'jsDate\')}',dateFmt:'yyyy-MM-dd'})" />&nbsp;&nbsp;-&nbsp;&nbsp;<input name="dateTo" value="$!search.dateTo" type="text" class="Trading_inquiry——text1" id="jsDate" onfocus="WdatePicker({isShowClear:false,readOnly:true,minDate:'#F{$dp.$D(\'beginDate\')}',dateFmt:'yyyy-MM-dd'})" /></div>
+##           <div class="Trading_inquiry1_1_1_new1">金额范围：</div>
+##            <div class="Trading_inquiry1_1_2"><input name="moneyFrom" onkeyup="value=value.replace(/[^\d\.]/g,'')" value="$!search.moneyFrom" type="text" class="Trading_inquiry——text1" />&nbsp;&nbsp;-&nbsp;&nbsp;<input name="moneyTo" onkeyup="value=value.replace(/[^\d\.]/g,'')" value="$!search.moneyTo" type="text" class="Trading_inquiry——text1" /></div> 
+##            <div class="Trading_inquiry1_1_2_new1"><input type="image" src="$static_url/images/chaxun.png" /></div>  
+                
+            </div>
+            
+        </div>
+		
+        <div class="Trading_inquiry2">
+##        	<div class="Trading_inquiry2_1">实际融资金额：<span class="Trading_inquiry_color5" >￥$!tradeTotalAmount</span>&nbsp;元</div>
+            <div class="Trading_inquiry2_2_New">
+           	  <div class="Financiers1">合同号</div>
+              <div class="Financiers1">申请日期</div>
+              <div class="Financiers1">成立日期</div>
+              <div class="Financiers1">申请金额(元)</div>
+              <div class="Financiers1">实到金额(元)</div>
+              <div class="Financiers1">状态</div>
+              <div class="Financiers1">操作</div>
+            </div>
+            
+        </div>
+        
+        <div class="Financiers2" style="display:none">暂时没有融资记录</div>
+        
+		#if($pager.getElements().size()>0)
+            #foreach($accept in $pager.getElements())
+            <div class="Financiers3" style="">
+            	<div class="Financiers1_1"><span class="Trading_inquiry_color3">$!accept.project.contractNo</span></div>
+                <div class="Financiers1_1">$!dateTool.format('yyyy-MM-dd',$!accept.project.investStartDate)</div>
+                <div class="Financiers1_1">$!dateTool.format('yyyy-MM-dd',$!accept.project.settleDate)</div>
+                <div class="Financiers1_1"><span class="Trading_inquiry_color5" >$!accept.project.totalAmount</span></div>
+                <div class="Financiers1_1"><span class="Trading_inquiry_color5" >$!accept.project.settleAmout</span></div>
+                <div class="Financiers1_1">$!Map_Project_Status.get($!accept.project.status)</div>            
+                <div class="Financiers1_1">
+                	<a href="$front_url/myAccount/investAcceptDetail.html?id=$!accept.project.id">
+                		<span class="Trading_inquiry_color3">详情</span>
+                	</a>
+                </div>
+			</div>
+			#end
+			#parse("myAccount/commonPager.vm")
+        #else
+        	<div class="Trading_inquiry2_3_new2">暂时没有融资记录</div>
+        #end
+		
+        
+        
+        <script type="text/javascript">
+        	function page(num) {
+        		$("form").attr("action", $("form").attr("action") + "?totalRows=" + $!pager.totalRows + "&currentPage=" + num + "&pagerSize=" + $!pager.pageSize).submit();
+        	}
+        </script>
+  	</div>
+    </div>
+  
+</div>
+</div>
+</form>
+
+ #parse("layout/footer.vm")
+</body>
+</html>

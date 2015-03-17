@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+#parse("layout/head.vm")
+<title>倍赢金融财富箱--公告</title>
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/AboutUs.css" rel="stylesheet" type="text/css" />
+
+<script src='$static_url/js/jquery.min.js'></script>
+<script src='$static_url/js/jquery.museum.js'></script>
+<script>
+$(document).ready(function() {
+	$.museum($('#content img'));
+});
+</script>
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color:#eeeeef;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+.AboutUs_c1_1_a {
+	height:30px;
+	width: 125px;
+	background:#ffffff;
+	color:#000000;
+	margin-bottom: 2px;
+	float:left;
+	line-height:30px;
+	font-size: 15px;
+	padding-left: 40px;
+}
+a:hover{
+	color:red;
+	background:#b6b6b7;
+}
+#content img { height: 120px;border: 1px solid #FFF; padding: 2px; }
+#content img:hover { border: 1px solid #d3332d; }
+
+</style>
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<div class="AboutUs1">
+	<div class="AboutUs1_L">
+    	<div class="AboutUs1_L_u"><img src="$static_url/images/aboutus1.png" width="191" height="67" /></div>
+        <div class="AboutUs1_L_b">
+        	<a href="$front_url/platformNotice.html" class="on">平台公告</a>
+            <a href="$front_url/platformNotice.html?hy">行业新闻</a>
+        </div>
+   </div>
+  <div class="AboutUs1_R">
+    <div class="AboutUs1_R1">
+      <div class="AboutUs1_R1_L"><b>行业新闻</b></div>
+        <div class="AboutUs1_R1_R"></div>
+    </div>
+     <div class="AboutUs1_R2_news"><b>热烈庆祝倍赢财富箱募集总额首超1000万元</b><br/><span style="font-size:13px;">2014年10月21日 15:30:53 </span></div>
+    <div class="AboutUs1_R3">
+##    <hr style="border: #acacac 1px dashed; size:1px;" /><br/>
+##    <b class="AboutUs1_R3_b">亲爱的倍赢出借人：</b><br/>
+    <b>亲爱的倍赢出借人：</b><br/>
+	
+##    <b class="AboutUs1_R3_b">加大金融支持实体经济力度 着力缓解融资成本高问题</b><br/><br/>
+    
+##    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新华网南京9月6日电 中共中央政治局委员、国务院副总理马凯日前在江苏调研时强调，各级政府、金融机构和企业要共同努力，使国务院出台的一系列金融支持实体经济发展的政策措施落地生效，着力缓解小微企业融资成本高问题，促进金融与实体经济良性互动、协调发展。<br/><br/>
+##   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9月5日，马凯深入江苏南京基层银行、小额贷款公司和企业进行调研，并召开座谈会。马凯指出，今年以来，我国金融运行总体平稳，金融风险总体可控，有力支持了经济社会发展。为进一步加大金融对实体经济的支持力度，国务院先后出台了金融支持经济结构调整和转型升级、促进"三农"和小微企业发展以及缓解企业融资成本高问题的一系列政策措施，各地区、各有关部门和金融机构要坚持金融服务实体经济的本质要求，以抓铁有痕的精神把这些政策措施落实到位，见到实效。<br/><br/>
+##   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;马凯强调，缓解企业融资成本高问题对于当前稳增长、调结构、促改革、惠民生具有重要意义，要按照国务院的要求，多措并举，标本兼治，切实让企业特别是小微企业在融资便利度和成本方面感受到明显变化。一要坚持执行稳健的货币政策，适时适度预调微调，保持货币信贷和社会融资规模的合理适度增长。二要不折不扣地将定向降准、扩大支农支小再贷款等政策落到实处，努力实现"三农"和小微企业贷款总量和增幅"两个不低于"的目标。三要加强对金融机构同业业务、理财业务等方面的管理，清理不必要的资金"通道"和"过桥"环节，缩短融资链条。四要下大力气清理整顿金融服务收费，取消没有实质服务内容的收费项目，以及"以贷转存"等变相的不合理收费。五要改进服务，优化审贷业务流程，缩短审批时间，提高贷款审批发放效率。六要探索运用大数据、云计算等互联网技术，大力发展政府支持的担保机构，改进增信和信息服务。七要深化金融机构体制机制改革，完善金融机构考核机制，有效防范风险。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2014年10月1日，重庆倍赢金融服务有限公司盛大开业！<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2014年10月11日，倍赢财富箱首支公开产品正式上线！<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2014年10月13日，倍赢财富箱首个300万产品募集完成，并同时发布第二支产品！······<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2014年10月21日，倍赢财富箱募集总额首超1000万元！<br/><br/>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2014年10月21日，注定是全体倍赢人值得光荣而自豪的日子。在距离重庆倍赢金融服务有限公司开业第21天，距离首支财富箱产品发布第11天的今天，倍赢财富箱前三支产品成功满标，第四支也已募集近半，这也意味着咱们倍赢财富箱融资总额超过了1000万！<br/><br/>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1000万，这是一个值得我们庆贺的数字。于此同时，这也仅仅是我们倍赢公司征程路上迈出的第一步。以后我们还会有2000万，5000万，10000万，100000万……倍赢公司虽然开业不久，但我们始终坚持合规、和谐、创新、拼搏、共赢的公司理念，从公司前期筹备到系统开发、网站设计、流程设置、系统测试、运营策划、正式上线直到和大家见面，乃至每一次满标，每一步倍赢都走得踏实而认真！<br/><br/>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;倍赢金融是一个创新的、合法的、规范的、发展的投融资金融服务企业财富箱是一个安全的、灵活的、方便的互联网金融服务平台作为一个倍赢人，
+我们很自豪我们所拥有的一切“财富”,我们拥有专业团队对借款人进行风险识别和管控，
+我们拥有大型国资担保公司提供100%的本息担保，
+我们拥有知名小额贷款公司提供100%的接力贷款，
+我们拥有合作小贷公司股东提供的连带担保，
+我们拥有由央行批准的第三方支付机构进行资金托管，
+我们拥有自由研发团队多项独创技术确保系统安全。
+<br/><br/>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当然最让倍赢人感到荣幸的，便是拥有到财富箱进行投资的您~<br/><br/>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;路漫漫其修远兮，吾将上下而求索。这是每一个倍赢人心中的态度。
+坚持始终，不忘初心，每一个倍赢人心中充满了感激与感动。
+感激所有出借人一路以来的支持与陪伴！是你们让倍赢财富箱得以成长，是你们为倍赢财富箱注满前进的动力，是你们让倍赢财富箱可以迎着朝阳展翅飞翔~  ，
+感激所有出借人对倍赢的信任，倍赢人将怀揣感恩之心，投入百分之百的热情，发布更多收益好、安全高的产品。
+最后祝所有出借人投资成功，通过财富箱让您的财富细水长流。
+<br/><br/>
+    <div class="news_fanhui"><a href="javascript:history.go(-1);">返回</a></div>
+     </div>
+  </div>
+</div>
+
+<div class="AboutUs_xian"></div>
+
+#parse("layout/footer.vm")
+</body>
+</html>

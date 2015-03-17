@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+#set($left="account")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/menu.css" rel="stylesheet" type="text/css" />
+
+<script src="$static_url/admin/js/jquery.min.js"></script>
+<script src="$static_url/admin/js/jquery.validate.js"></script>
+<script src="$static_url/admin/js/jquery.metadata.js"></script>
+<script src="$static_url/admin/js/messages_cn.js"></script>
+
+<script language="javascript">
+
+$(function(){
+	$("form").validate();
+	
+	$("#province").change(function(){
+		var province = $(this).val();
+		if(province) {
+			$("#city").load("$front_url/data/cities.html?pid=" + province);
+		}else{
+			$("#city option:gt(0)").remove();
+		}
+	});
+});
+
+function showbank(){
+	var a = $("#banks").css("display");
+	if(a == "none"){
+		$("#banks").show();
+	}else{
+		$("#banks").hide();
+	}
+}
+</script>
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color: #FFF;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+</style>
+</head>
+
+<body>
+#parse("layout/header.vm")
+#parse("myAccount/header.vm")
+
+<form action="$front_url/account/bindBankCard.html" method="post">
+<div class="customer_main2_nRew">
+<div class="customer_main2_new_all">
+	#parse("myAccount/left.vm")
+	
+    <div class="customer_main2_R_new">
+    <div class="customer_main2_R_all">
+    	<div class="quick_signing">添加银行卡
+      	</div>
+       	<div class="Bank_Information1">
+        &nbsp;&nbsp;<img src="$static_url/images/speaker.png" width="13" height="13" />
+        <span style=" color:#787676">平台目前支持的银行均来自与乾多多合作的银行，为了您更好地体验，我们也在不断更新中,如有疑问请联系客服。</span>
+        <a href="javascript:void(0)" onclick="$(this).parent().next().show();$(this).hide();$(this).next().show();"><span class="color_blue">查看银行支付能力</span></a>
+        <a href="javascript:void(0)" onclick="$(this).parent().next().hide();$(this).hide();$(this).prev().show();" style="display:none;"><span class="color_blue">关闭</span></a>
+        </div>
+        
+        <div class="Bank_biao" style="display:none;"><img src="$static_url/images/biao.png" width="584" height="222" /></div>
+        #if($account.isBinding == "binded")
+   	  	<div class="Bank_Information2">
+            <div class="Bank_Information2_L">
+				已绑卡银行账户名：</div>
+            <div class="Bank_Information2_R"><input type="text" class="Bank_Information_text1" value="$!account.realName" disabled="disabled" /></div>
+      	</div>
+		#end
+   	  	<div class="Bank_Information2">
+            <div class="Bank_Information2_L">
+				本次绑卡银行账户名：</div>
+            <div class="Bank_Information2_R"><input type="text" name="accountName" class="Bank_Information_text1" value="$!account.realName" disabled="disabled" />
+            <input type="hidden" name="accountName" value="$!account.realName" />
+            </div>
+      	</div>
+        <div class="Bank_Information2">
+            <div class="Bank_Information2_L">开户银行：</div>
+            <div class="Bank_Information2_R">
+            	<select name="bank" class="Bank_Information_text2 {required:true,messages:{required:'<span style=\'color:red;\'>请选择</sapn>'}}" >
+	            	<option value="">请选择银行</option>
+	            	#foreach($bankItem in $!banks)
+						<option value="$!bankItem.code" #if($!account.bank == $!bankItem.code) selected="selected" #end>$!bankItem.name</option>
+					#end
+            	</select>
+			</div>
+      	</div>
+        
+        
+        <div class="Bank_img" style="display:none;" id="banks">
+       	  <div class="Bank_img1"><a href=""><img src="$static_url/images/bank/ABC1.png" width="130" height="30" class="Bank_img1_boder" /></a></div>
+          <div class="Bank_img1"><a href=""><img src="$static_url/images/bank/CCB1.png" width="130" height="30" class="Bank_img1_boder" /></a></div>
+          <div class="Bank_img1"><a href=""><img src="$static_url/images/bank/CEB1.png" width="130" height="30" class="Bank_img1_boder" /></a></div>
+          <div class="Bank_img1"><a href=""><img src="$static_url/images/bank/CIB1.png" width="130" height="30" class="Bank_img1_boder" /></a></div>
+          <div class="Bank_img1"><a href=""><img src="$static_url/images/bank/CMB1.png" width="130" height="30" class="Bank_img1_boder" /></a></div>
+          <div class="Bank_img1"><a href=""><img src="$static_url/images/bank/CITIC1.png" width="130" height="30" class="Bank_img1_boder" /></a></div>
+          <div class="Bank_img1"><a href=""><img src="$static_url/images/bank/CMBC1.png" width="130" height="30" class="Bank_img1_boder" /></a></div>
+          <div class="Bank_img1"><a href=""><img src="$static_url/images/bank/ICBC1.png" width="130" height="30" class="Bank_img1_boder" /></a></div>
+          
+          <div class="Two_bank_1">
+          	<span class="Bank_Information_color">工商银行支付能力</span><br/>
+			单笔快捷划入&nbsp;&nbsp;&nbsp;&nbsp;500万元<br/>
+			单日快捷划入&nbsp;&nbsp;&nbsp;&nbsp;1000万元<br/>
+			单笔划出&nbsp;&nbsp;&nbsp;&nbsp;500万元<br/>
+			单日划出&nbsp;&nbsp;&nbsp;&nbsp;2000万元<br/>
+          </div>
+		</div>
+      	
+      	
+        <div class="Bank_Information2">
+            <div class="Bank_Information2_L">开户行所在地：</div>
+            <div class="Bank_Information2_R">
+			<select id="province" name="province" class="Bank_Information_text2 {required:true,messages:{required:'<span style=\'color:red;\'>请选择省</sapn>'}}" >
+			    <option selected="selected">请选择省</option>
+			    #foreach($item in $!provinces)
+			        <option value="$!item.code" #if($!account.province == $!item.code) selected="selected" #end>$!item.name</option>
+			    #end
+			</select>
+			<select id="city" name="city" class="Bank_Information_text2 {required:true,messages:{required:'<span style=\'color:red;\'>请选择城市</sapn>'}}">
+			    <option value="">请选择市</option>
+				#foreach($item in $!cities)
+                    <option value="$!item.code" #if($!account.city == $!item.code) selected="selected" #end>$!item.name</option>
+                #end
+			</select>
+            </div>
+      	</div>
+        
+        <div class="Bank_Information2">
+            <div class="Bank_Information2_L">银行卡信息：</div>
+            <div class="Bank_Information2_R">
+				<input name="bankCardNum" placeholder="请填写银行卡号" maxlength="20" value="$!account.bankCardNum" type="text" class="Bank_Information_text1 {required:true,number:true,maxlength:20,messages:{required:'<span style=\'color:red;\'>请填写银行卡号</sapn>'}}" />
+			</div>
+   	    </div>
+        
+        <div class="Bank_Information2">
+            <div class="Bank_Information2_L"></div>
+            <div class="Bank_Information2_R">
+            	为保证您的资金划转成功，该银行账号开户人必须为&nbsp;
+            	<span class="Bank_Information_color">$!account.realName</span>, 
+            	并且身份证号只能是&nbsp;<span class="Bank_Information_color">$!account.cardNum</span>.
+            </div>
+   	    </div>
+        <div class="Bank_Information_bank">
+        	<input type="submit" class="anniuRed60" value="确定">&nbsp;&nbsp;
+            <a href="javascript:history.go(-1);" ><input name="" type="button" class="anniu_h60" value="返回"></a>
+      	</div>
+        
+  	</div>
+    </div>
+  
+</div>
+</div>
+</form>
+
+#parse("layout/footer.vm")
+</body>
+</html>

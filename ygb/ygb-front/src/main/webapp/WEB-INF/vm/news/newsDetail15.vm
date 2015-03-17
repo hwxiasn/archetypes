@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+#parse("layout/head.vm")
+<title>倍赢金融财富箱--公告</title>
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/AboutUs.css" rel="stylesheet" type="text/css" />
+
+<script src='$static_url/js/jquery.min.js'></script>
+<script src='$static_url/js/jquery.museum.js'></script>
+<script>
+$(document).ready(function() {
+	$.museum($('#content img'));
+});
+</script>
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color:#eeeeef;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+.AboutUs_c1_1_a {
+	height:30px;
+	width: 125px;
+	background:#ffffff;
+	color:#000000;
+	margin-bottom: 2px;
+	float:left;
+	line-height:30px;
+	font-size: 15px;
+	padding-left: 40px;
+}
+a:hover{
+	color:red;
+	background:#b6b6b7;
+}
+#content img { height: 120px;border: 1px solid #FFF; padding: 2px; }
+#content img:hover { border: 1px solid #d3332d; }
+
+</style>
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<div class="AboutUs1">
+	<div class="AboutUs1_L">
+    	<div class="AboutUs1_L_u"><img src="$static_url/images/aboutus1.png" width="191" height="67" /></div>
+        <div class="AboutUs1_L_b">
+        	<a href="$front_url/platformNotice.html">平台公告</a>
+            <a href="$front_url/platformNotice.html?hy"  class="on">行业新闻</a>
+        </div>
+   </div>
+  <div class="AboutUs1_R">
+    <div class="AboutUs1_R1">
+      <div class="AboutUs1_R1_L"><b>行业新闻</b></div>
+        <div class="AboutUs1_R1_R"></div>
+    </div>
+    <div class="AboutUs1_R2_news"><b>IT巨头布局P2P剑指供应链金融</b><br/><span style="font-size:13px;">转载内容来源：  中国企业报  2014-10-20</span></div>
+    <div class="AboutUs1_R3">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从草根起家的P2P网贷平台正在越来越多地吸引行业巨头的注意。《中国企业报》记者发现，布局P2P的除了纯粹的投资公司，还有证券公司、基金公司、保险公司以及包括国有商业银行在内的数家银行，而IT巨头则是最近强势切入的一个群体。不久前，中国最大的两家手机厂商联想和小米分别领投了两家P2P公司银豆网和积木盒子，投资额度都在数千万美元，折合人民币约2亿元<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;比较奇怪的是，在互联网金融领域嗅觉灵敏的IT行业特别是互联网公司，迟迟没有涉足P2P业务的实质性动作。这种局面终于在上个月被打破了。先是由联想控股旗下的联想之星领投、另外两家投资机构跟投，完成了对银豆网的A轮融资。随后，小米公司联合顺为资本领投、其他几家投资公司跟投，完成了对积木盒子的B轮融资。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尽管联想和小米都没在发布会上就与投资对象在业务的合作上做出说明，考虑到两家公司近年来在互联网金融业务上接连布局，业务如何整合仍然引起了不少的猜测。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;北京一家知名P2P企业负责人认为，互联网金融未来最大的竞争在账号体系，用一个账号为用户提供一揽子的金融服务。“这个账号为用户提供信贷，那个账号为用户提供理财，还有一个账号为用户提供支付，这么多账号要管理，对于用户来说太麻烦了。”该负责人认为。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;按照这种思路，拥有数千万乃至上亿智能手机用户的联想和小米无疑有庞大的账号体系。以联想为例，一旦与银豆网打通账号，再辅以联想的支付产品拉卡拉，就成了一个集支付、信贷和理财、零售、消费为一体的闭环业务形态。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有业内人士认为，未来极有可能的方式是，联想通过银豆网等网络平台为上下游合作伙伴提供融资等金融服务，而联想本身把控着或者是货源或者是市场，也不用担心逾期的问题，从而让业务形成闭环，让整个产业链更加完善。<br/><br/>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;早在接触P2P公司之前，小米公司已经通过小米支付公司及与北京银行合作积累了丰富的金融操作经验。此次投资积木盒子，小米就是希望能够借助互联网金融，更为充分地挖掘、利用和盘活供应链各环资源，并且积累和开拓中小企业融资市场的经验。<br/><br/>
+    <div class="news_fanhui"><a href="javascript:history.go(-1);">返回</a></div>
+
+     </div>
+        
+  </div>
+</div>
+
+<div class="AboutUs_xian"></div>
+
+#parse("layout/footer.vm")
+</body>
+</html>

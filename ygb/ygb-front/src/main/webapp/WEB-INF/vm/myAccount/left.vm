@@ -1,0 +1,147 @@
+
+<div class="customer_main2_L">
+	<div class="customer_main2_L1"></div>
+	##	如果是操作员，则不显示
+	#if(!$!shiro.hasRole("O"))		
+		<div class="menuOne1">
+            <span onmouseover="$(this).next('div').show()" onmouseout="$(this).next('div').hide()">
+            	<a href="$front_url/account/index.html" #if($left == "account")id="menuOne"#end>账户管理</a>
+            </span>
+        	<div class="menuOne_div" onmouseover="$(this).show()" onmouseout="$(this).hide()" style="display:none">
+				<ul>
+                    <li><a href="$front_url/account/index.html">					账户首页</a></li>
+                    <li><a href="$front_url/account/accountIn.html">				网银划入</a></li>
+                    <li><a href="$front_url/account/accountOut.html?isBinding=1">	网银划出</a></li>
+                    <li><a href="$front_url/account/accountDetail.html?info=base">	账户资料</a></li>
+				</ul>
+        	</div>
+        </div>
+        
+        
+		<div class="menuOne1">
+            <span onmouseover="$(this).next('div').show()" onmouseout="$(this).next('div').hide()">
+            	<a 	#if($!shiro.hasRole("B"))
+            			href="$front_url/myAccount/investAcceptRecord.html" 
+            		#elseif($!shiro.hasRole("I")) 
+            			href="$front_url/myAccount/investRecord.html" 
+            		#elseif($!shiro.hasRole("O")) 
+            		##
+            		#else 
+            			href="$front_url/account/myAccountIn.html" 
+            		#end 
+            		#if($left == "trade")
+            			id="menuOne"
+            		#end 
+            		onmouseover="$(this).next('div').show()" onmouseout="$(this).next('div').hide()"
+            	>
+            		交易查询
+            	</a>
+            </span>
+        	<div class="menuOne_div" onmouseover="$(this).show()" onmouseout="$(this).hide()" style="display:none">
+				<ul>
+					#if($!shiro.hasRole("B"))
+					<li><a href="$front_url/myAccount/investAcceptRecord.html">		投资接受记录</a></li>
+					#end
+					#if($!shiro.hasRole("I"))
+					<li><a href="$front_url/myAccount/investRecord.html">		投资记录</a></li>
+					#end
+            		<li><a href="$front_url/account/myAccountIn.html">			划入记录</a></li>
+                    <li><a href="$front_url/account/myAccountOut.html">			划出记录</a></li>
+				</ul>
+        	</div>
+        </div>
+    #end
+    
+    
+	#if($!shiro.hasRole("G") || $!shiro.hasRole("O") || $!shiro.hasRole("L"))
+		<div class="menuOne1">
+            <span onmouseover="$(this).next('div').show()" onmouseout="$(this).next('div').hide()">
+            	<a href="$front_url/guarantee/guarantee.html" #if($left == "guarantee") id="menuOne" #end onmouseover="$(this).next('div').css('display','inline');" onmouseout="$(this).next('div').hide()">担保函管理</a>
+            </span>
+        	<div class="menuOne_div" onmouseover="$(this).show()" onmouseout="$(this).hide()" style="display:none">
+				<ul>
+                    <li><a href="$front_url/guarantee/guarantee.html">担保函管理</a></li>
+##                    <li><a href="$front_url/myAccount/guaranteeFee.html">			担保业务统计</a></li>
+				</ul>
+            </div>
+		</div>
+		
+		
+        #if($!shiro.hasRole("G") || $!shiro.hasRole("L"))	
+			<div class="menuOne1">
+                <span><a href="$front_url/operator/operators.html" #if($left == "operator") id="menuOne" #end>操作员管理</a></span>
+            </div>
+    	#end
+    	
+    	
+	#elseif($!shiro.hasRole("BR"))
+		<div class="menuOne1">
+            <span onmouseover="$(this).next('div').show()" onmouseout="$(this).next('div').hide()">
+            	<a href="$front_url/investor/investors.html" #if($left == "customer") id="menuOne" #end onmouseover="$(this).next('div').show()" onmouseout="$(this).next('div').hide()">客户管理</a>
+            </span>
+    		<div class="menuOne_div" onmouseover="$(this).show()" onmouseout="$(this).hide()" style="display:none">
+				<ul>
+                    <li><a href="$front_url/investor/investorAdd.html">				投资人开户</a></li>
+                    <li><a href="$front_url/investor/investors.html">			投资人管理</a></li>
+				</ul>
+            </div>
+        </div>
+        
+        
+		##营销管理这块，如果需要解    注释即可
+##		<div class="menuOne1">
+##            <span onmouseover="$(this).next('div').show()" onmouseout="$(this).next('div').hide()"><a href="$front_url/myAccount/business.html" #if($left == "business") id="menuOne" #end onmouseover="$(this).next('div').show();" onmouseout="$(this).next('div').hide();">业务管理</a></span>
+##    		<div class="menuOne_div" onmouseover="$(this).show()" onmouseout="$(this).hide()" style="display:none">
+##				<ul>
+##            		<li><a href="$front_url/myAccount/business.html">				业务记录</a></li>
+##                    <li><a href="$front_url/myAccount/busiStatis.html">			业务统计</a></li>
+##				</ul>
+##            </div>
+##        </div>
+
+
+	#elseif($!shiro.hasRole("AG"))
+		<div class="menuOne1">
+            <span onmouseover="$(this).next('div').show()" onmouseout="$(this).next('div').hide()"><a href="$front_url/broker/brokers.html" #if($left == "broker") id="menuOne" #end onmouseover="$(this).next('div').show()" onmouseout="$(this).next('div').hide()">经纪人管理</a></span>
+    		<div class="menuOne_div" onmouseover="$(this).show()" onmouseout="$(this).hide()" style="display:none">
+				<ul>
+    				<li><a href="$front_url/broker/brokers.html">					经纪人管理</a></li>
+    				<li><a href="$front_url/broker/brokerAdd.html">					经纪人开户</a></li>
+				</ul>
+    		</div>
+        </div>
+        
+        
+##		注释掉了业务统计这块，需要的话在解注
+##		<div class="menuOne1">
+##            <span onmouseover="$(this).next('div').show()" onmouseout="$(this).next('div').hide()"><a href="$front_url/myAccount/market.html" #if($left == "market") id="menuOne" #end onmouseover="$(this).next('div').show()" onmouseout="$(this).next('div').hide()">营销管理</a></span>
+##    		<div class="menuOne_div" onmouseover="$(this).show()" onmouseout="$(this).hide()" style="display:none">
+##				<ul>
+##                    <li><a href="$front_url/myAccount/market.html">				营销记录</a></li>
+##                    <li><a href="/myAccount/marketStatis.html">					营销统计</a></li>
+##				</ul>
+##    		</div>
+##        </div>
+	#end
+	
+	
+	#if(!$!shiro.hasRole("O")) 
+		<div class="menuOne1">
+			<span><a href="$front_url/security/index.html" #if($left == "security") id="menuOne" #end>安全中心</a></span>
+        </div>
+    #end
+    
+    
+	#*
+    <a href="" class="customer_main2_L2_1">消费中心</a>
+    <a href="" class="customer_main2_L2_1" onmouseover="$(this).next('div').show()" onmouseout="$(this).next('div').hide()">活动中心</a>
+	<div onmouseover="$(this).show()" onmouseout="$(this).hide()" style="display:none">
+        <a href=""><div class="Two_menu5_1">我的邀请</div></a>
+        <a href=""><div class="Two_menu5_2">我的礼品券</div></a>
+	</div>
+    
+    <div class="customer_main2_L3_new1"><a href=""><span style="color:#0290d7">分享赚钱机会</span></a></div>
+    *#
+<div class="customer_main2_L3_new1"><a href=""><span style="color:#0290d7"></span></a></div>
+
+</div>

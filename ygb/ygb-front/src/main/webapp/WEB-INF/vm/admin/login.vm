@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>业务管理后台</title>
+#parse("admin/layout/head.vm")
+<link href="$static_url/admin/css/login.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+	$(function(){
+    	$("form").validate();
+		$("#checkcodeImg").attr("src","$front_url/checkcode.html?"+Math.random());
+		if("$!error") alert("$!error");
+	});
+</script>
+</head>
+
+<body>
+<div class="top">	
+	<div class="topall">
+        <div class="topL">
+        您好，欢迎来使用业务管理后台系统！
+        </div>
+        <div class="topR">
+        回到 <a href="$front_url"><span style="color:#007dc7">官方首页</span></a>
+      </div>
+    </div>
+</div>
+<div class="logo">
+	<div class="logoL"><img src="$static_url/admin/images/login/by.png" /></div>
+</div>
+<div class="main">
+	<div class="main_DL">
+    <div class="main_DL_L">
+    <table width="540px" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="80px" valign="top"><img src="$static_url/admin/images/login/img1.png" width="439" height="35" /></td>
+      </tr>
+      <tr>
+        <td height="90px" align="right" valign="bottom"><img src="$static_url/admin/images/login/img2.png" width="402" height="35" /></td>
+      </tr>
+    </table>
+
+    </div>
+    <div class="main_DL_R">
+        <div class="main_DL_up">
+            <form action="$front_url/admin/login.html" method="post">
+            <table width="325px" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="73" height="55px"><span style="color:#F00">*</span>用户名：</td>
+                <td colspan="2"><input name="userName" autofocus class="text1 {required:true, messages: {required: '<b style=\'color:red\'>*</b>'}}" /></td>
+              </tr>
+              <tr>
+                <td height="55px"><span style="color:#F00">*</span>密&nbsp;&nbsp;码：</td>
+                <td colspan="2"><input name="password" type="password" class="text1 {required:true, messages: {required: '<b style=\'color:red\'>*</b>'}}" /></td>
+              </tr>
+              <tr>
+                <td height="55px"><span style="color:#F00">*</span>验证码：</td>
+                <td width="95"><input name="checkcode" type="text" class="text2 {required:true, messages: {required: '<b style=\'color:red\'>*</b>'}}" style="width:75px"/></td>
+                <td width="157"><img id="checkcodeImg" onclick="this.src='$front_url/checkcode.html?'+ Math.random()" width="129" height="39" style="margin-left:10px"/></td>
+              </tr>
+              <tr>
+                <td height="75px" colspan="3"><input type="image" src="$static_url/admin/images/login/anniu.gif"/></td>
+              </tr>
+            </table>
+			</form>
+        </div>
+       <div class="main_DL_foot">
+       <span style="color:#0682c0">温馨提示：</span><br/>
+       密码连续输入错误<span style="color:#ff0101">5</span>次后账户会被锁定，<span style="color:#ff0101">次日</span>将会解锁。
+       </div>
+    </div>
+	</div>
+</div>
+
+<div class="xian"></div>
+<div class="bottom">
+某某有限公司&nbsp;&nbsp;&nbsp; 版权所有&nbsp;&nbsp;&nbsp;备案编号:1222222222222&nbsp;&nbsp;&nbsp; Copyright © 2006-2014 
+</div>
+</body>
+</html>

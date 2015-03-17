@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>业务管理后台</title>
+#parse("admin/layout/head.vm")
+<link href="$static_url/admin/css/admin.css" rel="stylesheet" type="text/css" />
+
+<script src="$static_url/admin/js/jquery.min.js"></script>
+<script src="$static_url/admin/js/jquery.validate.js"></script>
+<script src="$static_url/admin/js/jquery.metadata.js"></script>
+<script src="$static_url/admin/js/messages_cn.js"></script>
+
+<style type="text/css">
+a:link {
+	color: #8e8e8e;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #8E8E8E;
+}
+a:hover {
+	text-decoration: none;
+	color: #F00;
+}
+a:active {
+	text-decoration: none;
+	color: #F00;
+}
+#current,#options { border:1px solid #a0a0a0;}
+#replace {cursor:default;overflow:visible;position:relative;}
+#current { background:url("$static_url/admin/images/dropdown.png") right center no-repeat;margin-bottom:0;}
+#current,#replace,#options li { width:150px;}
+#options { border-top:0 none; display:none;list-style-type:none;margin-top:0;position:absolute;width:160px;}
+#current,#options li {padding:5px;}
+#current,#options,#options li {background-color:#FFF;}
+</style>
+</head>
+
+<body>
+<table width="99%" height="6px" border="0" bgcolor="#0f97cb" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+    <td></td>
+  </tr>
+</table>
+
+<table width="99%" height="34px" border="0" bgcolor="#ffffff" cellspacing="0" cellpadding="0" align="center" class="bian1">
+  <tr>
+  	<td width="15px"></td>
+    <td class="main1">专题管理</td>
+  </tr>
+</table>
+
+<table width="99%" height="16px" border="0" background="$static_url/admin/images/main1.gif" cellspacing="0" cellpadding="0" align="center" class="bian1">
+  <tr>
+  	<td width="15px"><img src="$static_url/admin/images/main1.jpg" alt="" width="123" height="16" /></td>
+    <td></td>
+  </tr>
+</table>
+
+<table width="99%" height="40px" border="0" bgcolor="#edf5f6" cellspacing="0" cellpadding="0" align="center" class="bian2"><tr><td></td></tr></table>
+
+<table width="99%" height="10px" border="1" bordercolor="#cecece" cellspacing="0" cellpadding="0" align="center"><tr><td></td></tr></table>
+<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center" class="Mtext4"><tr><td>&nbsp;</td></tr></table>
+
+<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center" class="Mtext5">
+  <tr>
+    <td width="15%" align="center">专题编号</td>
+    <td width="12%" align="center">专题编码</td>
+    <td width="15%" align="center">专题名称</td>
+    <td width="12%" align="center">父专题</td>
+    <td width="12%" align="center">单一文章</td>
+    <td width="12%" align="center">专题层级</td>
+    <td width="12%" align="center">同级序号</td>
+    <td width="20%" align="center">操作</td>
+  </tr>
+</table>
+
+<!--信息展示-->
+#if($!subjects.size() > 0)
+    #foreach($item in $!subjects)
+    	<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center" class="Mtext6">
+          <tr>
+            <td width="15%" align="center">$!item.id</td>
+            <td width="12%" align="center">$!item.code</td>
+            <td width="15%" align="center">$!item.name</td>
+            <td width="12%" align="center">$!item.parentCode</td>
+            <td width="12%" align="center">#if($!item.leaf)单一文章#else多文章#end </td>
+            <td width="12%" align="center">$!item.level</td>
+            <td width="12%" align="center">$!item.serial</td>
+            <td width="20%" align="center">
+	            #if($!item.code != "0")
+	            	<a href="$admin_url/content/subjectEdit.html?id=$!item.id" class="a1">修改</a>&nbsp;
+	            	| <a href="$admin_url/content/subjectDelete.html?id=$!item.id" class="a1">删除</a>&nbsp;
+	            #end
+            </td>
+          </tr>
+        </table>
+    #end
+#else
+	<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center" class="Mtext6" ><tr><td></td></tr></table>
+#end
+
+
+<table width="99%" height="41px" border="0" bgcolor="#f6f6f6" cellspacing="0" cellpadding="0" align="center" class="bian1">
+  <tr>
+    <td width="1%" class="Mxian1">&nbsp;</td>
+    <td width="24%" class="Mxian1" >
+    	<a><input onclick="javascript:location.href='$admin_url/content/subjectAdd.html'" type="button" value="添加专题" class="anniu1"/></a>
+    	&nbsp;
+   	</td>
+  </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+<select name="$!name" class="select100">
+	<option value="">请选择市</option>
+	#foreach($city in $!cities)
+    <option value="$!city.code">$!city.name</option>
+	#end
+</select>

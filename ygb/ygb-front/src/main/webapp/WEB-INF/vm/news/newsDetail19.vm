@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/AboutUs.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+body {
+	background-color:#eeeeef;
+}
+</style>
+
+</head>
+
+<body>
+<!--    top     -->
+#parse("layout/header.vm")
+
+<!---------------内容---------------->
+<div class="AboutUs1">
+	<div class="AboutUs1_L">
+    	<div class="AboutUs1_L_u"><img src="$static_url/images/aboutus1.png" width="191" height="67" /></div>
+         <div class="AboutUs1_L_b">
+        	<a href="$front_url/platformNotice.html" >平台公告</a>
+            <a href="$front_url/platformNotice.html?hy" class="on">行业新闻</a>
+          
+        </div>
+   </div>
+  <div class="AboutUs1_R">
+    <div class="AboutUs1_R1">
+      <div class="AboutUs1_R1_L"><b>行业新闻</b></div>
+        <div class="AboutUs1_R1_R"></div>
+    </div>
+    <div class="AboutUs1_R2_news"><b>倍赢合作伙伴——向南小贷荣获"2014中国十佳小额贷款公司"称号</b><br/><span style="font-size:13px;">2015年03月12日 17:50:23 来源：搜狐焦点家居网</span></div>
+    <div class="AboutUs1_R3">
+    <p>备受瞩目的"第十届中国国际金融品牌创新峰会暨2014年度中国金融行业'金鼎奖'颁奖盛典"于2015年1月21-23日在北京•钓鱼台盛大召开。</p>
+    <br/><center><img src="$static_url/images/newsImg/2015-03-1201.jpg"></center><br/>
+    <p>本届活动由"中国金融管理协会"、"全国商业银行联合会"、"中国企业投资发展促进会"、"中国金融生态城市发展促进会"、"中国品牌建设协会"、"品牌资讯报社"联合主办，"中品天下（北京）信息技术研究院"、"北京亚星世纪国际投资管理有限公司"共同承办，同时得到"亚星国际（会展）集团"、"陕西远鼎投资管理有限公司"、"重庆好多实业股份有限公司"大力支持与赞助。</p>
+    <br/><center><img src="$static_url/images/newsImg/2015-03-1202.jpg"><br/>（全球加密资产培训集团控股有限公司教授：刘振友）</center><br/>
+    <p>本届论坛以"推进金融创新•服务实体经济"为主题，旨在深入贯彻2014全国两会关于"深化金融体制改革"的指示精神，全面探讨新形势下我国金融行业改革与发展的热点及难点问题，为推动我国金融行业的繁荣与发展，献计献策。本届论坛活动共包含"开幕仪式"、"金融品牌•颁奖盛典"、"第十一届中国国际金融品牌创新峰会启动仪式"、"2015中国金融诚信品牌地方行活动签约仪式"、"金融品牌专场推介"、"金融品牌主题论坛"、"金融创新高端对话"、"金鼎之夜•欢迎晚宴"、"魅力紫禁•旅游考察"六大主体活动。</p>
+    <br/><center><img src="$static_url/images/newsImg/2015-03-1203.jpg"><br/>（北京东方大信投资管理有限公司董事长：李海彬 ）</center><br/>
+    <P>国家商务部原副部长周可仁、原国家物资部副部长桓玉珊、中共中央办公厅秘书局原局长傅西路、中国人民解放军将军陈敬托、华夏时报总编辑水皮、北京天则经济研究所学术委员会主席张曙光、国家发展改革委新兴产业发展中心金融部主任眭银平、贵州省商务厅厅长陈泽明、品牌资讯报社社长白波等领导嘉宾及各地方金融办代表、金融行业相关企事业单位代表、媒体记者共计500余人出席钓鱼台开幕仪式，与会领导嘉宾共同为大会开幕剪彩，共同见证本次活动的盛大开幕，同时共同开启了"第十一届中国国际金融品牌创新峰会"的序幕。</P>
+    <p>为全面盘点近年来我国金融行业发展取得的伟大成就，大力表彰对推动我国金融行业发展作出突出贡献的先进企业及优秀个人，主办方在钓鱼台举办了盛大的颁奖典礼，与会领导亲自为获奖单位代表颁奖，现场百余家媒体共同见证。</p>
+    <p>与此同时，主办方启动了2015中国金融诚信品牌地方行活动，并与"国汇财富投资管理（大连）有限公司"、"天津中谊慧诚商务信息咨询有限公司"、"内蒙古益合贷金融信息服务有限公司"、"山西永胜鑫投资担保有限公司"、"四川耀昇投资担保有限公司"、"山东万贯股权投资基金管理有限公司"、"千林（北京）投资基金有限公司"等十余家企业签署了战略合作协议。</p>
+    <br/><center><img src="$static_url/images/newsImg/2015-03-1204.jpg"><br/>（陕西远鼎投资管理有限公司董事长：曹文平）</center><br/>
+    <p>为进一步探讨我国当前金融改革与发展的热点及难点问题，分享金融服务管理与品牌建设的成功经验，主办方特别举办了精彩纷呈的主题论坛活动，知名金融专家汇聚论坛现场，发表精彩的演讲，为与会代表布局未来发展规划、打造金融品牌、提升市场竞争力指明方向。</p>
+    <p>为答谢与会领导长期以来对论坛活动的关心与支持，同时增进与会代表的交流与合作，主办方特别举办了"金鼎之夜•欢迎晚宴"，为与会者奉献了一台多姿多彩的文艺晚会。会后，组委会组织与会者赴北京知名旅游景区、景点参观考察，共同感受一段意义非凡的海派文化之旅。</p><br/>
+    
+	<span style="float:right; padding-right:20px;">第十届中国国际金融品牌创新峰会组委会<br/>
+    二〇一五年一月二十二日</span>
+    <br/><br/>
+    <b>获奖名单如下：（节选）</b><br/>
+    黑龙江农信资产管理有限公司&nbsp;&nbsp;金鼎奖•2014中国十佳资产管理公司<br/>
+    <span class="color_hong"><b>重庆市巴南区向南小额贷款有限公司&nbsp;&nbsp;金鼎奖•2014中国十佳小额贷款公司</b></span><br/>
+    抚顺市清原村镇银行股份有限公司&nbsp;&nbsp;金鼎奖•2014年度全国最具创新力农村金融服务机构<br/>
+    ......<br/>
+	广东无界商盟科技股份有限公司&nbsp;&nbsp;裴蕾董事长荣获金鼎奖•2014中国金融创新贡献奖<br/>
+	哈尔滨龙昌金融服务咨询有限公司&nbsp;&nbsp;周振德董事长荣获金鼎奖•2014中国金融管理创新人物<br/><br/>
+    原文链接：<a href="http://info.focus.cn/news/2015-01-26/230262.html" class="color_hong" target="_blank">http://info.focus.cn/news/2015-01-26/230262.html</a><br/><br/>
+
+   
+    <div class="news_fanhui"><a href="javascript:history.go(-1);">返回</a></div>
+
+     </div>
+        
+  </div>
+</div>
+
+<div class="AboutUs_xian"></div>
+
+<!---------------尾部-------------->
+<!--    bottom     -->
+#parse("layout/footer.vm")
+
+</body>
+</html>

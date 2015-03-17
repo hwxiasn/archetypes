@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+#parse("layout/head.vm")
+<title>倍赢金融财富箱--关于我们</title>
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/AboutUs.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<script src="$static_url/layer/layer.min.js"></script>
+
+<style type="text/css">
+.box{width:100%; height:100%;}
+.box a{padding-right:15px;}
+#about_hide{display:none}
+.layer_text{background-color:#fff; padding:20px;}
+.layer_text p{margin-bottom: 10px; text-indent: 2em; line-height: 23px;}
+.button{display:inline-block; *display:inline; *zoom:1; line-height:30px; padding:0 20px; background-color:#56B4DC; color:#fff; font-size:14px; border-radius:3px; cursor:pointer; font-weight:normal;}
+.imgs img{width:137px; height:170px; padding:0 3px 3px; cursor:pointer;}	
+body {
+	background-color:#eeeeef;
+}
+</style>
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<div class="AboutUs1">
+<div class="AboutUs1_L">
+    	<div class="AboutUs1_L_u"><img src="$static_url/images/aboutus1.png" width="191" height="67" /></div>
+        <div class="AboutUs1_L_b">
+        	<a href="#about1" class="on">倍赢金融简介</a>
+            <a href="#about2">财富箱简介</a>
+            <a href="#about3">诚聘英才</a>
+            <a href="#about4">网站声明</a>
+            <a href="#about5">联系我们</a>
+        </div>
+   </div>
+  <div class="AboutUs1_R">
+    <div class="AboutUs1_R1">
+      <div class="AboutUs1_R1_L">倍赢金融简介<a name="about1"></a></div>
+        <div class="AboutUs1_R1_R"></div>
+    </div>
+
+    <div class="AboutUs1_R2">一、公司介绍</div>
+    <div class="AboutUs1_R3">
+        <p>重庆倍赢金融服务有限公司根据巴南区重点发展非银行类新型金融业，服务于长江上游金融中心核心区，打造长江上游金融服务中心，建设包括新型金融再融资平台在内的"一带两平台三基地"战略规划，经重庆市巴南区金融发展中心同意，报重庆市工商行政管理局备案登记，于2014年5月27日注册成立。公司注册资本1000万元，公司主要是通过"财富箱"互联网金融服务平台，专门为中小企业提供投融资咨询服务、贷款信息咨询服务、股权投资管理咨询服务、企业管理咨询服务、商务信息咨询服务等系列金融服务。</p>
+        <p>重庆倍赢金融服务有限公司以股东近百亿的产业资本、专业的投资银行团队、一流的IT技术为金融服务的依托；以创新的理念、合作的模式、共赢的目标为金融服务的内涵；以合规、和谐、创新、拼搏、共赢的倍赢文化为金融服务的抓手，全面建设可持续发展的、专业的综合性金融服务企业。</p>
+        <p>重庆倍赢金融服务有限公司以服务"三农"、支持中小微实体经济、提升老百姓投资性收益为己任，以数据安全、资金安全为前提，强势引入重庆市交通融资担保有限公司、重庆市惠泉信用担保有限公司两家国有担保公司以及重庆最早成立、受央行资金监管的第三方支付公司乾多多等战略合作伙伴，正在全力打造多层次、全方位的权威互联网金融服务平台。</p>
+    </div>
+        
+     <div class="AboutUs1_R2">二、相关执照</div>
+	 <div class="AboutUs1_R3_1">
+		
+        <div class="box">
+        <div id="imgs" class="imgs">
+        <img src="$static_url/images/aboutus/img1.jpg">
+        <img src="$static_url/images/aboutus/img2.jpg">
+        <img src="$static_url/images/aboutus/img3.jpg">
+        <img src="$static_url/images/aboutus/img4.jpg">
+        </div>
+        </div>
+        <script>
+        ;!function(){
+        layer.use('extend/layer.ext.js', function(){
+            //初始加载即调用，所以需放在ext回调里
+            layer.ext = function(){
+                layer.photosPage({
+                        title: '相关执照图片',
+                        id: 100, //相册id，可选
+                        parent:'#imgs'
+                    });
+                };
+        });
+        }();
+        </script>
+
+     </div>
+
+	 <div class="AboutUs1_R1">
+       <div class="AboutUs1_R1_L">财富箱简介<a name="about2"></a></div>
+        <div class="AboutUs1_R1_R"></div>
+     </div>
+      
+     <div class="AboutUs1_R2">一、财富箱是什么：</div>
+     <div class="AboutUs1_R3">
+        <p>"财富箱"取名源于十六世纪拥有悠久的历史和文化价值的"珠宝箱"，本平台是重庆倍赢金融服务有限公司倾力打造的互联网投融资金融平台，同时为合格的投资人、融资人提供互联网的投融资服务。</p>
+        <p>"财富箱"以创新、共赢作为核心理念，以投资人、融资人满意作为最终目标，致力于建立一个安全、高效、诚信、专业、客户利益至上的权威金融服务平台。</p>
+     </div>
+     
+     <div class="AboutUs1_R2">二、财富箱的优势：</div>
+     <div class="AboutUs1_R3">
+     	<ul>
+        <li>引入具备资金托管的商业银行（或中国人民银行批准的第三方支付机构）进行资金托管，以实名制注册和绑定对应的银行卡来实现资金支付安全，严格遵循互联网金融相关法律法规。</li>
+        <li>引入重庆市交通融资担保有限公司、重庆市惠泉信用担保有限公司两家知名国有担保公司为借款人提供担保，当借款人出现违约，担保公司无条件在约定的时间内代借款人偿还借款本息，以实现投资人的投资安全和投资收益的保障。</li>
+        <li>引入金融与投资协会、券商投资银行部、重庆市巴南区向南小额贷款有限公司等专业团队进行业务合作，以专业风控团队来完成对借款人的多维度调查与审核，以防范借款人违约风险以及违约后的快速处理，最终锁定投资风险。</li>
+        <li>公司拥有国内顶尖的IT研发团队，能够根据行业发展的不同的业务模式，灵活调整技术架构，量身设计开发、及时升级维护。同时，平台在系统稳定性、系统安全性、功能齐全性、运营模式等方面集成了多项独创技术与自有知识产权。</li>
+        <li>"财富箱"金融服务平台只定位为信息中介：不吸储、不放贷、不担保、不搞资金池、不向投资人收取任何费用，全力打造既让普通老百姓享有一份财产性收入，又能降低中小微企业融资成本的普惠金融服务平台。</li>
+        </ul>
+     </div>
+     
+     <div class="AboutUs1_R2">三、财富箱的服务模式：</div>
+     <div class="AboutUs1_R3">
+     	<p><b>平台服务内容：</b></p>
+        <p>"财富箱"金融服务平台是面向国内个人借款人和个人投资人推出的民间借贷登记、结算、信息服务平台，借贷双方通过"财富箱"可以快捷方便地达到借款交易，并央行监管的前提下线上完成资金的借出和借入，平台为借贷双方提供信息中介服务，发布借款需求、管理借贷双方以及和担保公司之间的借贷及担保活动、借贷资金的划拨，平台金融服务仅向符合中华人民共和国有关法律法规及平台相关规定的合格投资人和借款人提供。</p>
+        <P><b style="color:#4fb13f; font-size:15px;">倍赢金融财富箱服务项下个人借贷活动中各方的权利与义务：</b><br/><br/></P>
+     	<img src="$static_url/images/Flowchart.png" width="719" height="368" />
+     </div>
+     
+     <div class="AboutUs1_R1">
+       <div class="AboutUs1_R1_L">诚聘英才<a name="about3"></a></div>
+        <div class="AboutUs1_R1_R"></div>
+     </div>
+     
+     <div class="AboutUs1_R3">
+     	<div class="divOneAll">
+        <div class="divOne1_L_1"><a onClick="$('#divOne_1').toggle()" style="cursor:pointer;">风控经理</a></div>
+        <div class="divOne1_R">2014-8-12 </div>
+        </div>
+        <div id="divOne_1" style="display:none;" class="divOne2">
+        <b>一、职责描述</b><br/> 
+        <ul>
+        <li>协助部门总经理制定公司各项业务的风险控制制度和业务流程；</li> 
+        <li>对公司所涉及各类业务的市场风险、流动性风险、信用风险等进行分析、评价，做好防控措施；</li>
+        <li>进行具体业务的风险考察和评估,并出具相应风险评估报告；</li> 
+        <li>进行业务合法合规性审核并出具相应意见;</li> 
+		<li>进行业务风险检查及审计;</li> 
+		<li>进行业务风险的监控、风险预警发布、风控措施拟订及落实；</li>
+		<li>进行相关业务风险知识培训。</li> 
+        </ul>
+        <b>二、任职要求</b><br/>
+        <ul>
+        <li>诚实守信，勤勉尽职，品行端正，无违纪违规等不良记录；</li>
+        <li>具备银行等金融机构授信、风险管理等专业知识，熟悉国家及监管部门金融政策、法律、法规和监管要求；熟悉小额贷款行业及产品、投资和风险管理；</li>
+        <li>具备相关风险评估能力及良好的书面表达能力, 具备业务合法合规性审查能力, 较强的法律逻辑思维能力，良好的综合分析及应变能力，能独立操作项目风险评估工作；</li>
+        <li>具备3年以上银行业信贷、风险岗位工作经验；</li>
+        <li>具备企业财务审计工作经验；</li>
+        <li>具备金融业合同拟定、审查等工作经验；</li>
+        <li> 法律、金融等相关专业，全日制本科以上学历（含），通过律师资格考试或国家司法考试者优先，特别优秀者年龄可适当放宽。</li><br/>
+        </ul>
+        </div>
+        
+        <div class="divOneAll">
+        <div class="divOne1_L_1"><a onClick="$('#divOne_3').toggle()" style="cursor:pointer;">投资银行部经理</a></div>
+        <div class="divOne1_R">2014-8-12 </div>
+        </div>
+        <div id="divOne_3" style="display:none;" class="divOne2">
+        <b>一、职责描述</b><br/> 	
+        <ul>
+        <li>负责公司拟投资项目的市场机会分析、项目尽职调查、财务经济数据收集分析，完成可行性分析报告及尽调报告；</li>
+        <li>参与项目投资谈判，就具体问题提供解决方案，拟定、优化投资方案并组织实施；</li>
+        <li>负责对所投项目进行全程跟踪管理与服务等工作，定期分析其运营情况并对风险评级及时预警，并监督其执行与操作。</li>
+        </ul>
+        <b>二、任职要求</b><br/>
+        <ul>
+        <li>学历背景：法律、财务、金融、经济相关专业，本科及以上学历；</li>
+        <li>三年以上投资或投行工作经验，熟悉项目投资流程；</li>
+        <li>熟悉投资项目的尽职调查、可行性研究分析、投资项目管理等；</li>
+        <li>具有扎实的金融理论功底及丰富的金融专业知识、良好的财务分析能力及风险控制能力，熟练掌握私募基金行业的理论知识及相关法律法规；</li>
+        <li>具有良好的职业操守，工作细致认真，责任心强，富有团队协作精神，较强的沟通协调能力和应急处理能力。</li>
+		</ul>
+        </div>
+        
+     </div>
+     
+     <div class="AboutUs1_R1" style="float:left;">
+       <div class="AboutUs1_R1_L">网站声明<a name="about4"></a></div>
+        <div class="AboutUs1_R1_R"></div>
+     </div>
+     <div class="AboutUs1_R3">&nbsp;&nbsp;<br/>
+     	<b style="font-size:14px;">本声明包含网络使用的有关条款，凡浏览本网站均表示接受以下条款。</b>
+        <ul>
+        <li>本网站只在法律允许的国家中提供本网站所述的产品及服务，所发布的资料无意提供给受法律发布限制的国家的人士或居民使用。本网站提供的产品与服务在法律不允许的国家不构成向任何人士要约邀请，购买投资产品或其他产品服务的邀请。</li>
+        <li>本公司对本网站中所示的任何商标、公司标志及服务标志拥有所有权。未经本公司的书面批准，任何人不得使用。本网站所刊登的资料受版权保护。未经本公司书面同意，该资料任何部分均不得修改、复制、储存于检索系统、传送、抄袭、分发，或用于任何商业或公开用途。</li>
+        <li>本网站为用户提供专业的投资服务，需要对客户资质进行评估，并非所有的客户都可以获得所有产品和服务。您是否符合享受产品和服务的条件，最终的解释权归本网站。我们保留对该网站包含的信息和资料及其显示的条款、条件和说明变更的权利。</li>
+        <li>任何在本网站出现的信息包括但不限于评论、预测、图表、指标、理论、直接的或暗示的指示均只作为参考，您须对任何自主决定的行为负责。</li>
+        <li>本网站提供的有关评论、投资分析报告、 预测文章信息等仅供参考。本网站所提供之公司资料等信息，力求但不保证数据的准确性，如有错漏，请以国家指定机构的公示信息为准。本网站不对因本网资料全部或部分内容产生的或因依赖该资料而引致的任何损失承担任何责任。</li>
+        <li>凡通过本网站与其他网站的链接，而获得其所提供的网上资料及内容，您需要自己进行辨别及判断，我们不承担任何责任。</li>
+        <li>本公司不为于本网站使用的任何第三方软件的准确性、安全性、功能或性能作任何声明或保证。</li>
+        <li>本站某些部分或网页可能包括单独条款和条件，作为对本条款和条件的补充，如果有任何冲突，该等附加条款和条件将对相关部分或网页适用。</li>
+        <li>互联网传输可能会受到干扰，中断、延迟或数据错误，本公司对于非本公司能控制的通讯设施故障可能引致的数据及交易之准确性或及时性不负任何责任。</li>
+        
+        <li>本公司并不就以下事项作出声明或保证：使用本网站时不会中断、出现延误、故障、错误或遗漏或丢失传送的资料；或不会传播病毒或其他污染或毁灭性的产物；或您的电脑系统不会受损害。您须负全责为数据和/或设备作充分保护和备份，并负全责采取合理而适当的预防措施以扫描电脑病毒或其他毁灭性产物。本公司在编制本网站所载信息和资料时已力求审慎。但本公司只能按目前现状提供有关信息，并不作任何明示或暗示的保证。尤其是不作不侵犯版权、资料保密、准确性、合适性或不含计算机病毒等担保。</li>
+        <li>财富箱用户需谨慎保管个人或企业信息，切勿向他人泄露网站用户名及密码，绑定银行卡的卡号及密码。平台工作人员在任何时候不会向您索要网站用户密码、绑定银行卡的密码。</li>
+        <li>投资有风险，请谨慎投资。</li>
+        </ul>
+        <span class="color_RedB">重要事项：</span><br/>
+        <b>您进入本网址及浏览其任何网页，即表示您同意遵守上述条款，谢谢选择财富箱，如有任何疑问，请您与平台客服人员联系，联系电话为023-62555688。</b>
+
+     </div>
+     
+     <div class="AboutUs1_R1">
+       <div class="AboutUs1_R1_L">联系我们<a name="about5"></a></div>
+        <div class="AboutUs1_R1_R"></div>
+     </div>
+     
+     <div class="AboutUs1_R3">
+        <p><b><span style="font-size:14px;">重庆市倍赢金融服务有限公司</span></b></p>
+        <p><b>公司地址：</b>重庆市巴南区龙海大道3号A4（龙洲湾商街广东南粤银行旁）</p> 
+        <p><b>客服热线：</b>023-62559988 </p> 
+        <p><b>官方QQ：</b>3026192560 </p> 
+        <p><b>QQ咨询群：</b>345040568 </p> 
+        <p><b>官方网址：</b> www.caifuxiang.com</p> 
+        <p><b>邮编：</b> 401320</p> 
+     </div>
+     <div class="map"><iframe src="$static_url/map.html" width="100%" height="300" frameborder="0" scrolling="no"></iframe></div>
+        
+  </div>
+  
+</div>
+
+<!-------------悬浮框------------->  
+<div class="Suspension">
+<ul>
+<li><a href="#about1">倍赢金融简介</a></li>
+<li><a href="#about2">财富箱简介</a></li>
+<li><a href="#about3">诚聘英才</a></li>
+<li><a href="#about4">网站声明</a></li>
+<li><a href="#about5">联系我们</a></li>
+</ul>
+<div class="li_1">&nbsp;<a href="#about1"><img src="$static_url/images/xiaosanjiao.png" style="border:none;" width="27" height="14" /></a>&nbsp;</div>
+</div>
+
+<div class="AboutUs_xian"></div>
+
+#parse("layout/footer.vm")
+</body>
+</html>

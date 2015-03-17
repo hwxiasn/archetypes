@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+#parse("layout/head.vm")
+<title>倍赢金融财富箱--公告</title>
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/AboutUs.css" rel="stylesheet" type="text/css" />
+
+<script src='$static_url/js/jquery.min.js'></script>
+<script src='$static_url/js/jquery.museum.js'></script>
+<script>
+$(document).ready(function() {
+	$.museum($('#content img'));
+});
+</script>
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color:#eeeeef;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+.AboutUs_c1_1_a {
+	height:30px;
+	width: 125px;
+	background:#ffffff;
+	color:#000000;
+	margin-bottom: 2px;
+	float:left;
+	line-height:30px;
+	font-size: 15px;
+	padding-left: 40px;
+}
+a:hover{
+	color:red;
+	background:#b6b6b7;
+}
+#content img { height: 120px;border: 1px solid #FFF; padding: 2px; }
+#content img:hover { border: 1px solid #d3332d; }
+
+</style>
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<div class="AboutUs1">
+	<div class="AboutUs1_L">
+    	<div class="AboutUs1_L_u"><img src="$static_url/images/aboutus1.png" width="191" height="67" /></div>
+        <div class="AboutUs1_L_b">
+        	<a href="$front_url/platformNotice.html">平台公告</a>
+            <a href="$front_url/platformNotice.html?hy" class="on">行业新闻</a>
+        </div>
+   </div>
+  <div class="AboutUs1_R">
+    <div class="AboutUs1_R1">
+      <div class="AboutUs1_R1_L"><b>行业新闻</b></div>
+        <div class="AboutUs1_R1_R"></div>
+    </div>
+     <div class="AboutUs1_R2_news"><b>互联网金融平台的核心竞争力是创新和信誉度</b><br/><span style="font-size:13px;">转载：本文来源于2014年11月11日 中国产经新闻报  记者 齐庆华报道</span></div>
+    <div class="AboutUs1_R3">
+	
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>专访中国企业发展研究中心主任、中金普惠股份有限公司董事局主席吕世杰</b><br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;《中国产经新闻》：十八届三中全会把“普惠金融”第一次正式地写入党的决议，事实上，目前业界对于普惠金融概念的诠释并不相同，侧重点也不尽相同，您对普惠金融的定义是什么？谈到普惠金融，绕不开的一个话题就是P2P，近些年，P2P因为具备显著的普惠性也受到投融资者的青睐，发展得非常迅速。不过，最近市场上有关P2P“普而不惠”的质疑很多，依据是国内多数P2P和小额贷款月利率达到2%，您觉得P2P应该如何做到“普”而又“惠”？</br></br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;吕世杰：简单地说，我认为，普惠金融就是能够为普通民众提供金融服务的一种金融体系。它的特点有几个方面的表现：一、普世化；二、小额化；三、便捷化；四、信息化；五、可信化。它既是传统金融的有效补充，也是传统金融的一大发展，它不仅突破了传统金融的金融体系，更能让人数最多的最底层的民众群体能够实实在在地获得金融服务。</br></br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;普惠金融的真正普及，必须要高大上的各类银行和其他金融机构参与，加快建立我国的信用体系，将传统的融资模式向信誉模式转变。另外，国家加快对低收入阶层出台普惠金融政策，将民间自发的普惠金融理念上升到国家层面，降低普惠金融的门槛。</br></br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;《中国产经新闻》：互联网金融的不断开发，对传统金融造成了冲击，但传统金融并不示弱，目前传统金融业纷纷涉足互联网金融，您觉得传统金融业的涉足对草根的P2P等互联网金融企业将带来怎样的影响？互联网金融和传统金融业应该是怎样的关系？</br></br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;吕世杰：目前，中国金融体系具有高度垄断性，几乎不存在竞争，对实体经济服务效率低，“嫌贫爱富”、“劫贫济富”现象仍然十分严重，金融服务没有跟上经济发展的步。而改变这一现状最重要的力量来自于互联网，来自草根的P2P互联网金融企业向传统金融企业发起了挑战，并迅速影响了金融格局，虽然不是很大，但足以让传统金融为之一惊。传统金融依靠得天独厚的优势，也迈开了进军互联网金融的步伐，各大银行纷纷开始布局。毋容置疑，我认为互联网金融的主力军将仍然会被传统金融的主宰者领军，民间的互联网金融虽然目前独领风骚，由于融资优势无法与传统金融企业匹敌，将会逐渐失去优势。但是，作为主流金融的有效补充，民间的互联网金融的快速反应能力是传统金融也无法企及的。同时，可以看到，互联网金融与传统金融并不矛盾。传统金融青睐高大上和白富美，互联网金融企业面对的是被传统金融企业抛弃的那部分人群和企业，同时注重平等、互动、合作、分享、投融资便捷和高效。因此两者可以互存共生。</br></br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 《中国产经新闻》： 风控和监管是包括P2P在内的互联网金融企业老生常谈的一个问题，业内讨论的最多，您怎么看互联网金融企业风控和监管的问题？</br></br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;吕世杰：互联网金融的发展对于市场风险、信用风险、操作风险等全方位的风险管理的方式和手段都提出了新的挑战。其发展不仅需要技术支撑，另一方面需要通过行业自律加强内部规范，再一方面需要通过适度的监管加强外部监督。互联网金融的生命力在于技术、大数据、信用、风控和科学的管理，将这几个方面有机科学地结合起来，就可以科学地防范风险。互联网企业应严格遵纪守法，不能逾越红线，严格按照即将出台的监管办法经营。</br></br>
+    <div class="news_fanhui"><a href="javascript:history.go(-1);">返回</a></div>
+     </div>
+  </div>
+</div>
+
+<div class="AboutUs_xian"></div>
+
+#parse("layout/footer.vm")
+</body>
+</html>

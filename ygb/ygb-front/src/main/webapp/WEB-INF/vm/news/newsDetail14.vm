@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+#parse("layout/head.vm")
+<title>倍赢金融财富箱--公告</title>
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/AboutUs.css" rel="stylesheet" type="text/css" />
+
+<script src='$static_url/js/jquery.min.js'></script>
+<script src='$static_url/js/jquery.museum.js'></script>
+<script>
+$(document).ready(function() {
+	$.museum($('#content img'));
+});
+</script>
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color:#eeeeef;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+.AboutUs_c1_1_a {
+	height:30px;
+	width: 125px;
+	background:#ffffff;
+	color:#000000;
+	margin-bottom: 2px;
+	float:left;
+	line-height:30px;
+	font-size: 15px;
+	padding-left: 40px;
+}
+a:hover{
+	color:red;
+	background:#b6b6b7;
+}
+#content img { height: 120px;border: 1px solid #FFF; padding: 2px; }
+#content img:hover { border: 1px solid #d3332d; }
+
+</style>
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<div class="AboutUs1">
+	<div class="AboutUs1_L">
+    	<div class="AboutUs1_L_u"><img src="$static_url/images/aboutus1.png" width="191" height="67" /></div>
+        <div class="AboutUs1_L_b">
+        	<a href="$front_url/platformNotice.html">平台公告</a>
+            <a href="$front_url/platformNotice.html?hy" class="on">行业新闻</a>
+        </div>
+   </div>
+  <div class="AboutUs1_R">
+    <div class="AboutUs1_R1">
+      <div class="AboutUs1_R1_L"><b>行业新闻</b></div>
+        <div class="AboutUs1_R1_R"></div>
+    </div>
+    <div class="AboutUs1_R2_news"><b>P2P又玩新花样 保理融资产品年化收益多为12%</b><br/><span style="font-size:13px;">转载内容来源：理财周报  2014-10-27</span></div>
+    <div class="AboutUs1_R3">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;融界的“90后”P2P网贷这一年来可谓花样百出，涉足的领域也越来越多，最近保理融资理财产品就成为网贷行业的新热点。不过，保理业务对很多网贷投资人来说却很陌生。那么保理业务究竟是什么？P2P平台与保理公司合作推出的保理融资项目又有哪些特点？<br/><br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;简单来说，保理业务是供应商（又称卖方、出口商）与保理商达成的一种契约。根据该契约，供应商将手中的应收账款（还未收回来的款项/债务）转让给保理商，保理商则提供贸易融资、销售分户账管理、应收账款的催收、信用风险控制与坏账担保等服务中的至少两项。<br/><br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数据显示，截至2013年末，全国共有注册商业保理企业284家，注册资本金总额超过290亿元人民币，业务总量超过200亿元。<br/><br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;经过观察，目前P2P平台推出的保理融资项目主要是由投资人支付对价给保理公司，保理公司转让应收账款给用户且到期回购，投资人获得一定的年化收益。<br/><br/>
+    <div class="news_fanhui"><a href="javascript:history.go(-1);">返回</a></div>
+
+     </div>
+        
+  </div>
+</div>
+
+<div class="AboutUs_xian"></div>
+
+#parse("layout/footer.vm")
+</body>
+</html>

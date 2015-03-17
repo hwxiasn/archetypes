@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+#set($left="operator")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/menu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Trading_inquiry.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Operator_Management.css" rel="stylesheet" type="text/css" />
+
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<!--   内容     -->
+#parse("myAccount/header.vm")
+
+<div class="customer_main2_new">
+<div class="customer_main2_new_all">
+	#parse("myAccount/left.vm")
+    
+    <div class="customer_main2_R_new">
+    	<div class="quick_signing_cx">
+        <span class="Trading_inquiry_color1">操作员管理</span>
+        
+      	</div>
+        <form action="$front_url/operator/operators.html" method="post">
+        <div class="Trading_inquiry1_dbh1">
+
+            <div class="Trading_inquiry1_1" style="">
+            	<div class="Trading_inquiry1_1_1_new2">用户名：</div>
+                <div class="Trading_inquiry1_1_2_new2"><input name="userName" value="$!search.userName" maxlength="20" type="text" class="Trading_inquiry——text1" /></div>
+##                <div class="Trading_inquiry1_1_1_new2">备注：</div>
+##                <div class="Trading_inquiry1_1_2_new2"><input name="remark" value="$!search.remark" maxlength="50" type="text" class="Trading_inquiry——text1" /></div>
+                <div class="Trading_inquiry1_1_2_new2"><input type="submit" value="查 询" class="anniuBlue" /></div>
+            </div>
+
+        </div>
+        </form>
+
+         <div class="Operator_Management1">
+            <div class="Trading_inquiry1_1" style="">
+            	<div class="Trading_inquiry1_1_1_new2"></div>
+                <div class="Trading_inquiry1_1_2_new2">
+                	<a href="$front_url/operator/operatorAdd.html" class="Operator_Management_anniu">新增操作人员</a>
+                </div>  
+            </div>
+        </div>
+
+        <div class="Trading_inquiry2_2">
+            <div class="Operator_Management_tb1">用户名</div>
+            <div class="Operator_Management_tb1">备注</div>
+            <div class="Operator_Management_tb1">创建时间</div>
+            <div class="Operator_Management_tb1">状态</div>
+            <div class="Operator_Management_tb1">操作</div>
+            
+        </div>
+        
+		#if($!pager.elements.size()>0)
+            #foreach($operator in $!pager.elements)
+			<div class="Operator_Management_tb" style="">
+            	<div class="Operator_Management_tb1_1">$!operator.userName</div>
+                <div class="Operator_Management_tb1_1">$!operator.remark</div>
+                <div class="Operator_Management_tb1_1">$!operator.creatDate</div>
+                <div class="Operator_Management_tb1_1">$!Map_user_status.get($!{operator.status}).getName()</div>
+                <div class="Operator_Management_tb1_1"><a href="$front_url/operator/operatorDetail.html?id=$!operator.id&level=$!operator.level"><span class="Trading_inquiry_color3" >详情</span></a></div>   
+			</div>
+			#end
+			#parse("myAccount/commonPager.vm")
+        #else
+        	<div class="Trading_inquiry2_3_none">暂时没有操作员记录</div>
+        #end
+        
+		<script type="text/javascript">
+        	function page(num) {
+        		$("form").attr("action", $("form").attr("action")+"?totalRows="+$!pager.totalRows+"&currentPage="+num+"&pagerSize=4").submit();
+        	}
+        </script>
+    
+    </div>
+  
+</div>
+</div>
+#parse("layout/footer.vm")
+</body>
+</html>

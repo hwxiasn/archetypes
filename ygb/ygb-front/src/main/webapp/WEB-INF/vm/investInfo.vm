@@ -1,0 +1,608 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>倍赢金融财富箱--投资详情</title>
+#parse("layout/head.vm")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Pop-up_layer.css" rel="stylesheet" type="text/css" />
+<script src="$static_url/layer/layer.min.js"></script>
+
+<!--    弹出层投资确认果   -->
+<script language="javascript">
+
+//弹出层投资确认
+function showDiv(){
+	document.getElementById('popDiv').style.display='block';
+	document.getElementById('popIframe').style.display='block';
+	document.getElementById('bg').style.display='block';
+}
+
+function closeDiv(){
+	document.getElementById('popDiv').style.display='none';
+	document.getElementById('bg').style.display='none';
+	document.getElementById('popIframe').style.display='none';
+}
+
+function showNum(ele){
+	var num = $(ele).val()*10000;
+	var reg = /^[1-9]+[0-9]*]*$/;
+	if(!reg.test($(ele).val()) || num == "" || num == null){
+		$("#tishi2").html("投资金额只能是整数");
+		
+		return;
+	}else{
+		$("#tishi2").html("");
+	}
+	var ch = numtoch(num.toString());		
+	$("#caps").html(ch);
+	if($!Entity_Project.minimalInvestment <= ($!Entity_Project.totalAmount.intValue() - $!Entity_Project.progressAmount.intValue())){
+    	if(num < $!Entity_Project.minimalInvestment){
+    		$("#tishi2").html("投资金额不能小于最低投资金额");
+    		return;
+    	}
+	}
+	
+	if(num > ($!Entity_Project.totalAmount.intValue() - $!Entity_Project.progressAmount.intValue()) ){
+		$("#tishi2").html("投资金额不能大于剩余投资金额");
+		return;
+	}
+	if(!isNaN(num) && num != ""){
+		$("#tishi2").html("");
+		jQuery.ajax({
+			url:"$front_url/checkMoney.json",
+			data:{"money":num},
+			type:"post",
+			success:function(data){
+				if(data.result == undefined){
+    				$("#tishi1").html("<span id='buzu' ><img src='$static_url/images/zhuyi.png' width='16' height='17' /> &nbsp;" +
+    				"<span class='Change_Password_color3'>您的可用余额不足，请</span><a href='$front_url/account/accountIn.html'><span class='Change_Password_color2'>充值</span></a></span>");
+				}else{
+					$("#tishi1").find("#buzu").remove();
+				}
+			}
+		});
+	}
+ }
+
+function invest(){
+	
+	var money = $("#mm");
+	var sures = $("#suresMoney");
+	var pass = $("#passwords");
+	var agree = $("#agree");
+	showNum(money);
+	
+	var flag = true;
+	var reg = /^[1-9]+[0-9]*]*$/;
+    if(money.val().length <= 0 || !reg.test(money.val())){
+		$("#tishi2").html("投资金额只能是整数");
+		flag = false;
+		return;
+	}else{
+		$("#tishi2").html("");
+		flag = true;
+	}
+    
+	if(money.val()*10000 < $!Entity_Project.minimalInvestment && 
+			($!Entity_Project.totalAmount.intValue() - $!Entity_Project.progressAmount.intValue()) >= $!Entity_Project.minimalInvestment){
+		$("#tishi2").html("投资金额不能小于最低投资金额");
+		flag = false;
+		return;
+	}else if(money.val()*10000 < $!Entity_Project.minimalInvestment && 
+			($!Entity_Project.totalAmount.intValue() - $!Entity_Project.progressAmount.intValue()) < $!Entity_Project.minimalInvestment){
+		$("#tishi2").html("");
+		flag = true;
+	}else{
+		$("#tishi2").html("");
+		flag = true;
+	}
+	
+	if(money.val()*10000 > ($!Entity_Project.totalAmount.intValue() - $!Entity_Project.progressAmount.intValue())){
+		$("#tishi2").html("投资金额不能大于剩余投资金额");
+		flag = false;
+		return;
+	}else{
+		$("#tishi2").html("");
+		flag = true;
+	}
+	
+	if(sures.val() != money.val()){
+		$("#suresTishi").html("投资金额和确认投资金额不一致");
+		flag = false;
+		return;
+	}else{
+		$("#suresTishi").html("");
+		flag = true;
+	}
+	
+	if(pass.val().length < 6){ 
+		$("#passTishi").html("请输入不少于六位的交易密码");
+		flag = false;
+		return;
+	}else{
+		$("#passTishi").html("");
+		flag = true;
+	}
+
+	if(agree.val() != "1"){
+		flag = false;
+        $("#agrees").html("请选择同意本条款");
+		return;
+	}else{
+		$("#agrees").html("");
+		flag = true;
+	}
+	
+	if(flag){
+		$("#bg_all").css("display", "block");
+		$("#investLink").removeAttr('href');
+		$("#shows1").html("系统正在处理您的投资请求，请稍等片刻........");
+    	jQuery.ajax({
+    		url:"$front_url/goInvest/doInvest.json",
+    		data:$("form").serialize(),
+    		dataType: "json",
+			type:"post",
+    		success:function(response){
+				if(response.result == "success"){
+    				$("#Success").show().find("#ss").show();
+    				setTimeout(function(){
+                     	location.reload(true);
+                    },1000);
+				}else{
+					$("#Success").show().find("#ff").show();
+    				alert("投资失败，" + response.stateCode);
+    				setTimeout(function(){
+                     	location.reload(true);
+                    },1000);
+				}
+    		},
+    		error:function(response){
+##				alert("投资失败，出错了");
+				$("#Success").show().find("#ss").show();
+				setTimeout(function(){
+                 	location.reload(true);
+                },1000);
+    		}
+    	});
+	}
+}
+
+function checks(ele){
+	if($(ele).val() != $("#mm").val()){
+		$("#suresTishi").html("投资金额和确认投资金额不一致");
+	}else{
+		$("#suresTishi").html("");
+	}
+}
+
+;!function(){
+    layer.use('extend/layer.ext.js', function(){
+        //初始加载即调用，所以需放在ext回调里
+        layer.ext = function(){
+            layer.photosPage({
+                
+                title: '相关执照图片',
+                id: 100, //相册id，可选
+                parent:'#imgs'
+            });
+        };
+    });
+ }();
+
+function switchAgree(obj){
+	if(obj.checked){
+		$("#agree").val("1");
+	}else{
+		$("#agree").val("");
+	}
+}
+ 
+$(function(){
+	$("form").validate();
+	$("#mm").blur(function(){
+		showNum($(this));
+	});
+	$('.swipeboxEx').each(function (i, el) {
+		$(el).justifiedGallery({rel: 'gal' + i}).on('jg.complete', function () {
+			if (i == 0) $('.swipeboxEx a').swipebox(); //如果想调用1个相册对应i值为0，同理3个相册，i值为2。
+		});
+	});
+});
+</script>
+
+
+<style type="text/css">
+.imgs img{width:250px; height:300px; padding:0 3px 3px; cursor:pointer;}	
+</style>
+</head>
+
+<body>
+<div id="bg_all" class="black_overlay"></div>
+#parse("layout/header.vm")
+
+<div class="invest_main1">$!Entity_Project.name</div>
+
+<div class="invest_main2">
+
+  <div class="invest_main2_L">
+   	<div class="invest_main2_L_u">
+		  <div class="invest_main2_L_u1">
+            成立金额<br/>
+            <span class="color_RedB">$!numberTool.format($!Entity_Project.totalAmount)</span>
+          </div>
+		  <div class="invest_main2_L_u2">
+          	年化利率<br/>
+								#set($percents=($!Entity_Project.interestRate)*100)
+            <span class="color_RedB">$!numberTool.format("0.00",$!percents)%</span>
+          </div>
+		  <div class="invest_main2_L_u3">
+          	借款期限<br/>
+            <span class="color_RedB">$!{Map_CodeList_LoanType_Map.get($!{Entity_Project.getPeriodType()}).get($!{Entity_Project.getPeriod()}).getName()}</span>
+          </div>
+    </div>
+        
+	<div class="invest_main2_L_b">
+	  <div class="invest_main2_L_b1">
+		      满标条件：<span class="font2">金额达到 $!numberTool.format($!Entity_Project.settleTermsAmount)元</span><br/>
+		      最低投资：<span class="font3">$!numberTool.format($!Entity_Project.minimalInvestment)元</span><br/>
+		      已投金额：<span class="font2">$!numberTool.format($!Entity_Project.progressAmount)元</span>
+	  </div>
+	  <div class="invest_main2_L_b2">
+		      起投时间：<span class="font2">$!Entity_Project.formatInvestStartDate</span><br/>
+		      成立时间：<span class="font2">
+						#if($!Entity_Project.status == "PD" || $!Entity_Project.status == "PB" ||$!Entity_Project.status == "RC")
+							$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!Entity_Project.settleDate)
+						#else
+							$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!Entity_Project.investEndDate)
+						#end
+				
+			  </span><br/>
+		      状态：<span class="font2">$!Map_Project_Status.get($!Entity_Project.status)</span>
+	  </div>
+	</div>
+  </div>
+  
+	<div class="invest_main2_R">
+		<div class="Article_all_invest">
+	  		<div class="Article_all_invest_1" style="width:$!Entity_Project.progress%;"></div>
+	  		<div class="Article_all_invest_F">&nbsp;$!Entity_Project.progress%</div>
+		</div>
+		<span class=" color_Red14_none">投资&nbsp;<b>1</b>&nbsp;万元，到期可收益&nbsp;<b>$!Entity_Project.getYieldPerUnitInvestment()</b>&nbsp;元</span><br/>
+  		剩余可投资金额：<br/>
+  		#set($remains=($!Entity_Project.totalAmount.intValue() - $!Entity_Project.progressAmount.intValue())/10000)
+  		<span class="color_Red14">$!remains</span>&nbsp;万<br/>
+  		投资进度：$!Entity_Project.progress %<br/>
+  		<!--  返回 -->
+	#if($!Entity_Project.status != "F")
+  		<a href="javascript:history.go(-1);" class="fanhuiD" style="">返回</a>
+	#end
+  
+	<!----------弹出层确认投资------------>
+	<form name="form1" action="" method="post">
+	<div id="popDiv" class="mydiv2" style="display:none;">
+		<input name="investProjectId" id="investProjectId" value="$!Entity_Project.id" type="hidden"/>
+		<div class="Change_Password1_new1">
+			<div class="Change_Password1_L_new1">确认投资</div>
+            <div class="Change_Password1_R"><a href="javascript:closeDiv()" class="guanbi"></a></div>
+		</div>
+      
+		<div class="Change_Password1_new1_1">
+      		<div class="Change_Password1_new1_1_L"><span class="Change_Password_color">*</span>&nbsp;请输入投资金额：</div>
+        	<div class="Change_Password1_new1_1_R">
+        		<input name="investMoney" id="mm" type="text" class="Change_Password_text1 {required:true}" value="" />
+        		&nbsp;&nbsp;万元&nbsp;&nbsp;
+        		<span id="tishi1" style="color:red;"></span>
+        		<span id="tishi2" style="color:red;"></span>
+        	</div>
+		</div>
+      
+		<div class="Change_Password1_new1_2">
+      		<div class="Change_Password1_new1_1_L"></div>
+        	<div class="Change_Password1_new1_1_R" id="caps"></div>
+		</div>
+      
+		<div class="Change_Password1_new1_1">
+      		<div class="Change_Password1_new1_1_L"><span class="Change_Password_color">*</span>&nbsp;请确认投资金额：</div>
+        	<div class="Change_Password1_new1_1_R">
+        		<input name="sures" type="text" id="suresMoney" onblur="checks(this)" class="Change_Password_text1 {required:true}" value="" />&nbsp;&nbsp;万元&nbsp;&nbsp;
+        		<span id="suresTishi" style=color:red;></span>
+        	</div>
+		</div>
+      
+		<div class="Change_Password1_new1_1">
+      		<div class="Change_Password1_new1_1_L"><span class="Change_Password_color">*</span>&nbsp;请输入交易密码：</div>
+        	<div class="Change_Password1_new1_1_R">
+        		<input name="password" type="password" id="passwords" maxlength="20" class="Change_Password_text1 {required:true,rangelength:[6,20],messages:{rangelength:'<span style=\'color:red;\'>请输入六位以上的交易密码</span>'}}" value="" />
+        		<span id="passTishi" style="color:red;"></span>
+        	</div>
+		</div>
+      
+      <div class="Change_Password1_new1_2">
+      	<div class="Change_Password1_new1_1_L"></div>
+        <div class="Change_Password1_new1_1_R">
+        	<span id="shows1" style="color:blue;"></span>
+        </div>
+      </div>
+      
+      <!-- 
+		<div class="Change_Password1_new1_2">
+			<div class="Change_Password1_new1_1_L"></div>
+        	<div class="Change_Password1_new1_1_R"><input name="" type="checkbox" value="" />&nbsp;余额投资&nbsp;勾选后，投资金额以实际投资金额为准！</div>
+		</div>
+	 -->
+      
+		<div class="Change_Password1_new1_2">
+      		<div class="Change_Password1_new1_1_L"></div>
+        	<div class="Change_Password1_new1_1_R">
+	        	<input id="agree" name="agree" type="checkbox" value="1" class="{required:true}" checked="checked" onclick="switchAgree(this)"/>&nbsp;
+	        	已阅读并同意&nbsp;
+	        	#if($!Entity_Project.role == "L")<a href="$front_url/final/contract-l.doc">  #else <a href="$front_url/final/contract-g.doc"> #end
+	        		<span class="Change_Password_color2">《投资权益回购履约担保合同》</span>
+	        	</a>&nbsp;
+	        	<img src="$static_url/images/xiazai.png" width="9" height="11" /> <a href=""><span class="Change_Password_color2">下载</span></a>
+	        	<span id="agrees" style="color:red;"></span>
+        	</div>
+        	
+		</div>
+      
+		<div class="Change_Password1_new1_2">
+      		<div class="Change_Password1_new1_1_L"></div>
+        	<div class="Change_Password1_new1_1_R">
+	        	<a id="investLink" href="javascript:invest();" class="anniuRed">确认投资</a>&nbsp;
+	        	<div id ="Success" class="mydiv_success" style="display:none;" onclick="location.href='/investInfo.html?id=$!id'">
+	        		<div id="ss" style="display:none">
+				         <div class="mydiv_success1">
+				         	<img src="$static_url/images/chenggong.png" width="31" height="31" />&nbsp;&nbsp;
+				         </div>
+				         <div class="mydiv_success2">&nbsp;投资成功</div>
+			        </div>
+			        <div id="ff" style="display:none">
+				         <div class="mydiv_success1">
+				         	<img src="$static_url/images/fail.png" width="31" height="31" />&nbsp;&nbsp;
+				         </div>
+				         <div class="mydiv_success2">&nbsp;投资失败</div> 
+			        </div>
+	        	</div>
+	   			<a href="" class="anniu_h">返回</a>
+        	</div>
+		</div>
+	</div>
+    
+	#if($!Entity_Project.status == "F")
+		#if($!shiro.isFrontAuthenticated())
+			#if($!shiro.hasRole("I"))
+			<a href="javascript:showDiv()"class="anniuRed">立即投资</a>&nbsp;
+			#end
+		#else
+			<a href="$front_url/login.html"class="anniuRed">立即投资</a>&nbsp;
+		#end
+	<a href="javascript:history.go(-1);"class="anniu_h">返回</a>
+	#end
+	
+	<div id="bg" class="bg" style="display:none;"></div>
+	<iframe id='popIframe' class='popIframe' frameborder='0' ></iframe>
+	</form> 
+   
+  </div>
+</div>
+
+<div class="invest_main3">
+	<div class="invest_main3_1"><img src="$static_url/images/invest3.png" width="153" height="37" /></div>
+<div class="invest_main3_2">
+        <div class="invest_main3_2_L">
+        项目名称：<span class="colorhui01">$!Entity_Project.name</span><br/>
+        成立金额：<span class="colorhui01">$!Entity_Project.totalAmount元</span><br/>
+		
+        年化率：<span class="colorhui01">$!numberTool.format("0.00",$!percents)%</span><br/>
+        借款期限：<span class="colorhui01">$!{Map_CodeList_LoanType_Map.get($!{Entity_Project.getPeriodType()}).get($!{Entity_Project.getPeriod()}).getName()}</span><br/>
+        资金用途：<span class="colorhui01">$!Entity_Project.purpose</span>
+        </div>
+        <div class="invest_main3_2_R">
+        合同编号：<span class="colorhui01">$!Entity_Project.contractNo</span><br/>
+        担保函编号：<span class="colorhui01">$!Entity_Guarantee.getGuaranteeLetterSn()</span><br/>
+        投资接受方：<span class="colorhui01">$!Entity_User.getUserName()</span><br/>
+        兑付方式：<span class="colorhui01">$!{Map_CodeList_CommissionTemplateType.get($!{Entity_CommissionTemplate.getAllotType()}).getName()}</span><br/>
+        
+        </div>
+    </div>
+  
+  <div class="invest_main3_3"><img src="$static_url/images/invest4-1.png" width="153" height="37" /></div>
+</div>
+
+<!--借款人信息披露Start -->
+<div class="invest_main3_2_jz">
+	<div class="invest_main3_2_jz_one line_bottom">
+    	<div class="invest_main3_2_jz_one_L">
+        <span class="invest_main3_2_jz_span1">借款人信息</span><br/>
+        借款人：<span class="invest_main3_2_jz_span2">$!Entity_LoaneeInfo.getLoaneeName()</span><br/>
+        身份证号：<span class="invest_main3_2_jz_span2">$!Entity_LoaneeInfo.getLoaneeIdSerial() </span><br/>
+        年龄：<span class="invest_main3_2_jz_span2">$!Entity_LoaneeInfo.getLoaneeAge() 岁</span><br/>
+        性别：<span class="invest_main3_2_jz_span2">#if($!Entity_LoaneeInfo.getLoaneeSex()=="M")&nbsp;先生&nbsp;#else &nbsp;女士 #end</span><br/>
+        居住地：<span class="invest_main3_2_jz_span2">$!Entity_LoaneeInfo.getLoaneeAddress()</span><br/>
+        婚姻状况：<span class="invest_main3_2_jz_span2">#if($!Entity_LoaneeInfo.getLoaneeMaritalStatus()=="1")&nbsp;未婚&nbsp;#elseif($!Entity_LoaneeInfo.getLoaneeMaritalStatus()=="2")&nbsp;已婚&nbsp; #elseif($!Entity_LoaneeInfo.getLoaneeMaritalStatus()=="3")&nbsp;离异#end</span><br/>
+
+		</div>
+        <div class="invest_main3_2_jz_one_R">
+        <span class="invest_main3_2_jz_span1">财富箱信用记录</span><br/>
+        累计成功借款：<span class="invest_main3_2_jz_span2">$!Entity_LoaneeInfo.getLoaneeHadCount() 笔</span><br/>
+        累计借款金额：<span class="invest_main3_2_jz_span2">$!Entity_LoaneeInfo.getLoaneeHadAmount()  万元</span><br/>
+        当前待还金额：<span class="invest_main3_2_jz_span2">$!Entity_LoaneeInfo.getLoaneeNeedRepay() 万元</span><br/>
+        累计逾期还款：<span class="invest_main3_2_jz_span2">$!Entity_LoaneeInfo.getLoaneeMissedRepay() 万元</span><br/>
+
+        </div>
+    </div>
+    
+    <div class="invest_main3_2_jz_one line_bottom">
+    	<span class="invest_main3_2_jz_span1">借款人关联企业信息</span><br/>
+        资金用途：<span class="invest_main3_2_jz_span2">$!Entity_LoaneeInfo.getLoaneePurpose()</span><br/>
+        还款来源：<span class="invest_main3_2_jz_span2">$!Entity_LoaneeInfo.getLoaneeSource()</span><br/>
+        经营地址：<span class="invest_main3_2_jz_span2">$!Entity_LoaneeInfo.getLoaneeEntAddress()</span><br/>
+        经营范围：<span class="invest_main3_2_jz_span2">$!Entity_LoaneeInfo.getLoaneeEntScope()</span><br/>
+        注册资金：<span class="invest_main3_2_jz_span2">$!Entity_LoaneeInfo.getLoaneeEntMoney()  万元</span><br/>
+        成立时间：<span class="invest_main3_2_jz_span2">$!Entity_LoaneeInfo.getLoaneeEntBorn()</span><br/>
+        上年营业收入：<span class="invest_main3_2_jz_span2">$!Entity_LoaneeInfo.getLoaneeEntLastYear() 万元</span><br/>
+        本年当前营业收入：<span class="invest_main3_2_jz_span2">$!Entity_LoaneeInfo.getLoaneeEntThisYear() 万元</span><br/>
+
+
+    </div>
+    
+     <div class="invest_main3_2_jz_one">
+    	
+        <span class="invest_main3_2_jz_span1">公开信息查询结果：</span><br/>
+        人民银行征信查询：<span class="invest_main3_2_jz_span2">$!Entity_LoaneeInfo.getLoaneePbVoucher()</span><br/>
+    	全国法院被执行人信息查询：<span class="invest_main3_2_jz_span2">$!Entity_LoaneeInfo.getLoaneeLoaneeVoucher()</span><br/>
+##        全国企业信用信息公示系统查询：<span class="invest_main3_2_jz_span2">$!Entity_LoaneeInfo.getLoaneeEntVoucher()</span><br/>
+
+
+    </div>
+    
+</div>
+
+<!--借款人信息披露End -->
+
+<div class="invest_main3_3"><img src="$static_url/images/invest4.png" width="153" height="37" /></div>
+
+<div class="invest_main4">
+	<div class="invest_main4_1">
+	<span class="colorhui01">
+    #if($!Entity_Project.getType()=="G")	担保机构：#elseif($!Entity_Project.getType()=="L") 风控机构：#end
+	$!Map_User_Guarantee.get($!Entity_Project.guaranteeUserId)<br/>
+	#if($!Entity_Project.status =="F" ||$!Entity_Project.status =="FC" ||$!Entity_Project.status =="FF" ||$!Entity_Project.status =="P" ||$!Entity_Project.status =="GR")
+		#if($!Entity_Project.getType()=="G")	承诺函：#elseif($!Entity_Project.getType()=="L") 意向函：#end
+	#else
+		#if($!Entity_Project.getType()=="G")	担保函：#elseif($!Entity_Project.getType()=="L") 承诺函：#end
+    #end
+    </span>
+    </div>
+    <div class="invest_main4_2">
+	<div class="box">
+        <div id="imgs" class="imgs">
+        <img src="$uploads/$!Entity_Guarantee.getCommitmentLetterPath()">
+        </div>
+    </div>
+    
+    <script>
+	    ;!function(){
+	    layer.use('extend/layer.ext.js', function(){
+	        //初始加载即调用，所以需放在ext回调里
+	        layer.ext = function(){
+	            layer.photosPage({
+	                    title: '风控信息图片',
+	                    id: 100, //相册id，可选
+	                    parent:'#imgs'
+	                });
+	            };
+	    });
+	    }();
+    </script>	
+    </div>
+	
+</div>
+<div class="invest_main5"><img src="$static_url/images/invest5.png" width="998" height="37" /></div>
+
+#parse("layout/footer.vm")
+
+<script type="text/javascript">
+　　function numtoch(Num) 
+　　{ 
+　　for(i=Num.length-1;i>=0;i--) 
+　　{ 
+　　Num = Num.replace(",","")//替换tomoney()中的"," 
+　　Num = Num.replace(" ","")//替换tomoney()中的空格 
+　　} 
+　　Num = Num.replace("￥","")//替换掉可能出现的￥字符 
+　　if(isNaN(Num)) 
+　　{ //验证输入的字符是否为数字 
+　　//alert("请检查小写金额是否正确"); 
+　　return; 
+　　} 
+　　//---字符处理完毕，开始转换，转换采用前后两部分分别转换---// 
+　　part = String(Num).split("."); 
+　　newchar = ""; 
+　　//小数点前进行转化 
+　　for(i=part[0].length-1;i>=0;i--) 
+　　{ 
+　　if(part[0].length > 10) 
+　　{ 
+　　alert("位数过大，无法计算"); 
+　　return ""; 
+　　}//若数量超过拾亿单位，提示 
+　　tmpnewchar = "" 
+　　perchar = part[0].charAt(i); 
+　　switch(perchar) 
+　　{ 
+　　case "0": tmpnewchar="零" + tmpnewchar ;break; 
+　　case "1": tmpnewchar="壹" + tmpnewchar ;break; 
+　　case "2": tmpnewchar="贰" + tmpnewchar ;break; 
+　　case "3": tmpnewchar="叁" + tmpnewchar ;break; 
+　　case "4": tmpnewchar="肆" + tmpnewchar ;break; 
+　　case "5": tmpnewchar="伍" + tmpnewchar ;break; 
+　　case "6": tmpnewchar="陆" + tmpnewchar ;break; 
+　　case "7": tmpnewchar="柒" + tmpnewchar ;break; 
+　　case "8": tmpnewchar="捌" + tmpnewchar ;break; 
+　　case "9": tmpnewchar="玖" + tmpnewchar ;break; 
+　　} 
+　　switch(part[0].length-i-1) 
+　　{ 
+　　case 0: tmpnewchar = tmpnewchar +"元" ;break; 
+　　case 1: if(perchar!=0)tmpnewchar= tmpnewchar +"拾" ;break; 
+　　case 2: if(perchar!=0)tmpnewchar= tmpnewchar +"佰" ;break; 
+　　case 3: if(perchar!=0)tmpnewchar= tmpnewchar +"仟" ;break; 
+　　case 4: tmpnewchar= tmpnewchar +"万" ;break; 
+　　case 5: if(perchar!=0)tmpnewchar= tmpnewchar +"拾" ;break; 
+　　case 6: if(perchar!=0)tmpnewchar= tmpnewchar +"佰" ;break; 
+　　case 7: if(perchar!=0)tmpnewchar= tmpnewchar +"仟" ;break; 
+　　case 8: tmpnewchar= tmpnewchar +"亿" ;break; 
+　　case 9: tmpnewchar= tmpnewchar +"拾" ;break; 
+　　} 
+　　newchar = tmpnewchar + newchar; 
+　　}//for 
+　　//小数点之后进行转化 
+　　if(Num.indexOf(".")!=-1) 
+　　{ 
+　　if(part[1].length > 2) 
+　　{ 
+　　//alert("小数点之后只能保留两位,系统将自动截段"); 
+　　part[1] = part[1].substr(0,2) 
+　　} 
+　　for(i=0;i<part[1].length;i++) 
+　　{//for2 
+　　tmpnewchar = "" 
+　　perchar = part[1].charAt(i) 
+　　switch(perchar) 
+　　{
+　　case "0": tmpnewchar="零" + tmpnewchar ;break; 
+　　case "1": tmpnewchar="壹" + tmpnewchar ;break; 
+　　case "2": tmpnewchar="贰" + tmpnewchar ;break; 
+　　case "3": tmpnewchar="叁" + tmpnewchar ;break; 
+　　case "4": tmpnewchar="肆" + tmpnewchar ;break; 
+　　case "5": tmpnewchar="伍" + tmpnewchar ;break; 
+　　case "6": tmpnewchar="陆" + tmpnewchar ;break; 
+　　case "7": tmpnewchar="柒" + tmpnewchar ;break; 
+　　case "8": tmpnewchar="捌" + tmpnewchar ;break; 
+　　case "9": tmpnewchar="玖" + tmpnewchar ;break;
+　　}
+　　if(i==0)tmpnewchar =tmpnewchar + "角"; 
+　　if(i==1)tmpnewchar = tmpnewchar + "分"; 
+　　newchar = newchar + tmpnewchar; 
+　　}//for2
+　　}
+　　//替换所有无用汉字
+　　while(newchar.search("零零") != -1) 
+　　newchar = newchar.replace("零零", "零"); 
+　　newchar = newchar.replace("亿零万", "亿"); 
+　　newchar = newchar.replace("零亿", "亿"); 
+　　newchar = newchar.replace("亿万", "亿"); 
+　　newchar = newchar.replace("零万", "万"); 
+　　newchar = newchar.replace("零元", "元"); 
+　　newchar = newchar.replace("零角", ""); 
+　　newchar = newchar.replace("零分", ""); 
+　　if (newchar.charAt(newchar.length-1) == "元" || newchar.charAt(newchar.length-1) == "角") 
+　　newchar = newchar+"整" 
+　　return newchar; 
+　　}
+</script>
+</body>
+</html>

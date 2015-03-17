@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <title>倍赢金融财富箱</title>
+	#parse("layout/head.vm")
+	<link rel="stylesheet" type="text/css" href="$static_url/css/index.css"/>
+	<link rel="stylesheet" type="text/css" href="$static_url/css/enroll.css"/>
+	<style type="text/css">
+		body {
+			background-repeat: repeat-x;
+			background-color:#FFF;
+		}
+		body,td,th {
+			font-family: "微软雅黑";
+			color: #8b8b8c;
+		}
+	</style>
+</head>
+
+<body>
+
+#parse("layout/header.vm")
+
+<div class="enroll">
+    <div class="enroll_cg">
+    	<div class="enroll_cg1">1.用户注册</div>
+        <div class="enroll_cg1">2.发送激活邮件</div>
+        <div class="enroll_cg1">3.用户激活</div>
+        <div class="enroll_cg2">4.激活成功</div>
+        <div class="enroll_cg3"></div>
+    </div>
+
+	<div class="enroll_all">
+
+        <div class="e_fail">
+        	<div style="width:934px; height:31px;">
+	   	   		<div class="e_fail_1"><img src="$static_url/images/chenggong.png" width="31" height="31" />&nbsp;</div>
+	        	<div class="e_fail_2">恭喜您：$!userRegister.userName，您的账号激活成功！ 为了保证您的资金安全，请开通乾多多账户 </div>
+            </div>
+            
+            <div style="width:934px; height:31px;">
+	   	   		<div class="e_fail_1">&nbsp;</div>
+	        	<div class="e_fail_3"> 请点此<a href="$front_url/login.html"><span class="e_color3">登录</span></a></div>
+            </div> 
+            
+			#if($!needRegister == "1")
+            <div style="width:934px; height:31px;">
+	   	   		<div class="e_fail_1">&nbsp;</div>
+	            <div class="e_fail_3"> 请点此<a href="$!needRegisterUrl" target="_blank"><span class="e_color3"> 开通乾多多账户</span></a></div>
+            </div> 
+			#end
+        </div>
+	</div>
+</div>
+
+</body>
+</html>

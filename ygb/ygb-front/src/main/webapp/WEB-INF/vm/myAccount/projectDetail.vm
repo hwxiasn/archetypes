@@ -1,0 +1,88 @@
+
+
+        <div class="Trading_inquiry2_1_xq1"><span class="Trading_inquiry_color2">基本信息：</span></div>
+        
+        <div class="Trading_inquiry_xq2">
+        	<div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">合同编号：</div>
+                <div class="Trading_inquiry_xq2_1_R">$!Entity_ProjectDetail.getProject().getContractNo()</div>
+            </div>
+            <div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">需求金额：</div>
+                <div class="Trading_inquiry_xq2_1_R">$!Entity_ProjectDetail.getProject().getTotalAmount()元</div>
+            </div>
+            <div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">年化收益率：</div>
+                <div class="Trading_inquiry_xq2_1_R">$!Entity_ProjectDetail.getInterestPercent()</div>
+            </div>
+            <div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">期限：</div>
+                <div class="Trading_inquiry_xq2_1_R">$!Entity_ProjectDetail.project.periodDays天</div>
+            </div>
+            <div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">最低投资：</div>
+                <div class="Trading_inquiry_xq2_1_R">$!Entity_ProjectDetail.project.minimalInvestment元</div>
+            </div>
+            <div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">担保函编号：</div>
+                <div class="Trading_inquiry_xq2_1_R">$!Entity_Guarantee.guaranteeLetterSn</div>
+            </div>
+            <div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">投资截至时间：</div>
+                <div class="Trading_inquiry_xq2_1_R">
+                	$!dateTool.format('yyyy-MM-dd', $!Entity_ProjectDetail.project.investEndDate) 
+                </div>
+            </div>
+            <div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">合同成立时间：</div>
+                <div class="Trading_inquiry_xq2_1_R">
+                	$!dateTool.format('yyyy-MM-dd', $!Entity_ProjectDetail.project.settleDate)
+                </div>
+            </div>
+            <div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">到期时间：</div>
+                <div class="Trading_inquiry_xq2_1_R">
+                	$!dateTool.format('yyyy-MM-dd', $!Entity_ProjectDetail.project.dueDate)
+                </div>
+            </div>
+            <div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">兑付方式：</div>
+                <div class="Trading_inquiry_xq2_1_R">$!Entity_ProjectDetail.templateName</div>
+            </div>
+            <div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">项目用途：</div>
+                <div class="Trading_inquiry_xq2_1_R">$!Entity_ProjectDetail.project.purpose</div>
+            </div>
+        </div>
+        
+        <!-- 
+        <div class="Trading_inquiry2_1_xq1"><span class="Trading_inquiry_color2">项目信息：</span></div>
+         -->
+        <div class="Trading_inquiry2_1_xq1"><span class="Trading_inquiry_color2">担保信息：</span></div>
+        
+        <div class="Trading_inquiry_xq3">
+        	<div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">担保机构：</div>
+                <div class="Trading_inquiry_xq2_1_R">$!Entity_ProjectDetail.guaranteeName</div>
+            </div>
+            <!-- 
+            <div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">担保机构话语：</div>
+                <div class="Trading_inquiry_xq2_1_R">$!investRecordDetail.guaranteeEnterpriseRemark</div>
+            </div>
+            -->
+            <div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">担保函：</div>
+                <div class="Trading_inquiry_xq2_1_R"></div>
+            </div>
+
+            <div class="Trading_inquiry_xq3_1">
+				<div class="box">
+					<div id="imgs" class="imgs">
+						<img src="$uploads/$!Entity_Guarantee.getGuaranteeLetterPath()" alt="担保函" />
+##						<img src="$static_url/images/invset6.png" alt="担保函" />
+                    </div>
+                </div>	
+			</div>
+            
+        </div>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+#set($left="trade")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/menu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Trading_inquiry.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color: #FFF;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+</style>
+<script type="text/javascript" src="$static_url/js/My97DatePicker/WdatePicker.js"></script>
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+#parse("myAccount/header.vm")
+
+<form action="" method="post">
+<div class="customer_main2">
+<div class="customer_main2_all">
+	#parse("myAccount/left.vm")
+    <div class="customer_main2_R_new">
+    	<div class="quick_signing_cx">
+		#set($record = "out")		
+        #if($!shiro.hasRole("I"))<a href="$front_url/myAccount/investRecord.html"><span #if($!record == "invest") class="Trading_inquiry_color1" #else class="Trading_inquiry_color2" #end>投资记录</span></a> &nbsp;|&nbsp;#end
+		#if($!shiro.hasRole("B"))<a href="$front_url/myAccount/investAcceptRecord.html"><span #if($!record == "investAccept") class="Trading_inquiry_color1" #else class="Trading_inquiry_color2" #end>投资接受记录</span></a> &nbsp;|&nbsp;#end
+        <a href="$front_url/account/myAccountIn.html"><span #if($!record == "in") class="Trading_inquiry_color1" #else class="Trading_inquiry_color2" #end>划入记录</span></a> &nbsp;|&nbsp;
+        <a href="$front_url/account/myAccountOut.html"><span #if($!record == "out") class="Trading_inquiry_color1" #else class="Trading_inquiry_color2" #end>划出记录</span></a>
+      	</div>
+        
+##        <div class="Trading_inquiry1_new1">
+##       	  <div class="Trading_inquiry1_1">
+##            <div class="Trading_inquiry1_1_1">起止日期：</div>
+##                <div class="Trading_inquiry1_1_2"><input name="startDate" type="text" class="Trading_inquiry——text1" id="beginDate" onfocus="WdatePicker({isShowClear:false,readOnly:true,maxDate:'#F{$dp.$D(\'jsDate\')}',dateFmt:'yyyy-MM-dd'})"/>&nbsp;&nbsp;-&nbsp;&nbsp;<input name="endDate" type="text" class="Trading_inquiry——text1" id="jsDate" onfocus="WdatePicker({isShowClear:false,readOnly:true,minDate:'#F{$dp.$D(\'beginDate\')}',dateFmt:'yyyy-MM-dd'})"/></div>
+##                <div class="Trading_inquiry1_1_3">
+##                &nbsp;&nbsp;<input type="image" src="$static_url/images/chaxun.png" />
+##                </div>
+##            </div>
+##        </div>
+        
+            <div class="Trading_inquiry2_2">
+            	<div class="Trading_inquiry2_2_1">申请划出时间</div>
+                <div class="Trading_inquiry2_2_1">划出流水号</div>
+                <div class="Trading_inquiry2_2_1">划出金额(元)</div>
+                <div class="Trading_inquiry2_2_1">划出银行</div>
+                <div class="Trading_inquiry2_2_1">银行卡号</div>
+                <div class="Trading_inquiry2_2_1">划出状态</div>
+                <div class="Trading_inquiry2_2_1"></div> <!-- 操作 -->
+                <div class="Trading_inquiry2_2_1"></div> <!-- 划出手续费(元) -->
+            </div>
+            
+            #if($!pager.getElements().size()>0)
+				#foreach($myAccountOut in $!pager.getElements())
+            	<div class="Trading_inquiry2_3_new1" style="">
+					<div class="Trading_inquiry2_2_1_new1">$!myAccountOut.getFormatDealDate()</div>
+                    <div class="Trading_inquiry2_2_1_new1">$!myAccountOut.getId()</div>
+                    <div class="Trading_inquiry2_2_1_new1"><span class="Trading_inquiry_color1">$!myAccountOut.getTradeAmount()</span></div>
+                    <div class="Trading_inquiry2_2_1_new1">$!myAccountOut.getDebitBankName()</div>
+                    <div class="Trading_inquiry2_2_1_new1">$!myAccountOut.getDebitAccountNo()</div>
+                    <div class="Trading_inquiry2_2_1_new1">$!Map_Trade_Status.get($!myAccountOut.getTradeStatus())</div>
+                    <div class="Trading_inquiry2_2_1_new1"></div>
+                    <div class="Trading_inquiry2_2_1_new1">&nbsp;</div>
+				</div>  
+            	#end
+			#else
+				<div class="Trading_inquiry2_3_new2">暂时没有划出记录</div>
+			#end        
+        
+		#parse("myAccount/commonPager.vm")
+    </div>
+</div>
+</div>
+</form>
+
+#parse("layout/footer.vm")
+</body>
+<script type="text/javascript">
+	function page(num) {
+		$("form").attr("action", $("form").attr("action")+"?totalRows="+$!pager.totalRows+"&currentPage="+num+"&pagerSize=" + $!pager.pageSize).submit();
+	}
+</script>
+</html>

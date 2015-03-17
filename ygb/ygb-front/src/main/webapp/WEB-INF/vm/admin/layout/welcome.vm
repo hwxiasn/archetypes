@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>业务运营管理系统</title>
+ #parse("admin/layout/head.vm")
+<link href="$static_url/admin/css/css.css" rel="stylesheet" type="text/css" />
+<!--  时间插件  -->
+<script src="$static_url/js/My97DatePicker/WdatePicker.js"></script>
+
+</head>
+<body>
+<!--  欢迎界面  -->
+<div class="Welcome">
+	<div class="WelcomeAll">
+    <img src="$static_url/admin/images/login/by.png" width="208" height="30"><br/><span class="on1">欢迎登录业务运营管理系统</span><br/><span class="on2">Welcome operations management system</span></div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>倍赢金融财富箱--登录</title>
+#parse("layout/head.vm")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/login.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<script src="$static_url/admin/js/jquery.validate.js"></script>
+<script src="$static_url/admin/js/jquery.metadata.js"></script>
+<script type="text/javascript">
+	$(function(){
+    	$("form").validate();
+		$("#checkcodeImg").attr("src","$front_url/checkcode.html?"+Math.random());
+	});
+</script>
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<form action="$front_url/login.html" method="post">
+<div class="user_login">
+	<div class="user_login_all">
+    <img src="$static_url/images/user_login1.png" width="367" height="20" /></div>
+    <div class="user_main">
+    	<div class="user_main_all">
+        	<div class="user_main_R">
+            	<div class="user_main_R1">
+                    <div class="user_font2">
+                    用户登录&nbsp;</div>
+                    <div class="user_font3">
+                    </div>
+                </div>
+                
+                <div class="user_main_R2">
+                   <input id="username" name="userName" type="text" placeHolder="请输入不少于6位的用户名" autofocus style="color:#000000;" class="user_text1 {required:true,minlength:4,messages:{required:'<span style=\'color:red;\'>*</span>',minlength:'<span style=\'color:red;\'>*</span>'}}" />
+                </div>
+                <div class="user_main_R3">
+                   <input id="password" name="password" type="password" placeHolder="请输入不少于6位的登录密码" style="color:#000000;" class="user_text1 {required:true,minlength:6,messages:{required:'<span style=\'color:red;\'>*</span>',minlength:'<span style=\'color:red;\'>*</span>'}}" />
+                </div>
+                
+                <div class="user_main_R4">
+                <span class="errorON" style="margin-left:15px">$!error</span>
+				<a href="javascript:void(0)" tabIndex="-1"><span class="user_color1" onclick="$('#checkcodeImg').trigger('click')">换一张</span></a>
+                </div>
+                
+           		<div class="user_main_R2">
+                <div class="user_main_R2_1"><input id="checkcodes" name="checkcode" style="color:#000000;" maxlength="4" type="text" placeHolder="验证码不区分大小写" class="user_text2 {required:true,messages:{required:'<span style=\'color:red;\'>*</span>'}}" /></div>
+                <div class="user_main_R2_2"><img id="checkcodeImg" onclick="this.src='$front_url/checkcode.html?'+ Math.random()" width="137" height="42" /></div>
+				</div>
+                
+                <div class="user_main_R4">
+                <a href="$front_url/forgetPassword.html"><span class="user_color2">忘记密码</span></a>&nbsp;|&nbsp;
+                <a href="$front_url/register.html"><span class="user_color1">免费注册</span></a>
+                </div>
+                
+                <div class="user_main_R2">
+                   <input type="submit" class="denglu" value="立即登录" />
+                </div>
+                
+                <div class="user_main_R5">
+                   温馨提醒：登录过程中请注意您用户名和密码中的大小写问题，如果不能正常登录，请先尝试切换大小写，若还是失败，请使用"找回密码"功能。
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="user_login_all_b">
+    <img src="$static_url/images/user_login2.png" width="367" height="20" /></div>
+</div>
+</form>
+
+#parse("layout/footer.vm")
+</body>
+</html>

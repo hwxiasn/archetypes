@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+#set($left="trade")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/menu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Trading_inquiry.css" rel="stylesheet" type="text/css" />
+<script src="$static_url/layer/layer.min.js"></script>
+<style type="text/css">
+.box{width:100%; height:100%;}
+.box a{padding-right:15px;}
+#about_hide{display:none}
+.layer_text{background-color:#fff; padding:20px;}
+.layer_text p{margin-bottom: 10px; text-indent: 2em; line-height: 23px;}
+.button{display:inline-block; *display:inline; *zoom:1; line-height:30px; padding:0 20px; background-color:#56B4DC; color:#fff; font-size:14px; border-radius:3px; cursor:pointer; font-weight:normal;}
+.imgs img{width:250px; height:300px; padding:0 3px 3px; cursor:pointer;}	
+
+	
+body {
+	background-repeat: repeat-x;
+	background-color: #FFF;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+</style>
+<script type="text/javascript">
+;!function(){
+    layer.use('extend/layer.ext.js', function(){
+        //初始加载即调用，所以需放在ext回调里
+        layer.ext = function(){
+            layer.photosPage({
+                title: '相关执照图片',
+                id: 100, //相册id，可选
+                parent:'#imgs'
+            });
+        };
+    });
+   }();
+</script>
+</head>
+
+<body>
+#parse("layout/header.vm")
+#parse("myAccount/header.vm")
+
+<form action="" method="post">
+<div class="customer_main2_new">
+<div class="customer_main2_new_all">
+	#parse("myAccount/left.vm")
+    
+    <div class="customer_main2_R_new">
+    <div class="customer_main2_R_all">
+    	<div class="quick_signing_cx">
+        <span class="Trading_inquiry_color1">投资记录</span>
+      	</div>
+        
+        <div class="Trading_inquiry1">
+        	<div class="Trading_inquiry_xq1">
+                <div class="Trading_inquiry_xq1_1">
+                <img src="$static_url/images/xiazai.png" width="9" height="11" />
+##				<a href="$front_url/files/downloadFile.html?projectId=$!id&downType=pdf"><span class="Trading_inquiry_color3">下载担保函（正式）</span></a>&nbsp;&nbsp;
+##				<a href="$front_url/myAccount/downloadUrl.html?downloadUrl=$!{investRecordDetail.guaranteeLetterPath}"><span class="Trading_inquiry_color3">下载担保函（正式）</span></a>&nbsp;&nbsp;
+				#if($!Entity_ProjectDetail.project.contractStatus=="E")<a href="$upload/uploads/contract/$!{Entity_Guarantee.getGuaranteeLetterPath()}" target="_blank">#end
+				<span class="Trading_inquiry_color3">下载担保函（原始）</span></a>&nbsp;&nbsp;
+##				<a href=""><span class="Trading_inquiry_color3">预览</span></a>
+                </div>
+                
+                <div class="Trading_inquiry_xq1_1">
+                <img src="$static_url/images/xiazai.png" width="9" height="11" />
+##				<a href="$front_url/files/downloadFile.html?projectId=$!id&downType=pdf"><span class="Trading_inquiry_color3">下载合同（正式）</span></a>&nbsp;&nbsp;
+				#if($!Entity_ProjectDetail.project.contractStatus=="E")<a href="$upload/uploads/contract/$!{Entity_Guarantee.getGuaranteeContractPath()}" target="_blank">#end
+				<span class="Trading_inquiry_color3">下载合同（原始）</span></a>&nbsp;&nbsp;
+##				<a href=""><span class="Trading_inquiry_color3">预览</span></a>
+                </div>
+                
+                <div class="Trading_inquiry_xq1_1">
+                <img src="$static_url/images/xiazai.png" width="9" height="11" />
+				#if($!Entity_ProjectDetail.project.contractStatus=="E")<a href="$upload/uploads/contract/$!{Entity_Investment.getInvestPath()}" target="_blank">#end
+				<span class="Trading_inquiry_color3">投资凭证（原始）</span></a>&nbsp;&nbsp;
+##				<a href="$front_url/files/downloadFile.html?projectId=$!id&downType=pdf"><span class="Trading_inquiry_color3">投资凭证</span></a>&nbsp;&nbsp;
+                </div>
+                
+                <div class="Trading_inquiry_xq1_2">
+                <span class="Trading_inquiry_color5">提示：“正式”为担保函、合同已加盖公章PDF文件，“原始”为未加盖公章PDF文件</span>&nbsp;&nbsp;
+                </div>
+                
+            </div>
+            
+        </div>
+        
+        <div class="Trading_inquiry2">
+        	<div class="Trading_inquiry2_1"><span class="Trading_inquiry_color2">投资详细信息：</span></div>
+            <div class="Trading_inquiry2_2_New">
+            	<div class="Trading_inquiry2_2_xq1">项目名称</div>
+                <div class="Trading_inquiry2_2_xq1">投资金额(元)</div>
+                <div class="Trading_inquiry2_2_xq1">年化收益率(%)</div>
+                <div class="Trading_inquiry2_2_xq1">期限</div>
+                <div class="Trading_inquiry2_2_xq1">收益金额(元)</div>
+                <div class="Trading_inquiry2_2_xq1">投资日期</div>
+                <div class="Trading_inquiry2_2_xq1">成立日期</div>
+                <div class="Trading_inquiry2_2_xq1">到期日期</div>
+                <div class="Trading_inquiry2_2_xq1">状态</div>
+            </div>
+            
+        </div>
+        
+        <div class="Trading_inquiry2_3_xq" style="">
+        	<div class="Trading_inquiry2_2_1_xq">$!Entity_ProjectDetail.project.name</div>
+            <div class="Trading_inquiry2_2_1_xq">$!Entity_Investment.balance</div>
+            <div class="Trading_inquiry2_2_1_xq">$!Entity_ProjectDetail.interestPercent</div>
+            <div class="Trading_inquiry2_2_1_xq">$!Entity_ProjectDetail.project.periodDays天</div>
+            <div class="Trading_inquiry2_2_1_xq">$!Entity_Investment.balanceDue</div>
+            <div class="Trading_inquiry2_2_1_xq">$!Entity_Investment.formatIssueDate</div>
+            <div class="Trading_inquiry2_2_1_xq">$!Entity_Investment.formatSettledDate</div>
+            <div class="Trading_inquiry2_2_1_xq">$!Entity_Investment.formatDueDate</div>
+            <div class="Trading_inquiry2_2_1_xq">$!Map_Investment_Status.get($!Entity_Investment.statusName)</div>
+        </div>
+        
+		#parse("myAccount/projectDetail.vm")
+        
+        <div class="Trading_inquiry_xq4"><a href="javascript:history.go(-1);" class="anniuBlue2">返回</a></div>
+        
+        
+  	</div>
+    </div>
+  
+</div>
+</div>
+</form>
+
+ #parse("layout/footer.vm")
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>业务运营管理系统</title>
+#parse("admin/layout/head.vm")
+<link href="$static_url/admin/css/css.css" rel="stylesheet" type="text/css" />
+
+<!--    编辑器    -->
+<link rel="stylesheet" href="$static_url/admin/kindeditor/themes/default/default.css" />
+<script charset="utf-8" src="$static_url/admin/kindeditor/kindeditor-min.js"></script>
+<script charset="utf-8" src="$static_url/admin/kindeditor/lang/zh_CN.js"></script>
+<script type="text/javascript">
+	KindEditor.ready(function(K) {
+		K.create('textarea[name="content"]', {
+			autoHeightMode : true,
+			afterCreate : function() {
+				this.loadPlugin('autoheight');
+			}
+		});
+	});
+	$(function(){
+	##	$("input[name='role']").attr("disabled",true);
+	##	$("input[name='status']").attr("disabled",true);
+		$("select[name='bankCode']").attr("disabled",true);
+		$("select[name='province']").attr("disabled",true);
+		$("select[name='city']").attr("disabled",true);
+		$("select[name='bankCode'] > option[value='$!user.bankCode']").attr("selected",true);
+		$("select[name='province'] > option[value='$!user.province']").attr("selected",true);
+		$("select[name='city'] > option[value='$!user.city']").attr("selected",true);
+	});
+</script>
+</head>
+<body>
+<!--  主要内容  -->
+<div class="divMain">
+	<!--  查询开始  -->
+    <form action="" method="post" name="form1">
+	<div class="divMain_chaxun">
+    	<!--  标题  -->
+    	<div class="divMain_add_bt line_botoom">开户基本信息</div>
+        <!--  内容  -->
+        <div class="divMain_xq_all line_botoom">
+        	<!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;用户名：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!user.userName</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;用户角色：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">
+					<!--此处需要处理   -->
+					$!Map_user_role.get($!{user.role}).getName()
+				</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;邮箱：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!user.email</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;手机号码：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!user.mobile</div>
+            </div>
+            
+        </div>
+        <!--  标题  -->
+    	<div class="divMain_add_bt line_botoom">其它信息</div>
+        <!--  内容  -->
+        <div class="divMain_xq_all line_botoom">
+        	<!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;真实姓名：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!user.realName</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;身份证号码：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!user.idNum</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;身份证到期日期：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!user.idValidTo</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;上传身份证正面照片：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!user.idCopyFront</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;上传身份证反面照片：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!user.idCopyBank</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;开户银行：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">
+					<!--此处需要处理   -->
+					<select name="bankCode" class="select100">
+						<option value="">请选择银行</option>
+						#foreach($item in $!banks)
+							<option value="$!item.code" #if($!user.bankCode == $!item.code) selected="selected" #end>$!item.name</option>
+						#end
+					</select>
+				</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;银行卡号：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!user.bankCardNum</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;银行开户名：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!user.bankCardAccountName</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;开户行所在地：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">
+					<select id="province" name="province" class="select100 {required:true,messages:{required:'<span style=\'color:red;\'>请选择省</sapn>'}}" >
+						<option selected="selected">请选择省</option>
+						#foreach($item in $!provinces)
+							<option value="$!item.code" #if($!user.province == $!item.code) selected="selected" #end>$!item.name</option>
+						#end
+					</select>
+					<select id="city" name="city" class="select100 {required:true,messages:{required:'<span style=\'color:red;\'>请选择城市</sapn>'}}">
+						<option value="">请选择市</option>
+						#foreach($item in $!cities)
+							<option value="$!item.code" #if($!user.city == $!item.code) selected="selected" #end>$!item.name</option>
+						#end
+					</select>
+				</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;邮寄地址：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!user.address</div>
+            </div>
+            <!--   块   -->
+##        	<div class="divMain_xq_allOne">
+##            	<!--   左   -->
+##            	<div class="divMain_xq_allOne_L">*&nbsp;邮编：</div>
+##                <!--   右   -->
+##            	<div class="divMain_xq_allOne_R">400225</div>
+##            </div>
+            <!--   块   -->
+        	<div class="divMain_xq_allOneA">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;备注：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">
+                $!user.memo
+                </div>
+            </div>
+            <div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;用户状态：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">
+					<!--此处需要处理   -->
+					$!Map_user_status.get($!{user.status}).getName()
+				</div>
+            </div>
+        </div>
+        
+        <!--  分页  -->
+        <div class="divMain_fenye">
+        	<div class="divMain_fenyeL"><a href="javascript:history.go(-1);" class="anniu_hui100">返回</a></div>
+        </div>
+    </div>
+    </form>
+    <!--  查询结束  -->
+    
+</div>
+
+</body>
+</html>

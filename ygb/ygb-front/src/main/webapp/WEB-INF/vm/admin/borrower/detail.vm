@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>业务运营管理系统</title>
+        #parse("admin/layout/head.vm")
+        <link href="$static_url/admin/css/css.css" rel="stylesheet" type="text/css" />
+
+    </head>
+    <body>
+        <!--  主要内容  -->
+        <div class="divMain">
+            <!--  查询开始  -->
+            <form action="" action="$admin_url/product/guaranteeCheck.html" enctype="multipart/form-data" method="post" name="guaranteeForm">
+                <div class="divMain_chaxun">
+                    <!--  标题  -->
+                    <div class="divMain_add_bt line_botoom">借款人预约信息详情</div>
+                    <!--  内容  -->
+                    <div class="divMain_xq_all line_botoom">
+                        <!--   块   -->
+                        <div class="divMain_xq_allOne">
+                            <!--   左   -->
+                            <div class="divMain_xq_allOne_L">*&nbsp;姓名：</div>
+                            <!--   右   -->
+                            <div class="divMain_xq_allOne_R_new">$!object.name</div>
+                            <!--   左   -->
+                            <div class="divMain_xq_allOne_L">*&nbsp;年龄：</div>
+                            <!--   右   -->
+                            <div class="divMain_xq_allOne_R">$!object.age</div>
+                        </div>
+                        <!--   块   -->
+                        <div class="divMain_xq_allOne">
+                            <!--   左   -->
+                            <div class="divMain_xq_allOne_L">*&nbsp;身份证号：</div>
+                            <!--   右   -->
+                            <div class="divMain_xq_allOne_R_new">$!object.idSerial</div>
+                            <!--   左   -->
+                            <div class="divMain_xq_allOne_L">*&nbsp;性别：</div>
+                            <!--   右   -->
+                            <div class="divMain_xq_allOne_R">$!object.sex</div>
+                        </div>
+                        <!--   块   -->
+                        <div class="divMain_xq_allOne">
+                            <!--   左   -->
+                            <div class="divMain_xq_allOne_L">*&nbsp;婚姻状况：</div>
+                            <!--   右   -->
+                            <div class="divMain_xq_allOne_R_new">$!object.maritalStatus</div>
+                            <!--   左   -->
+                            <div class="divMain_xq_allOne_L">*&nbsp;联系电话：</div>
+                            <!--   右   -->
+                            <div class="divMain_xq_allOne_R">$!object.phone</div>
+                        </div>
+                        <!--   块   -->
+                        <div class="divMain_xq_allOne">
+                            <!--   左   -->
+                            <div class="divMain_xq_allOne_L">*&nbsp;QQ：</div>
+                            <!--   右   -->
+                            <div class="divMain_xq_allOne_R_new">1245236589</div>
+                            <!--   左   -->
+                            <div class="divMain_xq_allOne_L">*&nbsp;居住地址：</div>
+                            <!--   右   -->
+                            <div class="divMain_xq_allOne_R">$!object.address</div>
+                        </div>
+                    </div>
+                    <div class="divMain_add_bt line_botoom">借款人关联企业信息</div>
+          
+                      <!--   块   -->
+                        <div class="divMain_xq_allOne">
+                            <!--   左   -->
+                            <div class="divMain_xq_allOne_L">*&nbsp;借款金额：</div>
+                            <!--   右   -->
+                            <div class="divMain_xq_allOne_R_new"><span class="Mcolor_1">$!object.loanAmount</span>&nbsp;&nbsp;万元</div>
+                            <!--   左   -->
+                            <div class="divMain_xq_allOne_L">*&nbsp;借款期限：</div>
+                            <!--   右   -->
+                            <div class="divMain_xq_allOne_R"><span class="Mcolor_1">$!object.loanTerm</span>&nbsp;&nbsp;个月</div>
+                        </div>
+                         <!--   块   -->
+                        <div class="divMain_xq_allOne">
+                            <!--   左   -->
+                            <div class="divMain_xq_allOne_L">*&nbsp;资金用途：</div>
+                            <!--   右   -->
+                            <div class="divMain_xq_allOne_R_new">$!object.purpose</div>
+                            <!--   左   -->
+                            <div class="divMain_xq_allOne_L">*&nbsp;还款来源：</div>
+                            <!--   右   -->
+                            <div class="divMain_xq_allOne_R">$!object.returnSource</div>
+                        </div>
+                         <!--   块   -->
+                        <div class="divMain_xq_allOne">
+                            <!--   左   -->
+                            <div class="divMain_xq_allOne_L">*&nbsp;经营范围：</div>
+                            <!--   右   -->
+                            <div class="divMain_xq_allOne_R_new">$!object.businessScope</div>
+                            <!--   左   -->
+                            <div class="divMain_xq_allOne_L">*&nbsp;注册资金：</div>
+                            <!--   右   -->
+                            <div class="divMain_xq_allOne_R"><span class="Mcolor_1">$!object.registerCapital</span>&nbsp;&nbsp;万元</div>
+                        </div>
+                         <!--   块   -->
+                        <div class="divMain_xq_allOne">
+                            <!--   左   -->
+                            <div class="divMain_xq_allOne_L">*&nbsp;成立时间：</div>
+                            <!--   右   -->
+                            <div class="divMain_xq_allOne_R_new">$!object.foundYear年$!object.foundMonth月</div>
+                        </div>
+                         <!--   块   -->
+                        <div class="divMain_xq_allOne">
+                            <!--   左   -->
+                            <div class="divMain_xq_allOne_L">*&nbsp;留言信息：</div>
+                            <!--   右   -->
+                            <div class="divMain_xq_allOne_R_new"><textarea name="" cols="50" rows="10">$!object.message</textarea></div>
+                        </div>
+                        <!--  分页  -->
+                        <div class="divMain_fenye">
+        	                <div class="divMain_fenyeL"><a href="javascript:history.go(-1);" class="anniu_hui100">返回</a></div>
+                        </div>
+                    </div>
+               </form>
+           </div>
+         </body>
+     </html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>业务运营管理系统</title>
+#parse("admin/layout/head.vm")
+<link href="$static_url/admin/css/css.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+	$(function(){
+    	$("select[name='role'] > option[value='$!user.role']").attr("selected",true);
+    	$("select[name='status'] > option[value='$!user.status']").attr("selected",true);
+	});
+	function userStatus(id, status, a){
+		if(confirm("确认要"+$(a).text()+"吗？")){
+    		jQuery.get("$admin_url/customer/userStatus.json?id="+id+"&status="+status,function(data){
+    			if(data.success){
+    				if(status=="L"){
+        				$(a).text("解冻").attr("onclick","userStatus('"+id+"', 'A', this)");
+    					$("#status-"+id).text(data.user.statusName);
+    				}else if(status=="D"){
+        				$(a).text("解禁").attr("onclick","userStatus('"+id+"', 'A', this)");
+    					$("#status-"+id).text(data.user.statusName);
+						$(a).siblings("a").each(function(){
+							if($(this).text()=="解冻"){
+								$(this).off("click");			##//去掉jquery绑定的
+								$(this).removeAttr("onclick");
+								$(this).css("color","gray");
+							}else if($(this).text()=="冻结"){		
+								$(this).off("click");
+								$(this).removeAttr("onclick");
+								$(this).css("color","gray");
+							}
+						});
+					}else if(status=="A"){
+        				$(a).text("禁用").attr("onclick","userStatus('"+id+"', 'D', this)");
+    					$("#status-"+id).text(data.user.statusName);
+						$(a).siblings("a").each(function(){
+							if($(this).text()=="解冻"){
+								$(this).attr("onclick","userStatus('"+id+"', 'L', this)");			##click传参
+								$(this).removeAttr("style");
+							}else if($(this).text()=="冻结"){								
+								$(this).attr("onclick","userStatus('"+id+"', 'L', this)");
+								$(this).removeAttr("style");
+							}
+						});
+					}else if(status=="J"){
+        				$(a).text("冻结").attr("onclick","userStatus('"+id+"', 'L', this)");
+##    					//$("#status-"+id).text(data.user.statusName);
+    					$("#status-"+id).text("正常");
+					}
+##					else{
+##						$(a).parent().children("[onclick]").attr("onclick","");
+##    					$("#status-"+id).text("正常");
+##					}
+    			}
+    		});
+		}
+	}
+	##发邮件
+	function sendEmail(a, userId){
+	jQuery.get('$admin_url/customer/sendEmail.html?userId='+userId,function(response){
+		$(a).attr("onclick","").text("已发送");
+	});
+	}
+</script>
+</head>
+<body>
+<!--  主要内容  -->
+<div class="divMain">
+	<!--  查询开始  -->
+    <form action="$admin_url/customer/user.html" method="post" id="queryForm">
+	<div class="divMain_chaxun">
+    	<!--  标题  -->
+    	<div class="divMain_chaxun_bt line_botoom">查询</div>
+        <!--  查询条件  -->
+        <div class="divMain_chaxun_m">
+        <!--  查询条件比较多多的情况，字段尽量为4个字，特别是每排第一个字段，尽量让排整齐板式好看；查询条件少，一排显示就不管  -->
+        <!--   div高度不定,多了自动挤到下一排   -->
+        	<div class="divMain_chaxun_mOne">用户姓名：<input name="userName" type="text" class="text100" value="$!user.userName" maxlength="20"></div>
+        	<div class="divMain_chaxun_mOne">真实姓名：<input name="realName" type="text" class="text100" value="$!user.realName" maxlength="20"></div>
+        	<div class="divMain_chaxun_mOne">客户编号：<input name="customerNum" type="text" class="text100" value="$!user.customerNum" maxlength="10"></div>
+        	<div class="divMain_chaxun_mOne">用户角色：
+				<select name="role" class="select100">
+					<option value="">全部</option>
+					#foreach($item in $!roles)
+						<option value="$!item.code">$!item.name</option>
+					#end
+				</select>
+			</div>
+			<div class="divMain_chaxun_mOne">用户状态：
+				<select name="status" class="select100">
+					<option value="">全部</option>
+					#foreach($item in $!statuses)
+						<option value="$!item.code">$!item.name</option>
+					#end
+				</select>
+			</div>
+            <!--  按钮  -->
+        	<div class="divMain_chaxun_mAnniu"><input type="submit" value="查 询" class="anniu_blue"></div>
+        </div>
+    </div>
+    </form>
+    <!--  查询结束  -->
+    <!--  列表开始  -->
+	<div class="divMain_chaxun">
+   		<!--  标题  -->
+    	<div class="divMain_liebiao_bt line_botoom">
+        	<!--每个divMain_liebiao_one01宽度未定，根据具体情况定百分比，加起来总的等于100%-->
+        	<span class="divMain_liebiao_one01" style="width:1%;">&nbsp;</span><span class="divMain_liebiao_one01" style="width:12%;">客户编号</span><span class="divMain_liebiao_one01" style="width:8%;">用户名</span><span class="divMain_liebiao_one01" style="width:10%;">真实姓名</span><span class="divMain_liebiao_one01" style="width:11%;">用户角色</span><span class="divMain_liebiao_one01" style="width:13%;">推荐人编号</span><span class="divMain_liebiao_one01" style="width:12%;">创建时间</span><span class="divMain_liebiao_one01" style="width:9%;">状态</span><span class="divMain_liebiao_one01" style="width:24%;">&nbsp;操作</span>
+        </div>
+        <!--   一条内容   -->
+		#if($!pager && $!pager.elements && $!pager.elements.size()>0)
+			#foreach($userItem in $pager.elements)
+            <div class="divMain_liebiao_all line_botoom">
+            	<span class="divMain_liebiao_one01" style="width:1%;"></span><span class="divMain_liebiao_all01" style="width:12%;">$!userItem.customerNum</span><span class="divMain_liebiao_all01" style="width:8%;">$!userItem.userName</span><span class="divMain_liebiao_all01" style="width:10%;">$!userItem.realName</span><span class="divMain_liebiao_all01" style="width:11%;">$!userItem.roleName</span><span class="divMain_liebiao_all01" style="width:13%;">$!userItem.refererNumber</span><span class="divMain_liebiao_all01" style="width:12%;">$!userItem.createTime</span><span class="divMain_liebiao_all01" style="width:9%;" id="status-$!userItem.id">$!userItem.statusName</span><span class="divMain_liebiao_all01 color_blue" style="width:24%;"><a href="$admin_url/customer/skipUserEdit.html?id=$!userItem.id">修改</a>|
+        				#if("$!userItem.status"=="L")
+    						<a href="javascript:void(0)" #if("$!userItem.status"!="D") onclick="userStatus('$!userItem.id', 'A', this)" #else style="color:gray" #end>解冻</a>|
+    					#else
+    						<a href="javascript:void(0)" #if("$!userItem.status"!="D") onclick="userStatus('$!userItem.id', 'L', this)" #else style="color:gray" #end>冻结</a>|
+    					#end
+    					#if("$!userItem.status"=="D")
+    					<a href="javascript:void(0)" onclick="userStatus('$!userItem.id', 'A', this)">解禁</a>|
+    					#else
+    					<a href="javascript:void(0)" onclick="userStatus('$!userItem.id', 'D', this)">禁用</a>|
+    					#end
+					<a href="$admin_url/customer/userDetail.html?id=$!userItem.id">详情</a>
+					#if("$!userItem.status"=="I")
+						|<a href="javascript:void(0)" onclick="sendEmail(this,'$!userItem.id')">重发邮件</a>
+					#end
+    			</span>
+            </div>
+            #end
+		#else
+			<div class="divNone line_botoom">暂无信息</div>
+		#end
+        <!--   分页开始   -->
+##        <form action="" method="post" name="form1">
+        <div class="divMain_fenye">
+        	<div class="divMain_fenyeL"><a href="$admin_url/customer/skipUserAdd.html" class="anniu_blue">新增个人用户</a></div>
+			#parse("admin/layout/pager.vm")
+            <!--<a href="" class="on">首页</a> 在哪个页面，就加个样式class="on"-->
+##            <div class="divMain_fenyeR">显示第&nbsp;1-10&nbsp;条记录，共&nbsp;20&nbsp;条记录
+##				<a href="" class="on">首页</a>|
+##				<a href="">上一页</a>|
+##				<a href="">下一页</a>|
+##				<a href="">尾页</a>|
+##				<input type="text" class="text40">
+##					<input type="submit" class="anniu_hui" value="确定">
+##			</div>
+        </div>
+##        </form>
+        <!--   分页结束   -->
+    </div>
+   <!--  列表结束  -->
+</div>
+
+</body>
+</html>

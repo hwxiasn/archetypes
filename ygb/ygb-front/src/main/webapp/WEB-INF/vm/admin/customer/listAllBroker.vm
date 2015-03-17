@@ -1,0 +1,49 @@
+## 查看系统中所有的营销机构
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <title>业务运营管理系统</title>
+	#parse("admin/layout/head.vm")
+	<link href="$static_url/admin/css/css.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!--  主要内容  -->
+<div class="divMain">
+    <form action="$admin_url/customer/listAllBroker.html" method="post" id="queryForm">
+	<div class="divMain_chaxun">
+    	<div class="divMain_chaxun_bt line_botoom">查询</div>
+        <div class="divMain_chaxun_m">
+        	<div class="divMain_chaxun_mOne">用户名：
+				<input type="hidden" name="marketingUserId" value="$!marketingSearch.marketingUserId"/>
+				<input name="userName" type="text" class="text100" value="$!marketingSearch.userName" maxlength="20">
+			</div>
+        	<div class="divMain_chaxun_mOne">企业名称：<input name="enterpriseName" type="text" class="text100" value="$!marketingSearch.enterpriseName" maxlength="20"></div>
+        	<div class="divMain_chaxun_mOne">客户编号：<input name="customerNum" type="text" class="text100" value="$!marketingSearch.customerNum" maxlength="20"></div>
+        	<div class="divMain_chaxun_mAnniu"><input type="submit" value="查 询" class="anniu_blue"></div>
+        </div>
+    </div>
+    </form>
+	<div class="divMain_chaxun">
+    	<div class="divMain_liebiao_bt line_botoom">
+        	<span class="divMain_liebiao_one01" style="width:1%;">&nbsp;</span><span class="divMain_liebiao_one01" style="width:20%;">客户编号</span><span class="divMain_liebiao_one01" style="width:20%;">用户名</span><span class="divMain_liebiao_one01" style="width:9%;">真实姓名</span><span class="divMain_liebiao_one01" style="width:18%;">创建时间</span><span class="divMain_liebiao_one01" style="width:12%;">状态</span><span class="divMain_liebiao_one01" style="width:20%;">&nbsp;操作</span>
+        </div>
+        <!--   一条内容   -->
+		#if($!pager.elements.size()>0)
+			#foreach($marketingItem in $pager.elements)
+            <div class="divMain_liebiao_all line_botoom">
+            	<span class="divMain_liebiao_one01" style="width:1%;"></span><span class="divMain_liebiao_all01" style="width:20%;">$!marketingItem.customerNum</span><span class="divMain_liebiao_all01" style="width:20%;">$!marketingItem.userName</span><span class="divMain_liebiao_all01" style="width:9%;">$!marketingItem.realName</span><span class="divMain_liebiao_all01" style="width:18%;">$!marketingItem.createTime</span><span class="divMain_liebiao_all01" style="width:12%;">$!Map_user_status.get($!{marketingItem.status}).getName()</span><span class="divMain_liebiao_all01 color_blue" style="width:20%;"><a href="$admin_url/customer/listAllInvestor.html?marketingUserId=$!marketingItem.marketingUserId&brokerUserId=$!marketingItem.brokerUserId">查看成员</a> |<a href="$admin_url/customer/userDetail.html?id=$!marketingItem.brokerUserId">查看详情</a></span>
+            </div>
+            #end
+		#else
+			<div class="divNone line_botoom">暂无信息</div>
+		#end
+        <!--   分页开始   -->
+        <div class="divMain_fenye">
+			#parse("admin/layout/pager.vm")
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

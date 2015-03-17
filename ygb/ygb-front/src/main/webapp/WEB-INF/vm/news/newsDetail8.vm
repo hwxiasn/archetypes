@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+#parse("layout/head.vm")
+<title>倍赢金融财富箱--公告</title>
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/AboutUs.css" rel="stylesheet" type="text/css" />
+
+<script src='$static_url/js/jquery.min.js'></script>
+<script src='$static_url/js/jquery.museum.js'></script>
+<script>
+$(document).ready(function() {
+	$.museum($('#content img'));
+});
+</script>
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color:#eeeeef;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+.AboutUs_c1_1_a {
+	height:30px;
+	width: 125px;
+	background:#ffffff;
+	color:#000000;
+	margin-bottom: 2px;
+	float:left;
+	line-height:30px;
+	font-size: 15px;
+	padding-left: 40px;
+}
+a:hover{
+	color:red;
+	background:#b6b6b7;
+}
+#content img { height: 120px;border: 1px solid #FFF; padding: 2px; }
+#content img:hover { border: 1px solid #d3332d; }
+
+</style>
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<div class="AboutUs1">
+	<div class="AboutUs1_L">
+    	<div class="AboutUs1_L_u"><img src="$static_url/images/aboutus1.png" width="191" height="67" /></div>
+        <div class="AboutUs1_L_b">
+        	<a href="$front_url/platformNotice.html">平台公告</a>
+            <a href="$front_url/platformNotice.html?hy" class="on">行业新闻</a>
+        </div>
+   </div>
+  <div class="AboutUs1_R">
+    <div class="AboutUs1_R1">
+      <div class="AboutUs1_R1_L"><b>行业新闻</b></div>
+        <div class="AboutUs1_R1_R"></div>
+    </div>
+     <div class="AboutUs1_R2_news"><b>互联网金融亮相金博会 引领未来发展趋势</b><br/><span style="font-size:13px;">转载：本文来源于腾讯财经2014-11-10 </span></div>
+    <div class="AboutUs1_R3">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“第八届金博会”于11月6-8日在深圳会展中心1号馆隆重举行。在本届展会上，除了以往传统金融机构积极参展外，更多的互联网金融机构正如雨后春笋般崭露头角，以新颖、快捷、门槛低的金融产品和服务与传统金融机构同台竞技。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位于E006展位的IFA互联网金融联盟，由红岭创投，团贷网，E速贷，融金所、E微贷五家互联网金融企业联合百位大额投资人共同发起成立的，是一种以民间第三方形式来推动互联网金融行业自律，最大程度保护投资人在互联网金融领域投资权益的组织。联盟成员共同出展将会为广东省乃至全国的P2P网贷行业起到规范化、健康化的示范作用。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在展会现场，联盟成员从集团背景、风险控制、平台特色等几大方面进行透明化展示，在线上线下同时进行注册有礼活动，以其新颖的融资理财模式赢得市民的广泛关注。市民在现场即时操作便可体验投资流程，了解金融理财知识。展位前门庭若市，人头攒动，充分展现出自身的金融创新能力。<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;据相关负责人介绍，IFA互联网金融联盟以促进资源有效整合与共享、加强企业与政府层面沟通、加强投资交流与合作为目标，依据行业内较高标准招募成员，致力于联合优质平台树立行业典范，维护行业秩序，进而提升中国互联网金融行业的整体竞争力。<br/><br/>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IFA互联网金融联盟展示了互联网金融的活力，为广大参观者展示了互联网金融P2P行业发展的光明前景。在监管措施和行业自律的共同作用下，互联网金融行业会将更加规范、更有活力。<br/><br/>
+    <div class="news_fanhui"><a href="javascript:history.go(-1);">返回</a></div>
+     </div>
+  </div>
+</div>
+
+<div class="AboutUs_xian"></div>
+
+#parse("layout/footer.vm")
+</body>
+</html>

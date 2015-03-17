@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>业务运营管理系统</title>
+#parse("admin/layout/head.vm")
+<link href="$static_url/admin/css/css.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/admin/js/uploadify-3.2.1/uploadify.css" rel="stylesheet" type="text/css" />
+	<script src="$static_url/admin/js/uploadify-3.2.1/jquery.uploadify.min.js"></script>
+	<script src="$static_url/admin/js/uploadify-3.2.1/uploadify.settings.js"></script>
+<script type="text/javascript">
+	//选择募资阶段分润模板显示对应的模板详情
+	function checkModel(ele,cc){
+		var a = $(ele).val();
+		($(ele).parent().find("span")).each(function(){
+			$(this).css("display","none");
+		});
+		$("#"+cc+a).css("display","inline");
+	}
+	
+	$(function(){
+    	$("select[name='guaranteeEnterprise'] > option[value='$!product.guarantee']").attr("selected",true);
+		$("select[name='funding'] > option[value='$!product.project.fundingTemplateId']").attr("selected",true);
+    	$("select[name='repay'] > option[value='$!product.project.repayTemplateId']").attr("selected",true);
+		
+    	$("input[name='settleTerms'][value='$!product.settleTerms']").attr("checked","checked");
+    	$("input[name='sponserType'][value='$!product.sponserType']").attr("checked","checked");
+		
+		if("$!product.periodType"){
+			$("input[name='periodType'][value='$!product.periodType']").attr("checked","checked");
+			if("FIX_PERIOD"=="$!product.periodType"){
+				$("select[name='periodTypeFIX_PERIOD'] > option[value='$!product.investmentPeriod']").attr("selected",true);
+			}else if("DAYS"=="$!product.periodType"){
+				$("select[name='periodTypeDAYS'] > option[value='$!product.investmentPeriod']").attr("selected",true);
+			}else if("MONTHS"=="$!product.periodTypeMONTHS"){
+				$("select[name='periodTypeMonths'] > option[value='$!product.investmentPeriod']").attr("selected",true);
+			}
+		}
+		
+		if($("select[name='minimumInvestmentAmount'] > option[value='$!product.minimumInvestmentAmount']").length>0){
+			$("select[name='minimumInvestmentAmount'] > option[value='$!product.minimumInvestmentAmount']").attr("selected",true);
+		}else{
+			$("input[name='minimumInvestmentAmountOther']").attr("checked", false);
+			$("input[name='minimumInvestmentAmountValue']").val($!product.minimumInvestmentAmount);
+		}
+		
+		if("$!product.settleTerms"){
+			$("input[name='settleTerms'][value='$!product.settleTerms']").attr("checked","checked");
+			if("fixedMoney"=="$!product.settleTerms"){
+				$("input[name='settleTermsNumberMoney']").val($!product.settleTermsNumber);
+			}else if("fixedRate"=="$!product.settleTerms"){
+				$("input[name='settleTermsNumberRate']").val($!product.settleTermsNumber);
+			}
+		}
+		
+    	uploadify("#guaranteeLetterPathFile", "#commitmentLetterPath");
+    	uploadify("#filesBaseFile", "#filesBase");
+    	
+    	$("form").validate();
+	});
+
+	//最低投资的checkbox事件
+	function minMoney(ele){
+		if(ele.checked){
+			$(ele).prev().attr("disabled","disabled").val("");
+			$(ele).next().removeAttr("disabled");
+		}
+		else{
+			$(ele).prev().removeAttr("disabled");
+			$(ele).next().attr("disabled","disabled").val("");
+		}
+	}	
+
+	function publish() {
+    	$("input[name='published']").val("true");
+    	var items = {	"commitmentLetterSn" : $("input[name='commitmentLetterSn']"), 
+    					"commitmentLetterPath" : $("input[name='commitmentLetterPath']"), 
+    					"loaneeUserName" : $("input[name='loaneeUserName']"), 
+    					"loaneeRealName" : $("input[name='loaneeRealName']"), 
+    					"name" : $("textarea[name='name']"), 
+    					"totalAmount" : $("input[name='totalAmount']"), 
+    					"purpose" : $("textarea[name='purpose']"), 
+    					"startDate" : $("input[name='startDate']"), 
+    					"endDate" : $("input[name='endDate']")
+    				};
+    	for(var item in items){
+    		if(!items[item].val()){
+    			items[item].focus();
+    			return;
+    		}
+    	}
+    	$("#myForm").submit();
+    }
+	
+	
+		//检查用户名是否存在，并返再保项目和投资人数
+	function checkusername(param){
+		var realVa = document.getElementById("realName").value;
+		if(realVa!="" && realVa!=null && typeof(realVa)!="undefined"){
+			document.getElementById("realName").value="";
+		}
+		if(param!=""&& param!=null && typeof(param)!="undefined"){
+			jQuery.post("/admin/product/checkusername.json",{name:$(param).val()},function(data){
+    			if(data){
+    				if(data.mark=="yes")
+    				{
+    					$("#realName").val(data.realName);
+    					$("#tishi").html("");
+    					if(typeof(data.projectNum)!="undefined" && typeof(data.investmentNum)!="undefined"){
+        					var a = "<span id='tishi'>&nbsp;提示：该用户有"+
+              					"<span id='proNum' class='Mcolor_1'>"+data.projectNum+"</span>个在保项目，共<span class='Mcolor_1' id='investNum'>"+data.investmentNum+"</span>个投资人</span>";
+//            				$("#tishi").html(a);
+            			}
+    				}else{
+						$("#tishi").html("<span style='color:red;'>该用户不是投资接受人，请检查后重新输入</span>");
+					}
+    			}else{
+						$("#tishi").html("<span style='color:red;'>该用户不存在</span>");
+        				$("#realName").val("");
+        				$("#realName").attr("name","");
+    			}
+			});
+		}
+	}
+</script>
+</head>
+<body>
+<!--  主要内容  -->
+<div class="divMain">
+	<!--  查询开始  -->
+    <form action="$admin_url/product/productSave.html" id="myForm" name="myForm" method="post" enctype="multipart/form-data">
+	<div class="divMain_chaxun">
+    	<!--  标题  -->
+    	<div class="divMain_add_bt line_botoom"> 担保信息</div>
+        <!--  内容  -->
+        <div class="divMain_xq_all line_botoom">
+        	<!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;担保机构：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">
+            	   <select name="userId" class="select270">
+                      <option value="0">请选择</option>
+                        #foreach($guarantee in $!List_User_Guarantee)
+        	              <option value="$!guarantee.getId()">$!guarantee.getEnterpriseProfile().getEnterpriseName()</option>
+                        #end
+                   </select>
+                 </div>
+            </div>
+            
+            <!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;担保类型：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">
+					
+                	<input type="radio" name="type" value="G" #if($!product.project.type == "G") checked #end> 担保贷
+                    <input type="radio" name="type" value="L" #if($!product.project.type == "L") checked #end> 接力贷 
+                     
+				</div>
+            </div>
+            
+              <!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;担保承诺函编号：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">
+					<input name="commitmentLetterSn" class="text270" value="$!product.commitmentLetterSn" />
+				</div>
+            </div>
+            
+             <!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+				<div class="divMain_add_allOneAll">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">*&nbsp;担保承诺函扫描件：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+					<div class="button-all" style="">
+                		<div class="button-left">
+                    		<input id="commitmentLetterPath" name="commitmentLetterPath" readonly value="$!product.guaranteeLetterPath"  class="text270"/><a href="" target="_blank"></a>
+                		</div>
+                		<div class="button-right">
+                        	<input id="guaranteeLetterPathFile" type="file" name="guaranteeLetterPathFile" />
+            			</div>
+					</div>	 
+				</div>
+                </div>
+				
+            </div>
+          </div>
+        
+        
+        <!--  标题  -->
+    	<div class="divMain_add_bt line_botoom">尽职调查</div>
+        <!--  内容  -->
+        <div class="divMain_xq_all line_botoom">
+         <!--   字段较多用   -->
+        	<!--   块   -->
+        	<div class="divMain_add_alltwo line_botoom">
+				<div class="divMain_add_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;借款人：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_alltwo_R"><input name="loaneeName" class="text270"/></div>
+                </div>
+				<div class="divMain_add_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;身份证号：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_alltwo_R"><input name="loaneeIdSerial" class="text270" /></div>
+                </div>
+            </div>
+            
+            
+            <!--   块   -->
+        	<div class="divMain_add_alltwo line_botoom">
+				<div class="divMain_add_alltwoAll">
+            	<!--   左   -->
+            	<div class="divMain_xq_alltwo_L">*&nbsp;年龄：</div>
+                <!--   右   -->
+            	<div class="divMain_add_alltwo_R"><input name="loaneeAge" value="0" class="text270"/>岁</div>
+				</div>
+				<div class="divMain_add_alltwoAll">
+				<!--   左   -->
+            	<div class="divMain_xq_alltwo_L">*&nbsp;性别：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_alltwo_R">
+            	    
+                	   <input type="radio" name="loaneeSex" value="M" checked>&nbsp;先生&nbsp;
+                       <input type="radio" name="loaneeSex" value="F" >&nbsp;女士 
+                    
+                 </div>
+                 </div>
+            </div>
+            
+            
+            <!--   块   -->
+        	<div class="divMain_add_alltwo line_botoom">
+				<div class="divMain_add_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;居住地：</div>
+                    <!--   右   -->
+                	<div class="divMain_add_alltwo_R_new"><input name="loaneeAddress"  class="text270"/></div>
+    				
+                </div>
+				<div class="divMain_add_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;婚姻状况：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_alltwo_R">
+                    	   <input type="radio" name="loaneeMaritalStatus" value="1" checked>&nbsp;未婚&nbsp;
+                           <input type="radio" name="loaneeMaritalStatus" value="2" >&nbsp;已婚&nbsp;
+                           <input type="radio" name="loaneeMaritalStatus" value="3" >&nbsp;离异
+                     </div>
+				 </div>
+				 
+            </div>
+            
+            <!--   块   -->
+        	<div class="divMain_add_alltwo line_botoom">
+				<div class="divMain_add_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;累计成功借款：</div>
+                    <!--   右   -->
+                	<div class="divMain_add_alltwo_R"><input name="loaneeHadCount" class="text270"/>笔</div>
+				</div>
+				<div class="divMain_add_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;累计借款金额：</div>
+                    <!--   右   -->
+                	<div class="divMain_add_alltwo_R"><input name="loaneeHadAmount" class="text270" />万</div>
+				</div>
+            </div>
+            
+            <!--   块   -->
+        	<div class="divMain_add_alltwo line_botoom">
+				<div class="divMain_add_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;当前待还金额：</div>
+                    <!--   右   -->
+                	<div class="divMain_add_alltwo_R"><input name="loaneeNeedRepay" value="0" class="text270"/>万元</div>
+                </div>
+				<div class="divMain_add_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;累计逾期还款：</div>
+                    <!--   右   -->
+                	<div class="divMain_add_alltwo_R"><input name="loaneeMissedRepay" value="0" class="text270" />万元</div>
+                </div>
+            </div>
+            
+            <!--   块   -->
+        	<div class="divMain_add_alltwo line_botoom">
+				<div class="divMain_add_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;资金用途：</div>
+                    <!--   右   -->
+                	<div class="divMain_add_alltwo_R"><input name="loaneePurpose" class="text270"/></div>
+                </div>
+				<div class="divMain_add_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;还款来源：</div>
+                    <!--   右   -->
+                	<div class="divMain_add_alltwo_R"><input name="loaneeSource"  class="text270" /></div>
+                </div>
+            </div>
+            
+            <!--   块   -->
+        	<div class="divMain_add_alltwo line_botoom">
+				<div class="divMain_add_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;经营地址：</div>
+                    <!--   右   -->
+                	<div class="divMain_add_alltwo_R"><input name="loaneeEntAddress" class="text270"/></div>
+                </div>
+				<div class="divMain_add_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;经营范围：</div>
+                    <!--   右   -->
+                	<div class="divMain_add_alltwo_R"><input name="loaneeEntScope"  class="text270" /></div>
+                </div>	
+            </div>
+            
+            <!--   块   -->
+        	<div class="divMain_add_alltwo line_botoom">
+				<div class="divMain_add_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;注册资金：</div>
+                    <!--   右   -->
+                	<div class="divMain_add_alltwo_R"><input name="loaneeEntMoney" value="0" class="text270"/>万元</div>
+                </div>
+				<div class="divMain_add_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;成立时间：</div>
+                    <!--   右   -->
+                	<div class="divMain_add_alltwo_R">
+						<input name="loaneeEntBorn"  onfocus="WdatePicker({isShowClear:false,readOnly:true,dateFmt:'yyyy-MM-dd'})" type="text" class="text270" />时间格式：如2015-01-01
+                	</div>
+                </div>
+            </div>
+            
+            <!--   块   -->
+        	<div class="divMain_add_alltwo line_botoom">
+				<div class="divMain_add_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;上年营业收入：</div>
+                    <!--   右   -->
+                	<div class="divMain_add_alltwo_R"><input name="loaneeEntLastYear" value="0" class="text270"/>万元</div>
+                </div>
+				<div class="divMain_add_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;本年当前营业收入：</div>
+                    <!--   右   -->
+                	<div class="divMain_add_alltwo_R"><input name="loaneeEntThisYear" value="0"   class="text270" />万元</div>
+				</div>	
+            </div>
+            
+            <!--   块   -->
+        	<div class="divMain_add_alltwo line_botoom">
+				<div class="divMain_add_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;人民银行征信查询：</div>
+                    <!--   右   -->
+                	<div class="divMain_add_alltwo_R"><input name="loaneePbVoucher"  class="text270"/></div>
+                </div>
+				<div class="divMain_add_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;全国法院被执行人信息查询：</div>
+                    <!--   右   -->
+                	<div class="divMain_add_alltwo_R"><input name="loaneeLoaneeVoucher"  class="text270" /></div>
+                </div>
+            </div>
+          <!--   块   -->
+          <div class="divMain_add_allOne line_botoom">
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;全国企业信用信息公示系统查询：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R"><input name="loaneeEntVoucher" class="text270"/></div>
+            </div>
+         </div>
+            
+         <div class="divMain_add_bt line_botoom"> 担保信息</div>   
+         
+           <!--   块   -->
+           <div class="divMain_xq_all line_botoom">
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;用户名：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R"><input name="loaneeUserName" class="text270" onchange="checkusername(this)" value="$!product.borrowerName" /><span id="tishi"></span></div>
+            </div>
+            
+          <!--   块   -->
+          <div class="divMain_xq_all line_botoom">
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;真实姓名：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R"><input name="loaneeRealName" class="text270"id="realName" readonly="readonly" class="Mtext1-1" value="$!product.realName"/></div>
+            </div>
+         </div>
+         
+         
+          <!--   块   -->
+          <div class="divMain_xq_all line_botoom">
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;项目标题：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R"><textarea name="name" cols="40" rows="5">$!product.project.name</textarea></div>
+            </div>
+         </div>
+         
+              <!--   块   -->
+          <div class="divMain_xq_all line_botoom">
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;借款金额：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">
+            	<input name="totalAmount" class="text270"id="totalAmount" type="text" class="Mtext1-1" value="$!product.totalAmount"/>
+            	&nbsp;万元&nbsp;<span id="fastin"></span>
+            	</div>
+            </div>
+         </div>
+         
+         
+          <!--   块   -->
+        	<div class="divMain_add_radioOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_radioOne_L">*&nbsp;借款期限：$!product.periodType</div>
+                <!--   右   -->
+            	<div class="divMain_add_radioOne_R">
+                	#foreach($loneType in $Map_CodeList_LoanType.entrySet())
+            	      <input name="periodType" type="radio" checked="" value="$!loneType.getKey().getCode()" onclick="shows(this)"/>
+            	       $loneType.getKey().getName():
+            	      <select name="periodType$!loneType.getKey().getCode()" class="select100"><option value="0">==请选择==</option>
+                          #foreach($detail in $loneType.getValue())
+    	                    <option value="$detail.getCode()">$detail.getName()</option>
+    	                  #end
+                      </select><br/>
+                     #end
+                </div>
+            </div>
+         
+              <!--   块   -->
+          <div class="divMain_xq_all line_botoom">
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;最低投资：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">
+            	     <select name="minimalInvestment" class="select100"><option value="0">==请选择==</option>
+                          #foreach($min in $List_CodeList_MinInvestAmount)
+		                    <option value="$min.getCode()">--- $min.getName() ---</option>
+		                  #end
+                      </select>&nbsp
+                      <input name="minimumInvestmentAmountOther"  type="checkbox" onclick="minMoney(this)" />&nbsp;其他金额：&nbsp;
+                      <input name="minimumInvestmentAmountValue" placeHolder='请输入数字' onchange="compare(this)" type="text" disabled="disabled" class="text270" />万元<span id="tsje">
+            	</div>
+            </div>
+         </div>
+         
+    
+         
+         <!--   块   -->
+        	<div class="divMain_add_radioOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_radioOne_L">*&nbsp;最低条件：</div>
+                <!--   右   -->
+            	<div class="divMain_add_radioOne_R">
+                	<input name="settleTerms" checked="" value="FULL" type="radio" onclick="shows(this)"/>&nbsp;&nbsp;&nbsp;全额&nbsp;<br/>
+                	#foreach($type in $List_CodeList_SettleType)
+                	<input name="settleTerms" type="radio" value="$!type.getCode()" onclick="shows(this)"/> $type.name：&nbsp;
+                	 #if($!type.getCode()=="FIX_AMOUNT")
+                        <input name="settleTermsValue$!type.getCode()" placeHolder='不低于最低投资,不高于借款金额' onchange="compareMoney(this)" class="text270"/>万元<br/>
+	                 #end
+	                 #if($!type.getCode()=="FIX_PERCENTAGE")
+                        <input name="settleTermsValue$!type.getCode()" placeHolder='请输入大于50小于100的数字' onchange="compareMoney(this)" class="text270" />%
+	                 #end
+	                 #end
+                </div>
+            </div>
+            
+            
+            <!--   块   -->
+          <div class="divMain_xq_all line_botoom">
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;借款用途：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R"><textarea name="purpose" cols="40" rows="5">$!product.purpose &nbsp;</textarea></div>
+            </div>
+         </div>
+           
+          <!--   块   -->
+          <div class="divMain_xq_all line_botoom">
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;投资起始时间：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">
+            	    <input name="startDate" type="text" class="text270" value="$!product.investStart" onfocus="WdatePicker({isShowClear:false,readOnly:true,maxDate:'#F{$dp.$D(\'jsDate\')}'})" id="beginDate"/>
+            	</div>
+            </div>
+         </div>  
+         
+         
+         <!--   块   -->
+          <div class="divMain_xq_all line_botoom">
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;投资截止日期：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">
+            	    <input name="endDate" class="text270" value="$!product.deadline" onfocus="WdatePicker({isShowClear:false,readOnly:true,minDate:'#F{$dp.$D(\'beginDate\')}'})" onchange="checkdate(this)" id="jsDate"/>
+            	</div>
+            </div>
+         </div>  
+        <!--  标题  -->
+    	<div class="divMain_add_bt line_botoom">保荐人信息</div>   
+    	
+            <!--   块   -->
+        	<div class="divMain_add_radioOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_radioOne_L">*&nbsp;保荐人类型：</div>
+                <!--   右   -->
+            	<div class="divMain_add_radioOne_R">
+                	 <input name="sponserType" type="radio" value="P" checked="checked" onclick="changeBaojian(this)" />个人<br/>
+                     <input name="sponserType" type="radio" value="E" onclick="changeBaojian(this)" />机构
+                </div>
+            </div>
+         
+         
+          <!--   块   -->
+          <div class="divMain_xq_all line_botoom">
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;用户名：</div>
+                <!--   右   -->
+                
+            	<div class="divMain_xq_allOne_R">
+            	   <input name="sponsorUserName" type="text" class="text270" value="$!product.sponsorUsername" />
+            	</div>
+            </div>
+         </div>  
+         
+         
+         <!--   块   -->
+          <div class="divMain_xq_all line_botoom">
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;保荐机构话语：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">
+            	     <textarea name="sponsorMemo" cols="40">$!product.sponsorMemo</textarea>
+            	</div>
+            </div>
+         </div>  
+         <!--  标题  -->
+    	<div class="divMain_add_bt line_botoom">费用信息</div>   
+            <!--   块   -->
+          <div class="divMain_xq_all line_botoom">
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;筹资阶段：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">
+            	     <select name="fundingTemplateId" onchange="checkModel(this,'rs')" class="select270">
+            	        <option value="0">==请选择分润模板==</option>
+                          #foreach($param5 in $!List_CommissionTemplate_Fundrasing)
+			                <option value="$param5.getId()">$param5.getName()</option>
+                          #end
+                      </select>
+                        #foreach($rs in  $!List_CommissionTemplate_Fundrasing)
+			               <span id="rs$rs.getId()" style="display:none">$rs.getRoleRates()</span>
+                        #end
+            	</div>
+            </div>
+         </div>
+           <!--   块   -->
+          <div class="divMain_xq_all line_botoom">
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;还款阶段：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">
+            	     <select name="repayTemplateId" onchange="checkModel(this,'rt')" class="select270">
+            	        <option value="0">==请选择还款模板==</option>
+                         #foreach($param6 in $!List_CommissionTemplate_Repay)
+		                   <option value="$!param6.getId()">$!param6.getName() </option>
+                         #end
+                      </select>
+                      #foreach($rt in $!List_CommissionTemplate_Repay)
+		                 <span id="rt$rt.getId()" style="display:none;">$rt.getRoleRates()</span>
+                      #end  
+            	</div>
+            </div>
+         </div>
+         
+         
+        <!--  分页  -->
+        <div class="divMain_fenye">
+        	<div class="divMain_fenyeL">
+        	<input type="hidden" name="id" value="$!product.project.id"/>
+		    <input type="hidden" name="published" value="false"/>
+		    <input  type="button" id="fabu" onclick="javascript:publish()" class="anniu_blue" value="发 布"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 		    <input  type="reset" class="anniu_blue" value="重 置" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+     </div>
+    </form>
+</div>
+      #if($!OK == "N")
+         <script>
+	        alert("发布项目失败，请重试");
+         </script>
+       #end
+</body>
+</html>

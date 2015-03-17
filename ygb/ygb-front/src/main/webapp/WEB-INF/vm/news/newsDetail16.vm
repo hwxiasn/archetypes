@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+#parse("layout/head.vm")
+<title>倍赢金融财富箱</title>
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/AboutUs.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+body {
+	background-color:#eeeeef;
+}
+</style>
+
+</head>
+
+<body>
+<!--    top     -->
+#parse("layout/header.vm")
+
+<!---------------内容---------------->
+<div class="AboutUs1">
+	<div class="AboutUs1_L">
+    	<div class="AboutUs1_L_u"><img src="$static_url/images/aboutus1.png" width="191" height="67" /></div>
+         <div class="AboutUs1_L_b">
+        	<a href="$front_url/platformNotice.html" class="on">平台公告</a>
+            <a href="$front_url/platformNotice.html?hy">行业新闻</a>
+          
+        </div>
+   </div>
+  <div class="AboutUs1_R">
+    <div class="AboutUs1_R1">
+      <div class="AboutUs1_R1_L"><b>平台公告</b></div>
+        <div class="AboutUs1_R1_R"></div>
+    </div>
+    <div class="AboutUs1_R2_news"><b>元旦祝贺词</b><br/><span style="font-size:13px;">2014年12月31日 17:30:53 </span></div>
+    <div class="AboutUs1_R3">
+    <p>律回春晖渐，万象始更新。我们告别成绩斐然的过去一年，迎来了充满希望的元旦佳节，致此元旦到来之际，重庆倍赢金融服务有限公司向全体员工和广大客户致以深深的谢意！祝大家在新的一年里和气致祥、身体健康、幸福美满，万事如意！</p>
+	<p>倍赢金融自2014年10月1日开业以来，在各级领导和全体员工的共同努力下，出借近4000万元！这是一个令人欣喜和振奋的成绩。由此说明倍赢公司的战略是清晰的，定位是准确的，决策是正确的；通过这些成绩，我们看到了一个充满生机和活力的新希望。在这里，感谢这个伟大的时代！更感谢开业以来出借人及融资人对倍赢的关注和厚爱</p>
+    <p>让我们在今晚，听着倒数的钟声，为新年干杯！祝大家有个平安愉快的新年！</p>
+	<span style="float:right; padding-right:20px;">重庆倍赢金融服务有限公司<br/>
+    2014年12月31日</span>
+    <br/><br/>
+   
+    <div class="news_fanhui"><a href="javascript:history.go(-1);">返回</a></div>
+
+     </div>
+        
+  </div>
+</div>
+
+<div class="AboutUs_xian"></div>
+
+<!---------------尾部-------------->
+<!--    bottom     -->
+#parse("layout/footer.vm")
+
+</body>
+</html>

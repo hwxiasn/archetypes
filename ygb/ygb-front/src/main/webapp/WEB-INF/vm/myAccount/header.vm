@@ -1,0 +1,9 @@
+<div class="customer_main1" >
+	<div class="customer_main1_L" >
+	<strong>您好，$!account.realName #if($!shiro.hasRole("BR") || $!shiro.hasRole("I"))（编号：$!account.userNum）#end</strong>
+##	<span style="font-size:12px" >账户资料</span>
+    </div>
+    <div class="customer_main1_R" >
+##    上次登录时间：$!account.frontTime
+    </div>
+</div>

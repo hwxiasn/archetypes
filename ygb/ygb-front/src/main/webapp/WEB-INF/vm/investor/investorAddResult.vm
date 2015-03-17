@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+#set($left="customer")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/enroll.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/menu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Trading_inquiry.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Operator_Management.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Customer_Management.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color: #FFF;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+</style>
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+#parse("myAccount/header.vm")
+
+<div class="customer_main2_new">
+<div class="customer_main2_new_all">
+	#parse("myAccount/left.vm")
+    
+    <div class="customer_main2_R">
+    <div class="customer_main2_R_all">
+    	
+        <div class="Customer_Management1">
+       	  <div class="Customer_Management1_2">1.填写开户信息</div>
+            <div class="Customer_Management1_1">2.#if($!result == "success")开户成功#elseif($!result == "fail")开户失败#end</div>
+            <div class="Customer_Management1_3"></div>
+        </div>
+
+        <div class="Operator_Management_xq3"></div>
+      #if($!result == "success")
+      <div class="Operator_Management_xq3">
+        	<div class="Operator_Management_xq3_L_cg"><img src="$static_url/images/chenggong.png" width="31" height="31" /></div>
+            <div class="Operator_Management_xq3_R_cg">&nbsp;&nbsp;
+            <span class="Trading_inquiry_color2">投资人开户</span>&nbsp;<span class="Trading_inquiry_color6">成功</span>
+            </div>
+      </div>
+      <div class="Operator_Management_xq3">
+        	<div class="Operator_Management_xq3_L_cg"></div>
+            <div class="Operator_Management_xq3_R_cg">&nbsp;&nbsp;
+				您可能需要：<a href="$front_url/account/index.html"><span class="Customer_Management_color2">返回账户首页</span></a>&nbsp;|&nbsp;<a href="$front_url/investor/investorAdd.html"><span class="Customer_Management_color2">继续开户</span></a>
+            </div>
+      </div>
+	  #elseif($!result == "fail")
+      <div class="Operator_Management_xq3" style="">
+        	<div class="Operator_Management_xq3_L_cg"><img src="$static_url/images/fail.png" width="31" height="31" /></div>
+            <div class="Operator_Management_xq3_R_cg">&nbsp;&nbsp;
+            <span class="Trading_inquiry_color2">投资人开户</span>&nbsp;<span class="Trading_inquiry_color5">失败</span>
+            </div>
+      </div>
+ 
+      <div class="Operator_Management_xq3" style="display:none;">
+        	<div class="Operator_Management_xq3_L_cg"></div>
+            <div class="Operator_Management_xq3_R_cg">&nbsp;&nbsp;
+				您可能需要：<a href="$front_url/account/index.html"><span class="Customer_Management_color2">返回账户首页</span></a>&nbsp;|&nbsp;<a href="$front_url/investor/investorAdd.html"><span class="Customer_Management_color2">重新开户</span></a>
+            </div>
+			
+      </div>
+	  #end
+  	</div>
+    </div>
+  
+</div>
+</div>
+
+#parse("layout/footer.vm")
+</body>
+</html>

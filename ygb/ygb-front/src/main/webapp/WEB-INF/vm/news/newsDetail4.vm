@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+#parse("layout/head.vm")
+<title>倍赢金融财富箱--公告</title>
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/AboutUs.css" rel="stylesheet" type="text/css" />
+
+<script src='$static_url/js/jquery.min.js'></script>
+<script src='$static_url/js/jquery.museum.js'></script>
+<script>
+$(document).ready(function() {
+	$.museum($('#content img'));
+});
+</script>
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color:#eeeeef;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+.AboutUs_c1_1_a {
+	height:30px;
+	width: 125px;
+	background:#ffffff;
+	color:#000000;
+	margin-bottom: 2px;
+	float:left;
+	line-height:30px;
+	font-size: 15px;
+	padding-left: 40px;
+}
+a:hover{
+	color:red;
+	background:#b6b6b7;
+}
+#content img { height: 120px;border: 1px solid #FFF; padding: 2px; }
+#content img:hover { border: 1px solid #d3332d; }
+
+</style>
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<div class="AboutUs1">
+	<div class="AboutUs1_L">
+    	<div class="AboutUs1_L_u"><img src="$static_url/images/aboutus1.png" width="191" height="67" /></div>
+        <div class="AboutUs1_L_b">
+        	<a href="$front_url/platformNotice.html" class="on">平台公告</a>
+            <a href="$front_url/platformNotice.html?hy">行业新闻</a>
+        </div>
+   </div>
+  <div class="AboutUs1_R">
+    <div class="AboutUs1_R1">
+      <div class="AboutUs1_R1_L"><b>平台公告</b></div>
+        <div class="AboutUs1_R1_R"></div>
+    </div>
+     <div class="AboutUs1_R2_news"><b>天天630进社区倍赢金融专场活动在巴南举行</b><br/><span style="font-size:13px;">2014/10/30 13:58:34　来源：<a href="http://www.people.com.cn/">人民网</a>·重庆视窗 </span></div>
+    <div class="AboutUs1_R3">
+	
+		<span style="padding-left:80px;"><img src="$!static_url/images/newsImg/kysp.jpg"/></span><br/></br>
+		<span style="padding-left:80px;"><img src="$!static_url/images/newsImg/kyhuichang.jpg"/></span>
+		<br/></br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>人民网重庆10月29日电</b>&nbsp;&nbsp;&nbsp;&nbsp;为丰富群众的文化生活，重庆电视台《天天630》栏目启动了系列进社区送文化大型公益活动。活动内容由“《天天630》，今天到我家”、“金融知识送到家”、“社会关爱送到家”等内容组成，旨在倾听群众对栏目的评价与建议，同时通过金融知识讲解等形式，把文化送到群众家门口。</br></br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“天天630”进社区送文化活动已经开展多场，此项活动得到众多金融机构的大力支持。参加本次活动的有巴南区委书记李建春、区长陈刚，以及巴南区内15家银行、来自全市的16家知名小贷公司，以及来自区内外13家知名企业的嘉宾。</br></br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本场活动首先举行的是倍赢金融服务有限公司启动仪式。客户代表、员工代表、股东代表等分别致辞，巴南区委书记李建春作了讲话并与各界嘉宾一起为倍赢金融启幕。随后，巴南区常务副区长宋葵为倍赢金融授牌。</br></br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;启动仪式后，“630”进社区送文化倍赢金融专场活动正式开始，天天630节目主持人叶红与倍赢金融总经理张大庆访谈互动，围绕“互联网时代新的资产配置”进行了探讨，为群众带来最前沿的金融知识。</br></br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;据了解，重庆倍赢金融服务有限公司根据巴南区重点发展非银行类新型金融业，服务于长江上游金融中心核心区，打造长江上游金融服务中心，建设包括新型金融再融资平台在内的“一带两平台三基地”战略规划，经重庆市巴南区金融发展中心同意，报重庆市相关部门备案登记，于2014年5月在巴南区注册成立。</br></br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 目前，全市仅批准注册成立了10家金融服务公司，其中国有金融服务公司6家，民营企业仅有4家，重庆倍赢金融服务公司便是其中之一，而且它也是巴南区唯一一家金融服务公司。</br></br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 倍赢金融以股东上百亿的产业资本、专业的投资银行团队、一流的IT技术为金融服务的依托；以创新的理念、合作的模式、共赢的目标为金融服务的内涵；以合规、和谐、创新、拼搏、共赢的倍赢文化为金融服务的抓手，全面建设可持续发展的、专业的综合性金融服务企业。</br></br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;倍赢金融主要通过“财富箱”互联网金融服务平台，专门为巴南区中小企业解决融资难问题，支持巴南区中小企业的健康发展。以服务“三农”、支持中小微实体经济、提升老百姓投资性收益为己任，以数据安全、资金安全为前提，强势引入重庆市交通融资担保有限公司、重庆市惠泉信用担保有限公司这两家重庆市政府下属的国有担保公司国有担保公司以及受央行资金监管的第三方支付公司等战略合作伙伴，正在全力打造多层次、全方位的权威互联网金融服务平台。（龙弟海）</br></br>
+    <div class="news_fanhui"><a href="javascript:history.go(-1);">返回</a></div>
+     </div>
+  </div>
+</div>
+
+<div class="AboutUs_xian"></div>
+
+#parse("layout/footer.vm")
+</body>
+</html>

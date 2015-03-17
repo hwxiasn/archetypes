@@ -1,0 +1,26 @@
+#if(!$!provinceCode) #set($provinceCode="provinceCode") #end
+#if(!$!cityCode) #set($cityCode="cityCode") #end
+<select name="$!provinceCode" id="businessLicenseProvince" class="Mselect1">
+    <option value="" selected="selected">请选择省</option>
+    #foreach($item in $!provinces)
+        <option value="$!item.code">$!item.name</option>
+    #end
+</select>
+<select name="$!cityCode" id="businessLicenseCity" class="Mselect1">
+    <option value="">请选择市</option>
+	 #foreach($item in $!citiess)
+        <option value="$!item.code">$!item.name</option>
+    #end	
+</select>
+<script type="text/javascript">
+	$(function(){
+		$("select[name='$!provinceCode']").change(function(){
+			var province = $(this).val();
+			if(province) {
+				$("select[name='$!cityCode']").load("$admin_url/customer/cities.html?p="+province+"&n=$!cityCode");
+			}else{
+				$("select[name='$!cityCode'] > option:gt(0)").remove();
+			}
+		});
+	});
+</script>

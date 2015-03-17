@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+#set($left="trade")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/menu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Trading_inquiry.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Financiers.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Pop-up_layer.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Operator_Management.css" rel="stylesheet" type="text/css" />
+<script src="$static_url/layer/layer.min.js"></script>
+<script src="$static_url/admin/js/jquery.min.js"></script>
+<script src="$static_url/admin/js/jquery.validate.js"></script>
+<script src="$static_url/admin/js/jquery.metadata.js"></script>
+<script src="$static_url/admin/js/messages_cn.js"></script>
+
+<script type="text/javascript"> 
+	var JQ = jQuery.noConflict(); 
+</script>
+ 
+<style type="text/css">
+.box{width:100%; height:100%;}
+.box a{padding-right:15px;}
+#about_hide{display:none}
+.layer_text{background-color:#fff; padding:20px;}
+.layer_text p{margin-bottom: 10px; text-indent: 2em; line-height: 23px;}
+.button{display:inline-block; *display:inline; *zoom:1; line-height:30px; padding:0 20px; background-color:#56B4DC; color:#fff; font-size:14px; border-radius:3px; cursor:pointer; font-weight:normal;}
+.imgs img{width:250px; height:300px; padding:0 3px 3px; cursor:pointer;}
+	
+	
+body {
+	background-repeat: repeat-x;
+	background-color: #FFF;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+</style>
+
+<script>
+	function showDiv(){
+		document.getElementById('popDiv').style.display='block';
+		document.getElementById('popIframe').style.display='block';
+		document.getElementById('bg').style.display='block';
+	}
+	
+	function closeDiv(){
+		document.getElementById('popDiv').style.display='none';
+		document.getElementById('bg').style.display='none';
+		document.getElementById('popIframe').style.display='none';
+	}
+	
+	;!function(){
+	    layer.use('extend/layer.ext.js', function(){
+	        //初始加载即调用，所以需放在ext回调里
+	        layer.ext = function(){
+	            layer.photosPage({
+	                title: '相关执照图片',
+	                id: 100, //相册id，可选
+	                parent:'#imgs'
+	            });
+	        };
+	    });
+	   }();
+</script>
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+#parse("myAccount/header.vm")
+
+<div>
+<div class="customer_main2_new">
+<div class="customer_main2_new_all">
+	#parse("myAccount/left.vm")
+    
+    <div class="customer_main2_R_new">
+    <div class="customer_main2_R_all">
+    	<div class="quick_signing_cx">
+        <span class="Trading_inquiry_color1">需求详情</span>
+      	</div>
+        
+        <div class="Trading_inquiry1">
+        	<div class="Trading_inquiry_xq1">
+                <div class="Trading_inquiry_xq1_1">
+                <img src="$static_url/images/xiazai.png" width="9" height="11" />
+##                <a href="$!front_url/files/downloadFile.json?projectId=$!{id}&downType=pdf"><span class="Trading_inquiry_color3">下载担保函（原始）</span></a>&nbsp;&nbsp;
+                <a href="$front_url/final/$!{detail.guaranteePic}"><span class="Trading_inquiry_color3">下载担保函（原始）</span></a>&nbsp;&nbsp;
+##				<a href=""><span class="Trading_inquiry_color3">预览</span></a>
+                </div>
+                
+                <div class="Trading_inquiry_xq1_1">
+                <img src="$static_url/images/xiazai.png" width="9" height="11" />
+                <a href="$front_url/final/$!{detail.contractPath}"><span class="Trading_inquiry_color3">下载合同（原始）</span></a>&nbsp;&nbsp;
+##				<a href=""><span class="Trading_inquiry_color3">预览</span></a>
+                </div>
+
+                <div class="Trading_inquiry_xq1_2">
+                <span class="Trading_inquiry_color5">提示："正式"为担保函、合同已加盖公章PDF文件，"原始"为未加盖公章PDF文件</span>&nbsp;&nbsp;
+                </div>
+            </div>
+            
+        </div>
+
+
+	#parse("myAccount/projectDetail.vm")
+	
+	
+        <div class="Trading_inquiry2">
+        	<div class="Trading_inquiry2_1 xian1"><span class="Trading_inquiry_color2">融资信息</span></div>
+            <div class="Trading_inquiry2_2_New">
+           	  <div class="Financiers4">融资描述</div>
+                <div class="Financiers4">融资状态</div>
+                <div class="Financiers4">成立日期</div>
+                <div class="Financiers4">融资金额（元）</div>
+            </div>
+        </div>
+			<div class="Trading_inquiry2_3_new1">
+				<div class="Financiers4_1">$!Entity_Trade.tradeSubjectInfo</div>
+				<div class="Financiers4_1">$!Map_Trade_Status.get($!Entity_Trade.tradeStatus)</div>
+				<div class="Financiers4_1">$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!Entity_Trade.dealDate)</div>
+				<div class="Financiers4_1">$!Entity_Trade.tradeAmount</div>
+			</div>
+		
+        <div class="Trading_inquiry2">
+        	<div class="Trading_inquiry2_1 xian1"><span class="Trading_inquiry_color2">还款信息</span></div>
+            <div class="Trading_inquiry2_2_New">
+##           	  <div class="Trading_inquiry2_2_1">还款人</div>
+##                <div class="Trading_inquiry2_2_1">实到金额（元）</div>
+##                <div class="Trading_inquiry2_2_1">成立日期</div>
+##                <div class="Trading_inquiry2_2_1">年化收益率</div>
+##                <div class="Trading_inquiry2_2_1">期限</div>
+                <div class="Trading_inquiry2_2_1">总还款金额(元)</div>
+                <div class="Trading_inquiry2_2_1">还款状态</div>
+                <div class="Trading_inquiry2_2_1">预期还款日期</div>
+                <div class="Trading_inquiry2_2_1">实际还款日期</div>
+            </div>
+            
+        </div>
+        
+        <div class="Trading_inquiry2_3_new1" style="">
+##        	<div class="Trading_inquiry2_2_1_new1">$!detail.repaymentInfo.repaymenter</div>
+##            <div class="Trading_inquiry2_2_1_new1">$!detail.repaymentInfo.realMoney</div>
+##            <div class="Trading_inquiry2_2_1_new1">$!detail.repaymentInfo.finishDate</div>
+##            <div class="Trading_inquiry2_2_1_new1">$!detail.repaymentInfo.yearRate</div>
+            <div class="Trading_inquiry2_2_1_new1">$!Entity_Repayment.getBalance()</div>
+            <div class="Trading_inquiry2_2_1_new1">$!Map_Repayment_Status.get($!Entity_Repayment.status)</div>
+            <div class="Trading_inquiry2_2_1_new1">$!dateTool.format('yyyy-MM-dd', $!Entity_Repayment.getIssueDate())</div>
+            <div class="Trading_inquiry2_2_1_new1">$!dateTool.format('yyyy-MM-dd', $!Entity_Repayment.getRepayDate())</div>
+        </div>
+		
+		##if($!status == "0")
+##      <form action="$front_url/myAccount/doRepayMoney.html" method="post">$front_url/myAccount/doRepayMoney.json
+        <form action="" method="post">
+             <div id="popDiv" class="Repayment_tc" style="display:none;">
+                <div class="beizhu1">
+                    <div class="beizhu1_L"></div>
+                    <div class="beizhu1_R">
+                    <a href="javascript:closeDiv()" class="guanbi"></a> 
+                    </div>
+                </div>
+                
+                <div class="Repayment1">
+                	<div class="Repayment1_L"><span class="Trading_inquiry_color5">*</span>&nbsp;还款金额：</div>
+					<div class="Repayment1_R"><span class="Trading_inquiry_color5">￥$!Entity_Repayment.getBalance() 元</span></div>
+					## 隐藏了ID和金额
+					<input type="hidden" name="money" value="$!Entity_Repayment.getBalance()" />
+					<input type="hidden" name="id" value="$!Entity_ProjectDetail.project.id" />
+					
+                </div>
+                <div class="Repayment1">
+                	<div class="Repayment1_L"><span class="Trading_inquiry_color5">*</span>&nbsp;还款金额大写：</div>
+                    <div class="Repayment1_R"><span class="Trading_inquiry_color5" id="caps"></span></div>
+					<script type="text/javascript">
+						JQ(function(){
+							JQ("form").validate();
+							var money = numtoch("$!Entity_Repayment.getBalance()");
+							JQ("#caps").html(money);
+						});
+						function checkRepay(){
+							if(JQ("#password").val().length >= 6){
+								jQuery.ajax({
+    								url:"$front_url/account/doRepayMoney.json",
+    								data:JQ("form").serialize(),
+    								type:"post",
+    								dataType:"json",
+									success:function(response){
+										if(response.result == "success"){
+											closeDiv();
+											alert("还款成功");
+										}else{
+											closeDiv();
+											alert("还款失败");
+										}
+										location.href="$front_url/myAccount/investAcceptDetail.html?id=$!Entity_ProjectDetail.project.id";
+									},
+									error:function(){
+										closeDiv();
+										alert("处理失败");
+									}
+								});
+							}
+						}
+                    </script>
+                </div>
+                <div class="Repayment1">
+                	<div class="Repayment1_L"><span class="Trading_inquiry_color5">*</span>&nbsp;交易密码：</div>
+                    <div class="Repayment1_R"><input name="password" id="password" type="password" class="Repayment_text {required:true,rangelength:[6,20],messages:{required:'<span style=\'color:red;\'>请输入密码</span>',rangelength:'<span style=\'color:red;\'>交易密码不能少于6位</span>'}}" /></div>
+                </div>
+                
+##              <div class="Repayment1_zhuyi" style="">
+##                	<div class="Repayment1_L"></div>
+##                    <div class="Repayment1_R"><span class="Repayment_color">
+##                    <img src="$static_url/images/zhuyi.png" width="16" height="17" />&nbsp;<span style="font-size:13px;">交易密码不能为空或少于6位</span></span></div>
+##                </div>
+                
+                <div class="beizhu4_1">
+                	<a href="javascript:void(0)" ><input type="button" value="确认还款" onclick="checkRepay()" class="Operator_Management_anniu2" /></a>&nbsp;&nbsp;
+                	<a href="javascript:void(0)" onclick="closeDiv()"><input type="button" value="返回" class="Operator_Management_anniu1" /></a>
+                </div>
+ 
+       	    </div>
+        
+            <div id="bg" class="bg" style="display:none;"></div>
+             
+            <iframe id='popIframe' class='popIframe' frameborder='0' ></iframe>
+        </form>
+		##end
+		
+		##set($!status = "0")
+        <div class="Trading_inquiry_xq4">
+        ##if($!status == "0")
+		#if($!Entity_ProjectDetail.project.status!="RC" && $!Entity_ProjectDetail.project.status!="CR"  && $!Entity_ProjectDetail.project.status!="CRC")
+			<a href="javascript:showDiv()">
+			<input type="button" class="Financiers_anniu" value="还款" />&nbsp;
+			</a>
+		#end
+        <a href="$front_url/myAccount/investAcceptRecord.html">
+        <input type="button" class="Financiers_anniu1" value="返回" />
+        </a>
+        </div>
+  	</div>
+    </div>
+  
+</div>
+</div>
+</div>
+
+ #parse("layout/footer.vm")
+ <script type="text/javascript">
+　　function numtoch(Num) 
+　　{ 
+　　for(i=Num.length-1;i>=0;i--) 
+　　{ 
+　　Num = Num.replace(",",""); 
+　　Num = Num.replace(" ","");
+　　} 
+　　Num = Num.replace("￥","");
+　　if(isNaN(Num)) 
+　　{
+　　return; 
+　　} 
+　　part = String(Num).split("."); 
+　　newchar = ""; 
+　　for(i=part[0].length-1;i>=0;i--) 
+　　{ 
+　　if(part[0].length > 10) 
+　　{ 
+　　alert("位数过大，无法计算"); 
+　　return ""; 
+　　}
+　　tmpnewchar = "" 
+　　perchar = part[0].charAt(i); 
+　　switch(perchar) 
+　　{ 
+　　case "0": tmpnewchar="零" + tmpnewchar ;break; 
+　　case "1": tmpnewchar="壹" + tmpnewchar ;break; 
+　　case "2": tmpnewchar="贰" + tmpnewchar ;break; 
+　　case "3": tmpnewchar="叁" + tmpnewchar ;break; 
+　　case "4": tmpnewchar="肆" + tmpnewchar ;break; 
+　　case "5": tmpnewchar="伍" + tmpnewchar ;break; 
+　　case "6": tmpnewchar="陆" + tmpnewchar ;break; 
+　　case "7": tmpnewchar="柒" + tmpnewchar ;break; 
+　　case "8": tmpnewchar="捌" + tmpnewchar ;break; 
+　　case "9": tmpnewchar="玖" + tmpnewchar ;break; 
+　　} 
+　　switch(part[0].length-i-1) 
+　　{ 
+　　case 0: tmpnewchar = tmpnewchar +"元" ;break; 
+　　case 1: if(perchar!=0)tmpnewchar= tmpnewchar +"拾" ;break; 
+　　case 2: if(perchar!=0)tmpnewchar= tmpnewchar +"佰" ;break; 
+　　case 3: if(perchar!=0)tmpnewchar= tmpnewchar +"仟" ;break; 
+　　case 4: tmpnewchar= tmpnewchar +"万" ;break; 
+　　case 5: if(perchar!=0)tmpnewchar= tmpnewchar +"拾" ;break; 
+　　case 6: if(perchar!=0)tmpnewchar= tmpnewchar +"佰" ;break; 
+　　case 7: if(perchar!=0)tmpnewchar= tmpnewchar +"仟" ;break; 
+　　case 8: tmpnewchar= tmpnewchar +"亿" ;break; 
+　　case 9: tmpnewchar= tmpnewchar +"拾" ;break; 
+　　} 
+　　newchar = tmpnewchar + newchar; 
+　　}
+　　if(Num.indexOf(".")!=-1) 
+　　{ 
+　　if(part[1].length > 2) 
+　　{ 
+　　part[1] = part[1].substr(0,2) ;
+　　} 
+　　for(i=0;i<part[1].length;i++) 
+　　{
+　　tmpnewchar = "" ;
+　　perchar = part[1].charAt(i) ;
+　　switch(perchar) 
+　　{
+　　case "0": tmpnewchar="零" + tmpnewchar ;break; 
+　　case "1": tmpnewchar="壹" + tmpnewchar ;break; 
+　　case "2": tmpnewchar="贰" + tmpnewchar ;break; 
+　　case "3": tmpnewchar="叁" + tmpnewchar ;break; 
+　　case "4": tmpnewchar="肆" + tmpnewchar ;break; 
+　　case "5": tmpnewchar="伍" + tmpnewchar ;break; 
+　　case "6": tmpnewchar="陆" + tmpnewchar ;break; 
+　　case "7": tmpnewchar="柒" + tmpnewchar ;break; 
+　　case "8": tmpnewchar="捌" + tmpnewchar ;break; 
+　　case "9": tmpnewchar="玖" + tmpnewchar ;break;
+　　}
+　　if(i==0)tmpnewchar =tmpnewchar + "角"; 
+　　if(i==1)tmpnewchar = tmpnewchar + "分"; 
+　　newchar = newchar + tmpnewchar; 
+　　}
+　　}
+　　while(newchar.search("零零") != -1) 
+　　newchar = newchar.replace("零零", "零"); 
+　　newchar = newchar.replace("亿零万", "亿"); 
+　　newchar = newchar.replace("零亿", "亿"); 
+　　newchar = newchar.replace("亿万", "亿"); 
+　　newchar = newchar.replace("零万", "万"); 
+　　newchar = newchar.replace("零元", "元"); 
+　　newchar = newchar.replace("零角", ""); 
+　　newchar = newchar.replace("零分", ""); 
+　　if (newchar.charAt(newchar.length-1) == "元" || newchar.charAt(newchar.length-1) == "角") 
+　　newchar = newchar+"整" 
+　　return newchar; 
+　　}
+</script>
+</body>
+</html>

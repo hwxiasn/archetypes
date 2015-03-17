@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <title>倍赢金融财富箱</title>
+	#parse("layout/head.vm")
+    <link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+    <link href="$static_url/css/enroll.css" rel="stylesheet" type="text/css" />
+    <link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+    <script src="$static_url/admin/js/jquery.min.js"></script>
+	<script src="$static_url/admin/js/jquery.validate.js"></script>
+	<script src="$static_url/admin/js/jquery.metadata.js"></script>
+	<script src="$static_url/admin/js/messages_cn.js"></script>
+    
+	<script language="javascript">
+	var idNumComfirm = false;
+	
+	function checkIdNum(){
+    	var code = $(this).val();
+		var city={11:"北京",12:"天津",13:"河北",14:"山西",15:"内蒙古",21:"辽宁",22:"吉林",23:"黑龙江 ",31:"上海",32:"江苏",33:"浙江",34:"安徽",35:"福建",36:"江西",37:"山东",41:"河南",42:"湖北 ",43:"湖南",44:"广东",45:"广西",46:"海南",50:"重庆",51:"四川",52:"贵州",53:"云南",54:"西藏 ",61:"陕西",62:"甘肃",63:"青海",64:"宁夏",65:"新疆",71:"台湾",81:"香港",82:"澳门",91:"国外 "};
+		if(!code || !(/(^\d{15}$)|(^\d{17}([0-9]|X|x)$)/.test(code))){
+			$("#idNumTishi").html("身份证号格式错误");
+			return false;
+        }else if(!city[code.substr(0,2)]){
+			$("#idNumTishi").html("身份证号地址编码错误");
+			return false;
+        }else{
+            //18位身份证需要验证最后一位校验位
+            if(code.length == 18){
+                code = code.split('');
+                //∑(ai×Wi)(mod 11)
+                //加权因子
+                var factor = [ 7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2 ];
+                //校验位
+                var parity = [ 1, 0, 'X', 9, 8, 7, 6, 5, 4, 3, 2 ];
+                var sum = 0;
+                var ai = 0;
+                var wi = 0;
+                for (var i = 0; i < 17; i++){
+                    ai = code[i];
+                    wi = factor[i];
+                    sum += ai * wi;
+                }
+                var last = parity[sum % 11];
+                if(parity[sum % 11] != code[17]){
+					$("#idNumTishi").html("身份证号校验位错误");
+					return false;
+                }
+            }
+        }
+		$("#idNumTishi").html("");
+		return true;
+	}
+	
+	$(function(){
+		$("form").validate();
+		
+	    $("#idNum").blur(function(){
+			checkIdNum();
+	    });
+	    
+	    $("#theForm").submit(function(){
+	    	if(checkIdNum()){
+	    		return true;
+	    	}else{
+	    		return false;
+	    	}
+	    });
+	});
+	</script>
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color:#FFF;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+
+</style>
+
+<link href="$static_url/css/enroll.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+#parse("layout/header.vm")
+<form id="theForm" action="$front_url/activate.html" method="post">
+<div class="enroll_ws">
+
+	<div class="enroll_cg">
+    	<div class="enroll_cg1">1.用户注册</div>
+        <div class="enroll_cg1">2.发送激活邮件</div>
+        <div class="enroll_cg2">3.用户激活</div>
+        <div class="enroll_cg1">4.激活成功</div>
+        <div class="enroll_cg3_new1"></div>
+    </div>
+
+	<div class="enroll_all">
+	<div class="enroll_all_up"></div>
+        
+    <div class="enroll_2">
+        	<div class="enroll_2_L"><img src="$static_url/images/enorll_4.png" width="147" height="41" /></div>
+   		    <div class="enroll_2_R"></div>
+    </div>
+    <div class="enroll_3_zc">
+        	<div class="enroll_3_all">
+            	<div class="enroll_3_1">账户名：&nbsp;</div>
+                <div class="enroll_3_2">
+                <input name="id" type="hidden" class="e_text1" value="$!userRegister.id"/>
+                <input name="userName" type="hidden" class="e_text1" value="$!userRegister.userName"/>
+                <input name="userNameDisplay" type="text" class="e_text1" value="$!userRegister.userName" disabled="disabled" /></div>
+            </div>
+            <div class="enroll_3_all">
+            	<div class="enroll_3_1"><span class="e_color1">*</span>&nbsp;登录密码：&nbsp;</div>
+                <div class="enroll_3_2"><input name="password" id="loginPass" type="password" class="e_text1 {required:true,rangelength:[6,20]}" /></div>
+            </div>         
+            <div class="enroll_3_all_3">
+            	<div class="enroll_3_1_1_1"></div>
+                <div class="enroll_3_2_1_1">由6—20英文字母、数字或符号组成，建议使用大小写字母与数字混合设置密码，不可输入空格。</div>
+            </div>
+            <div class="enroll_3_all">
+            	<div class="enroll_3_1"><span class="e_color1">*</span>&nbsp;确认登录密码：&nbsp;</div>
+              <div class="enroll_3_2">
+              	<input name="confirmPassword" type="password" class="e_text1 {required:true,equalTo:'#loginPass',messages:{equalTo:'<img src=\'$static_url/images/zhuyi.png\' width=\'16\' height=\'17\' /><span class=\'e_color2\'>两次输入的密码不一致</span>'}}" />&nbsp;
+                </div>
+            </div>
+             <div class="enroll_3_all">
+            	<div class="enroll_3_1"><span class="e_color1">*</span>&nbsp;交易密码：&nbsp;</div>
+              <div class="enroll_3_2">
+              	<input name="payPassword" id="payPass" type="password" class="e_text1 {required:true,rangelength:[6,20]}" />&nbsp;
+              </div>
+            </div>
+            <div class="enroll_3_all_3">
+            	<div class="enroll_3_1_1_1"></div>
+                <div class="enroll_3_2_1_1">由6—20英文字母、数字或符号组成，建议使用大小写字母与数字混合设置密码。</div>
+            </div>
+            <div class="enroll_3_all">
+            	<div class="enroll_3_1"><span class="e_color1">*</span>&nbsp;确认交易密码：&nbsp;</div>
+                <div class="enroll_3_2"><input name="confirmPayPassword" type="password" class="e_text1 {required:true,equalTo:'#payPass',messages:{equalTo:'<img src=\'$static_url/images/zhuyi.png\' width=\'16\' height=\'17\' /><span class=\'e_color2\'>&nbsp;&nbsp;两次输入的密码不一致</span>'}}" /></div>
+				##
+            </div>
+            <div class="enroll_3_all">
+            	<div class="enroll_3_1"><span class="e_color1">*</span>&nbsp;手机号码：&nbsp;</div>
+              <div class="enroll_3_2">
+                <input name="mobile" id="mobile" value="$!userRegister.mobile" type="text" maxlength="11" class="e_text1 {required:true,digits:true,rangelength:[8,11],messages:{required:'<span style=\'color:red\'>请填写手机号码</span>',digits:'<span style=\'color:red\'>请填写正确的手机号码</span>',rangelength:'<span style=\'color:red\'>请填写正确的手机号码</span>'}}" />
+				<span id="mobileTishi" style="color:red;"></span>              </div>
+            </div>
+            <div class="enroll_3_all_3">
+            	<div class="enroll_3_1_1_1"></div>
+                <div class="enroll_3_2_1_1"><strong>请检查手机号码是否正确。</strong></div>
+            </div>
+            
+            <div class="enroll_3_all">
+            	<div class="enroll_3_1"><span class="e_color1">*</span>&nbsp;身份证号码：&nbsp;</div>
+              <div class="enroll_3_2">
+                <input name="usersnid" id="idNum" type="text" maxlength="18" value="$!userRegister.idNum" class="e_text1 {required:true,rangelength:[18,18],messages:{required:'<span style=\'color:red\'>请填写身份证号码</span>',rangelength:'<span style=\'color:red\'>请填写正确的身份证号码</span>'}}" />
+				<span id="idNumTishi" style="color:red"></span>
+              </div>
+            </div>
+            <div class="enroll_3_all_3">
+            	<div class="enroll_3_1_1_1"></div>
+                <div class="enroll_3_2_1_1"><strong>请填写身份证号码,用于账户注册。$!result</strong></div>
+            </div>
+        </div>
+        
+        <div class="enroll_4"><input name="" type="submit" value="确认，下一步" class="anniuOrange" /></div>
+        <div class="enroll_all_bottom"></div>
+       
+  </div>
+</div>
+</form>
+</body>
+</html>

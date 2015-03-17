@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>业务运营管理系统</title>
+        #parse("admin/layout/head.vm")
+        <link href="$static_url/admin/css/css.css" rel="stylesheet" type="text/css" />
+        <script LANGUAGE="JAVASCRIPT">
+        //时间
+        function tick()
+        {
+         var now= new Date();
+         years = now.getFullYear();
+         month = now.getMonth()+1;
+         dates = now.getDate();
+         hours = now.getHours();
+         Minutes = now.getMinutes();
+         Seconds = now.getSeconds();
+         if (hours<10)
+           hours="0"+hours;
+         if(Minutes<10)
+           Minutes="0"+Minutes;
+         if (Seconds<10)
+           Seconds="0"+Seconds;
+         var titletext = years + "年" + month + "月" + dates + "日" +hours +":" + Minutes + ":" + Seconds;
+         Clock.innerHTML = titletext;
+        window.setTimeout("tick();", 100); 
+        } 
+        window.onload = tick; 
+        </script>
+    </head>
+    <body>
+    <!-- top  -->
+        <div class="top line_botoom">
+        	<div class="topL"><img src="$static_url/admin/images/login/by.png"><img src="$static_url/admin/images/top1.png"></div>
+            <div class="topR">
+            	<img src="$static_url/admin/images/top2.png"><span class="on">您好，<span class="color_blue">$!user</span></span>
+                <!--js是否退出系统,是,跳转到登陆页面-->
+                <a href="javascript:if(confirm('您确定要退出本系统了吗？')){top.window.location.href='logout.html'}" target="_parent">退出</a><br/>
+                <span id="Clock"></span>
+            </div>
+        </div>
+    </body>
+</html>

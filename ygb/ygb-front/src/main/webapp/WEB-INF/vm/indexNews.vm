@@ -1,0 +1,61 @@
+<div class="main4">
+	<div class="main4_all">
+    	<div class="main4_all_L">
+       	  <div class="main4_all_L_1"><img src="$static_url/images/jiaoyie.jpg" width="122" height="49" /></div>
+          <div class="main4_all_L_2">累计出借金额（元）<br/>
+          <span class="color2">&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:20px;font-weight:bold;">
+				#set($totalInvestments=$!sums.get("totalInvestments"))
+				#if($totalInvestments) $totalInvestments #else 0.00 #end
+		  </span>
+		  </span></div>
+          <div class="main4_all_L_2">累计已还金额（元）<br/>
+          <span class="color2">&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:20px;font-weight:bold;">
+				#set($totalRepayments=$!sums.get("totalRepayments"))
+				#if($totalRepayments) $totalRepayments #else 0.00 #end
+		  </span>
+		  </span></div>
+		</div>
+
+        <div class="main4_all_L2">
+       	  <div class="main4_all_L_1">
+          	  <span><img src="$static_url/images/gonggao.jpg" width="122" height="49" /></span>
+              <a href="$front_url/platformNotice.html">更多>></a>
+          </div>
+		  <div class="main4_all_L_3">	
+          	<a href="$front_url/newsDetail.html?newsId=20">个人经营项目流动资金需求320万元还款公告</a>
+          </div>
+		  <div class="main4_all_L_3">
+             <a href="$front_url/newsDetail.html?newsId=16">辞旧迎新齐欢畅，倍赢祝您合家旺</a>
+          </div>
+          <div class="main4_all_L_3">
+            <a href="$front_url/newsDetail.html?newsId=11">热烈祝贺第一期国资担保借款项目成立</a>
+          </div>
+          <div class="main4_all_L_3">	
+            <a href="$front_url/newsDetail.html?newsId=4">天天630进社区倍赢金融专场活动在巴南举行</a>
+          </div>
+          
+       	</div>
+        
+        <div class="main4_all_L2">
+       	  <div class="main4_all_L_1">
+              <span><img src="$static_url/images/wenti.jpg" width="122" height="49" /></span>
+              <a href="$front_url/platformNotice.html?hy">更多>></a>
+          </div>
+		  <div class="main4_all_L_3">
+            <a href="$front_url/newsDetail.html?newsId=19">向南小贷荣获"2014中国十佳小额贷款公司"称号</a>
+          </div>
+		  <div class="main4_all_L_3">
+            <a href="$front_url/newsDetail.html?newsId=18">政府工作报告称互联网金融异军突起</a>
+          </div>
+          <div class="main4_all_L_3">
+            <a href="$front_url/newsDetail.html?newsId=17">两会开启农村互金新篇章 P2P助碎片理财</a>
+          </div>
+          <div class="main4_all_L_3">
+            <a href="$front_url/newsDetail.html?newsId=13">大数据时代互联网金融创新与传统银行转型</a>
+          </div>
+          
+       	</div>		
+		
+       	</div>
+    </div>
+</div>

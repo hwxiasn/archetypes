@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>业务管理后台</title>
+#parse("admin/layout/head.vm")
+<link href="$static_url/admin/css/admin.css" rel="stylesheet" type="text/css" />
+
+<script charset="utf-8" src="$static_url/admin/ckeditor/ckeditor.js"></script>
+<script src="$static_url/admin/js/SimpleTreeSelector.js"></script>
+
+<script src="$static_url/admin/js/jquery.min.js"></script>
+<script src="$static_url/admin/js/jquery.validate.js"></script>
+<script src="$static_url/admin/js/jquery.metadata.js"></script>
+<script src="$static_url/admin/js/messages_cn.js"></script>
+
+<script>
+	var data = new Array(); 
+	$(function() {
+
+		var sujects = $!subjects;
+		for(var i = 0; i < sujects.length; i ++){
+			data[i] = {id : sujects[i].code, pid : sujects[i].parentCode, text : sujects[i].name, selected : false};
+		}
+		var select = document.getElementById("subject");
+		var ts = new TreeSelector(select, data, 'X'); 
+		ts.createTree(); 
+		
+		$("#articleForm").validate({
+			rules : {
+				title 	: {required : true}
+			}
+		});
+		
+    	$("#btnSaveArticle").click(function(){
+    		$("#status").val(1);
+    		$("#articleForm").submit();
+    	});
+    	
+    	$("#btnSaveDraft").click(function(){
+    		$("#status").val(0);
+    		$("#articleForm").submit();
+    	});
+	});
+</script>
+
+<style type="text/css">
+form {
+	  margin: 0;
+	}
+textarea {
+	  display: block;
+	}
+
+a:link {
+	color: #8e8e8e;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #8E8E8E;
+}
+a:hover {
+	text-decoration: none;
+	color: #F00;
+}
+a:active {
+	text-decoration: none;
+	color: #F00;
+}
+#current,#options { border:1px solid #a0a0a0;}
+#replace {cursor:default;overflow:visible;position:relative;}
+#current { background:url("$static_url/admin/images/dropdown.png") right center no-repeat;margin-bottom:0;}
+#current,#replace,#options li { width:150px;}
+#options { border-top:0 none; display:none;list-style-type:none;margin-top:0;position:absolute;width:160px;}
+#current,#options li {padding:5px;}
+#current,#options,#options li {background-color:#FFF;}
+</style>
+</head>
+<body>
+<table width="99%" height="6px" border="0" bgcolor="#0f97cb" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+    <td></td>
+  </tr>
+</table>
+
+<table width="99%" height="34px" border="0" bgcolor="#ffffff" cellspacing="0" cellpadding="0" align="center" class="bian1">
+  <tr>
+  	<td width="15px"></td>
+    <td class="main1">添加文章<a href="Marketers_TJ.html"><span class="Mcolor_1"></span> </a></td>
+  </tr>
+</table>
+
+<table width="99%" height="16px" border="0" background="$static_url/admin/images/main1.gif" cellspacing="0" cellpadding="0" align="center" class="bian1">
+  <tr>
+  	<td width="15px"><img src="$static_url/admin/images/main1.jpg" alt="" width="123" height="16" /></td>
+    <td></td>
+  </tr>
+</table>
+
+<form id="articleForm" action="$admin_url/content/doArticleAdd.html" id="form1" method="post">
+<table width="99%" border="0" bgcolor="#edf5f6" cellspacing="0" cellpadding="0" align="center" class="bian2">
+	<tr>
+	    <td width="3%" height="50px"  >&nbsp;</td>
+	    <td width="8%"  ><span class="Mcolor_1">*</span>文章标题：</td>
+	    <td width="89%" ><input type="text" name="title" class="Mtext_bj " /></td>
+    </tr>
+    
+    <tr>
+	    <td width="2%" height="50px">&nbsp;<input type="hidden" id="status" name="status" value="0"/></td>
+	    <td width="9%"><span class="Mcolor_1">*</span>所属专题：</td>
+	    <td><select id="subject" name="subject" class="newsText1"></td>
+	</tr>
+	
+	<tr>
+		<td width="3%" height="300px"  >&nbsp;</td>
+		<td><span class="Mcolor_1">*</span>文章内容：</td>
+		<td><textarea name="content" style="width:800px;height:200px;" ></textarea></td>
+	</tr>
+	<script type="text/javascript">
+		CKEDITOR.replace('content');
+	</script>
+	
+	<tr>
+	    <td width="3%" height="50px" class="Mxian1" >&nbsp;</td>
+	    <td colspan="2" align="center" class="Mxian1" >
+			<input id="btnSaveArticle" 	type="button" value="保存文章" class="anniu1" />
+			<input id="btnSaveDraft" 	type="button" value="保存草稿" class="anniu1" />
+			<input type="button" value="取消" onclick="history.go(-1);return false" class="anniu1"/>
+		</td>
+	</tr>
+  </table>
+</form>
+
+</body>
+</html>

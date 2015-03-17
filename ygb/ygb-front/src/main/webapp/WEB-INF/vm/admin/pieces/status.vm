@@ -1,0 +1,9 @@
+#if(!$!status) #set($status="$!user.status") #end
+#foreach($item in $!statuses)
+<input name="status" type="radio" value="$!item.code" #if($velocityCount==1) checked="checked" #end/>$!item.name
+#end
+<script type="text/javascript">
+	$(function(){
+		$("input[name='status'][value='$!status']").attr("checked","checked");
+	});
+</script>

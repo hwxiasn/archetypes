@@ -1,0 +1,521 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>倍赢金融财富箱--立即投资</title>
+#parse("layout/head.vm")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Pop-up_layer.css" rel="stylesheet" type="text/css" />
+<script src="$static_url/layer/layer.min.js"></script>
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Pop-up_layer.css" rel="stylesheet" type="text/css" />
+<script src="$static_url/layer/layer.min.js"></script>
+
+
+<script language="javascript">
+var circleoff1;
+var circleon1;
+if(document.images){
+circleoff1=new Image(50,50);
+circleoff1.src="$static_url/images/guanbi.png";
+circleon1=new Image(50,50);
+circleon1.src="$static_url/images/guanbi2.png";
+}
+
+function On1(name){
+if(document.images){
+document.images['img'+name].src=circleon1.src;
+}
+}
+function Off1(name){
+	if(document.images){
+		document.images['img'+name].src=circleoff1.src;
+	}
+}
+
+function showDiv(){
+
+document.getElementById('popDiv').style.display='block';
+
+document.getElementById('popIframe').style.display='block';
+
+document.getElementById('bg').style.display='block';
+
+$("#Success").hide();
+
+}
+
+function closeDiv(){
+
+document.getElementById('popDiv').style.display='none';
+
+document.getElementById('bg').style.display='none';
+
+document.getElementById('popIframe').style.display='none';
+$("#Success").hide();
+}
+
+function showNum(ele){
+	var num = $(ele).val()*10000;
+	
+	var reg = /^[1-9]+[0-9]*]*$/;
+	if(!reg.test($(ele).val()) || num == "" || num == null){
+		$("#tishi2").html("投资金额只能是整数");
+		
+		return;
+	}else{
+		$("#tishi2").html("");
+	}
+	
+	var ch = numtoch(num.toString());		
+	$("#caps").html(ch);
+	if($!project.minimumInvestmentAmount <= $!project.investmentRemains){
+    	if(num < $!project.minimumInvestmentAmount){
+    		$("#tishi2").html("投资金额不能小于最低投资金额");
+    		return;
+    	}
+	}
+	if(num > $!{project.investmentRemains}){
+		$("#tishi2").html("投资金额不能大于剩余投资金额");
+		return;
+	}
+	
+	if(!isNaN(num) && num != ""){
+		$("#tishi2").html("");
+		jQuery.ajax({
+			url:"$front_url/checkMoney.json",
+			data:{"money":num},
+			type:"post",
+			success:function(data){
+				if(data.result == undefined){
+    				$("#tishi1").html("<span id='buzu' ><img src='$static_url/images/zhuyi.png' width='16' height='17' /> &nbsp;" +
+    				"<span class='Change_Password_color3'>您的可用余额不足，请</span><a href='$front_url/myAccount/fastInApply.html'><span class='Change_Password_color2'>充值</span></a></span>");
+				}else{
+					$("#tishi1").find("#buzu").remove();
+				}
+			}
+		});
+	}
+ }
+
+
+
+function showSuccess(ele){
+	
+	var money = $("#mm");
+	var sures = $("#suresMoney");
+	var pass = $("#passwords");
+	var agree = $("#agree");
+	showNum(money);
+	var flag = true;
+	var reg = /^[1-9]+[0-9]*]*$/;
+##	if(money.val() =="" || sures.val() == "" || sures.val() != money.val() 
+##		|| isNaN(money.val()) || isNaN(sures.val()) || money.val()*10000 < $!project.minimumInvestmentAmount || sures.val()*10000 < $!project.minimumInvestmentAmount){ 
+##		flag = false;
+##		return;
+##	}
+
+##  只要是数字都可以投资
+    if(money.val().length <= 0 || !reg.test(money.val())){
+		$("#tishi2").html("投资金额只能是整数");
+		flag = false;
+		return;
+	}else{
+		$("#tishi2").html("");
+		flag = true;
+	}
+	
+	if(money.val()*10000 < $!project.minimumInvestmentAmount && $!{project.investmentRemains} >= $!project.minimumInvestmentAmount){
+		$("#tishi2").html("投资金额不能小于最低投资金额");
+		flag = false;
+		return;
+	}else if(money.val()*10000 < $!project.minimumInvestmentAmount && $!{project.investmentRemains} < $!project.minimumInvestmentAmount){
+		$("#tishi2").html("");
+		flag = true;
+	}else{
+		$("#tishi2").html("");
+		flag = true;
+	}
+	
+	if(money.val()*10000 > $!{project.investmentRemains}){
+		$("#tishi2").html("投资金额不能大于剩余投资金额");
+		flag = false;
+		return;
+	}else{
+		$("#tishi2").html("");
+		flag = true;
+	}
+	
+	
+	if(sures.val() != money.val()){
+		$("#suresTishi").html("投资金额和确认投资金额不一致");
+		flag = false;
+		return;
+	}else{
+		$("#suresTishi").html("");
+		flag = true;
+	}
+	
+	if(pass.val().length < 6){ 
+		$("#passTishi").html("请输入不少于六位的支付密码");
+		flag = false;
+		return;
+	}else{
+		$("#passTishi").html("");
+		flag = true;
+	}
+	
+	if(agree.val() != "1"){
+		flag = false;
+        $("#agrees").html("请选择同意本条款");
+		return;
+	}else{
+		$("#agrees").html("");
+		flag = true;
+	}
+	if(flag){
+		$(ele).removeAttr('onclick');
+		$("#bg_all").css("display","block");
+		$("#shows1").html("系统正在处理您的投资请求，请稍等片刻........");
+    	jQuery.ajax({
+    		url:"$front_url/goInvest/doInvest.json",
+    		data:$("form").serialize(),
+    		dataType: "json",
+			type:"post",
+    		success:function(response){
+				if(response.result == "success"){
+    				$("#Success").show().find("#ss").show();
+    				setTimeout(function(){
+                     	location.reload(true);
+                    },1000);
+				}else{
+					$("#Success").show().find("#ff").show();
+    				alert("投资失败，交易密码不正确");
+    				setTimeout(function(){
+                     	location.reload(true);
+                    },1000);
+				}
+    		},
+    		error:function(response){
+##				alert("投资失败，出错了");
+				$("#Success").show().find("#ss").show();
+				setTimeout(function(){
+                 	location.reload(true);
+                },1000);
+    		}
+    	});
+	}
+}
+
+$(function(){
+	$("form").validate();
+	$.museum($('#content img'));
+});
+function checks(ele){
+	if($(ele).val() != $("#mm").val()){
+		$("#suresTishi").html("投资金额和确认投资金额不一致");
+	}else{
+		$("#suresTishi").html("");
+	}
+}
+
+function checkInvest(){
+	var agr = $("#agree").val();
+	if(agr != "1"){
+		$("#agrees").html("请选择同意本条款");
+		flag = false;
+	}else{
+		flag = true;
+	}
+}
+
+$(document).ready(function () {
+	$('.swipeboxEx').each(function (i, el) {
+		$(el).justifiedGallery({rel: 'gal' + i}).on('jg.complete', function () {
+			if (i == 0) $('.swipeboxEx a').swipebox(); //如果想调用1个相册对应i值为0，同理3个相册，i值为2。
+		});
+	});
+});
+
+
+;!function(){
+    layer.use('extend/layer.ext.js', function(){
+        //初始加载即调用，所以需放在ext回调里
+        layer.ext = function(){
+            layer.photosPage({
+                
+                title: '相关执照图片',
+                id: 100, //相册id，可选
+                parent:'#imgs'
+            });
+        };
+    });
+   }();
+</script>
+
+
+<style type="text/css">
+.box{width:100%; height:100%;}
+.box a{padding-right:15px;}
+#about_hide{display:none}
+.layer_text{background-color:#fff; padding:20px;}
+.layer_text p{margin-bottom: 10px; text-indent: 2em; line-height: 23px;}
+.button{display:inline-block; *display:inline; *zoom:1; line-height:30px; padding:0 20px; background-color:#56B4DC; color:#fff; font-size:14px; border-radius:3px; cursor:pointer; font-weight:normal;}
+.imgs img{width:500px; height:270px; padding:0 3px 3px; cursor:pointer;}		
+body {
+	background-repeat: repeat-x;
+	background-color: #FFF;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+##遮罩层
+.black_overlay{
+display: none;
+position: absolute;
+top: 0%;
+left: 0%;
+width: 100%;
+height: 100%;
+background-color: white;
+z-index:1001;
+-moz-opacity: 0.5;
+opacity:.10;
+filter: alpha(opacity=50);
+}
+</style>
+
+</head>
+
+<style type="text/css">
+.imgs img{width:250px; height:300px; padding:0 3px 3px; cursor:pointer;}	
+</style>
+</head>
+
+
+<body>
+
+<div id="bg_all" class="black_overlay"></div>
+#parse("layout/header.vm")
+##内容
+
+  ##弹出层确认投资
+  <form action="$front_url/goInvest/doInvest.html" id="investForm" method="post">
+  	<input name="investProjectId" id="investProjectId" value="$!Entity_Project.id" type="hidden"/>
+	<div id="popDiv" class="mydiv2" >
+      <div class="Change_Password1_new1">
+            <div class="Change_Password1_L_new1">确认投资</div>
+            <div class="Change_Password1_R">
+               <a href="javascript:closeDiv()" onMouseOver="On1(4)" onMouseOut="Off1(4)"></a> 
+            </div>
+      </div>
+      
+      <div class="Change_Password1_new1_1">
+      	<div class="Change_Password1_new1_1_L"><span class="Change_Password_color">*</span>&nbsp;请输入投资金额：</div>
+        <div class="Change_Password1_new1_1_R">
+        <input name="investMoney" id="mm" maxlength="5" type="text" onblur="showNum(this)" class="Change_Password_text1 {required:true}" />&nbsp;&nbsp;万元&nbsp;&nbsp;
+        <span id="tishi1" style="color:red;"></span><span id="tishi2" style="color:red;"></span>
+        </div>
+      </div>
+      <div class="Change_Password1_new1_2">
+      	<div class="Change_Password1_new1_1_L"></div>
+        <div class="Change_Password1_new1_1_R" id="caps">
+			
+        </div>
+      </div>
+      
+      <div class="Change_Password1_new1_1">
+      	<div class="Change_Password1_new1_1_L"><span class="Change_Password_color">*</span>&nbsp;请确认投资金额：</div>
+        <div class="Change_Password1_new1_1_R">
+			<input name="sures" type="text" id="suresMoney" onblur="checks(this)" class="Change_Password_text1 {required:true}" value="" />&nbsp;&nbsp;万元&nbsp;&nbsp;
+            <span id="suresTishi" style=color:red;""></span>
+        </div>
+      </div>
+      
+      <div class="Change_Password1_new1_1">
+      	<div class="Change_Password1_new1_1_L"><span class="Change_Password_color">*</span>&nbsp;请输入交易密码：</div>
+        <div class="Change_Password1_new1_1_R">
+        <input name="password" type="password" id="passwords" maxlength="20" class="Change_Password_text1 {required:true,rangelength:[6,20],messages:{rangelength:'<span style=\'color:red;\'>请输入六位以上的支付密码</span>'}}" value="" />
+		<span id="passTishi" style="color:red;"></span>
+        </div>
+      </div>
+      
+      <div class="Change_Password1_new1_2">
+      	<div class="Change_Password1_new1_1_L"></div>
+        <div class="Change_Password1_new1_1_R">
+        	<span id="shows1" style="color:blue;"></span>
+        </div>
+      </div>
+      
+      <div class="Change_Password1_new1_2">
+      	<div class="Change_Password1_new1_1_L">
+			<input name="touzido" id="touzidoId" value="投资" type="submit"/>
+		</div>
+        <div class="Change_Password1_new1_1_R">
+        <input name="agree" type="checkbox" value="1" id="agree" onclick="agrees(this)" class="{required:true}" checked="checked" />&nbsp;
+		<script type="text/javascript">
+			function agrees(ele){
+				if(ele.checked)	{
+					$(ele).val("1");
+				}else{
+					$(ele).val("");
+				}
+			}
+        </script>
+##        已阅读并同意&nbsp;<a href="$front_url/downGuaranteeContract.html"><span class="Change_Password_color2">《投资权益回购履约担保合同》</span></a>&nbsp;
+        已阅读并同意&nbsp;#if($!project.role == "L")<a href="$front_url/final/contract-l.doc">  #else <a href="$front_url/final/contract-g.doc"> #end <span class="Change_Password_color2">《投资权益回购履约担保合同》</span></a>&nbsp;
+		<span id="agrees" style="color:red;"></span>
+        </div>
+      </div>
+	  
+	  
+      
+	  <!--
+      <div class="Change_Password1_new1_2">
+      	<div class="Change_Password1_new1_1_L"></div>
+        <div class="Change_Password1_new1_1_R">
+        <a href="javascript:void(0)" onclick="showSuccess(this)" >投资<img style="border:none;" src="$static_url/images/invest7_3.png" /></a>&nbsp;##
+        <div id ="Success" class="mydiv_success" style="display:none;" onclick="location.href='/investInfo.html?id=$!id'">
+         <div id="ss" style="display:none">
+			<div class="mydiv_success1"><img src="$static_url/images/chenggong.png" width="31" height="31" />&nbsp;&nbsp;</div>
+			<div class="mydiv_success2">&nbsp;投资成功</div>
+		 </div>
+		 <div id="ff" style="display:none">
+			<div class="mydiv_success1"><img src="$static_url/images/fail.png" width="31" height="31" onclick="$(this).hide()" />&nbsp;&nbsp;</div>
+			<div class="mydiv_success2" style="">&nbsp;投资失败</div> 
+         </div>
+		 
+        </div>
+        
+        <a href="javascript:closeDiv()"><img style="border:none;" src="$static_url/images/invest7_1.png" /></a>
+		<span style="color:red">温馨提示：投资过程系统需要时间来响应订单，请稍等片刻!</span>
+        </div>
+      </div>
+	  -->
+ </div>
+   <div id="bg" class="bg" ></div>
+##   #if(($!project.ProjectStatus == "F" || $!project.ProjectStatus == "A" || $!project.ProjectStatus == "P") && $!shiro.hasRole("I"))
+   #if($!project.ProjectStatus == "F")
+##		<a #if ($!shiro.hasRole("I")) href="javascript:showDiv()" #else href="$front_url/login.html" #end onMouseOver="On(0)" onMouseOut="Off(0)">
+##			用户查看详情时都可以看到投资按钮 09-29注释的
+##		<a href="javascript:showDiv()" onMouseOver="On(0)" onMouseOut="Off(0)">
+##		<img src="$static_url/images/invest7_2.png" style="border:none;" /></a>&nbsp;
+	    #if($shiro.isFrontAuthenticated() && $!shiro.hasRole("I"))
+			<a href="javascript:showDiv()" onMouseOver="On(0)" onMouseOut="Off(0)"><img src="$static_url/images/invest7_2.png" style="border:none;" /></a>&nbsp;
+		#end
+		#if(!$shiro.isFrontAuthenticated())
+			<a href="$front_url/login.html" onMouseOver="On(0)" onMouseOut="Off(0)"><img src="$static_url/images/invest7_2.png" style="border:none;" /></a>&nbsp;
+		#end
+        <a href="javascript:history.go(-1);"><img style="border:none;" src="$static_url/images/invest7_1.png" /></a>
+   #end             
+            
+   <iframe id='popIframe' class='popIframe' frameborder='0' ></iframe>
+   </form> 
+  
+  
+
+
+
+<script type="text/javascript">
+　　function numtoch(Num) 
+　　{ 
+　　for(i=Num.length-1;i>=0;i--) 
+　　{ 
+　　Num = Num.replace(",","")//替换tomoney()中的"," 
+　　Num = Num.replace(" ","")//替换tomoney()中的空格 
+　　} 
+　　Num = Num.replace("￥","")//替换掉可能出现的￥字符 
+　　if(isNaN(Num)) 
+　　{ //验证输入的字符是否为数字 
+　　//alert("请检查小写金额是否正确"); 
+　　return; 
+　　} 
+　　//---字符处理完毕，开始转换，转换采用前后两部分分别转换---// 
+　　part = String(Num).split("."); 
+　　newchar = ""; 
+　　//小数点前进行转化 
+　　for(i=part[0].length-1;i>=0;i--) 
+　　{ 
+　　if(part[0].length > 10) 
+　　{ 
+　　alert("位数过大，无法计算"); 
+　　return ""; 
+　　}//若数量超过拾亿单位，提示 
+　　tmpnewchar = "" 
+　　perchar = part[0].charAt(i); 
+　　switch(perchar) 
+　　{ 
+　　case "0": tmpnewchar="零" + tmpnewchar ;break; 
+　　case "1": tmpnewchar="壹" + tmpnewchar ;break; 
+　　case "2": tmpnewchar="贰" + tmpnewchar ;break; 
+　　case "3": tmpnewchar="叁" + tmpnewchar ;break; 
+　　case "4": tmpnewchar="肆" + tmpnewchar ;break; 
+　　case "5": tmpnewchar="伍" + tmpnewchar ;break; 
+　　case "6": tmpnewchar="陆" + tmpnewchar ;break; 
+　　case "7": tmpnewchar="柒" + tmpnewchar ;break; 
+　　case "8": tmpnewchar="捌" + tmpnewchar ;break; 
+　　case "9": tmpnewchar="玖" + tmpnewchar ;break; 
+　　} 
+　　switch(part[0].length-i-1) 
+　　{ 
+　　case 0: tmpnewchar = tmpnewchar +"元" ;break; 
+　　case 1: if(perchar!=0)tmpnewchar= tmpnewchar +"拾" ;break; 
+　　case 2: if(perchar!=0)tmpnewchar= tmpnewchar +"佰" ;break; 
+　　case 3: if(perchar!=0)tmpnewchar= tmpnewchar +"仟" ;break; 
+　　case 4: tmpnewchar= tmpnewchar +"万" ;break; 
+　　case 5: if(perchar!=0)tmpnewchar= tmpnewchar +"拾" ;break; 
+　　case 6: if(perchar!=0)tmpnewchar= tmpnewchar +"佰" ;break; 
+　　case 7: if(perchar!=0)tmpnewchar= tmpnewchar +"仟" ;break; 
+　　case 8: tmpnewchar= tmpnewchar +"亿" ;break; 
+　　case 9: tmpnewchar= tmpnewchar +"拾" ;break; 
+　　} 
+　　newchar = tmpnewchar + newchar; 
+　　}//for 
+　　//小数点之后进行转化 
+　　if(Num.indexOf(".")!=-1) 
+　　{ 
+　　if(part[1].length > 2) 
+　　{ 
+　　//alert("小数点之后只能保留两位,系统将自动截段"); 
+　　part[1] = part[1].substr(0,2) 
+　　} 
+　　for(i=0;i<part[1].length;i++) 
+　　{//for2 
+　　tmpnewchar = "" 
+　　perchar = part[1].charAt(i) 
+　　switch(perchar) 
+　　{
+　　case "0": tmpnewchar="零" + tmpnewchar ;break; 
+　　case "1": tmpnewchar="壹" + tmpnewchar ;break; 
+　　case "2": tmpnewchar="贰" + tmpnewchar ;break; 
+　　case "3": tmpnewchar="叁" + tmpnewchar ;break; 
+　　case "4": tmpnewchar="肆" + tmpnewchar ;break; 
+　　case "5": tmpnewchar="伍" + tmpnewchar ;break; 
+　　case "6": tmpnewchar="陆" + tmpnewchar ;break; 
+　　case "7": tmpnewchar="柒" + tmpnewchar ;break; 
+　　case "8": tmpnewchar="捌" + tmpnewchar ;break; 
+　　case "9": tmpnewchar="玖" + tmpnewchar ;break;
+　　}
+　　if(i==0)tmpnewchar =tmpnewchar + "角"; 
+　　if(i==1)tmpnewchar = tmpnewchar + "分"; 
+　　newchar = newchar + tmpnewchar; 
+　　}//for2
+　　}
+　　//替换所有无用汉字
+　　while(newchar.search("零零") != -1) 
+　　newchar = newchar.replace("零零", "零"); 
+　　newchar = newchar.replace("亿零万", "亿"); 
+　　newchar = newchar.replace("零亿", "亿"); 
+　　newchar = newchar.replace("亿万", "亿"); 
+　　newchar = newchar.replace("零万", "万"); 
+　　newchar = newchar.replace("零元", "元"); 
+　　newchar = newchar.replace("零角", ""); 
+　　newchar = newchar.replace("零分", ""); 
+　　if (newchar.charAt(newchar.length-1) == "元" || newchar.charAt(newchar.length-1) == "角") 
+　　newchar = newchar+"整" 
+　　return newchar; 
+　　}
+</script>
+</body>
+</html>

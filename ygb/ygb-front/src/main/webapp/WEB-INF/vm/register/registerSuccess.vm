@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+<link rel="stylesheet" type="text/css" href="$static_url/css/index.css"/>
+<link rel="stylesheet" type="text/css" href="$static_url/css/enroll.css"/>
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<!---------------内容---------------->
+<div class="enroll">
+
+    <div class="enroll_cg">
+    	<div class="enroll_cg1">1.用户注册</div>
+        <div class="enroll_cg2">2.发送激活邮件</div>
+        <div class="enroll_cg1">3.用户激活</div>
+        <div class="enroll_cg1">4.激活成功</div>
+        <div class="enroll_cg3"></div>
+    </div>
+
+	<div class="enroll_all">
+    	
+        <div class="e_fail_jh">
+        	<div class="e_fail_jhOne">
+   	   		<div class="e_fail_1"><img src="$static_url/images/chenggong.png" width="31" height="31" />&nbsp;</div>
+        	<div class="e_fail_2">您的倍赢金融账户已创建成功:</div>
+            </div>
+            
+            <div class="e_fail_jhOne">
+   	   		<div class="e_fail_1">&nbsp;</div>
+        	<div class="e_fail_3">账户名：$!userRegister.userName</div>
+            </div>
+            
+            <div class="e_fail_jhOne">
+   	   		<div class="e_fail_1">&nbsp;</div>
+        	<div class="e_fail_3">请检查您注册时填写的邮箱：<span class="e_color1">$!userRegister.email</span></div>
+            </div>
+            
+            <div class="e_fail_jhOne">
+   	   		<div class="e_fail_1">&nbsp;</div>
+        	<div class="e_fail_3">如未收到邮件，点此<a href="javascript:$('form').submit();"><span class="e_color3">重新发送</span></a>到您的邮箱。</div>
+            </div>
+            
+            <form action="$front_url/resendEmail.html" method="post">
+				<input type="hidden" name="id" value="$!userRegister.id" />
+				<input type="hidden" name="email" value="$!userRegister.email" />
+            </form>
+            
+            <div class="e_fail_jhOne">
+   	   		<div class="e_fail_1">&nbsp;</div>
+##        	<div class="e_fail_3"><a href=""><span class="e_color3">&gt;&gt;使用手机激活更方便</span></a> <a href="E-mail_activation.html"><span class="e_color3">流程下一步到邮箱激活</span></a></div>
+            </div>
+            
+        </div>
+       
+  </div>
+</div>
+
+</body>
+</html>

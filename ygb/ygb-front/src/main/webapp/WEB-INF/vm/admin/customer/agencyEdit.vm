@@ -1,0 +1,418 @@
+## 企业用户修改界面
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <title>业务运营管理系统</title>
+	#parse("admin/layout/head.vm")
+	<link href="$static_url/admin/css/css.css" rel="stylesheet" type="text/css" />
+    <link href="$static_url/admin/js/uploadify-3.2.1/uploadify.css" rel="stylesheet" type="text/css" />
+	<script src="$static_url/admin/js/uploadify-3.2.1/jquery.uploadify.min.js"></script>
+	<script src="$static_url/admin/js/uploadify-3.2.1/uploadify.settings.js"></script>
+	<script type="text/javascript" src="$static_url/admin/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+	exist=false;
+	$(function(){
+		$("select[name='bankCode'] > option[value='$!agency.bankCode']").attr("selected",true);
+		$("select[name='businessLicenseProvince'] > option[value='$!agency.businessLicenseProvince']").attr("selected",true);
+		$("select[name='businessLicenseCity'] > option[value='$!agency.businessLicenseCity']").attr("selected",true);
+		$("select[name='provinceCode'] > option[value='$!agency.provinceCode']").attr("selected",true);
+		$("select[name='cityCode'] > option[value='$!agency.cityCode']").attr("selected",true);
+		$("select[name='bankBranch'] > option[value='$!agency.bankBranch']").attr("selected",true);
+		$("input[name='role']").attr("disabled",true);
+		$("input[name='bankCardAccountName']").attr("disabled",true);
+		$("input[name='contactEmail']").attr("disabled",true);
+		$("input[name='contactPhone']").attr("disabled",true);
+    	$("form").validate();
+ 
+	$("#province").change(function(){
+    		var province = $(this).val();
+    		if(province) {
+    			$("#city").load("$front_url/data/cities.html?pid=" + province);
+    		}else{
+    			$("#city option:gt(0)").remove();
+    		}
+    	});
+    	$("#registerProvince").change(function(){
+    		var province = $(this).val();
+    		if(province) {
+    			$("#registerCity").load("$front_url/data/cities.html?pid=" + province);
+    		}else{
+    			$("#registerCity option:gt(0)").remove();
+    		}
+    	});
+	$("#briefCode").blur(function(){
+			var briefCode = $(this).val();
+			if(briefCode.match(/[^a-zA-Z]+/)){
+				$("#briefCodeTishi").html("请输入2~10位的字母");
+				exist=true;
+			}else{
+				$("#briefCodeTishi").html("");
+				exist=false;
+			}
+	});
+	$("#legalPersonIdentityNumber").blur(function(){
+		var idNum = $(this).val();
+		if(idNum.length == 18){
+			var str = idNum.split("");
+			for(var i = 0;i < str.length-2;i++){
+				if(isNaN(str[i])){
+					$("#idNumTishi").html("请输入正确的证件号码");
+					exist=true;
+					return;
+				}else{
+					$("#idNumTishi").html("");
+					exist=false;
+				}
+			}
+			var lastChar = str[str.length-1];
+			if(isNaN(lastChar) && lastChar.toUpperCase() != "X"){
+				$("#idNumTishi").html("请填写正确的证件号码");
+				exist=true;
+			}else{
+				$("#idNumTishi").html("");
+				exist=false;
+			}
+		}
+	});
+	
+	
+	uploadify("#licensePathFile", "#licensePath");
+	uploadify("#licenseCachetPathFile", "#licenseCachetPath");
+	uploadify("#legalPersonIdCopyFontFile", "#legalPersonIdCopyFont");
+	uploadify("#legalPersonIdCopyBackFile", "#legalPersonIdCopyBack");
+	uploadify("#openningLicensePathFile", "#openningLicensePath");
+	});
+	
+	function comfirmSubmit(){
+	 	if(exist){
+			return false;
+		}
+		return true;
+	}
+	
+	function foreverDate(ele){
+		if(ele.checked){
+			$("#licenseValidPeriod").val("长期");
+			$("#licenseValidPeriod").attr("disabled",true);
+			$("#licenseValidPeriodSure").attr("disabled",false);
+			$("#licenseValidPeriodSure").val("2999-12-31 23:59:59");
+		}else{
+			$("#licenseValidPeriod").attr("disabled",false);
+			$("#licenseValidPeriodSure").attr("disabled",true);
+			$("#licenseValidPeriod").val("");
+		}
+	}
+	
+	
+</script>
+</head>
+<body>
+<!--  主要内容  -->
+<div class="divMain">
+	<!--  查询开始  -->
+    <form action="$admin_url/customer/agencyEditSave.html" onsubmit="return comfirmSubmit()" method="post" enctype="multipart/form-data">
+	<div class="divMain_chaxun">
+    	<!--  标题  -->
+    	<div class="divMain_add_bt line_botoom">开户基本信息</div>
+        <!--  内容  -->
+        <div class="divMain_add_all line_botoom">
+        	<!--   必填项字段前加*号   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">*&nbsp;用户名：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">$!agency.userName</div>
+            </div>
+            
+            <!--   块   -->
+        	<div class="divMain_add_radioOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_radioOne_L">*&nbsp;用户角色：</div>
+                <!--   右   -->
+            	<div class="divMain_add_radioOne_R">
+                	#set($role="$!agency.role")
+					#parse("admin/pieces/roles.vm")	
+                </div>
+            </div>
+			<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">*&nbsp;机构简码：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+					<input name="enterpriseBriefCode" id="briefCode" type="text" maxlength="10" class="text270" value="$!agency.enterpriseBriefCode" />
+				</div>
+            </div>
+			<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">*&nbsp;机构号段：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+					<input name="enterpriseSubcodeFrom" type="text" class="text270" maxlength="10" value="$!agency.enterpriseSubcodeFrom"/>&nbsp;~&nbsp;
+					<input name="enterpriseSubcodeTo" type="text" class="text270" value="$!agency.enterpriseSubcodeTo" />
+				</div>
+            </div>
+			<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">*&nbsp;联系人姓名：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+					<input name="contactName" type="text" maxlength="20" class="text270" value="$!agency.contactName"/>
+				</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">*&nbsp;联系人邮箱：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+					<input name="contactEmail" type="text" class="text270" maxlength="30"  value="$!agency.contactEmail"/>
+				</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_add_allOne">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">*&nbsp;联系人手机：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+					<input name="contactPhone" type="text" maxlength="13" class="text270"  value="$!agency.contactPhone"/>
+				</div>
+            </div>
+            
+        </div>
+        <!--  标题  -->
+    	<div class="divMain_add_bt line_botoom">其它信息</div>
+        <!--  内容  -->
+        <div class="divMain_add_all line_botoom">
+        	<!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">*&nbsp;企业名称：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+					<input name="enterpriseName" id="enterpriseName" type="text" maxlength="50" class="text270" value="$!agency.enterpriseName" />
+				</div>
+            </div>
+			<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">*&nbsp;法人代表姓名：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R"><input name="legalPersonName" id="legalPersonName" type="text" class="text270" maxlength="20" value="$!agency.legalPersonName" /></div>
+            </div>
+			<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">*&nbsp;法人证件号码：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+					<input name="legalPersonIdentityNumber" id="legalPersonIdNum" type="text" maxlength="18" class="text270" value="$!agency.legalPersonIdNum" />
+				</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">组织机构代码：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R"><input name="organizationCode" id="organizationCode" type="text" class="text270" maxlength="30" value="$!agency.organizationCode" /></div>
+            </div>
+			<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">税务登记号：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R"><input name="taxRegistrationNo" id="taxRegistrationNo" type="text" maxlength="30" class="text270" value="$!agency.taxRegistrationNo" /></div>
+            </div>
+			<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">营业执照注册号：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R"><input name="licenseNum" id="licenseNum" type="text" class="text270" maxlength="30" value="$!agency.licenseNum" /></div>
+            </div>
+			<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">营业执照所在地：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+					<select id="registerProvince" name="registerProvince" class="select100" >
+						<option selected="selected" value="">请选择省</option>
+						#foreach($item in $!provinces)
+							<option value="$!item.code" #if($!agency.registerProvince == $!item.code) selected="selected" #end>$!item.name</option>
+						#end
+					</select>
+		
+					<select id="registerCity" name="registerCity" class="select100">
+						<option value="">请选择市</option>
+						#foreach($item in $!citie2)
+							<option value="$!item.code" #if($!agency.registerCity == $!item.code) selected="selected" #end>$!item.name</option>
+						#end
+					</select>
+				</div>
+            </div>
+			<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">常用地址：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R"><input name="registerAddress" id="commonAddress" type="text" maxlength="100" class="text270" value="$!agency.registerAddress" /></div>
+            </div>
+			<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">经营期限：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+					<input name="licenseValidPeriod" id="licenseValidPeriod" onfocus="WdatePicker({isShowClear:false,readOnly:true,dateFmt:'yyyy-MM-dd'});$('#checks').attr('checked',false)" type="text" class="text270" #if($!agency.licenseValidPeriod == "2999-12-31 23:59:59") value="长期" #else value="$!agency.licenseValidPeriod" #end/>
+					<input type="hidden" name="licenseValidPeriod" id="licenseValidPeriodSure" disabled="disabled" />
+					<input id="checks" onclick="foreverDate(this)" #if($!agency.licenseValidPeriod == "2999-12-31 23:59:59") checked="checked" #end type="checkbox" />&nbsp;长期
+				</div>
+            </div>
+			<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">公司联系电话：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R"><input name="phoneNum" id="companyContactNumber" type="text" maxlength="13" class="text270" value="$!agency.phoneNum" /></div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">上传企业营业执照副本扫描件：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+					<div class="button-all">
+						<div class="button-left">
+							<input id="licensePath" name="licensePath" class="text270" value="$!agency.licensePath" readonly /><a href="" target="_blank"></a>
+						</div>
+						<div class="button-right">
+							<input id="licensePathFile" type="file" name="licensePathFile" />
+						</div>
+					</div>	
+				</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">上传加盖公章的企业营业执照副本扫描件：<br/><span class="Mtext_2">如营业执照上为钢印公章，请上传加盖公司公章的营业执照副本的彩色证件图片</span></div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+					<div class="button-all">
+                		<div class="button-left">
+							<input id="licenseCachetPath" name="licenseCachetPath" class="text270" value="$!agency.licenseCachetPath" readonly /><a href="" target="_blank"></a>
+						</div>
+						<div class="button-right">
+							<input id="licenseCachetPathFile" type="file" name="licenseCachetPathFile" />
+						</div>
+					</div>	
+				</div>
+            </div>
+			<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">上传法人代表身份证正面照片：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+					<div class="button-all">
+                		<div class="button-left">
+							<input id="legalPersonIdCopyFontFront" name="legalPersonIdCopyFont" class="text270" value="$!agency.legalPersonIdCopyFont" readonly /><a href="" target="_blank"></a>
+						</div>
+						<div class="button-right">
+							<input id="legalPersonIdCopyFontFile" type="file" name="legalPersonIdCopyFontFile" />
+						</div>
+					</div>	
+				</div>
+            </div>
+			<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">上传法人代表身份证背面照片：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+					<div class="button-all">
+                		<div class="button-left">
+							<input id="legalPersonIdCopyBackBack" name="legalPersonIdCopyBack" class="text270" value="$!agency.legalPersonIdCopyBack" readonly /><a href="" target="_blank"></a>
+						</div>
+						<div class="button-right">
+							<input id="legalPersonIdCopyBackFile" type="file" name="legalPersonIdCopyBackFile" />
+						</div>
+					</div>	
+				</div>
+            </div>
+			<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">上传开户许可证：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+					<div class="button-all">
+                		<div class="button-left">
+							<input id="openningLicensePath" name="openningLicensePath" class="text270" value="$!agency.openningLicensePath" readonly /><a href="" target="_blank"></a>
+						</div>
+						<div class="button-right">
+							<input id="openningLicensePathFile" type="file" name="openningLicensePathFile" />
+						</div>
+					</div>	
+				</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">银行开户名：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R"><input name="bankCardAccountName" id="bankCardAccountName" maxlength="20" type="text" class="text270" value="$!agency.bankCardAccountName"/></div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">银行卡号：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R"><input name="bankCardNum" maxlength="30" type="text" class="text270 {digits:true}" value="$!agency.bankCardNum"></div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">开户银行：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+                <select name="bankCode" id="bankCode" class="select270">
+                	<option value="">==请选择银行==</option>
+                    #foreach($item in $!banks)
+						<option value="$!item.code" #if($!agency.bankCode == $!item.code) selected="selected" #end>$!item.name</option>
+					#end
+                </select>
+                </div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">开户银行所在地：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+                <select id="province" name="province" class="select100" >
+                    <option selected="selected" value="">==请选择省==</option>
+                    #foreach($item in $!provinces)
+						<option value="$!item.code" #if($!agency.province == $!item.code) selected="selected" #end>$!item.name</option>
+					#end
+                </select>
+                <select id="city" name="city" class="select100">
+                    <option value="">==请选择市==</option>
+                    #foreach($item in $!citie1)
+						<option value="$!item.code" #if($!agency.city == $!item.code) selected="selected" #end>$!item.name</option>
+					#end
+                </select>
+                </div>
+            </div>
+             <!--   文本域：文本编辑   -->
+        	<div class="divMain_add_allOne">
+            	<div class="divMain_add_allOne_L">客户备注：</div>
+            	<div class="divMain_add_allOne_R">
+					<input name="memo" type="text" maxlength="20" class="text270" value="$!agency.memo"/>
+				</div>
+            </div>
+        </div>
+        <div class="divMain_fenye">
+        	<div class="divMain_fenyeL">
+				<input type="hidden" name="userId" value="$!agency.userId"/>
+				<input type="hidden" name="userName" value="$!agency.userName"/>
+				<input type="hidden" name="customerNum" value="$!agency.customerNum"/>
+				<input type="submit" value="修 改" class="anniu_blue">&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="reset" value="取 消" class="anniu_hui100" onclick="history.go(-1); return false">
+			</div>
+        </div>
+    </div>
+    </form>
+</div>
+
+</body>
+</html>

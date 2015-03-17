@@ -1,0 +1,80 @@
+## 营销机构添加经纪人
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <title>业务运营管理系统</title>
+	#parse("admin/layout/head.vm")
+	<link href="$static_url/admin/css/css.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+flag = true;
+$(function(){
+    $("form").validate();
+	$("input[name='userName']").blur(function(){
+		var userName = $(this).val();
+		if(!userName) return;
+		jQuery.get('$admin_url/customer/brokerCheck.json?agencyId=$!id&userName='+userName,function(data){
+			if(data){
+				if(data.brokerExists){
+					alert("经纪人（"+data.realName+"）已存在！");
+					flag = false;
+				}else{
+        			$("input[name='realName']").val(data.realName);
+        			$("input[name='customerNum']").val(data.customerNum);
+					flag = true;
+				}
+			}else{
+				alert("该用户不是经纪人");
+				flag=false;
+			}
+		});
+	});
+});
+function checkAdd(){
+	return flag;
+}
+</script>
+</head>
+<body>
+<div class="divMain">
+	<!--  查询开始  -->
+    <form action="$admin_url/customer/brokerAddSave.html" onsubmit="return checkAdd()" method="post">
+	<div class="divMain_chaxun">
+    	<!--  标题  -->
+    	<div class="divMain_add_bt line_botoom">添加成员</div>
+        <!--  内容  -->
+        <div class="divMain_add_all line_botoom">
+        	<!--   必填项字段前加*号   -->
+        	<!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">*&nbsp;用户名：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R"><input name="userName" type="text" maxlength="20" class="text270 {required:true}" /></div>
+            </div>
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">*&nbsp;真实姓名：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R"><input name="realName" maxlength="20" type="text" class="text270 {required:true,messages:{required:'<span class=\'color_blue\'>该经纪人已存在</span>'}}" readonly/></div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_add_allOne">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">*&nbsp;成员编号：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R"><input name="customerNum" type="text" maxlength="20" class="text270 {required:true}" /></div>
+            </div>
+         </div> 
+		 <div class="divMain_fenye">
+        	<div class="divMain_fenyeL">
+				<input type="submit" value="确 认" class="anniu_blue">&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="reset" value="取 消" class="anniu_hui100" onclick="history.go(-1); return false">
+			</div>
+        </div>
+    </div>
+	</form>
+</div>
+
+</body>
+</html>

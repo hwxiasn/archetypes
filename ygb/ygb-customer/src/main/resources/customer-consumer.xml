@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<dubbo:reference id="rolePermissionService" interface="com.qingbo.ginkgo.ygb.customer.service.RolePermissionService" />
+	<dubbo:reference id="passwordService" interface="com.qingbo.ginkgo.ygb.customer.service.PasswordService" />
+	<dubbo:reference id="customerService" interface="com.qingbo.ginkgo.ygb.customer.service.CustomerService" />
+	<dubbo:reference id="userAddressService" interface="com.qingbo.ginkgo.ygb.customer.service.UserAddressService" />
+	<dubbo:reference id="userBankCardService" interface="com.qingbo.ginkgo.ygb.customer.service.UserBankCardService" />
+	<dubbo:reference id="operatorService" interface="com.qingbo.ginkgo.ygb.customer.service.OperatorService" />
+</beans>

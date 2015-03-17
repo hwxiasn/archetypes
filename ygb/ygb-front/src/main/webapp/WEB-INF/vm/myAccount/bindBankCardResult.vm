@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+#set($left="account")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/menu.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color: #FFF;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+</style>
+</head>
+
+<body>
+#parse("layout/header.vm")
+#parse("myAccount/header.vm")
+
+<div class="customer_main2">
+	#parse("myAccount/left.vm")
+    <div class="customer_main2_R">
+		#if($!status == "success")
+    	<div class="Bank_Information_success" style="">
+            <div class="Bank_Information_success1">
+            	<div class="Bank_Information_success1_L"><img src="$static_url/images/chenggong.png" width="31" height="31" /></div>
+            	<div class="Bank_Information_success1_R">您的银行卡添加成功，请妥善保管。</div>
+            </div>
+            <div class="Bank_Information_success1_1">
+            	<div class="Bank_Information_success1_L_1"></div>
+            	<div class="Bank_Information_success1_R_1">银行账户：$!bankCardNum</div>
+            </div>
+			<div class="Bank_Information_success1_1">
+            	<div class="Bank_Information_success1_L_1"></div>
+            	<div class="Bank_Information_success1_R_1">
+            		返回账户首页：
+            		<a href="$front_url/account/index.html"><span class="color_blue">账户首页</span></a>
+            	</div>
+            </div>
+        </div>
+        #else
+        <div class="Bank_Information_success">
+            <div class="Bank_Information_success1">
+            	<div class="Bank_Information_success1_L"><img src="$static_url/images/fail.png" width="31" height="31" /></div>
+            	<div class="Bank_Information_success1_R">您的银行卡添加失败，请重新添加银行卡。</div>
+            </div>
+            <div class="Bank_Information_success1_1">
+            	<div class="Bank_Information_success1_L_1"></div>
+            	<div class="Bank_Information_success1_R_1" ><span class="Bank_Information_color">失败原因：验证银行卡信息失败！</span></div>
+            </div>
+			<div class="Bank_Information_success1_1">
+            	<div class="Bank_Information_success1_L_1"></div>
+            	<div class="Bank_Information_success1_R_1">
+            		你可能需要：
+            		<a href="$front_url/account/bindBankCard.html"><span class="color_blue">重新添加银行卡</span></a>
+            	</div>
+            </div>
+        </div>
+		#end
+  </div>
+</div>
+
+#parse("layout/footer.vm")
+</body>
+</html>

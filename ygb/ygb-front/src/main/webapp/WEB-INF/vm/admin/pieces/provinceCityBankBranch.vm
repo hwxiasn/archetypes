@@ -1,0 +1,42 @@
+#if(!$!provinceCode) #set($provinceCode="provinceCode") #end
+#if(!$!cityCode) #set($cityCode="cityCode") #end
+#if(!$!bankBranch) #set($bankBranch="bankBranch") #end
+<select name="$!provinceCode" class="Mselect1">
+    <option value="" selected="selected">请选择省</option>
+    #foreach($item in $!provinces)
+        <option value="$!item.code">$!item.name</option>
+    #end
+</select>
+<select name="$!cityCode" class="Mselect1">
+    <option value="">请选择市</option>
+    #foreach($item in $!cities)
+        <option value="$!item.code">$!item.name</option>
+    #end	
+</select>
+<select name="$!bankBranch" id="bankBranch" class="Mtext1-1">
+    <option value="">请选择分行</option>
+    #foreach($item in $!branchBanks)
+        <option value="$!item.code">$!item.name</option>
+    #end	
+</select>
+<script type="text/javascript">
+	$(function(){
+		$("select[name='$!provinceCode']").change(function(){
+			var province = $(this).val();
+			if(province) {
+				$("select[name='$!cityCode']").load("$admin_url/data/cities.html?p="+province+"&n=$!cityCode");
+			}else{
+				$("select[name='$!cityCode'] > option:gt(0)").remove();
+				$("select[name='$!bankBranch'] > option:gt(0)").remove();
+			}
+		});
+		$(document).on("change", "select[name='$cityCode']", function(){
+			var city = $(this).val();
+			if(city) {
+				$("select[name='$!bankBranch']").load("$admin_url/data/branchBanks.html?c="+city+"&n=$!bankBranch");
+			}else{
+				$("select[name='$!bankBranch'] > option:gt(0)").remove();
+			}
+		});
+	});
+</script>

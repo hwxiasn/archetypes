@@ -1,0 +1,753 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+#set($left="guarantee")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/menu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Trading_inquiry.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Financiers.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Pop-up_layer.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Operator_Management.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/admin/js/uploadify-3.2.1/uploadify.css" rel="stylesheet" type="text/css" />
+##放大担保函的
+<script src="$static_url/layer/layer.min.js"></script>
+
+
+<script src="$static_url/admin/js/uploadify-3.2.1/jquery.uploadify.min.js"></script>
+<script src="$static_url/admin/js/uploadify-3.2.1/uploadify.settings.js"></script>
+<script>
+function closeDiv(){
+    $("#popDiv").hide();
+    $("#bg").hide();
+    $("#popIframe").hide();
+}
+
+function showDiv(){
+    $("#popDiv").show();
+    $("#popIframe").show();
+    $("#bg").show();
+}
+
+function Audit(){
+	jQuery.ajax({
+    	url:"$front_url/myAccount/generateContract.json",
+		data:{"projectId" : $!id},
+		dataType:"json",
+		success:function(response){
+			if(response.contractUrl){
+				$("#Audit").show();
+				$("#contractUrl").attr("href","$front_url/myAccount/downloadUrl.html?downloadUrl="+response.contractUrl+"&projectId=$!id");
+			}else{
+				alert("合同生成失败");
+			}
+		},
+		error:function(){
+			alert("生成合同失败");
+		}
+    });
+}
+
+$(function(){
+	$("#first1").validate();
+	$("#first2").validate();
+	uploadify("#guaranteeContactPathFile", "#guaranteeContactPath");
+	uploadify("#guaranteeLetterPathFile", "#guaranteeLetterPath");
+	
+	$("#btn_savePath").click(function(){
+		if($("#guaranteeContactPath").val().length < 1 && $("#guaranteeLetterPath").val().length < 1){
+			alert("请选择上传的合同和担保函");
+		}else{
+			$("#frm_upPaths").action = "$front_url/myAccount/guaranteeUpload.html"
+			$("#frm_upPaths").submit();
+		}
+	});
+});
+
+
+;!function(){
+    layer.use('extend/layer.ext.js', function(){
+        //初始加载即调用，所以需放在ext回调里
+        layer.ext = function(){
+            layer.photosPage({
+                title: '相关执照图片',
+                id: 100, //相册id，可选
+                parent:'#imgs'
+            });
+        };
+    });
+   }();
+   
+   
+   function audits(num){
+   	   jQuery.ajax({
+	   	   url:"$front_url/guarantee/guaranteeAudit.json",
+		   data:$("#first"+num).serialize(),
+		   dataType:"json",
+		   type:"post",
+		   success:function(response){
+		   		if(response.result == "success"){
+					alert("审核成功");
+				}else{
+					alert(response.MESSAGE);
+				}
+				location.href="$front_url/guarantee/guaranteeDetail.html?id=$!id";
+		   },
+		   error:function(){
+		   		alert("出错了");
+		   }
+	   });
+   }
+   
+   function compensatory(num){
+   	   jQuery.ajax({
+	   	   url:"$front_url/guarantee/compensatoryAudit.json",
+		   data:$("#first"+num).serialize(),
+		   dataType:"json",
+		   type:"post",
+		   success:function(response){
+		   		if(response.result == "success"){
+					alert("代偿成功");
+				}else{
+					alert(response.MESSAGE);
+				}
+				location.href="$front_url/guarantee/guaranteeDetail.html?id=$!id";
+		   },
+		   error:function(){
+		   		alert("出错了");
+		   }
+	   });
+   }
+   
+</script>
+
+<style type="text/css">
+.box{width:100%; height:100%;}
+.box a{padding-right:15px;}
+#about_hide{display:none}
+.layer_text{background-color:#fff; padding:20px;}
+.layer_text p{margin-bottom: 10px; text-indent: 2em; line-height: 23px;}
+.button{display:inline-block; *display:inline; *zoom:1; line-height:30px; padding:0 20px; background-color:#56B4DC; color:#fff; font-size:14px; border-radius:3px; cursor:pointer; font-weight:normal;}
+.imgs img{width:250px; height:300px; padding:0 3px 3px; cursor:pointer;}
+	
+.btns {
+ POSITION: relative; MARGIN: 20px 0px 20px
+}
+.btns .btn_file_molding {
+ Z-INDEX: 1; width:77px; height:23px; BORDER-BOTTOM: 0px; POSITION: absolute; FILTER: alpha(opacity=0); BORDER-LEFT: 0px; ZOOM: 1; BORDER-TOP: 0px; TOP: 0px; BORDER-RIGHT: 0px; LEFT: 0px; opacity: 0; 
+}
+.btns .btns1{
+	width:100px;
+	height:30px;
+	-moz-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	border:1px solid #249ddc;
+	color:#249ddc;
+	background:#FFF;
+	font-weight:bold;
+}
+</style>
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+#parse("myAccount/header.vm")
+
+<div>
+<div class="customer_main2_new">
+<div class="customer_main2_new_all">
+	#parse("myAccount/left.vm")
+    
+    <div class="customer_main2_R_new">
+    	<div class="quick_signing_cx">
+        <span class="Trading_inquiry_color1">需求详情</span>
+      	</div>
+		##只要担保函的状态不是：承诺担保中,失败,担保公司审核中  就可以下载担保函，合同等
+        ##if($!detail.guaranteeLetterStatus != "PR" && $!detail.guaranteeLetterStatus != "FL" && $!detail.guaranteeLetterStatus != "CH")
+        <div class="Trading_inquiry1">
+        	<div class="Trading_inquiry_xq1">
+                <div class="Trading_inquiry_xq1_1">
+                	<img src="$static_url/images/xiazai.png" width="9" height="11" />
+##        				<a href="$uploads/$!{detail.guaranteeUrl}" target="_blank">
+                			<span class="Trading_inquiry_color3"></span>
+##                		</a>
+                		&nbsp;&nbsp;
+					#if($!Entity_Project.contractStatus=="E")
+						<a href="$front_url/final/$!{Entity_Guarantee.getGuaranteeLetterPath()}" target="_blank">
+                			<span class="Trading_inquiry_color3">下载担保函</span>
+						</a>
+	                #else
+                			<span class="Trading_inquiry_color3">下载担保函</span>
+					#end
+                </div>
+                
+                <div class="Trading_inquiry_xq1_1">
+                	<img src="$static_url/images/xiazai.png" width="9" height="11" />
+##					<a href="$uploads/$!{detail.contractUrl}" target="_blank">
+	                	<span class="Trading_inquiry_color3"></span>
+##	                </a>
+	                &nbsp;&nbsp;
+					#if($!Entity_Project.contractStatus=="E")
+					<a href="$front_url/final/$!{Entity_Guarantee.getGuaranteeContractPath()}" target="_blank">
+	                	<span class="Trading_inquiry_color3">下载合同</span>
+					</a>
+	                #else
+	                	<span class="Trading_inquiry_color3">下载合同</span>
+					#end
+                </div>
+                
+                
+##				<div class="Trading_inquiry_xq1_1">
+##					<img src="$static_url/images/xiazai.png" width="9" height="11" /><a href="$front_url/myAccount/downloadUrl.html?downloadUrl=$!{detail.investInfoUrl}">
+##					<span class="Trading_inquiry_color3">下载投资信息</span></a>&nbsp;&nbsp;
+##				</div>
+                
+                <div class="Trading_inquiry_xq1_2">
+                	<span class="Trading_inquiry_color5">提示：“正式”为担保函、合同已加盖公章PDF文件，“原始”为未加盖公章PDF文件</span>&nbsp;&nbsp;
+                </div>
+            </div>
+        </div>
+		##end
+
+        <div class="Trading_inquiry2_1_dbh1">
+        	<span class="Trading_inquiry_color2">基本信息：</span>
+        </div>
+        
+        <div class="Trading_inquiry_xq2_new1">
+##        	<div class="Trading_inquiry_xq2_1">
+##            	<div class="Trading_inquiry_xq2_1_L">申请号：</div>
+##                <div class="Trading_inquiry_xq2_1_R">$!detail.applyNum</div>
+##            </div>
+            <div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">交易名称：</div>
+                <div class="Trading_inquiry_xq2_1_R">$!Entity_Project.getName()</div>
+            </div>
+            <div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">需求金额：</div>
+                <div class="Trading_inquiry_xq2_1_R">$!Entity_Project.getTotalAmount()元</div>
+            </div>
+            <div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">年化成本率：</div>
+				#set($percents=($!Entity_Project.interestRate)*100)
+                <div class="Trading_inquiry_xq2_1_R">$!numberTool.format("0.00",$!percents)% </div>
+            </div>
+            <div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">期限：</div>
+                <div class="Trading_inquiry_xq2_1_R">$!{Map_CodeList_LoanType_Map.get($!{Entity_Project.getPeriodType()}).get($!{Entity_Project.getPeriod()}).getName()}</div>
+            </div>
+            <div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">兑付方式：</div>
+                <div class="Trading_inquiry_xq2_1_R">$!{Map_CodeList_CommissionTemplateType.get($!{Entity_CommissionTemplate.getAllotType()}).getName()}</div>
+            </div>
+            <div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">最低投资：</div>
+                <div class="Trading_inquiry_xq2_1_R">$!Entity_Project.getMinimalInvestment()元</div>
+            </div>
+            <div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">满标金额：</div>
+                <div class="Trading_inquiry_xq2_1_R">$!Entity_Project.getSettleTermsAmount()</div>
+            </div>
+          <div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">承诺函编号：</div>
+                <div class="Trading_inquiry_xq2_1_R">$!Entity_Guarantee.getCommitmentLetterSn()</div>
+            </div>
+            <div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">投资截至时间：</div>
+                <div class="Trading_inquiry_xq2_1_R">$!Entity_Project.getInvestEndDate()</div>
+            </div>
+            <div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">合同成立时间：</div>
+                <div class="Trading_inquiry_xq2_1_R">$!Entity_Project.getSettleDate()</div>
+            </div>
+            <div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">到期时间：</div>
+                <div class="Trading_inquiry_xq2_1_R">$!Entity_Project.getDueDate()</div>
+            </div>
+            
+            <div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">项目用途：</div>
+                <div class="Trading_inquiry_xq2_1_R">$!Entity_Project.getPurpose()</div>
+            </div>
+##            <div class="Trading_inquiry_xq2_1">
+##            	<div class="Trading_inquiry_xq2_1_L">定义标题：</div>
+##                <div class="Trading_inquiry_xq2_1_R">$!Entity_Project.title</div>
+##            </div>
+        </div>
+        
+        <div class="Trading_inquiry2_1_xq1"><span class="Trading_inquiry_color2">项目信息：</span></div>
+        
+        <div class="Trading_inquiry1_SH">
+        	<div class="Trading_inquiry_xq1"> 
+                投资接受人补充话语：$!Entity_Project.getSponsorMemo()
+            </div>
+        </div>
+        
+		<!-- 
+		##只有当担保函的状态时签发中时才可以上传
+	    #if($!Entity_Guarantee.status != "PS" && $!operator.operatorType != "L1")
+        <div class="Trading_inquiry2_1_xq1"><span class="Trading_inquiry_color2">上传合同与担保函：</span></div>
+        
+        <div class="Trading_inquiry1_sc">
+			<form method="post" enctype="multipart/form-data" id="frm_upPaths">
+				<div class="btns">
+					<input type="hidden" name="id" value="$!id" />
+##					<input id="guaranteeContactFile" class="btn_file_molding" name="guaranteeContactFile" type="file">
+                    
+					<div class="button-all">
+	    				<div class="button-left" style="float:left;margin-right:100px;">
+	    					上传担保函：
+	    					<input id="guaranteeLetterPath" name="guaranteeLetterPath" class="Mtext1-1" readonly />
+	    					<a href="" target="_blank"></a>
+	                    </div>
+	    				<div class="button-right" style="margin-left:400px;">
+	    					<input id="guaranteeLetterPathFile" name="guaranteeLetterPathFile" type="file" />
+	    				</div>
+	    				<div class="button-left" style="float:left;margin-right:100px;">
+	    					上传合同：&nbsp;&nbsp;&nbsp;
+	    					<input id="guaranteeContactPath" name="guaranteeContactPath" class="Mtext1-1" readonly />
+	    					<a href="" target="_blank"></a>
+	                    </div>
+	    				<div class="button-right" style="margin-left:400px;">
+	    					<input id="guaranteeContactPathFile" name="guaranteeContactPathFile" type="file" />
+	    				</div>
+	        			<div>
+	        				<input id="btn_savePath" value="上传" type="button" onclick="uploadFile()" class="btns1" >
+	        			</div>
+					</div>
+				</div>
+			</form>
+        </div>
+        #end
+		 -->
+		
+        <div class="Trading_inquiry2_1_xq1"><span class="Trading_inquiry_color2">担保信息：</span></div>
+        
+        <div class="Trading_inquiry_xq3">
+        	<div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">担保机构：</div>
+                <div class="Trading_inquiry_xq2_1_R">$!Entity_User_Guarantee.getEnterpriseProfile().getEnterpriseName()</div>
+            </div>
+            <div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L">承诺函：</div>
+                <div class="Trading_inquiry_xq2_1_R">$!{Entity_Guarantee.getCommitmentLetterSn()}</div>
+            </div>
+            
+            <div class="Trading_inquiry_xq3_1">
+            	<div class="box">
+					<div id="imgs" class="imgs">
+						<img src="$uploads/$!{Entity_Guarantee.getCommitmentLetterPath()}" alt="承诺函"/>
+##						<img src="$static_url/images/banner02.png" alt="担保函"/>
+                    </div>
+                </div>  
+            </div>
+            
+        </div>
+
+<!--借款人信息披露Start -->
+        <div class="Trading_inquiry2_1_dbh2">
+        	<span class="Trading_inquiry_color2">借款人记录：</span>
+        </div>
+		<div class="Trading_inquiry_xq2_1">
+                	<div class="Trading_inquiry_xq2_1_L"></div>
+                    <div class="Trading_inquiry_xq2_1_R">借款人：<span class="colorhui01">$!Entity_LoaneeInfo.getLoaneeName()</span></div>
+        </div>
+		<div class="Trading_inquiry_xq2_1">
+                	<div class="Trading_inquiry_xq2_1_L"></div>
+                    <div class="Trading_inquiry_xq2_1_R">年龄：<span class="colorhui01">$!Entity_LoaneeInfo.getLoaneeAge() 岁</span></div>
+        </div>
+		<div class="Trading_inquiry_xq2_1">
+                	<div class="Trading_inquiry_xq2_1_L"></div>
+                    <div class="Trading_inquiry_xq2_1_R">居住地：<span class="colorhui01">$!Entity_LoaneeInfo.getLoaneeAddress()</span></div>
+        </div>
+
+		<div class="Trading_inquiry_xq2_1">
+                	<div class="Trading_inquiry_xq2_1_L"></div>
+                    <div class="Trading_inquiry_xq2_1_R"> 
+ 身份证号：<span class="colorhui01">$!Entity_LoaneeInfo.getLoaneeIdSerial()</span>
+					</div>
+        </div>
+		<div class="Trading_inquiry_xq2_1">
+                	<div class="Trading_inquiry_xq2_1_L"></div>
+                    <div class="Trading_inquiry_xq2_1_R"> 
+ 性别：<span class="colorhui01">#if($!Entity_LoaneeInfo.getLoaneeSex()=="M")&nbsp;先生&nbsp;#else &nbsp;女士 #end</span>
+					</div>
+        </div>
+		<div class="Trading_inquiry_xq2_1">
+                	<div class="Trading_inquiry_xq2_1_L"></div>
+                    <div class="Trading_inquiry_xq2_1_R"> 
+ 婚姻状况：<span class="colorhui01">#if($!Entity_LoaneeInfo.getLoaneeMaritalStatus()=="1")&nbsp;未婚&nbsp;#elseif($!Entity_LoaneeInfo.getLoaneeMaritalStatus()=="2")&nbsp;已婚&nbsp; #elseif($!Entity_LoaneeInfo.getLoaneeMaritalStatus()=="3")&nbsp;离异#end</span>
+					</div>
+        </div>
+		<div class="Trading_inquiry_xq2_1">
+                	<div class="Trading_inquiry_xq2_1_L"></div>
+                    <div class="Trading_inquiry_xq2_1_R"> 累计成功借款：<span class="colorhui01">$!Entity_LoaneeInfo.getLoaneeHadCount() 笔</span></div>
+        </div>
+		<div class="Trading_inquiry_xq2_1">
+                	<div class="Trading_inquiry_xq2_1_L"></div>
+                    <div class="Trading_inquiry_xq2_1_R"> 
+ 当前待还金额：<span class="colorhui01">$!Entity_LoaneeInfo.getLoaneeNeedRepay() 万元</span>
+					</div>
+        </div>
+		<div class="Trading_inquiry_xq2_1">
+                	<div class="Trading_inquiry_xq2_1_L"></div>
+                    <div class="Trading_inquiry_xq2_1_R"> 
+累计借款金额：<span class="colorhui01">$!Entity_LoaneeInfo.getLoaneeHadAmount()  万元</span>
+					</div>
+        </div>
+		<div class="Trading_inquiry_xq2_1">
+                	<div class="Trading_inquiry_xq2_1_L"></div>
+                    <div class="Trading_inquiry_xq2_1_R"> 
+累计逾期还款：<span class="colorhui01">$!Entity_LoaneeInfo.getLoaneeMissedRepay() 万元</span>
+					</div>
+        </div>
+		<div class="Trading_inquiry_xq2_1">
+                	<div class="Trading_inquiry_xq2_1_L"></div>
+                    <div class="Trading_inquiry_xq2_1_R"> 
+ 资金用途：<span class="colorhui01">$!Entity_LoaneeInfo.getLoaneePurpose()</span>
+					</div>
+        </div>
+		<div class="Trading_inquiry_xq2_1">
+                	<div class="Trading_inquiry_xq2_1_L"></div>
+                    <div class="Trading_inquiry_xq2_1_R"> 
+还款来源：<span class="colorhui01">$!Entity_LoaneeInfo.getLoaneeSource()</span>
+					</div>
+        </div>
+		<div class="Trading_inquiry_xq2_1">
+                	<div class="Trading_inquiry_xq2_1_L"></div>
+                    <div class="Trading_inquiry_xq2_1_R"> 
+经营范围：<span class="colorhui01">$!Entity_LoaneeInfo.getLoaneeEntScope()</span>
+					</div>
+        </div>
+		<div class="Trading_inquiry_xq2_1">
+                	<div class="Trading_inquiry_xq2_1_L"></div>
+                    <div class="Trading_inquiry_xq2_1_R"> 
+ 经营地址：<span class="colorhui01">$!Entity_LoaneeInfo.getLoaneeEntAddress()</span>
+					</div>
+        </div>
+		<div class="Trading_inquiry_xq2_1">
+                	<div class="Trading_inquiry_xq2_1_L"></div>
+                    <div class="Trading_inquiry_xq2_1_R"> 
+ 注册资金：<span class="colorhui01">$!Entity_LoaneeInfo.getLoaneeEntMoney()  万元</span>
+					</div>
+        </div>
+		<div class="Trading_inquiry_xq2_1">
+                	<div class="Trading_inquiry_xq2_1_L"></div>
+                    <div class="Trading_inquiry_xq2_1_R"> 
+成立时间：<span class="colorhui01">$!Entity_LoaneeInfo.getLoaneeEntBorn()</span>
+					</div>
+        </div>
+		<div class="Trading_inquiry_xq2_1">
+                	<div class="Trading_inquiry_xq2_1_L"></div>
+                    <div class="Trading_inquiry_xq2_1_R"> 
+ 上年营业收入：<span class="colorhui01">$!Entity_LoaneeInfo.getLoaneeEntLastYear() 万元</span>
+					</div>
+        </div>
+		<div class="Trading_inquiry_xq2_1">
+                	<div class="Trading_inquiry_xq2_1_L"></div>
+                    <div class="Trading_inquiry_xq2_1_R"> 
+本年当前营业收入：<span class="colorhui01">$!Entity_LoaneeInfo.getLoaneeEntThisYear() 万元</span>
+					</div>
+        </div>
+		<div class="Trading_inquiry_xq2_1">
+                	<div class="Trading_inquiry_xq2_1_L"></div>
+                    <div class="Trading_inquiry_xq2_1_R"> 
+ 人民银行征信查询：<span class="colorhui01">$!Entity_LoaneeInfo.getLoaneePbVoucher()</span>
+					</div>
+        </div>
+		<div class="Trading_inquiry_xq2_1">
+                	<div class="Trading_inquiry_xq2_1_L"></div>
+                    <div class="Trading_inquiry_xq2_1_R"> 
+ 全国企业信用信息公示系统查询：<span class="colorhui01">$!Entity_LoaneeInfo.getLoaneeEntVoucher()</span>
+					</div>
+        </div>
+		<div class="Trading_inquiry_xq2_1">
+                	<div class="Trading_inquiry_xq2_1_L"></div>
+                    <div class="Trading_inquiry_xq2_1_R"> 
+全国法院被执行人信息查询：<span class="colorhui01">$!Entity_LoaneeInfo.getLoaneeLoaneeVoucher()</span>
+					</div>
+        </div>
+		<!--借款人信息披露End -->
+
+
+        <div class="Trading_inquiry2_1_dbh2">
+        	<span class="Trading_inquiry_color2">审核记录：</span>
+        </div>
+        
+		#if($!List_ProjectReview.size() > 0)
+			#foreach($!view in $!List_ProjectReview)
+            <div class="Trading_inquiry_xq2_1">
+                	<div class="Trading_inquiry_xq2_1_L"></div>
+                    <div class="Trading_inquiry_xq2_1_R"><span class="color2">审核人：$!view.getReviewerUserName()</span></div>
+            </div>
+            <div class="Trading_inquiry_xq2_1">
+                	<div class="Trading_inquiry_xq2_1_L"></div>
+                    <div class="Trading_inquiry_xq2_1_R"><span class="color2">审核操作：$!view.getReviewName()</span></div>
+            </div>
+            <div class="Trading_inquiry_xq2_1">
+                	<div class="Trading_inquiry_xq2_1_L"></div>
+                    <div class="Trading_inquiry_xq2_1_R"><span class="color2">审核结果：$!view.getResult()</span></div>
+            </div>
+            <div class="Trading_inquiry_xq2_1">
+                	<div class="Trading_inquiry_xq2_1_L"></div>
+                    <div class="Trading_inquiry_xq2_1_R"><span class="color2">审核时间：$!view.getCreateAt()</span></div>
+            </div>
+			#end
+		#else
+			<div class="Trading_inquiry_xq2_1">
+            	<div class="Trading_inquiry_xq2_1_L"></div>
+                <div class="Trading_inquiry_xq2_1_R"><span class="color2">暂无审核记录！</span></div>
+			</div>
+		#end
+		
+
+        <div class="Trading_inquiry2">
+        	<div class="Trading_inquiry2_1 xian1">
+        		<span class="Trading_inquiry_color2">担保机构担保费详情信息</span>
+        	</div>
+            <div class="Trading_inquiry2_2_New">
+            	<div class="Trading_inquiry2_2_1">担保函编号</div>
+            	<div class="Trading_inquiry2_2_1">担保合同编号</div>
+                <div class="Trading_inquiry2_2_1">担保费（元）</div>
+                <div class="Trading_inquiry2_2_1">成立日期</div>
+                <div class="Trading_inquiry2_2_1">到期日期</div>
+                <div class="Trading_inquiry2_2_1">担保状态</div>
+                <div class="Trading_inquiry2_2_1"></div>		<!-- 年化收益率 -->
+                <div class="Trading_inquiry2_2_1"></div>		<!-- 期限 -->
+                <div class="Trading_inquiry2_2_1"></div>		<!-- 发布日期 -->
+            </div>
+            
+        </div>
+        
+        <div class="Trading_inquiry2_3_new1" >
+        	<div class="Trading_inquiry2_2_1_new1">$!Entity_Guarantee.getGuaranteeLetterSn()</div>
+            <div class="Trading_inquiry2_2_1_new1">$!Entity_Guarantee.getGuaranteeContractSn()</div>
+            <div class="Trading_inquiry2_2_1_new1">$!Entity_Guarantee.getFee()</div>
+            <div class="Trading_inquiry2_2_1_new1">$!Entity_Project.getSettleDate()</div>
+            <div class="Trading_inquiry2_2_1_new1">$!Entity_Project.getDueDate()</div>
+            <div class="Trading_inquiry2_2_1_new1">$!{Map_CodeList_GuaranteeStatus.get($!{Entity_Guarantee.getStatus()}).getName()}</div>
+            <div class="Trading_inquiry2_2_1_new1"></div>
+            <div class="Trading_inquiry2_2_1_new1"></div>
+            <div class="Trading_inquiry2_2_1_new1"></div>
+        </div>
+        
+        <div class="Trading_inquiry2">
+        	<div class="Trading_inquiry2_1"><span class="Trading_inquiry_color2">投资信息</span></div>
+            <div class="Trading_inquiry2_2_New">
+            	<div class="Trading_inquiry2_2_1_hkxx">投资流水号</div>
+                <div class="Trading_inquiry2_2_1_hkxx">投资日期</div>
+                <div class="Trading_inquiry2_2_1_hkxx">投资金额（元）</div>
+                <div class="Trading_inquiry2_2_1_hkxx">交易状态</div>
+                <div class="Trading_inquiry2_2_1_hkxx">下载凭证</div>
+                <div class="Trading_inquiry2_2_1_hkxx"></div>		<!-- 成立日期 -->
+                <div class="Trading_inquiry2_2_1_hkxx"></div>		<!-- 到期日期 -->
+                <div class="Trading_inquiry2_2_1_hkxx"></div>		<!-- 投资接受人 -->
+            </div>
+            
+        </div>
+		
+		#foreach($!invest in $!Pager_Investment.getElements())
+        <div class="Trading_inquiry2_3_new1" style="">
+        	<div class="Trading_inquiry2_2_1_hkxx1" style="word-wrap: break-word;">$!invest.getInvestNo()</div>
+            <div class="Trading_inquiry2_2_1_hkxx1">$!dateTool.format("yyyy-MM-dd", $!invest.getIssueDate())</div>
+            <div class="Trading_inquiry2_2_1_hkxx1">$!invest.getBalance()</div>
+            <div class="Trading_inquiry2_2_1_hkxx1">$!{Map_CodeList_InvestmentStatus.get($!{invest.getStatus()})}</div>
+            <div class="Trading_inquiry2_2_1_hkxx1">
+				#if($!Entity_Project.contractStatus=="E")
+            	<a href="$front_url/final/$!{invest.getInvestPath()}" target="_blank">
+            		下载
+            	</a>
+                #else
+					下载
+				#end
+            </div>
+            <div class="Trading_inquiry2_2_1_hkxx1"></div>
+            <div class="Trading_inquiry2_2_1_hkxx1"></div>
+            <div class="Trading_inquiry2_2_1_hkxx1"></div>
+        </div>
+		#end
+        
+        <div class="Trading_inquiry2">
+        	<div class="Trading_inquiry2_1"><span class="Trading_inquiry_color2">还款信息</span></div>
+            <div class="Trading_inquiry2_2_New">
+                <div class="Trading_inquiry2_2_1_hkxx">到期日期</div>
+                <div class="Trading_inquiry2_2_1_hkxx">还款日期</div>
+                <div class="Trading_inquiry2_2_1_hkxx">还款金额(元)</div>
+                <div class="Trading_inquiry2_2_1_hkxx">交易状态</div>
+            	<div class="Trading_inquiry2_2_1_tzxx1"></div>	<!-- 需求流水号 -->
+                <div class="Trading_inquiry2_2_1_tzxx1"></div>	<!-- 申请金额(元) -->
+                <div class="Trading_inquiry2_2_1_tzxx1"></div>	<!-- 实到金额(元) -->
+                <div class="Trading_inquiry2_2_1_tzxx1"></div>	<!-- 年化成本率(%) -->
+                <div class="Trading_inquiry2_2_1_tzxx1"></div>	<!-- 期限 -->
+                <div class="Trading_inquiry2_2_1_tzxx1"></div>	<!-- 成立日期 -->
+            </div>
+            
+        </div>
+        
+		
+		#foreach($refund in $Pager_Repayment.getElements())
+        <div class="Trading_inquiry2_3_new1" style="">
+            <div class="Trading_inquiry2_2_1_tzxx2" style="word-wrap: break-word;">$!refund.getIssueDate()</div>
+			<div class="Trading_inquiry2_2_1_tzxx2" style="word-wrap: break-word;">$!refund.getRepayDate()</div>
+            <div class="Trading_inquiry2_2_1_tzxx2" style="word-wrap: break-word;">$!refund.getBalance()</div>
+            <div class="Trading_inquiry2_2_1_tzxx2" style="word-wrap: break-word;">$!{Map_CodeList_RepaymentStatus.get($!{refund.getStatus()}).getName()}</div>
+        	<div class="Trading_inquiry2_2_1_tzxx2" style="word-wrap: break-word;"></div>
+            <div class="Trading_inquiry2_2_1_tzxx2" style="word-wrap: break-word;"></div>
+            <div class="Trading_inquiry2_2_1_tzxx2" style="word-wrap: break-word;"></div>
+            <div class="Trading_inquiry2_2_1_tzxx2" style="word-wrap: break-word;"></div>
+            <div class="Trading_inquiry2_2_1_tzxx2" style="word-wrap: break-word;"></div>
+            <div class="Trading_inquiry2_2_1_tzxx2" style="word-wrap: break-word;"></div>
+        </div>
+        #end
+		
+##		______________________________________________________
+		#if($!Entity_UserGroup.getLevel() == "L1")
+        <form action="" method="post" id="first1">
+             <div id="popDiv" class="OperatorOrange1" style="display:none;">
+
+                 <div class="Operator1">
+                   <div class="Operator1_1">1.一次审核</div>
+                   <div class="Operator1_2">2.再次审核</div>
+                        <div class="Operator1_3"></div>
+                 </div>
+                    
+                    <div class="Operator2"><span class="color2">*</span>&nbsp;一级审核密码：<input name="auditPassword" id="auditPassword1" type="password" class="Operator_text {required:true,rangelength:[6,20]}" /></div>
+                    
+					<input type="hidden" name="level" value="L1" />
+					<input type="hidden" name="id" value="$!Entity_Guarantee.getId()" />
+					
+                    <div class="beizhu4_1">
+                	
+                	<a href="javascript:void(0)"><input type="button" value="确定审核" onclick="audits(1)" class="Operator_Management_anniu2" /></a>&nbsp;&nbsp;
+                	<a href="$front_url/guarantee/guaranteeDetail.html?id=$!id" ><input type="button" value="返回" class="Operator_Management_anniu1" /></a>
+               	 </div>
+
+
+       	    </div>
+        
+            <div id="bg" class="bg" style="display:none;"></div>
+             
+            <iframe id='popIframe' class='popIframe' frameborder='0' ></iframe>
+        </form>
+		#end
+
+		
+        #if($!Entity_UserGroup.getLevel() == "L2")
+			#if($!Entity_UserGroup.getLevel() == "L2" && $!Entity_Guarantee.getStatus() == "CH"  && $!Entity_Project.getStatus() == "FC")
+				<form action="" method="post" id="first2">
+		             <div id="popDiv" class="OperatorOrange2" style="display:none;">
+							<div class="beizhu1">
+		                        <div class="beizhu1_L"></div>
+		                        <div class="beizhu1_R">
+		                        <a href="javascript:closeDiv()" class="mydivGB"></a> 
+		                        </div>
+		               	    </div>
+		                    
+		                 <div class="Operator1">
+		                   <div class="Operator1_2">1.一次审核</div>
+		                   <div class="Operator1_1">2.再次审核</div>
+		                        <div class="Operator1_3"></div>
+		                 </div>
+		                    
+		                    <div class="Operator2">
+		                    	<img src="$static_url/images/xiazai.png" width="9" height="11" />&nbsp;
+		##                    	<a href="$front_url/final/$!{detail.contractUrl}" class="color_blue">
+		                    		下载合同
+		##                    	</a>
+		                    </div>
+		                    
+		                    <div class="Operator2"><span class="color2">*</span>&nbsp;二级审核密码：<input name="auditPassword" type="password" class="Operator_text {required:true,rangelength:[6,20]}" /></div>
+		                    
+							<input type="hidden" name="level" value="L2" />
+							<input type="hidden" name="id" value="$!Entity_Guarantee.getId()" />
+							
+		                    <div class="beizhu4_1">
+		                	
+		                	<a href="javascript:void(0)"><input type="button" onclick="audits(2)" value="确定审核" class="Operator_Management_anniu2" /></a>&nbsp;&nbsp;
+		                	<a href="$front_url/guarantee/guaranteeDetail.html?id=$!id" ><input type="button" value="返回" class="Operator_Management_anniu1" /></a>
+		               	 </div>
+		               </div>
+		               
+		            <div id="bg" class="bg" style="display:none;">aaaaa</div>
+		             
+		            <iframe id='popIframe' class='popIframe' frameborder='0' ></iframe>
+		        </form>
+		        #elseif($!Entity_UserGroup.getLevel() == "L2" && $!Entity_Project.getStatus() == "PB")
+				<form action="" method="post" id="first2">
+		             <div id="popDiv" class="OperatorOrange2" style="display:none;">
+							<div class="beizhu1">
+		                        <div class="beizhu1_L"></div>
+		                        <div class="beizhu1_R">
+		                        <a href="javascript:closeDiv()" class="mydivGB"></a> 
+		                        </div>
+		               	    </div>
+		                    
+		                 <div class="Operator1">
+		                   <div class="Operator1_2">1.一次审核</div>
+		                   <div class="Operator1_1">2.再次审核</div>
+		                        <div class="Operator1_3"></div>
+		                 </div>
+		                    
+		                    <div class="Operator2">
+		                    	<img src="$static_url/images/xiazai.png" width="9" height="11" />&nbsp;
+		                    		下载合同
+		                    </div>
+		                    
+		                    <div class="Operator2"><span class="color2">*</span>&nbsp;二级审核密码：<input name="auditPassword" type="password" class="Operator_text {required:true,rangelength:[6,20]}" /></div>
+		                    
+							<input type="hidden" name="level" value="L2" />
+							<input type="hidden" name="id" value="$!Entity_Project.getId()" />
+							<input type="hidden" name="investAmount" value="$!Entity_Project.getDueAmount()" />
+							
+		                    <div class="beizhu4_1">
+		                	
+		                	<a href="javascript:void(0)"><input type="button" onclick="compensatory(2)" value="确认代偿" class="Operator_Management_anniu2" /></a>&nbsp;&nbsp;
+		                	<a href="$front_url/guarantee/guaranteeDetail.html?id=$!id" ><input type="button" value="返回" class="Operator_Management_anniu1" /></a>
+		               	 </div>
+		               </div>
+		               
+		            <div id="bg" class="bg" style="display:none;">aaaaa</div>
+		             
+		            <iframe id='popIframe' class='popIframe' frameborder='0' ></iframe>
+		        </form>
+        	#end
+		#end
+		
+##	______________________________________________________________________________________________________	
+        <div class="Trading_inquiry_xq4">
+			#if($!Entity_UserGroup.getLevel() == "L1" && $!Entity_Guarantee.getStatus() == "PR"  && $!Entity_Project.getStatus() == "FC")
+    			<a href="javascript:showDiv()">
+    				<input type="button" class="Financiers_anniu" value="融资完成审核" />&nbsp;
+                </a>
+			#end
+			#if($!Entity_UserGroup.getLevel() == "L2" && $!Entity_Guarantee.getStatus() == "CH"  && $!Entity_Project.getStatus() == "FC")
+    			<a href="javascript:showDiv()">
+    				<input type="button" class="Financiers_anniu" value="融资完成审核" />&nbsp;
+                </a>
+			#end
+			#if($!Entity_UserGroup.getLevel() == "L2" && $!Entity_Project.getStatus() == "PB")
+    			<a href="javascript:showDiv()">
+    				<input type="button" class="Financiers_anniu" value="代偿还款" />&nbsp;
+                </a>
+			#end
+			<a href="javascript:history.go(-1);">
+				<input type="button" class="Financiers_anniu1" value="返回" />
+			</a>
+		</div>
+
+        
+    </div>
+  
+</div>
+</div>
+</div>
+
+#parse("layout/footer.vm")
+</body>
+</html>

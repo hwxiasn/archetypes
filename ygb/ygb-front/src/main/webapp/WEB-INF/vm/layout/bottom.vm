@@ -1,0 +1,29 @@
+<div style="background-color:#eeeeee; width:100%;float:left; margin-top:10px;">
+<div class="bottom1">
+  <div class="bottom1_L">合作伙伴</div>
+    <div class="bottom1_R">
+		<div class="bottom1_R_one_new"><a href="http://www.moneymoremore.com" target="_blank"><img src="$static_url/images/Partner/shuangqian.png" width="165" height="52" /></a></div>
+		<div class="bottom1_R_one_new"><a href="http://www.xnxd.cn/" target="_blank"><img src="$static_url/images/Partner/xianglan.png" width="165" height="52" /></a></div>
+        <div class="bottom1_R_one_new"><a href="$front_url/statics/partner_jtrz.html" ><img src="$static_url/images/Partner/jiaotong.png" width="165" height="52" /></a></div>
+        <div class="bottom1_R_one_new"><a href="$front_url/statics/partner_hqxy.html" ><img src="$static_url/images/Partner/huiquan.png" width="165" height="52" /></a></div>
+    </div>
+</div>
+
+<div class="bottom2">
+    <div class="bottom2_L"><a href = "http://www.cqnet110.gov.cn" ><img src="$static_url/images/cqnet110.gif" width="50" height="71" /></a></div>
+    <div class="bottom2_C">
+    版权所有 © 重庆倍赢金融服务有限公司 未经许可不得复制、转载或摘编，违者必究!<br/>
+    Copyright Chongqing beiying Financial Service Co.,LTD. ALL Rights Reserved<br/>
+    公司地址：重庆市巴南区龙海大道3号A4（龙洲湾商街广东南粤银行旁）　邮编：401320<br/>
+    渝ICP备14006185号-1<br/>
+   中国银监会提示：投资有风险
+##添加百度网站流量统计代码	
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb862ecf592e5cf2d02bfa6b293915ed3' type='text/javascript'%3E%3C/script%3E"));
+</script>
+    
+    </div>
+    <div class="bottom2_R"><a href="http://beian.cqnet110.gov.cn/open/showRecord?id=50011302000095" ><img src="$static_url/images/imgB7.png" width="85" height="94" /></a></div>
+</div>
+</div>

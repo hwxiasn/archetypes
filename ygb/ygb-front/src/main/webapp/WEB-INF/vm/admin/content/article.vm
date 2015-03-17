@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>业务管理后台</title>
+#parse("admin/layout/head.vm")
+<link href="$static_url/admin/css/admin.css" rel="stylesheet" type="text/css" />
+
+<script src="$static_url/admin/js/jquery.min.js"></script>
+<script src="$static_url/admin/js/jquery.validate.js"></script>
+<script src="$static_url/admin/js/jquery.metadata.js"></script>
+<script src="$static_url/admin/js/messages_cn.js"></script>
+
+<style type="text/css">
+a:link {
+	color: #8e8e8e;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #8E8E8E;
+}
+a:hover {
+	text-decoration: none;
+	color: #F00;
+}
+a:active {
+	text-decoration: none;
+	color: #F00;
+}
+#current,#options { border:1px solid #a0a0a0;}
+#replace {cursor:default;overflow:visible;position:relative;}
+#current { background:url("$static_url/admin/images/dropdown.png") right center no-repeat;margin-bottom:0;}
+#current,#replace,#options li { width:150px;}
+#options { border-top:0 none; display:none;list-style-type:none;margin-top:0;position:absolute;width:160px;}
+#current,#options li {padding:5px;}
+#current,#options,#options li {background-color:#FFF;}
+</style>
+
+<script src="$static_url/admin/js/SimpleTreeSelector.js"></script>
+<script type="text/javascript"> 
+	var data = new Array(); 
+	$(document).ready(function(){
+		// 创建专题树形复合框
+		var sujects = $!subjects;
+		var selectedItemCode = "$!{query.subject}";
+		for(var i = 0; i < sujects.length; i ++){
+			if(selectedItemCode == sujects[i].code){
+				data[i] = {id : sujects[i].code, pid : sujects[i].parentCode, text : sujects[i].name, selected : true};
+			}else{
+				data[i] = {id : sujects[i].code, pid : sujects[i].parentCode, text : sujects[i].name, selected : false};
+			}
+		}
+		var select = document.getElementById("subject");
+		var ts = new TreeSelector(select, data, 'X'); 
+		ts.createTree(); 
+		
+		// 替换专题编码为名称
+		var tables = $("table.Mtext6");
+		var cell;
+		if(tables != undefined){
+			for(var i = 0; i < tables.length; i ++){
+				if(tables[i].rows[0].childNodes[3] != undefined){
+					tables[i].rows[0].childNodes[3].innerText = getSubjectNameByCode(tables[i].rows[0].childNodes[3].innerText);
+				}
+			}
+		}
+	});
+	
+	function getSubjectNameByCode(code){
+		for(var i = 0; i < data.length; i ++){
+			if(code === data[i].id){
+				return data[i].text;
+			}
+		}
+	}
+</script>
+</head>
+<body>
+<table width="99%" height="6px" border="0" bgcolor="#0f97cb" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+    <td></td>
+  </tr>
+</table>
+
+<table width="99%" height="34px" border="0" bgcolor="#ffffff" cellspacing="0" cellpadding="0" align="center" class="bian1">
+  <tr>
+  	<td width="15px"></td>
+    <td class="main1">文章管理</td>
+  </tr>
+</table>
+
+<table width="99%" height="16px" border="0" background="$static_url/admin/images/main1.gif" cellspacing="0" cellpadding="0" align="center" class="bian1">
+  <tr>
+  	<td width="15px"><img src="$static_url/admin/images/main1.jpg" alt="" width="123" height="16" /></td>
+    <td></td>
+  </tr>
+</table>
+
+<form action="$admin_url/content/article.html" method="post">
+<table width="99%" height="64px" border="0" bgcolor="#edf5f6" cellspacing="0" cellpadding="0" align="center" class="bian2">
+	<tr>
+	    <td width="2%" height="50px" >&nbsp;</td>
+	    <td width="8%">所属专题：</td>
+	    <td width="12%"><select id="subject" name="subject" class="Mtext1"></select></td>
+	    <td width="8%">文章标题：</td>
+	    <td width="12%"><input name="title" value="$!query.title" type="text" class="Mtext1" /></td>
+	    <td width="8%">发布时间：</td>
+	    <td width="20%">
+	    	<input name="dateHead" value="$!query.dateHead" id="dateHead" onfocus="WdatePicker({isShowClear:false,readOnly:true,maxDate:'#F{$dp.$D(\'dateTail\')}'})" type="text" class="Mtext1" /> 
+	      	~ 
+			<input name="dateTail" value="$!query.dateTail" id="dateTail" onfocus="WdatePicker({isShowClear:false,readOnly:true,minDate:'#F{$dp.$D(\'dateHead\')}'})" type="text" class="Mtext1" />
+		</td>
+	    <td width="8%">文章状态：</td>
+	    <td width="12%">
+	      <select name="status" class="Mtext1">
+	        <option value="-1">全部</option>
+			#foreach($status in $!statusMap.entrySet())
+				<option value="$!status.key" #if($!query.status == $!status.key) selected="selected" #end>$!status.value</option>
+			#end
+	        </select>
+	    </td>
+	    <td width="16%"><input type="image" src="$static_url/admin/images/main1.png"/></td>
+	</tr>
+</table>
+</form>
+
+<table width="99%" height="10px" border="1" bordercolor="#cecece" cellspacing="0" cellpadding="0" align="center"><tr><td></td></tr></table>
+<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center" class="Mtext4"><tr><td>&nbsp;</td></tr></table>
+
+<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center" class="Mtext5">
+  <tr>
+    <td width="14%" align="center">文章编号</td>
+    <td width="13%" align="center">所属专题</td>
+    <td width="26%" align="center">文章标题</td>
+    <td width="20%" align="center">创建时间</td>
+    <td width="12%" align="center">状态</td>
+    <td width="15%" align="center">操作</td>
+  </tr>
+</table>
+
+<!--信息展示-->
+#if($!pager.elements.size() > 0)
+    #foreach($item in $!pager.elements)
+    	<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center" class="Mtext6">
+          <tr>
+            <td width="14%" align="center">$!item.id</td>
+            <td width="13%" align="center">$!item.subject</td>
+            <td width="26%" align="center">$!item.title</td>
+            <td width="20%" align="center">$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!item.createTime)</td>
+            <td width="12%" align="center">$!statusMap.get($!item.status)</td>
+            <td width="25%" align="center">
+            	#if($!item.status != 2)
+	            	<a href="$admin_url/content/articleEdit.html?id=$!item.id" class="a1">编辑</a>&nbsp;|&nbsp;
+	            #end
+	            #if($!item.status == 1)
+	            	<a href="$admin_url/content/online.html?id=$!item.id" class="a1">上线</a>&nbsp;|&nbsp;
+	            #end
+	            #if($!item.status == 3)
+	            	<a href="$admin_url/content/offline.html?id=$!item.id" class="a1">下线</a>&nbsp;|&nbsp;
+	            	<a href="$admin_url/content/top.html?id=$!item.id" class="a1">置顶</a>&nbsp;|&nbsp;
+	            #end
+	            #if($!item.status != 3)
+	            	<a href="$admin_url/content/delete.html?id=$!item.id" class="a1">删除</a>&nbsp;|&nbsp;
+	            #end
+	            	-
+            </td>
+          </tr>
+        </table>
+    #end
+#else
+	<table width="99%" border="0" cellspacing="0" cellpadding="0" align="center" class="Mtext6" ><tr><td></td></tr></table>
+#end
+
+
+<table width="99%" height="41px" border="0" bgcolor="#f6f6f6" cellspacing="0" cellpadding="0" align="center" class="bian1">
+  <tr>
+    <td width="1%" class="Mxian1">&nbsp;</td>
+    <td width="24%" class="Mxian1" >
+    	<a><input onclick="javascript:location.href='$admin_url/content/articleAdd.html'" type="button" value="添加文章" class="anniu1"/></a>
+    	&nbsp;
+   	</td>
+	#parse("admin/layout/pager.vm")
+  </tr>
+</table>
+
+</body>
+</html>
+<script type="text/javascript" src="$static_url/js/My97DatePicker/WdatePicker.js"></script>

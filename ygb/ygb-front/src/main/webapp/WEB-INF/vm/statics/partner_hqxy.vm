@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+#parse("layout/head.vm")
+<title>倍赢金融财富箱--战略伙伴</title>
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/AboutUs.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/FortuneBox.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+body {
+	background-color:#eeeeef;
+}
+</style>
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<div class="FortuneBox1-1"></div>
+<div class="FortuneBox1">战略合作伙伴</div>
+<div class="FortuneBox2">
+	<div class="help1_1">
+    	<div class="help1_1_L">重庆市惠泉信用担保有限公司</div>
+        <div class="help1_1_R"></div>
+    </div>
+    <div class="help2">
+    <p>重庆市惠泉信用担保有限公司是由渝惠食品集团公司（原重庆市商务集团有限公司）投资组建的国有独资公司，于2005年7月在工商行政管理局登记注册，系重庆市中小企业金融服务促进会理事单位、重庆市中小企业信用担保协会会员单位，重庆市首批备案中小企业信用担保机构。</p>
+	<p>公司主要开展贷款担保、经济合同履约担保、工程履约担保、诉讼保全担保、招投标担保和项目咨询、融资咨询等业务。公司坚持"客户至上、诚信至上、规范运作、互利共赢"的经营理念，与各商业银行建立了良好的授信合作关系，积极为有市场、有效益、有潜力、有技术的中小企业提供融资担保服务，以高效优质的服务，鼎力支持中小企业成长。</p>
+    <p>国务院办公厅近日也印发《关于多措并举着力缓解企业融资成本高问题的指导意见》，要求金融部门采取综合措施，着力缓解企业融资成本高问题，促进金融与实体经济良性互动。 《意见》也提出了十个方面的政策措施，并明确了职责分工。要求要缩短企业融资链条、积极稳妥发展面向小微企业和"三农"的特色中小金融机构、大力发展直接融资、大力发展支持小微企业等获得信贷服务的产品。正是基于国家政策的要求，作为国有担保公司，我们也在探索新的服务模式，积极探索和合法经营、实力强大、服务于产业发展的互联网金融平台的合作，用实际行动服务于中小微企业的发展，让企业通过互联网的方式更加快捷、更加有效的获得企业发展的资金。</p><br/>
+    <b>公司地址：重庆市渝中区五四路39号都市广场A座15楼<br/>
+    联系电话：63886049 63803993<br/>
+    邮编：400010<br/></b>
+    </div>
+    <div class="help3"><a href="javascript:history.go(-1);">返回</a></div>
+
+</div>
+
+<div class="AboutUs_xian"></div>
+
+#parse("layout/footer.vm")
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+#parse("layout/head.vm")
+<title>倍赢金融财富箱--公告</title>
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/AboutUs.css" rel="stylesheet" type="text/css" />
+
+<script src='$static_url/js/jquery.min.js'></script>
+<script src='$static_url/js/jquery.museum.js'></script>
+<script>
+$(document).ready(function() {
+	$.museum($('#content img'));
+});
+</script>
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color:#eeeeef;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+.AboutUs_c1_1_a {
+	height:30px;
+	width: 125px;
+	background:#ffffff;
+	color:#000000;
+	margin-bottom: 2px;
+	float:left;
+	line-height:30px;
+	font-size: 15px;
+	padding-left: 40px;
+}
+a:hover{
+	color:red;
+	background:#b6b6b7;
+}
+#content img { height: 120px;border: 1px solid #FFF; padding: 2px; }
+#content img:hover { border: 1px solid #d3332d; }
+
+</style>
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<div class="AboutUs1">
+	<div class="AboutUs1_L">
+    	<div class="AboutUs1_L_u"><img src="$static_url/images/aboutus1.png" width="191" height="67" /></div>
+        <div class="AboutUs1_L_b">
+        	<a href="$front_url/platformNotice.html">平台公告</a>
+            <a href="$front_url/platformNotice.html?hy" class="on">行业新闻</a>
+        </div>
+   </div>
+  <div class="AboutUs1_R">
+    <div class="AboutUs1_R1">
+      <div class="AboutUs1_R1_L"><b>行业新闻</b></div>
+        <div class="AboutUs1_R1_R"></div>
+    </div>
+    <div class="AboutUs1_R2_news"><b>【引人瞩目】中国互联网金融创新模式受APEC追捧</b><br/><span style="font-size:13px;">转载：本文来源于投资快报  2014-11-05 黄敏 微信客户端：互联网金融千人会</span></div>
+    <div class="AboutUs1_R3">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;近日，2014年亚太经合组织（APEC）财长会议在北京举行，会议把促进基础设施投融资合作作为重点领域，签署了筹建亚洲基础设施投资银行协议。此协议引发了国际社会对中小型企业金融领域创新的极大关注。观察人士指出，此协议不仅勾画出一种新型金融机构轮廓，更代表了一种新的金融生态和秩序，从而对接起广大地区国家升级基础设施、造福国计民生的崭新发展诉求。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在金融创新方面，互联网领域的探索尤其引人注意。敦煌网创始人、CEO王树彤作为APEC工商咨询理事会（ABAC）中国代表受邀演讲，主题为中国在互联网金融领域的创新和实践。分享了中国电子商务平台利用大数据帮助中小微企业融资贷款的实践经验，引起了与会者的极大追捧。APEC秘书长AlanBollard立刻追问讲稿，希望与全世界分享中国经验。泰国财长SommaiPhasi则坚定表示，一定要尽快推动泰国企业学习中国的互联网金融创新之道。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;据了解，融资难一直是APEC各经济体中小企业普遍面临的问题，APEC近两年重点讨论的话题之一就是为中小企业探索新型融资方式。2013年11月，在印尼举行的APEC中小企业部长级会议上，王树彤首次向APEC21个经济体的中小企业部长，汇报了中国电子商务平台利用大数据帮助中小微企业融资贷款的实践经验，当时就引起各国的极大兴趣和关注。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;王树彤表示，中国在整合供应链以及帮助中小微企业依托互联网大数据融资方面已经走在了世界前沿，敦煌网作为全球领先的B2B在线交易平台，经过十年的实践探索，在帮助中小企业融资贷款方面已经形成了相对成熟的供应链金融创新模式。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“互联网金融产业的蓬勃发展，不仅促进了直接融资的快速增长，更推动了普惠金融在中国的发展。除此之外，互联网金融产业的巨大变革，使中小微企业得以参与到国际化市场竞争中去。”王树彤表示，未来以交易为核心，还可以继续整合更多的金融服务，新兴的互联网金融资模式必将引领全球金融服务产业的新一轮变革。<br/><br/>
+    <div class="news_fanhui"><a href="javascript:history.go(-1);">返回</a></div>
+
+     </div>
+        
+  </div>
+</div>
+
+<div class="AboutUs_xian"></div>
+
+#parse("layout/footer.vm")
+</body>
+</html>

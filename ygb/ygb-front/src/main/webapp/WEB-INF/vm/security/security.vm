@@ -1,0 +1,206 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+#set($left="security")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/menu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Security_Center.css" rel="stylesheet" type="text/css" />
+
+<script src="$static_url/admin/js/jquery.min.js"></script>
+<script src="$static_url/admin/js/jquery.validate.js"></script>
+<script src="$static_url/admin/js/jquery.metadata.js"></script>
+<script src="$static_url/admin/js/messages_cn.js"></script>
+
+<script language="javascript">
+
+function showDiv(div, frame){
+	$("#" + div).css('display','block');
+	$("#" + frame).css('display','block');
+	$("#bg").css('display','block');
+}
+
+function closeDiv(div, frame){
+	$("#" + div).css('display','none');
+	$("#" + frame).css('display','none');
+	$("#bg").css('display','none');
+}
+
+$(function(){
+	$("#modifyQueryPass").validate();
+	$("#modifyPayPass").validate();
+	
+	if("$!result" == "loginsuccess"){
+		alert("登录密码修改成功");
+	}else if("$!result" == "loginfail"){
+		alert("登录密码修改失败");
+	}else if("$!result" == "paymentsuccess"){
+		alert("交易密码修改成功");
+	}else if("$!result" == "paymentfail"){
+		alert("交易密码修改失败");
+	}
+});
+</script>
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color: #FFF;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+</style>
+
+<link href="$static_url/css/Pop-up_layer.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+#parse("myAccount/header.vm")
+
+<div class="customer_main2">
+	#parse("myAccount/left.vm")
+	
+    <div class="customer_main2_R">
+    	<div class="quick_signing">安全中心</div>
+    	<div class="Security_Center1">
+   	  		<div class="Security_Center1_L">
+        		<div class="Security_Center1_L_1">
+	            	<div class="Security_Center1_L_1_1">账户安全级别：</div>
+	                <div class="Security_Center1_L_1_2">
+						<div class="Center_bar"><div class="Center_bar_1" style="width:98.5%;"></div></div>
+					</div>
+                	<div class="Security_Center1_L_1_3 Security_Center_color1">高级</div>
+            	</div>
+            	<div class="Security_Center1_L_2">为了更好的保护您的 资金和交易安全，倍赢金融推荐您选择启用以下保护措施：</div>
+            </div>
+      		<div class="Security_Center1_R"><img src="$static_url/images/dunpai.png" width="81" height="98" /></div>
+      	</div>
+       	
+        <div class="Security_Center2">您使用的安全服务：</div>
+        
+        <div class="Security_Center3">
+        	<div class="Security_Center3_1">登录密码</div>
+            <div class="Security_Center3_2">已设置</div>
+            <div class="Security_Center3_3">为保证账户安全，请时常更换密码</div>
+            <div class="Security_Center3_4">
+            
+			<form id="modifyQueryPass" action="$front_url/security/modifyQueryPass.html" method="post">
+				<div id="popDiv" class="mydiv1" style="display:none;">
+	                <div class="Change_Password1">
+	                    <div class="Change_Password1_L">更改登录密码</div>
+	                    <div class="Change_Password1_R"><a href="javascript:closeDiv('popDiv', 'popIframe')" class="guanbi"></a></div>
+	                </div>
+                	<div class="Change_Password2">
+	                	<div class="Change_Password2_1">
+	                        <div class="Change_Password2_1_L"><img src="$static_url/images/speaker.png" width="10" height="10" /></div>
+	                        <div class="Change_Password2_1_R">定期更换密码可以让您的账户更加安全。</div>
+	                    </div>
+	                    <div class="Change_Password2_1">
+	                        <div class="Change_Password2_1_L"></div>
+	                        <div class="Change_Password2_1_R">请确保登录密码和交易密码不同！</div>
+	                    </div>
+	                    <div class="Change_Password2_1">
+	                        <div class="Change_Password2_1_L"></div>
+	                        <div class="Change_Password2_1_R">建议密码采用字母和数字混合，并且不短于6位。</div>
+	                    </div>
+	                </div>
+                
+					<input type="hidden" name="modify" value="loginPassword" />
+	                <div class="Change_Password3">
+	                	<div class="Change_Password3_L"><span class="Change_Password_color">*</span>&nbsp;旧密码：</div>
+	                    <div class="Change_Password3_R">
+	                    	<input type="hidden" name="userName" value="$!userDetail.userId"/>
+							<input name="password" type="password" class="Change_Password_text1 {required:true,rangelength:[6,20],messages:{required:'<span style=\'color:red;\'>请输入旧密码</span>'}}" />&nbsp;&nbsp;
+							<a href="$front_url/forgetPassword.html"><span class="Change_Password_color">忘记旧密码？</span></a>
+						</div>
+	                </div>
+                
+	                <div class="Change_Password3">
+	                	<div class="Change_Password3_L"><span class="Change_Password_color">*</span>&nbsp;新密码：</div>
+	                    <div class="Change_Password3_R"><input name="newPassword" type="password" maxlength="20" id="logins" class="Change_Password_text1 {required:true,rangelength:[6,20],messages:{required:'<span class=\'Change_Password_color\'>请输入新密码</span>'}}" minlength="6" />&nbsp;&nbsp;</div>
+	                </div>
+                
+	                <div class="Change_Password3">
+	                	<div class="Change_Password3_L"><span class="Change_Password_color">*</span>&nbsp;确认新密码：</div>
+	                    <div class="Change_Password3_R"><input name="confirmPassword" type="password" class="Change_Password_text1 {required:true,rangelength:[6,20],equalTo:'#logins',messages:{required:'<span class=\'Change_Password_color\'>请输入确认密码</span>',equalTo:'<span class=\'Change_Password_color\'>两次密码输入不一致</span>'}}" minlength="6" maxlength="20" />&nbsp;&nbsp;</div>
+	                </div>
+                
+	                <div class="Change_Password3">
+	                	<div class="Change_Password3_L"></div>
+	                    <div class="Change_Password3_R"><input type="submit" class="anniuRed60" value="确定"/></div>
+	                </div>
+       	    	</div>
+       	    	
+	            <div id="bg" class="bg" style="display:none;"></div>
+				<a href="javascript:showDiv('popDiv', 'popIframe')" class="anniuGreen">修改</a>
+	            <iframe id='popIframe' class='popIframe' frameborder='0' ></iframe>
+            </form>  
+            </div>
+        </div>
+        
+        <div class="Security_Center3">
+        	<div class="Security_Center3_1">交易密码</div>
+            <div class="Security_Center3_2">已设置</div>
+##          <div class="Security_Center3_3">账户资金需要提现时输入，保护账户资金安全</div>
+            <div class="Security_Center3_3">账户资金进行项目投资的交易密码</div>
+            <div class="Security_Center3_4">
+            
+			<form id="modifyPayPass" action="$front_url/security/modifyPayPass.html" method="post">
+				<div id="popDiv1" class="mydiv1" style="display:none;">
+	                <div class="Change_Password1"><div class="Change_Password1_L">更改交易密码</div><div class="Change_Password1_R"><a href="javascript:closeDiv('popDiv1', 'popIframe1')" class="guanbi"></a></div></div>
+	                
+	                <div class="Change_Password2">
+	                	<div class="Change_Password2_1"><div class="Change_Password2_1_L"><img src="$static_url/images/speaker.png" width="10" height="10" /></div><div class="Change_Password2_1_R">定期更换密码可以让您的账户更加安全。</div></div>
+	                    <div class="Change_Password2_1"><div class="Change_Password2_1_L"></div><div class="Change_Password2_1_R">请确保登录密码和交易密码不同！</div></div>
+	                    <div class="Change_Password2_1"><div class="Change_Password2_1_L"></div><div class="Change_Password2_1_R">建议密码采用字母和数字混合，并且不短于6位。</div></div>
+	                </div>
+				
+					<input type="hidden" name="modify" value="repayPassword" />
+	                <div class="Change_Password3">
+	                	<div class="Change_Password3_L"><span class="Change_Password_color">*</span>&nbsp;旧密码：</div>
+	                    <div class="Change_Password3_R">
+	                    	##<input type="hidden" name="userName" value="$!userDetail.userId"/>
+	                    	<input type="hidden" name="userName" value="$!userDetail.userId"/>
+							<input name="paymentCode" type="password" class="Change_Password_text1 {required:true,rangelength:[6,20],messages:{required:'<span class=\'Change_Password_color2\'>请输入旧密码</span>'}}" />&nbsp;&nbsp;
+							<a href="$front_url/forgetPassword.html"><span class="Change_Password_color2">忘记交易密码？</span></a>
+						</div>
+	                </div>
+	                
+	                <div class="Change_Password3">
+	                	<div class="Change_Password3_L"><span class="Change_Password_color">*</span>&nbsp;新密码：</div>
+	                    <div class="Change_Password3_R"><input name="newPaymentCode" type="password" id="newpcodes"  class="Change_Password_text1 {required:true,rangelength:[6,20],messages:{required:'<span class=\'Change_Password_color2\'>请输入新密码</span>'}}" />&nbsp;&nbsp;</div>
+	                </div>
+	                
+	                <div class="Change_Password3">
+	                	<div class="Change_Password3_L"><span class="Change_Password_color">*</span>&nbsp;确认新密码：</div>
+	                    <div class="Change_Password3_R"><input name="confirmPaymentCode" type="password" class="Change_Password_text1 {required:true,rangelength:[6,20],equalTo:'#newpcodes',messages:{required:'<span class=\'Change_Password_color2\'>请输入确认密码</span>',equalTo:'<span class=\'Change_Password_color2\'>两次密码输入不一致</span>'}}" />&nbsp;&nbsp;</div>
+	                </div>
+	                
+	                <div class="Change_Password3">
+	                	<div class="Change_Password3_L"></div>
+	                    <div class="Change_Password3_R"><input type="submit" class="anniuRed60" value="确定"/></div>
+	                </div>
+        
+       	    </div>
+        
+            <div id="bg" class="bg" style="display:none;"></div>
+			<a href="javascript:showDiv('popDiv1', 'popIframe1')" class="anniuGreen">修改</a>
+            <iframe id='popIframe1' class='popIframe1' frameborder='0'></iframe>
+            </form>
+
+            </div>
+        </div>
+        
+  </div>
+</div>
+</div>
+#parse("layout/footer.vm")
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+#parse("layout/head.vm")
+<title>倍赢金融财富箱--公告</title>
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/AboutUs.css" rel="stylesheet" type="text/css" />
+
+<script src='$static_url/js/jquery.min.js'></script>
+<script src='$static_url/js/jquery.museum.js'></script>
+<script>
+$(document).ready(function() {
+	$.museum($('#content img'));
+});
+</script>
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color:#eeeeef;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+.AboutUs_c1_1_a {
+	height:30px;
+	width: 125px;
+	background:#ffffff;
+	color:#000000;
+	margin-bottom: 2px;
+	float:left;
+	line-height:30px;
+	font-size: 15px;
+	padding-left: 40px;
+}
+a:hover{
+	color:red;
+	background:#b6b6b7;
+}
+#content img { height: 120px;border: 1px solid #FFF; padding: 2px; }
+#content img:hover { border: 1px solid #d3332d; }
+
+</style>
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<div class="AboutUs1">
+	<div class="AboutUs1_L">
+    	<div class="AboutUs1_L_u"><img src="$static_url/images/aboutus1.png" width="191" height="67" /></div>
+        <div class="AboutUs1_L_b">
+        	<a href="$front_url/platformNotice.html">平台公告</a>
+            <a href="$front_url/platformNotice.html?hy" class="on">行业新闻</a>
+        </div>
+   </div>
+  <div class="AboutUs1_R">
+    <div class="AboutUs1_R1">
+      <div class="AboutUs1_R1_L"><b>行业新闻</b></div>
+        <div class="AboutUs1_R1_R"></div>
+    </div>
+    <div class="AboutUs1_R2_news"><b>新"国九条"助力互联网金融健康发展</b><br/><span style="font-size:13px;">2014年06月23日 18:31:53 来源：新浪财经</span></div>
+    <div class="AboutUs1_R3">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;毫无疑问，新"国九条"的出台对正在观望等待金融政策明朗化，特别是具备流量基础、金融资本和管道资源的互联网企业属于重大利好消息。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5月9日,国务院发布了《进一步促进资本市场健康发展的若干意见》（下简称新"国九条"）,新"国九条"指出，支持有条件的互联网企业参与资本市场，促进互联网金融健康发展，扩大资本市场服务的覆盖面。新"国九条"出台成为最近我国资本市场最大的热门话题，各界纷纷发表各种解读与评论。新"国九条"引发广泛的热议，除了此前市场已经熟知的"混合所有制"、"股票发行注册制改革"等内容外，"互联网金融"与"培育私募市场"、"防范和化解金融风险"等内容均为首次被单独列出。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有评论乐观地认为，新"国九条"将对券商、互联网金融和国企改革产生正面刺激，属于重大利好。亦有悲观论者认为，新"国九条"加强对于互联网金融的监管，可能将导致互联网金融创新活力受到约束和压抑。笔者倾向于乐观，特别是近期股市上互联网金融概念股表现活跃，东方财富(14.050, -0.23, -1.61%)、同花顺(25.310, -0.56, -2.16%)等涨幅居前，市场的反应印证了新"国九条"的积极影响；更为重要的是新"国九条"的政策红利才刚刚显现，证监会[微博]等有关部门还将陆续出台一系列配套措施，更多的积极意义还在后头，需要我们以耐心和定力去挖掘其巨大的制度潜力。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;互联网金融创新高歌猛进中，2013年最高决策层对互联网金融给予了少见的宽容和积极的呵护，央行[微博]等八部门成立专门课题组进行调研，大规模地进行了实地走访和座谈，极大调动了各界的热情。2014年两会期间李克强总理在政府工作报告中提出："促进互联网金融健康发展"，将互联网金融上升到国家战略层面，让互联网金融受到空前重视。但是对于这个表述也出现了一些片面的理解，以至于后续有关监管政策被误解。今年3月13日，人民银行[微博]紧急下发文件，暂停支付宝[微博]和腾讯的虚拟信用卡，暂停二维码支付服务。市场解读为"互联网金融遭叫停"，就是一个对于政策片面误读引市场过度反应的典型案例。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新"国九条"从提高证券期货服务业竞争力的角度和建设多层次资本市场的高度，把准了市场行情与脉搏，对于去年以来持续火爆的互联网金融业务确立了中国证监会的工作重点。要求建立健全证券期货互联网业务监管规则。支持证券期货服务业、各类资产管理机构利用网络信息技术创新产品、业务和交易方式。支持有条件的互联网企业参与资本市场，促进互联网金融健康发展，扩大资本市场服务的覆盖面。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我认为，新"国九条"颁布之后，互联网金融的发展将在如下方面参与多层次资本市场的建设。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>首先</b>，在创业板有了更为宽松的准入门槛，具有技术创新的企业通过资本市场获得资金支持，互联网金融能够更加快速发展壮大。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>其次</b>，众筹融资等互联网金融模式有望纳入证监会监管之下。据说证监会正在起草中国版的JOBS法案，众筹融资的规范化有利于夯实多层次资本市场的基础。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>第三</b>，随着新一轮互联网技术革命的深入，互联网金融企业有机会参与整个资本市场基础技术设施的改造和重建工作，从软硬件、移动互联、大数据、云计算等方面为资本市场提供新型技术服务。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>第四</b>，互联网金融企业对于监管规则的制定和制度的完善，可以先行通过企业标准、流程和规则进行测试，提出有针对性的监管规则建议。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新"国九条"公布后，证监会积极推进配套实施工作，5月15日发布推进证券机构创新的落地政策，重申建设现代投行的目标，放宽行业准入，支持互联网金融业务和拓展非标业务，研究建立房地产投资信托基金制度，推进统一证券账户平台建设等。5月19日，证监会明确表示"研究在创业板建立单独层次，支持尚未盈利的互联网和高新技术企业在新三板挂牌一年后到创业板上市"。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;毫无疑问，新"国九条"的出台对正在观望等待金融政策明朗化，特别是具备流量基础、金融资本和管道资源的互联网企业属于重大利好消息。我们期待，证监会等机构能够在互联网浪潮中与时俱进，进一步切实落实新"国九条"有关精神，助力互联网金融的持续健康发展。<br/><br/>
+    <div class="news_fanhui"><a href="javascript:history.go(-1);">返回</a></div>
+
+     </div>
+        
+  </div>
+</div>
+
+<div class="AboutUs_xian"></div>
+
+#parse("layout/footer.vm")
+</body>
+</html>

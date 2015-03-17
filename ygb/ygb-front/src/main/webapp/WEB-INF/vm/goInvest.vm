@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>倍赢金融财富箱--我要投资</title>
+#parse("layout/head.vm")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+	$(function() {
+		$("a[onclick='repayPeriod($!Entity_Search.repayPeriod)']").addClass("on");
+		$("a[onclick='moneyRange($!Entity_Search.moneyRange)']").addClass("on");
+		$("a[onclick='fundingProgress($!Entity_Search.fundingProgress)']").addClass("on");
+		$("a[onclick='guaranteeEnterprise($!Entity_Search.guaranteeEnterprise)']").addClass("on");
+	});
+	function repayPeriod(num) {
+		$("input[name='repayPeriod']").val(num);
+		$("form").submit();
+	}
+	function moneyRange(num) {
+		$("input[name='moneyRange']").val(num);
+		$("form").submit();
+	}
+	function fundingProgress(num) {
+		$("input[name='fundingProgress']").val(num);
+		$("form").submit();
+	}
+	function guaranteeEnterprise(name) {
+		$("input[name='userId']").val(name);
+		$("form").submit();
+	}
+</script>
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<div class="invest_M1">
+	<div class="invest_M1_all">
+        <div class="invest_M1_1 line_bottom">
+            <span>还款时间：</span>
+            <a href="javascript:;" onclick="repayPeriod(0)">全部</a>
+            <a href="javascript:;" onclick="repayPeriod(1)">30天内</a>
+            <a href="javascript:;" onclick="repayPeriod(2)">1-3个月</a>
+            <a href="javascript:;" onclick="repayPeriod(3)">3-6个月</a>
+            <a href="javascript:;" onclick="repayPeriod(4)">6-9个月</a>
+            <a href="javascript:;" onclick="repayPeriod(5)">9-12个月</a>
+        </div>
+        
+        <div class="invest_M1_1 line_bottom">
+            <span>金额范围：</span>
+            <a href="javascript:;" onclick="moneyRange(0)">全部</a>
+            <a href="javascript:;" onclick="moneyRange(1)">10-50万</a>
+            <a href="javascript:;" onclick="moneyRange(2)">50-100万</a>
+            <a href="javascript:;" onclick="moneyRange(3)">100-500万</a>
+            <a href="javascript:;" onclick="moneyRange(4)">500万-1000万</a>
+            <a href="javascript:;" onclick="moneyRange(5)">1000万-5000万</a>
+            <a href="javascript:;" onclick="moneyRange(6)">5000万以上</a>
+        </div>
+        
+        <div class="invest_M1_1 line_bottom">
+            <span>投资进度：</span>
+            <a href="javascript:;" onclick="fundingProgress(0)">全部</a>
+            <a href="javascript:;" onclick="fundingProgress(1)">10%以内</a>
+            <a href="javascript:;" onclick="fundingProgress(2)">10-20%</a>
+            <a href="javascript:;" onclick="fundingProgress(3)">20-50%</a>
+            <a href="javascript:;" onclick="fundingProgress(4)">50-80%</a>
+            <a href="javascript:;" onclick="fundingProgress(5)">80-90%</a>
+            <a href="javascript:;" onclick="fundingProgress(6)">90-100%</a>
+        </div>
+        
+        <div class="invest_M1_1">
+            <span>担保公司：</span>
+			<a href="javascript:;" onclick="guaranteeEnterprise('')">全部</a>
+			#foreach($guarantee in $!List_User_Guarantee)
+				<a href="javascript:;" onclick="guaranteeEnterprise('$!guarantee.getId()')">$!guarantee.getEnterpriseProfile().getEnterpriseName()</a>
+			#end 
+        </div>
+   	</div>
+<form action="$front_url/goInvest.html" method="post">
+	<input type="hidden" name="repayPeriod" value="#if($!repayPeriod) $!repayPeriod #else 0 #end"/>
+	<input type="hidden" name="moneyRange" value="#if($!moneyRange) $!moneyRange #else 0 #end"/>
+	<input type="hidden" name="fundingProgress" value="#if($!fundingProgress) $!fundingProgress #else 0 #end"/>
+	<input type="hidden" name="guaranteeEnterprise" value="$!guaranteeEnterprise"/>
+	<input type="hidden" name="totalRows">
+	<input type="hidden" name="currentPage">
+</form>
+</div>
+
+#if($!Pager_Project.elements && $!Pager_Project.elements.size()>0)
+    #foreach($detail in $!Pager_Project.elements)
+    <div class="invest_M2">
+    	<div class="invest_M2_all">
+        	<div class="invest_M2_1">
+            	<!--  弹出框  -->
+            	<div class="main3_2_uL_two">
+					#if($!detail.type=="G")
+                      <img src="$static_url/images/tam.png" onmouseover="javascript:$(this).next('div').show()" onmouseout="javascript:$(this).next('div').hide()"/>
+                      <div style="display:none">
+                      	<div class="main3_2_uL_one_h_L"><span style="color:#5cb653"><b>担</b></span>：是由国有大型担保公司担保，并在借款接受人违约时，由担保公司进行代偿的产品</div>
+                        <div class="main3_2_uL_one_h_1_L"></div>
+                      </div>
+					#elseif($!detail.type=="L")
+                      <img src="$static_url/images/pick.png" onmouseover="javascript:$(this).next('div').show()" onmouseout="javascript:$(this).next('div').hide()"/>
+                      <div style="display:none">
+                      	<div class="main3_2_uL_one_h_L"><span class="color_Blue"><b>接</b></span>：是指当借款接受人违约时，由小贷公司发放一笔贷款，从而保障正常还款的产品</div>
+                        <div class="main3_2_uL_one_h_1_L"></div>
+                      </div>
+					#end  
+                </div>
+                <!--  弹出框  -->
+           	    <div class="invest_M2_1_L">$!detail.name</div>
+                <div class="invest_M2_1_R">
+                <a href="$front_url/investInfo/$!{detail.id}.html" #if($!detail.status == "F") class="Ianniu01" #else class="Ianniu01_h" #end>投资</a>
+                
+                </div>
+          	</div>
+            
+            <div class="main3_2_c_1">
+            	<ul>
+            	<li class="main3_1_li_1">需求金额</li>
+                <li class="main3_1_li_1">年化收益率</li>
+                <li class="main3_1_li_1">期限</li>
+                <li class="main3_1_li_2">投资开始时间</li>
+                <li class="main3_1_li_2">投资截至时间&nbsp;</li>
+                <li class="main3_1_li_2">合同成立日&nbsp;</li>
+            	</ul>
+          	</div>
+            
+            <div class="main3_2_c_1">
+            	<ul>
+                    <li class="main3_1_li_1"><span class="color_Red14">￥$!numberTool.format("0.00",$!detail.totalAmount)</span></li>
+					#set($percents=($!detail.interestRate)*100)
+                    <li class="main3_1_li_1"><span class="color_Red14">$!numberTool.format("0.00",$!percents)%</span></li>
+                    <li class="main3_1_li_1">$!{Map_CodeList_LoanType_Map.get($!{detail.getPeriodType()}).get($!{detail.getPeriod()}).getName()}</li>
+                    <li class="main3_1_li_1" style="width:158px">$!detail.formatInvestStartDate</li>
+                    <li class="main3_1_li_1" style="width:158px">$!detail.formatInvestEndDate</li>
+                    <li class="main3_1_li_1">$!Map_Project_Status.get($!detail.status)&nbsp;</li>
+            	</ul>
+          	</div>
+            
+            <div class="main3_2_b_1">
+            	<div class="main3_2_bL">担保机构：<span class="color_OrangeB">$!Map_User_Guarantee.get($!detail.guaranteeUserId)</span></div>
+                <div class="main3_2_bR">
+                
+                <div class="main3_2_bR01">投资进度</div>
+                <div class="main3_2_bR02_1">
+                	<div class="Article_all_2">
+                    	<div class="Article_all_2_1" style="width:$!detail.progress%;"></div>
+                    </div>
+                </div>
+                <div class="main3_2_bR03_1"><span class="color_OrangeB">&nbsp;$!detail.progress %</span>&nbsp;&nbsp;
+					#set($remains=($!detail.totalAmount.intValue() - $!detail.progressAmount.intValue())/10000)
+                还需&nbsp;<span class="color_Red14">$!remains</span>&nbsp;万</div>
+                
+                </div>
+         	</div>  
+            
+        </div>
+    </div>
+	#end
+#else
+<div class="invest_M2">
+	<div class="invest_M2_none">暂无记录</div>
+</div>
+#end
+
+#parse("layout/pager.vm")
+<script type="text/javascript">
+	function page(num) {
+		$("input[name='totalRows']").val($!pager.totalRows);
+		$("input[name='currentPage']").val(num);
+		$("form").submit();
+	}
+</script>
+
+#parse("layout/footer.vm")
+</body>
+</html>

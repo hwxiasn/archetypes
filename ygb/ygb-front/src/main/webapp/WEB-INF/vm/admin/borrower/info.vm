@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>业务运营管理系统</title>
+#parse("admin/layout/head.vm")
+<link href="$static_url/admin/css/css.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+a:link {
+	color: #8e8e8e;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #8E8E8E;
+}
+a:hover {
+	text-decoration: none;
+	color: #F00;
+}
+a:active {
+	text-decoration: none;
+	color: #F00;
+}
+#current,#options { border:1px solid #a0a0a0;}
+#replace {cursor:default;overflow:visible;position:relative;}
+#current { background:url("images/dropdown.png") right center no-repeat;margin-bottom:0;}
+#current,#replace,#options li { width:150px;}
+#options { border-top:0 none; display:none;list-style-type:none;margin-top:0;position:absolute;width:160px;}
+#current,#options li {padding:5px;}
+#current,#options,#options li {background-color:#FFF;}
+</style>
+</head>
+<body>
+<!--  主要内容  -->
+<div class="divMain">
+	<!--  查询开始  -->
+    <form action="$admin_url/borrower/query.html" method="post">
+	<div class="divMain_chaxun">
+    	<!--  标题  -->
+    	<div class="divMain_chaxun_bt line_botoom">借款人预约信息查询</div>
+        <!--  查询条件  -->
+        <div class="divMain_chaxun_m">
+        <!--  查询条件比较多多的情况，字段尽量为4个字，特别是每排第一个字段，尽量让排整齐板式好看；查询条件少，一排显示就不管  -->
+        <!-- div高度不定,多了自动挤到下一排   -->
+        <div class="divMain_chaxun_mOne">借款人姓名：<input name="name" type="text" class="text100" value="$!info.name" maxlength="20"></div>
+        	<div class="divMain_chaxun_mOne">借款期限：
+				<select name="loanTerm" class="select100">
+				    <option value="0">==请选择==</option>
+					<option value="1" #if($!info.loanTerm==1) selected#end>一月期</option>
+					<option value="3" #if($!info.loanTerm==3) selected#end>三月期</option>
+					<option value="6" #if($!info.loanTerm==6) selected#end>半年期</option>
+					<option value="9" #if($!info.loanTerm==9)selected#end>九月期</option>
+					<option value="12"#if($!info.loanTerm==12)selected#end>一年期</option>
+				</select>
+			</div>
+            <!--  按钮  -->
+        	<div class="divMain_chaxun_mAnniu"><input type="submit" value="提交查询" class="anniu_blue"></div>
+        </div>
+    </div>
+    </form>
+    <!--  查询结束  -->
+    <!--  列表开始  -->
+	<div class="divMain_chaxun">
+        <!--  标题  -->
+    	<div class="divMain_liebiao_bt line_botoom">
+        	<!--每个divMain_liebiao_one01宽度未定，根据具体情况定百分比，加起来总的等于100%-->
+        	<span class="divMain_liebiao_one01" style="width:3%;">&nbsp;</span><span class="divMain_liebiao_one01" style="width:10%;">姓名</span><span class="divMain_liebiao_one01" style="width:10%;">借款期限（月）</span><span class="divMain_liebiao_one01" style="width:10%;">年龄</span><span class="divMain_liebiao_one01" style="width:11%;">性别</span><span class="divMain_liebiao_one01" style="width:18%;">身份证号</span><span class="divMain_liebiao_one01" style="width:15%;">提交时间</span><span class="divMain_liebiao_one01" style="width:12%;">电话</span><span class="divMain_liebiao_one01" style="width:11%;">&nbsp;操作</span>
+        </div>
+        <!-- 一条内容   -->
+		#if($!pager.elements.size() > 0)
+		   #foreach($item in $!pager.elements)
+            <div class="divMain_liebiao_all line_botoom">
+            <span class="divMain_liebiao_one01" style="width:3%;">&nbsp;</span><span class="divMain_liebiao_all01" style="width:10%;">$item.name</span><span class="divMain_liebiao_all01" style="width:10%;">$item.loanTerm</span><span class="divMain_liebiao_all01" style="width:10%;">$item.age</span><span class="divMain_liebiao_all01" style="width:11%;">#if($item.sex == "M")男#else女#end</span><span class="divMain_liebiao_all01" style="width:18%;">$item.idSerial</span><span class="divMain_liebiao_all01" style="width:15%;">$!dateTool.format('yyyy-MM-dd HH:mm:ss', $!item.createTime)</span><span class="divMain_liebiao_all01" style="width:12%;">$item.phone</span><span class="divMain_liebiao_all01" style="width:11%;"><a href="$admin_url/borrower/detail.html?id=$item.id" class="a1">详情</a>&nbsp;</span>
+            </div>
+            #end
+		#else
+			<div class="divNone line_botoom">暂无信息</div>
+		#end
+          <!-- 分页开始   -->
+        <div class="divMain_fenye">
+			#parse("admin/layout/pager.vm")
+        </div>
+    </div>
+   <!--  列表结束  -->
+</div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<div class="head">
+<div class="head_top">
+  <div class="head_topL">
+    	<div class="head_topL1">
+      	<img src="$static_url/images/dianhua.png" width="21" height="22" />
+        </div>
+       <div class="head_topL2">
+      	023-62559988
+        </div>
+        <div class="head_topL3">
+   	    <img src="$static_url/images/qq.png" width="13" height="14" />
+        </div>
+        <div class="head_topL4">
+   	    &nbsp;3026192560
+        </div>
+    </div>
+  	<div class="head_topR">
+    #if($!shiro.isFrontAuthenticated())
+		<a #if($!shiro.hasRole("O")) href="$front_url/guarantee/guarantee.html" #else href="$front_url/account/index.html" #end class="a1_1">您好，$!shiro.userName()！欢迎光临！</a> | <a href="$front_url/logout.html" class="a1_1">退出</a>
+    #else
+		<a href="$front_url/login.html" class="a1_1">登录</a> | <a href="$front_url/register.html" class="a1_1">免费注册</a>
+	#end
+	#if($!type)
+        #if($!shiro.isFrontAuthenticated())
+        <div class="login" style="">
+          <div class="loginR">
+           	<div class="loginR1"></div>
+            <div class="loginR2">
+            	<div class="loginR_u_new">欢迎您，$!shiro.userName()</div>
+            	<div class="loginR_c_new">
+                <a #if($!shiro.hasRole("O")) href="$front_url/guarantee/guarantee.html" #else href="$front_url/account/index.html" #end class="zhuce">进入我的账户</a>
+                </div>
+              	
+                <div class="loginR_d">
+                <div class="loginR_d1"><a href="$front_url/aboutUs.html" class="adl">倍赢金融介绍</a></div>
+                <div class="loginR_d2"><a href="$front_url/aboutUs.html#about2" class="adl">财富箱介绍</a></div>
+                </div>
+            </div>
+            <div class="loginR3"></div>
+          </div>
+        </div>
+        #else
+        <div class="login" style="">
+          <div class="loginR">
+           	<div class="loginR1"></div>
+            <div class="loginR2">
+            	<div class="loginR_u">
+            		<a href="$front_url/register.html" class="zhuce">免费注册</a>
+                </div>
+              	<div class="loginR_c"><a href="$front_url/login.html" class="a2_new">已有账号？立即登录</a></div>
+                <div class="loginR_d">
+                <div class="loginR_d1"><a href="$front_url/aboutUs.html" class="a2_new">倍赢金融介绍</a></div>
+                <div class="loginR_d2"><a href="$front_url/aboutUs.html#about2" class="a2_new">财富箱介绍</a></div>
+                </div>
+            </div>
+            <div class="loginR3"></div>
+          </div>
+        </div>
+		#end
+	#end
+    </div>
+  </div>
+</div>
+<div style="width:100%; background:#FFF;">
+<div class="logo">
+	<div class="logoL"><img src="$static_url/images/logo.png"/></div>
+    <div class="logoR">
+    	<a href="$front_url/index.html" style="cursor:hand;" class="dh">首页</a>
+        <a #if($!shiro.hasRole("O")) href="$front_url/guarantee/guarantee.html" #elseif($!shiro.isFrontAuthenticated()) href="$front_url/account/index.html" #else href="$front_url/login.html" #end style="cursor:hand;">账户管理</a>
+        <a href="$front_url/goInvest.html" style="cursor:hand;">我要投资</a>
+        <a href="$front_url/fundraising.html" style="cursor:hand;">我要借款</a>
+        <a href="$front_url/help.html" style="cursor:hand;">帮助中心</a>
+        <a href="$front_url/aboutUs.html" style="cursor:hand;">关于我们</a>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+	$(".logoR a").each(function(){
+		if(location.href.indexOf($(this).attr("href"))>-1) $(this).addClass("dh").siblings().removeClass("dh");
+	});
+	if(location.href.indexOf("$front_url/myAccount/")>-1) $(".logoR a:eq(1)").removeClass("dh").siblings().removeClass("dh");
+</script>

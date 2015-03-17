@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>业务运营管理系统</title>
+#parse("admin/layout/head.vm")
+<link href="$static_url/admin/css/css.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+$(function(){
+		$("select[name='bankCode']").attr("disabled",true);
+		$("select[name='registerProvince']").attr("disabled",true);
+		$("select[name='registerCity']").attr("disabled",true);
+		$("select[name='province']").attr("disabled",true);
+		$("select[name='city']").attr("disabled",true);
+		$("select[name='bankCode'] > option[value='$!agency.bankCode']").attr("selected",true);
+		$("select[name='registerProvince'] > option[value='$!agency.registerProvince']").attr("selected",true);
+		$("select[name='registerCity'] > option[value='$!agency.registerCity']").attr("selected",true);
+		$("select[name='province'] > option[value='$!agency.province']").attr("selected",true);
+		$("select[name='city'] > option[value='$!agency.city']").attr("selected",true);
+	});
+</script>
+</head>
+<body>
+<!--  主要内容  -->
+<div class="divMain">
+	<!--  查询开始  -->
+    <form action="" method="post" name="form1">
+	<div class="divMain_chaxun">
+    	<!--  标题  -->
+    	<div class="divMain_add_bt line_botoom">开户基本信息</div>
+        <!--  内容  -->
+        <div class="divMain_xq_all line_botoom">
+        	<!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">&nbsp;用户名：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!agency.userName</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">&nbsp;用户角色：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">
+					<!--此处需要处理   -->
+					$!Map_Agency_role.get($!{agency.role}).getName()
+				</div>
+            </div>
+			<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">&nbsp;机构简码：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!agency.enterpriseBriefCode</div>
+            </div>
+			<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">&nbsp;机构号段范围：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+					<div class="divMain_xq_allOne_R">$!agency.enterpriseSubcodeFrom</div>&nbsp;~&nbsp;<div class="divMain_xq_allOne_R">$!agency.enterpriseSubcodeTo</div>
+				</div>
+            </div>
+			<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">&nbsp;联系人姓名：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!agency.contactName</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">&nbsp;联系人邮箱：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!agency.contactEmail</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">&nbsp;联系人手机：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!agency.contactPhone</div>
+            </div>
+            
+        </div>
+        <!--  标题  -->
+    	<div class="divMain_add_bt line_botoom">其它信息</div>
+        <!--  内容  -->
+        <div class="divMain_xq_all line_botoom">
+        	<!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">&nbsp;企业名称：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!agency.enterpriseName</div>
+            </div>
+			<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">&nbsp; 法人代表姓名：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!agency.legalPersonName</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">&nbsp;身份证号码：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!agency.legalPersonIdNum</div>
+            </div>
+			<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">&nbsp;组织机构代码：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!agency.organizationCode</div>
+            </div>
+			<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">&nbsp;税务登记号：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!agency.taxRegistrationNo</div>
+            </div>
+			<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">&nbsp;营业执照注册号：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!agency.licenseNum</div>
+            </div>
+			<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">营业执照所在地：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+					<select id="registerProvince" name="registerProvince" class="select100" >
+						<option selected="selected" value="">请选择省</option>
+						#foreach($item in $!provinces)
+							<option value="$!item.code" #if($!agency.registerProvince == $!item.code) selected="selected" #end>$!item.name</option>
+						#end
+					</select>
+		
+					<select id="registerCity" name="registerCity" class="select100">
+						<option value="">请选择市</option>
+						#foreach($item in $!citie2)
+							<option value="$!item.code" #if($!agency.registerCity == $!item.code) selected="selected" #end>$!item.name</option>
+						#end
+					</select>
+				</div>
+            </div>
+			<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">&nbsp;常用地址：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!agency.registerAddress</div>
+            </div>
+			<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">&nbsp;经营期限：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!agency.licenseValidPeriod</div>
+            </div>
+			<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">&nbsp;公司联系电话：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!agency.phoneNum</div>
+            </div>
+			<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">&nbsp;上传企业营业执照副本扫描件：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!agency.licensePath</div>
+            </div>
+			<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">&nbsp;上传加盖公章的企业营业执照副本扫描件：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!agency.licenseCachetPath</div>
+            </div>
+			<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">&nbsp;上传法人代表身份证正面照片：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!agency.legalPersonIdCopyFont</div>
+            </div>
+			<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">&nbsp;上传法人代表身份证背面照片：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!agency.legalPersonIdCopyBack</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">&nbsp;上传开户许可证：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!agency.openningLicensePath</div>
+            </div>
+			<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">&nbsp;银行开户名：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!agency.bankCardAccountName</div>
+            </div>
+			 <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">&nbsp;银行卡号：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!agency.bankCardNum</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">&nbsp;开户银行：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">
+					<!--此处需要处理   -->
+					<select name="bankCode" class="select100">
+						<option value="">请选择银行</option>
+						#foreach($item in $!banks)
+							<option value="$!item.code" #if($!agency.bankCode == $!item.code) selected="selected" #end>$!item.name</option>
+						#end
+					</select>
+				</div>
+            </div>
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">&nbsp;开户行所在地：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">
+					<select id="province" name="province" class="select100 {required:true,messages:{required:'<span style=\'color:red;\'>请选择省</sapn>'}}" >
+						<option selected="selected">请选择省</option>
+						 #foreach($item in $!provinces)
+							<option value="$!item.code" #if($!agency.province == $!item.code) selected="selected" #end>$!item.name</option>
+						 #end
+					</select>
+					<select id="city" name="city" class="select100 {required:true,messages:{required:'<span style=\'color:red;\'>请选择城市</sapn>'}}">
+						<option value="">请选择市</option>
+						#foreach($item in $!citie1)
+							<option value="$!item.code" #if($!agency.city == $!item.code) selected="selected" #end>$!item.name</option>
+						#end
+					</select>
+				</div>
+            </div>
+        </div>
+        <div class="divMain_fenye">
+        	<div class="divMain_fenyeL"><a href="javascript:history.go(-1);" class="anniu_hui100">返回</a></div>
+        </div>
+    </div>
+    </form>
+    
+</div>
+
+</body>
+</html>

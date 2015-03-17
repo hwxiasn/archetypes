@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+#parse("layout/head.vm")
+<title>倍赢金融财富箱--公告</title>
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/AboutUs.css" rel="stylesheet" type="text/css" />
+
+<script src='$static_url/js/jquery.min.js'></script>
+<script src='$static_url/js/jquery.museum.js'></script>
+<script>
+$(document).ready(function() {
+	$.museum($('#content img'));
+});
+</script>
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color:#eeeeef;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+.AboutUs_c1_1_a {
+	height:30px;
+	width: 125px;
+	background:#ffffff;
+	color:#000000;
+	margin-bottom: 2px;
+	float:left;
+	line-height:30px;
+	font-size: 15px;
+	padding-left: 40px;
+}
+a:hover{
+	color:red;
+	background:#b6b6b7;
+}
+#content img { height: 120px;border: 1px solid #FFF; padding: 2px; }
+#content img:hover { border: 1px solid #d3332d; }
+
+</style>
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<div class="AboutUs1">
+	<div class="AboutUs1_L">
+    	<div class="AboutUs1_L_u"><img src="$static_url/images/aboutus1.png" width="191" height="67" /></div>
+        <div class="AboutUs1_L_b">
+        	<a href="$front_url/platformNotice.html">平台公告</a>
+            <a href="$front_url/platformNotice.html?hy" class="on">行业新闻</a>
+        </div>
+   </div>
+  <div class="AboutUs1_R">
+    <div class="AboutUs1_R1">
+      <div class="AboutUs1_R1_L"><b>行业新闻</b></div>
+        <div class="AboutUs1_R1_R"></div>
+    </div>
+    <div class="AboutUs1_R2_news"><b>李克强：打通金融服务实体经济的"血脉"</b><br/><span style="font-size:13px;">2014年05月31日 18:30:53 来源： 新华网</span></div>
+    <div class="AboutUs1_R3">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新华网北京5月31日电（记者王宇）日前召开的国务院常务会议提出，深化金融改革，用调结构的办法，适时适度预调微调，疏通金融服务实体经济的"血脉"。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如何打通金融血脉？此次国务院常务会议释放怎样的政策信号？记者就此采访了中国人民银行、银监会相关官员以及部分专家学者。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>"定向降准"力度将加大</b><br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;国务院常务会议提出要加大"定向降准"措施力度，这一表述引发市场的广泛关注。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对此央行金融市场司司长纪志宏向新华社记者表示，根据国务院常务会议，"定向降准"的领域将主要指向对发放"三农"、小微企业等符合结构调整需要、能够满足市场需求的实体经济贷款达到一定比例的银行业金融机构。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"'定向降准'属于金融支持实体经济的正向激励举措，与'全面降准'相比，它更具有针对性，有利于将金融资源更好地投放到三农、小微企业等薄弱环节。"纪志宏说。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;今年4月25日，央行曾下调县域农村商业银行人民币存款准备金率2个百分点，下调县域农村合作银行人民币存款准备金率0．5个百分点，此举被市场标以央行的"定向降准"。<br/><br/>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 事实上，"定向降准"并非央行新采用的货币政策工具。几年前部分县域法人金融机构就已获准可定向降准，即执行低于同类金融机构1个百分点上缴准备金率的政策优惠。央行与银监会曾制定"鼓励县域法人金融机构将新增存款一定比例用于当地贷款"的考核办法，根据这一考核办法，对于达标的县域法人金融机构，存款准备金率按低于同类金融机构正常标准1个百分点执行，这一考核办法凸显出央行"定向降准"的正向激励原则。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;纪志宏表示，相比此前更多指向涉农银行，下一步"定向降准"的范围或涵盖更多与小微贷款相关、符合比例要求的金融机构。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"强调'定向降准'则意味着'全面降准'的可能性有所下降。'定向降准'与再贷款都属于调结构范畴，有利于让银行的信贷投放更具针对性。"国信证券宏观分析师钟正生说。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>社会融资成本有望降低</b><br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;国务院常务会议提出，降低社会融资成本。规范同业、信托、理财、委托贷款等业务，清理不必要的资金"通道"、"过桥"环节，缩短融资链条。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对此业内人士认为，这一表述切中当前金融市场中的融资难、融资贵要害，可谓正当其时。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;银监会政策研究局副局长张晓朴表示，同业、委托贷款、理财、信托等一些业务交易比较复杂，融资链条较长，其中一些存在着不规范之处，不但蕴藏了金融风险，而且也推高了企业的融资成本。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;资料显示，过去几年来，同业、信托、理财等银行业务发展迅猛，其中银行的同业资产过去四年增长250％，专家指出，发端于去年年中的"钱荒"事件，其背后的一大推手即来自于金融机构同业业务的疯狂上演。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"当前融资难、融资贵已成为困扰企业发展的重要问题。除了与企业自身有关，也与金融市场发展的不规范有关，其中，一些同业、信托、理财等银行业务演变成钱生钱的游戏，导致企业融资水平的水涨船高。"交通银行首席经济学家连平认为，此次会议明确规范同业、信托等业务，意在打通融资通道，拉低融资成本，让金融服务实体经济的血脉更加通畅。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如今，采取措施降低融资成本已排在监管层的工作时间表之列。日前，央行、银监会等部门联合发文，对金融机构同业业务经营行为进行进一步规范，根本目的在于促进同业业务健康发展，提高金融体系支持实体经济的能力。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>融资结构有所优化</b><br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;国务院常务会议还提出，要优化融资结构。坚持有扶有控，加大对国家重点建设、企业改造、服务业等的支持。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"金融是现代经济的血液，通过金融资源的配置，可以实现产业的发展。因此融资结构实现优化，对于当前我国产业升级、结构调整无疑具有重要意义。"中央财经大学中国银行业研究中心主任郭田勇认为，会议明确提出要优化融资结构，可谓牵住了我国经济结构调整的牛鼻子。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于如何优化融资结构，纪志宏表示，在稳定融资总量的同时，央行将进一步优化信贷结构，加大有扶有控的力度，重点支持"三农"、小微企业等薄弱环节，铁路、水利、能源、棚户区改造和保障性住房建设、城市基础设施建设等国家重点建设项目，大力支持传统企业改造、战略性新兴产业、高新技术产业、生产性和生活性服务业，同时，对地方政府融资平台、产能过剩行业、房地产行业等坚持有扶有控。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"对于优质企业要积极扶持，对于劣质企业要加强管控。挤出低效资产占用，提高资金配置效率。"纪志宏说。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"当然最终出路是靠改革，激发市场的活力，让市场成为配置金融资源的主体。改革不仅需要政府的推动，也需要企业、个人等方方面面各司其职，齐心协力。"张晓朴说，下一步银监会将进一步深化银行业改革，通过改革促发展、防风险、强服务。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最近一段时间以来，金融市场的融资结构有所优化。央行数据显示，截至2014年4月末，服务业中长期贷款余额同比增长15．5％，增速较去年末回升1．8个百分点，相比之下，产能过剩行业的中长期贷款余额同比增长只有5．9％，增速较去年末回落1．6个百分点。<br/><br/>
+    <div class="news_fanhui"><a href="javascript:history.go(-1);">返回</a></div>
+
+     </div>
+        
+  </div>
+</div>
+
+<div class="AboutUs_xian"></div>
+
+#parse("layout/footer.vm")
+</body>
+</html>

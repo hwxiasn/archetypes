@@ -1,0 +1,168 @@
+## 营销机构添加经纪人
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <title>业务运营管理系统</title>
+	#parse("admin/layout/head.vm")
+	<link href="$static_url/admin/css/css.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="$static_url/admin/kindeditor/themes/default/default.css" />
+   <script charset="utf-8" src="$static_url/admin/kindeditor/kindeditor-min.js"></script>
+   <script charset="utf-8" src="$static_url/admin/kindeditor/lang/zh_CN.js"></script>
+   <script>
+	KindEditor.ready(function(K) {
+		K.create('textarea[name="content"]', {
+			autoHeightMode : true,
+			afterCreate : function() {
+				this.loadPlugin('autoheight');
+			}
+		});
+	});
+	
+	$(function(){
+    	$("form").validate();
+	});
+	
+	function showRate(ele){
+		var a = $(ele).val();
+		var t = "<div id= role"+$(ele).val()+" class='divMain_add_allOne line_botoom'>"+
+		       "<div class='divMain_add_allOne_L'>"+$(ele).next().html()+"收取：</div>"+
+		       "<div class='divMain_add_allOne_R'><input type='text' name='rolerate"+$(ele).val()+"' placeHolder='请输入0.1-24的数字' maxlength='5' class='text270 {required:true,number:true,range:[0.1,24]}'/>&nbsp;&nbsp;%</div>"+
+		        "</div>";	
+		if(ele.checked){
+			$("#rate").after(t);
+		}else{
+			$("#role"+$(ele).val()).remove();
+		}
+	}
+</script>
+</head>
+<body>
+<div class="divMain">
+	<!--  查询开始  -->
+    <form action="$admin_url/cost/doCommissionEdit.html" method="post" enctype="multipart/form-data">
+	<div class="divMain_chaxun">
+    	<!--  标题  -->
+    	<div class="divMain_add_bt line_botoom">
+    	   #if($!{Entity_CommissionTemplate.getId()} == "")
+			新增
+		#else
+			修改
+		#end
+		   佣金配置模板信息
+        </div>
+        <!--  内容  -->
+        <div class="divMain_add_all line_botoom">
+        	<!--   必填项字段前加*号   -->
+        	<!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">*&nbsp;模板名称：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+            	<input type="hidden" name="id" value="$!{Entity_CommissionTemplate.getId()}"/>
+            	<input type="text" placeholder="请输入模板名称，不能为空" name="name" class="text270 {required:true}" maxlength="50" value="$!Entity_CommissionTemplate.getName()"/><span class="Mcolor_1">长度限制：50个字符</span>
+            	</div>
+            </div>
+            
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">*&nbsp;参与角色：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+            	 #foreach($role in $!Map_CodeList_CommissionTemplateRole.entrySet())
+	            	#if($!role.getKey() != "B")
+    		        <input name="roles" type="checkbox" onclick="showRate(this)" value="$role.getKey()" 
+    		         #foreach($rs in $!Entity_CommissionTemplate.getDetails())
+    			       #if($!rs.getRole() == $!role.getKey())
+    				     checked="checked"
+    				   #break
+    			    #end
+    		      #end 
+    		      /><span id="rs$!role.getKey()">$!role.getValue().getName()</span>
+		      #end
+		     #end
+            </div>
+            <!--   块   -->
+        	<div class="divMain_add_allOne">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">*&nbsp;模板配置：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R"></div>
+            </div>
+         </div> 
+          <!--  标题  -->
+    	<div  class="divMain_add_bt line_botoom">业务收益配置（年利率)</div>
+    	<div id="rate" class="divMain_add_all line_botoom">
+    	#foreach($rs in $!Entity_CommissionTemplate.getDetails())
+		   #foreach($role in $!Map_CodeList_CommissionTemplateRole.entrySet())
+			#if($!rs.getRole() == $!role.getKey())
+    	    <!--   块   -->
+        	<div id="role$role.getKey()" class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">*&nbsp;$!role.getValue().getName()收取：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+            	    <input type="text" name="rolerate$role.getKey()" maxlength="5" class="text270 {required:true,number:true,range:[0,12]}" value="$!rs.getRate()" />&nbsp;&nbsp;%
+            	</div>	
+            </div>
+               #end
+		   #end
+	     #end
+    	 </div>
+    	<div  class="divMain_add_all line_botoom">
+    	<!--   必填项字段前加*号   -->
+        	<!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">*&nbsp;分配阶段：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+            	   #foreach($stages in $!Map_CodeList_CommissionTemplatePhase.entrySet())
+			          <input name="allotPhase" type="radio" value=$!stages.getKey() #if($!stages.getKey() == $!Entity_CommissionTemplate.getAllotPhase()) checked="checked" #end />
+			           &nbsp;$!stages.getValue().getName()
+		           #end
+            	</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">*&nbsp;分配方式：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+            	   #foreach($ways in $!Map_CodeList_CommissionTemplateType.entrySet())
+			<input name="allotType" type="radio" value=$!ways.getKey() #if($!ways.getKey() == $!Entity_CommissionTemplate.getAllotType()) checked="checked" #end />
+			&nbsp;$ways.getValue().getName()
+		      #end
+            	</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">*&nbsp;状态：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+            	   #foreach($statu in $!Map_CodeList_CommissionTemplateStatus.entrySet())
+			#if($!statu.getKey() == "A" || $!statu.getKey() == "D")
+    			<input name="status" type="radio" value="$!statu.getKey()" #if($!statu.getKey() == $!Entity_CommissionTemplate.getStatus()) checked="checked" #end />
+    			&nbsp;$!statu.getValue().getName()
+			#end
+		#end
+            	</div>
+            </div>
+            
+            
+       </div>
+            
+		 <div class="divMain_fenye">
+        	<div class="divMain_fenyeL">
+				<input type="submit" value="保 存" class="anniu_blue">&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="reset" value="取 消" class="anniu_hui100" onclick="history.go(-1); return false">
+			</div>
+        </div>
+    </div>
+	</form>
+</div>
+
+</body>
+</html>

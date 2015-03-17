@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>业务管理后台</title>
+#parse("admin/layout/head.vm")
+<link href="$static_url/admin/css/admin.css" rel="stylesheet" type="text/css" />
+
+<script src="$static_url/admin/js/SimpleTreeSelector.js"></script>
+
+<script src="$static_url/admin/js/jquery.min.js"></script>
+<script src="$static_url/admin/js/jquery.validate.js"></script>
+<script src="$static_url/admin/js/jquery.metadata.js"></script>
+<script src="$static_url/admin/js/messages_cn.js"></script>
+<script>
+	var data = new Array(); 
+	$(function() {
+		var subjects = $!subjects;
+		
+		// 准备树形下拉框
+		for(var i = 0; i < subjects.length; i ++){
+			data[i] = {id : subjects[i].code, pid : subjects[i].parentCode, text : subjects[i].name + "-" + subjects[i].code, selected : false};
+		}
+		var select = document.getElementById("parentSubject");
+		var ts = new TreeSelector(select, data, 'X'); 
+		ts.createTree(); 
+		
+		// 表单校验
+		$("form").validate({
+			rules : {
+				code 	: {required : true},
+				name	: {required : true},
+				level	: {required : true},
+				serial	: {required : true}
+			}
+		});
+		
+		// 自动填充部分字段
+		autoFill();
+		
+		// 树形change事件
+		$("#parentSubject").change(function(){
+			autoFill();
+		});
+	});
+	
+	function autoFill(){
+		var subjects = $!subjects;
+		// 找出选中专题对象
+		var subjectSelected;
+		var codeSelected = $("#parentSubject").val();
+		for(var i = 0; i < subjects.length; i ++){
+			if(codeSelected === subjects[i].code){
+				subjectSelected = subjects[i];
+				break;
+			}
+		}
+		
+		// 设定层级
+		$("#level").val(subjectSelected.level + 1);
+		
+		// 找出最大序号
+		var maxSerial = 0;
+		for(var i = 0; i < subjects.length; i ++){
+			if(codeSelected === subjects[i].parentCode){
+				if(subjects[i].serial > maxSerial){
+					maxSerial = subjects[i].serial;
+				}
+			}
+		}
+		
+		// 设定序号
+		$("#serial").val(maxSerial + 1);
+	}
+</script>
+
+<style type="text/css">
+form {
+	  margin: 0;
+	}
+textarea {
+	  display: block;
+	}
+
+a:link {
+	color: #8e8e8e;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #8E8E8E;
+}
+a:hover {
+	text-decoration: none;
+	color: #F00;
+}
+a:active {
+	text-decoration: none;
+	color: #F00;
+}
+#current,#options { border:1px solid #a0a0a0;}
+#replace {cursor:default;overflow:visible;position:relative;}
+#current { background:url("$static_url/admin/images/dropdown.png") right center no-repeat;margin-bottom:0;}
+#current,#replace,#options li { width:150px;}
+#options { border-top:0 none; display:none;list-style-type:none;margin-top:0;position:absolute;width:160px;}
+#current,#options li {padding:5px;}
+#current,#options,#options li {background-color:#FFF;}
+</style>
+</head>
+<body>
+<table width="99%" height="6px" border="0" bgcolor="#0f97cb" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+    <td></td>
+  </tr>
+</table>
+
+<table width="99%" height="34px" border="0" bgcolor="#ffffff" cellspacing="0" cellpadding="0" align="center" class="bian1">
+  <tr>
+  	<td width="15px"></td>
+    <td class="main1">添加专题<a href="Marketers_TJ.html"><span class="Mcolor_1"></span> </a></td>
+  </tr>
+</table>
+
+<table width="99%" height="16px" border="0" background="$static_url/admin/images/main1.gif" cellspacing="0" cellpadding="0" align="center" class="bian1">
+  <tr>
+  	<td width="15px"><img src="$static_url/admin/images/main1.jpg" alt="" width="123" height="16" /></td>
+    <td></td>
+  </tr>
+</table>
+
+<form action="$admin_url/content/doSubjectAdd.html" id="form1" method="post">
+<table width="99%" border="0" bgcolor="#edf5f6" cellspacing="0" cellpadding="0" align="center" class="bian2">
+	<tr>
+	    <td width="3%" height="50px"  >&nbsp;</td>
+	    <td width="8%"><span class="Mcolor_1">*</span>父专题：</td>
+	    <td width="89%"><select id="parentSubject" name="parentCode" class="newsText1"></td>
+    </tr>
+    
+    <tr>
+	    <td width="3%" height="50px">&nbsp;</td>
+	    <td width="8%"><span class="Mcolor_1">*</span>专题编码：</td>
+	    <td width="89%"><input type="text" id="code" name="code" class="Mtext_bj" /></td>
+	</tr>
+    
+    <tr>
+	    <td width="3%" height="50px">&nbsp;</td>
+	    <td width="8%"><span class="Mcolor_1">*</span>专题名称：</td>
+	    <td width="89%"><input type="text" id="name" name="name" class="Mtext_bj" /></td>
+	</tr>
+    
+    <tr>
+	    <td width="3%" height="50px">&nbsp;</td>
+	    <td width="8%"><span class="Mcolor_1">*</span>单文章：</td>
+	    <td width="89%">
+	    	<select id="leaf" name="leaf" class="newsText1">
+	    		<option value="false">否</option>
+	    		<option value="true">是</option>
+	    	</select>
+	    </td>
+	</tr>
+    
+    <tr>
+	    <td width="3%" height="50px">&nbsp;</td>
+	    <td width="8%"><span class="Mcolor_1">*</span>层级：</td>
+	    <td width="89%"><input type="text" id="level" name="level" class="Mtext_bj" readonly/></td>
+	</tr>
+    
+    <tr>
+	    <td width="3%" height="50px">&nbsp;</td>
+	    <td width="8%"><span class="Mcolor_1">*</span>同级序号：</td>
+	    <td width="89%"><input type="text" id="serial" name="serial" class="Mtext_bj" /></td>
+	</tr>
+	
+	<tr>
+	    <td width="3%" height="50px" class="Mxian1" >&nbsp;</td>
+	    <td colspan="2" align="center" class="Mxian1" >
+			<a href="javascript:void(0)"><input type="submit" value="保存" class="anniu1"/>&nbsp;</a>
+			<a href="javascript:void(0)"><input type="button" value="取消" onclick="history.go(-1);return false" class="anniu1"/>&nbsp;</a>
+		</td>
+	</tr>
+  </table>
+</form>
+
+</body>
+</html>

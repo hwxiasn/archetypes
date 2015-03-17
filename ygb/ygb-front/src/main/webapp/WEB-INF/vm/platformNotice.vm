@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+#parse("layout/head.vm")
+<title>倍赢金融财富箱--平台公告</title>
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/AboutUs.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+body {
+	background-color:#eeeeef;
+}
+</style>
+<script type="text/javascript">
+function switchTo(index) {
+	$("#right"+index).show().siblings(".AboutUs1_R_news").hide();
+	$("#mark"+index).addClass("on").siblings().removeClass("on");
+}
+$(function(){
+	if(location.href.indexOf("?hy")>-1) switchTo(2);
+})
+</script>
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<div class="AboutUs1">
+	<div class="AboutUs1_L">
+    	<div class="AboutUs1_L_u"><img src="$static_url/images/aboutus1.png" width="191" height="67" /></div>
+        <div class="AboutUs1_L_b">
+        	<a href="javascript:switchTo(1);" class="on" id="mark1">平台公告</a>
+            <a href="javascript:switchTo(2);" id="mark2">行业新闻</a>
+        </div>
+   </div>
+  <div class="AboutUs1_R_news" id="right1">
+    <div class="AboutUs1_R1">
+      <div class="AboutUs1_R1_L"><b>平台公告</b></div>
+        <div class="AboutUs1_R1_R"></div>
+    </div>
+    <div class="news_main">
+    	<ul>
+		<li><a href="$front_url/newsDetail.html?newsId=20">[接力贷第0010期]个人经营项目流动资金需求320万元还款公告</a><span>2015-03-15</span></li>
+		<li><a href="$front_url/newsDetail.html?newsId=16">辞旧迎新齐欢畅，倍赢祝您合家旺</a><span>2014-12-31</span></li>
+    	<li><a href="$front_url/newsDetail.html?newsId=4">天天630进社区倍赢金融专场活动在巴南举行</a><span>2014-10-30</span></li>
+        <li><a href="$front_url/newsDetail.html?newsId=5">重庆互联网金融添新军</a><span>2014-10-30</span></li>
+        <li><a href="$front_url/newsDetail.html?newsId=3">热烈庆祝倍赢财富箱募集总额首超1000万元</a><span>2014-10-21</span></li>
+        </ul>
+    </div>
+  </div>
+  
+  <div class="AboutUs1_R_news" id="right2" style="display:none">
+    <div class="AboutUs1_R1">
+      <div class="AboutUs1_R1_L"><b>行业新闻</b></div>
+        <div class="AboutUs1_R1_R"></div>
+    </div>
+    <div class="news_main">
+    	<ul>
+		<li><a href="$front_url/newsDetail.html?newsId=19">倍赢合作伙伴——向南小贷荣获"2014中国十佳小额贷款公司"称号</a><span>2015-03-12</span></li>	
+		<li><a href="$front_url/newsDetail.html?newsId=18">政府工作报告称互联网金融异军突起</a><span>2015-03-09</span></li>
+        <li><a href="$front_url/newsDetail.html?newsId=17">两会开启农村互金新篇章 P2P助碎片理财</a><span>2015-03-06</span></li>
+        <li><a href="$front_url/newsDetail.html?newsId=13">大数据时代互联网金融创新与传统银行转型</a><span>2014-11-25</span></li>
+        <li><a href="$front_url/newsDetail.html?newsId=14">P2P又玩新花样 保理融资产品年化收益多为12%</a><span>2014-11-25</span></li>
+        <li><a href="$front_url/newsDetail.html?newsId=15">IT巨头布局P2P剑指供应链金融</a><span>2014-11-25</span></li>
+        <li><a href="$front_url/newsDetail.html?newsId=10">"普惠"，互联网金融平台未来之路</a><span>2014-11-11</span></li>
+        <li><a href="$front_url/newsDetail.html?newsId=9">互联网金融平台的核心竞争力是创新和信誉度</a><span>2014-11-11</span></li>
+        <li><a href="$front_url/newsDetail.html?newsId=8">互联网金融亮相金博会 引领未来发展趋势</a><span>2014-11-10</span></li>
+        <li><a href="$front_url/newsDetail.html?newsId=7">互联网金融未来的20年！不可想象</a><span>2014-11-06</span></li>
+        <li><a href="$front_url/newsDetail.html?newsId=6">中国互联网金融创新模式受APEC追捧</a><span>2014-11-05</span></li>
+        <li><a href="$front_url/newsDetail.html?newsId=1">新"国九条"助力互联网金融健康发展</a><span>2014-08-05</span></li>
+        <li><a href="$front_url/newsDetail.html?newsId=2">李克强：打通金融服务实体经济的"血脉"</a><span>2014-08-05</span></li>
+        </ul>
+    </div>
+  </div>
+
+</div>
+
+<div class="AboutUs_xian"></div>
+
+#parse("layout/footer.vm")
+</body>
+</html>

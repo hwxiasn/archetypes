@@ -1,0 +1,109 @@
+#if($!front_url) #parse("layout/head.vm") #end
+<div class="main2All">
+    <div class="main2">
+		<form style="display:none" action="$front_url/index.html" method="post">
+			<input name="type" value="$!type"/>
+			<input name="currentPage" value="$!Pager_Project.currentPage"/>
+			<input name="totalRows" value="$!Pager_Project.totalRows"/>
+		</form>
+        <a href="javascript:;" class="#if(!$!type || $!type!=1) on #end" onclick="javascript:change(0)">最新发布</a>
+        <a href="javascript:;" class="#if($!type && $!type==1) on #end" onclick="javascript:change(1)">最新还款</a>
+    </div>
+    
+    <div class="main3">
+        <div class="main3_1">
+            <ul>
+                <li class="main3_1_li">#if($!type && $!type==1) 成立金额 #else 需求金额 #end &nbsp;</li>
+                <li class="main3_1_li">年化收益率&nbsp;</li>
+                <li class="main3_1_li">期限&nbsp;</li>
+                <li class="main3_1_li" style="width:150px;">投资开始时间&nbsp;</li>
+                <li class="main3_1_li" style="width:150px;">投资截至时间&nbsp;</li>
+                <li class="main3_1_li">#if($!type && $!type==1) 还款日期 #else 项目状态 #end &nbsp;</li>
+            </ul>
+        </div>
+
+#if($!Pager_Project.elements && $!Pager_Project.elements.size()>0)
+    #foreach($detail in $!Pager_Project.elements)
+        <div class="main3_2">
+            <div class="main3_2_kuang">
+                <div class="main3_2_u">
+                  <!--  弹出框  -->
+                  <div class="main3_2_uL_one">
+					#if($!detail.type=="G")
+                      <img src="$static_url/images/tam.png" onmouseover="javascript:$(this).next('div').show()" onmouseout="javascript:$(this).next('div').hide()"/>
+                      <div style="display:none">
+                      	<div class="main3_2_uL_one_h_L"><span style="color:#5cb653"><b>担</b></span>：是由国有大型担保公司担保，并在借款接受人违约时，由担保公司进行代偿的产品</div>
+                        <div class="main3_2_uL_one_h_1_L"></div>
+                      </div>
+					#elseif($!detail.type=="L")
+                      <img src="$static_url/images/pick.png" onmouseover="javascript:$(this).next('div').show()" onmouseout="javascript:$(this).next('div').hide()"/>
+                      <div style="display:none">
+                      	<div class="main3_2_uL_one_h_L"><span class="color_Blue"><b>接</b></span>：是指当借款接受人违约时，由小贷公司发放一笔贷款，从而保障正常还款的产品</div>
+                        <div class="main3_2_uL_one_h_1_L"></div>
+                      </div>
+					#end  
+                  </div>
+                  <!--  弹出框  -->
+                  <div class="main3_2_uL">$!detail.name</div>
+                  <div class="main3_2_uR">
+					<a href="$front_url/investInfo/$!{detail.id}.html" #if($!detail.status == "F") class="Ianniu01" #else class="Ianniu01_h" #end>
+								#if($!detail.status == "F")投资 #else	详情 #end
+					</a>
+				  </div>
+                </div>
+            
+                <div class="main3_2_c">
+                    <ul>
+                    <li class="main3_1_li_1"><span class="color_Red14">￥$!numberTool.format("0.00",$!detail.totalAmount)</span></li>
+					#set($percents=($!detail.interestRate)*100)
+                    <li class="main3_1_li_1"><span class="color_Red14">$!numberTool.format("0.00",$!percents)% </span></li>
+                    <li class="main3_1_li_1">$!{Map_CodeList_LoanType_Map.get($!{detail.getPeriodType()}).get($!{detail.getPeriod()}).getName()}</li>
+                    <li class="main3_1_li_1" style="width:158px">$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!detail.investStartDate)</li>
+                    <li class="main3_1_li_1" style="width:158px">
+						#if($!detail.status == "PD" || $!detail.status == "PB" ||$!detail.status == "RC")
+							$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!detail.settleDate)
+						#else
+							$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!detail.investEndDate)
+						#end
+					</li>
+                    <li class="main3_1_li_1">$!Map_Project_Status.get($!detail.status)&nbsp;</li>
+                    </ul>
+                </div>
+                <div class="main3_2_b">
+                    <div class="main3_2_bL">
+						#if($!detail.type=="G")	担保机构：#elseif($!detail.type=="L") 风控机构：#end 
+						<span class="color_OrangeB">$!Map_User_Guarantee.get($!detail.guaranteeUserId)</span></div>
+                    <div class="main3_2_bR">
+                        <div class="main3_2_bR01">投资进度</div>
+                        <div class="main3_2_bR02">
+                            <div class="Article_all">
+                                <div class="Article_1" style="width:$!detail.progress%;"></div>
+                            </div>
+                        </div>
+                        <div class="main3_2_bR03"><span class="color_OrangeB">&nbsp;$!detail.progress %</span>&nbsp;&nbsp;
+							#set($remains=($!detail.totalAmount.intValue() - $!detail.progressAmount.intValue())/10000)
+                        还需&nbsp;<span class="color_Red14">$!remains</span>&nbsp;万</div>
+                    </div>
+                </div> 
+            </div> 
+        </div>
+	#end
+#else  
+        <div class="main3_2_none">
+        暂无记录
+        </div>
+#end        
+    </div>
+
+#parse("layout/pager.vm")
+</div>
+<script type="text/javascript">
+	function page(num) {
+		$("input[name='currentPage']").val(num);
+		$("form").submit();
+	}
+    function change(toType) {
+		$("input[name='type']").val(toType);
+		$("form").submit();
+    }
+</script>	

@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+#set($left = "broker")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/enroll.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/menu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Trading_inquiry.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Customer_Management.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Pop-up_layer.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Operator_Management.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color: #FFF;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+</style>
+<script language="javascript">
+var circleoff;
+var circleon;
+
+if(document.images){
+circleoff=new Image(50,50);
+circleoff.src="$static_url/images/guanbi.png";
+circleon=new Image(50,50);
+circleon.src="$static_url/images/guanbi2.png";
+}
+
+function On(name){
+	if(document.images){
+		document.images['img'+name].src=circleon.src;
+	}
+}
+function Off(name){
+	if(document.images){
+		document.images['img'+name].src=circleoff.src;
+	}
+}
+##弹出层更改备注
+function showDiv(){
+	document.getElementById('popDiv').style.display='block';
+	document.getElementById('popIframe').style.display='block';
+	document.getElementById('bg').style.display='block';
+}
+
+function closeDiv(){
+	document.getElementById('popDiv').style.display='none';
+	document.getElementById('bg').style.display='none';
+	document.getElementById('popIframe').style.display='none';
+}
+</script>
+
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+#parse("myAccount/header.vm")
+
+<div class="customer_main2_Gold">
+<div class="customer_main2_new_all">
+	#parse("myAccount/left.vm")
+    
+    <div class="customer_main2_R">
+    <div class="customer_main2_R_all">
+    	<div class="quick_signing_cx">
+        <span class="Trading_inquiry_color1">经纪人管理</span>
+        
+      	</div>
+        <form id="chaxun" action="$front_url/broker/brokers.html" method="post">
+        <div class="Investors_Management1">
+            <div class="Trading_inquiry1_1" style="">
+            	<div class="Trading_inquiry1_1_1_new2">用户名：</div>
+                <div class="Trading_inquiry1_1_2_new2"><input name="userName" value="$!broker.userName" type="text" class="Trading_inquiry——text1" /></div>
+                <div class="Trading_inquiry1_1_1_new2">真实姓名：</div>
+                <div class="Trading_inquiry1_1_2_new2"><input name="realName" value="$!broker.realName" type="text" class="Trading_inquiry——text1" /></div>
+                <div class="Trading_inquiry1_1_2_new1">&nbsp;<input type="submit" value="查 询" class="anniuBlue" /></div>
+            </div>
+        </div>
+        </form>
+        
+        <div class="Trading_inquiry2_2">
+            <div class="Investors_Management_f1">用户名</div>
+            <div class="Investors_Management_f1">真实姓名</div>
+            <div class="Investors_Management_f1">用户编号</div>
+##            <div class="Investors_Management_f1">收益分配</div>
+            <div class="Investors_Management_f1">创建时间</div>
+            <div class="Investors_Management_f1">状态</div>
+            <div class="Investors_Management_f2">操作</div>
+           
+        </div>
+        
+##        <form action="$front_url/myAccount/doBrokerRemark.html" method="post">
+##             <div id="popDiv" class="beizhu" #if(!$!remark)style="display:none;"#end>
+##                <div class="beizhu1">
+##                    <div class="beizhu1_L">用户备注信息</div>
+##                    <div class="beizhu1_R">
+##                    <a href="javascript:closeDiv()" onMouseOver="On(4)" onMouseOut="Off(4)"><img style="border:none;" src="$static_url/images/guanbi.png" name="img4" width="20" height="20" /></a> 
+##                    </div>
+##                </div>
+##                
+##                <div class="beizhu2"><textarea name="remark" id="rr" maxlength="128" class="beizhu2_text" >$!remark.remark</textarea></div>
+##				<script type="text/javascript">
+##					$(function(){
+##						var aa = 128-$("#rr").val().length;
+##						$("#tishi").html(aa);
+##    					$("#rr").keydown(function(){
+##    						var curenval = $(this).val();
+##    						var shengyu = 128-curenval.length;
+##    						$("#tishi").html(shengyu);
+##    						if(curenval.length == 0){
+##    							$(this).val(curenval.substring(0,curenval.length));
+##    						}
+##    					});
+##					});
+##                </script>
+##                <div class="beizhu3">你还可输入<span class="Trading_inquiry_color5" id="tishi">128</span>个字符</div>
+##				
+##				<input name="id" type="hidden" value="$!id"/>
+##				
+##                <div class="beizhu4">
+##                	<a href="javascript:void(0)" ><input type="submit" value="保存" class="Operator_Management_anniu2" /></a>&nbsp;&nbsp;
+##                	<a href="javascript:void(0)" onclick="history.go(-1);return false;"><input type="button" value="返回" class="Operator_Management_anniu1" /></a>
+##                </div>
+## 
+##       	    </div>
+##        
+##            <div id="bg" class="bg" style="display:none;"></div>
+##             
+##            <iframe id='popIframe' class='popIframe' frameborder='0' ></iframe>
+##        </form>
+        
+        
+		#if($!pager.elements.size()>0)
+            #foreach($broker in $!pager.elements)
+			<div class="Investors_Management2">
+				<div class="Investors_Management_f1_1">$!broker.userName</div>
+				<div class="Investors_Management_f1_1">$!broker.realName</div>
+				<div class="Investors_Management_f1_1">$!broker.userNum</div>
+##				<div class="Investors_Management_f1_1">#if(!$!broker.profit)还未分配 #else 已分配 #end</div>
+				<div class="Investors_Management_f1_1">$!broker.createDate</div>
+				<div class="Investors_Management_f1_1">$!broker.statusName</div>
+				<div class="Investors_Management_f2_1">
+					<a href="$front_url/broker/brokerDetail.html?id=$!broker.id"><span class="Trading_inquiry_color3" >查看详情</span></a>&nbsp;&nbsp;
+##					|&nbsp;&nbsp;
+##					<a href="$front_url/myAccount/feeConfigBroker.html#if(!$!{broker.profit})?id=$!broker.id#else?id=$!broker.id&isConfig=1#end"><span class="Trading_inquiry_color3" >收益配置</span></a>&nbsp;&nbsp;|&nbsp;&nbsp;
+##					<a href="$front_url/myAccount/broker.html?remark=1&id=$!broker.id"><span class="Trading_inquiry_color3" >备注</span></a>
+				</div>
+			</div>
+			#end
+			#parse("myAccount/commonPager.vm")
+        #else
+			<div class="Trading_inquiry2_3_none" style="display:none">暂时没有投资记录</div>
+        #end
+
+        
+		<script type="text/javascript">
+        	function page(num) {
+        		$("#chaxun").attr("action", $("#chaxun").attr("action")+"?totalRows="+$!pager.totalRows+"&currentPage="+num+"&pagerSize=" + $!pager.pageSize).submit();
+        	}
+        </script>
+        
+  	</div>
+    </div>
+  
+</div>
+</div>
+
+#parse("layout/footer.vm")
+</body>
+</html>

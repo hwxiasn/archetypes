@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+#set($left="customer")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/enroll.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/menu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Trading_inquiry.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Customer_Management.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color: #FFF;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+</style>
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+#parse("myAccount/header.vm")
+
+<div class="customer_main2_new">
+<div class="customer_main2_new_all">
+	#parse("myAccount/left.vm")
+    
+    <div class="customer_main2_R">
+    <div class="customer_main2_R_all">
+    	<div class="Customer_Management_all">
+    	<div class="Customer_Management_xq1 line_bottom">
+        <span class="color_RedB">投资人管理</span>
+      	</div>
+ 		<div class="Customer_Management_xq1 line_bottom">开户与认证信息</div>
+        <div class="Customer_Management_xq2">
+        	<div class="Customer_Management_xq2_L">客户编号：</div>
+            <div class="Customer_Management_xq2_R">&nbsp;&nbsp;$!detail.customerNum</div>
+        </div>
+        
+        <div class="Customer_Management_xq2">
+        	<div class="Customer_Management_xq2_L">真实姓名：</div>
+            <div class="Customer_Management_xq2_R">&nbsp;&nbsp;$!detail.realName</div>
+        </div>
+        
+        <div class="Customer_Management_xq2">
+        	<div class="Customer_Management_xq2_L">手机号码：</div>
+            <div class="Customer_Management_xq2_R">&nbsp;&nbsp;$!detail.mobile</div>
+        </div>
+##        
+##        <div class="Customer_Management_xq2">
+##        	<div class="Customer_Management_xq2_L">是否实名认证：</div>
+##            <div class="Customer_Management_xq2_R">&nbsp;&nbsp;#if($!detail.realNameBind == "1")已绑定 #else 未绑定#end</div>
+##        </div>
+        
+        <div class="Customer_Management_xq1 line_bottom">银行卡签约信息</div>
+        <div class="Customer_Management_xq2">
+        	<div class="Customer_Management_xq2_L">是否已经绑定银行账户：</div>
+            <div class="Customer_Management_xq2_R">&nbsp;&nbsp;#if($!detail.bankCardNum=="1")已绑定 #else 未绑定#end</div>
+        </div>
+        
+        </div>
+        <div class="Customer_Management_xq3">
+        	<a href="javascript:history.go(-1);" class="anniuBlue2">返回</a>
+        </div>
+        
+  	</div>
+    </div>
+  
+</div>
+</div>
+
+#parse("layout/footer.vm")
+</body>
+</html>

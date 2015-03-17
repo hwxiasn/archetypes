@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>倍赢金融财富箱--账户管理</title>
+#parse("layout/head.vm")
+#set($left="operator")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/enroll.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/menu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Trading_inquiry.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Operator_Management.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color: #FFF;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+</style>
+
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+#parse("myAccount/header.vm")
+
+<div class="customer_main2_new">
+<div class="customer_main2_new_all">
+	#parse("myAccount/left.vm")
+    
+    <div class="customer_main2_R_new">
+    	<div class="Operator_Management_xq1">
+        <span class="Trading_inquiry_color1">操作员详情</span>
+      	</div>
+        
+        <div class="Operator_Management_xq2">
+        	<div class="Operator_Management_xq2_L"></div>
+            <div class="Operator_Management_xq2_R"></div>
+        </div>
+
+        
+		<div class="Operator_Management_xq3">
+        	<div class="Operator_Management_xq3_L"><span class="color_Orange"></span>&nbsp;登录用户名：</div>
+            <div class="Operator_Management_xq3_R">&nbsp;&nbsp;<input name="userName" type="text" class="Operator_Management_text1" value="$!operator.userName" disabled="disabled"/></div>
+        </div>
+        
+        <div class="Operator_Management_xq3">
+        	<div class="Operator_Management_xq3_L"><span class="color_Orange"></span>&nbsp;操作员类型：</div>
+            <div class="Operator_Management_xq3_R_f1">&nbsp;&nbsp;
+				 <input name="operatorType" type="radio" disabled="disabled" #if($!operator.level == "L1") checked="checked" #end>&nbsp;&nbsp;一级审核员 &nbsp;&nbsp;
+				 <input name="operatorType" type="radio" disabled="disabled" #if($!operator.level == "L2") checked="checked" #end>&nbsp;&nbsp;二级审核员 &nbsp;&nbsp;
+            </div>
+        </div>
+        
+        <div class="Operator_Management_xq3">
+        	<div class="Operator_Management_xq3_L"><span class="color_Orange"></span>&nbsp;备注：</div>
+            <div class="Operator_Management_xq3_R">&nbsp;&nbsp;<input type="text" nmae="remark" class="Operator_Management_text1" value="$!operator.remark" disabled="disabled"/></div>
+        </div>
+        
+        <div class="Operator_Management_xq3">
+        	<div class="Operator_Management_xq3_L"><span class="color_Orange"></span>&nbsp;人员状态：</div>
+            <div class="Operator_Management_xq3_R_f1">&nbsp;&nbsp;
+			#foreach($sta in $status.entrySet())
+				<input name="status" type="radio" disabled="disabled" #if($!operator.status == $sta.key) checked="checked" #end value="$!sta.key">&nbsp;&nbsp;$sta.value &nbsp;&nbsp;
+			#end
+            </div>
+        </div>
+        
+       	<div class="Operator_Management_xq1">
+        	<span class="Trading_inquiry_color1">操作员重置密码</span>
+      	</div>
+        
+        <div class="Operator_Management_xq2">
+        	<div class="Operator_Management_xq2_L"></div>
+            <div class="Operator_Management_xq2_R"></div>
+        </div>
+        
+        <form action="$front_url/operator/resetLoginPass.html" method="post" name="Pwd1">
+	        <div class="Operator_Management_xq3 line_bottom">
+	        	<div class="Operator_Management_xq3_L"><span class="color_Orange"></span>&nbsp;新登录密码：</div>
+	            <div class="Operator_Management_xq3_R">&nbsp;&nbsp;
+	            	<input type="hidden" name="id" value="$!operator.id" />
+	            	<input type="hidden" name="level" value="$!operator.level" />
+					
+	            	<input name="password" type="password" class="Operator_Management_text1" value="" />&nbsp;&nbsp;
+	            	<input name="" type="submit" value="提交" class=" anniuBlue" />  &nbsp; <span class="color_Orange">$!msg1</span>
+	            </div>
+	        </div>
+        </form>
+        <form action="$front_url/operator/resetAuditPass.html" method="post" name="Pwd2">
+	        <div class="Operator_Management_xq3 line_bottom">
+	        	<div class="Operator_Management_xq3_L"><span class="color_Orange"></span>&nbsp;新审核密码：</div>
+	            <div class="Operator_Management_xq3_R">&nbsp;&nbsp;
+	            	<input type="hidden" name="id" value="$!operator.id" />
+					<input type="hidden" name="level" value="$!operator.level" />
+	            	<input name="auditPassword" type="password" class="Operator_Management_text1" value="" />&nbsp;&nbsp;
+	            	<input name="" type="submit" value="提交" class=" anniuBlue" /> &nbsp; <span class="color_Orange">$!msg2</span>
+	            </div>
+	        </div>
+        </form>
+        
+        <div class="Operator_Management_xq3 Line_top">
+        	<div class="Operator_Management_xq3_L"></div>
+            <div class="Operator_Management_xq3_R">&nbsp;&nbsp;
+            	<a href="javascript:history.go(-1);" ><input type="button" value="返回" class="Operator_Management_anniu1" /></a>
+            </div>
+        </div>
+        
+  	</div>
+  
+</div>
+</div>
+
+#parse("layout/footer.vm")
+</body>
+</html>

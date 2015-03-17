@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8">
+#parse("layout/head.vm")
+<title>倍赢金融财富箱--战略伙伴</title>
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/AboutUs.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/FortuneBox.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+body {
+	background-color:#FFF;
+}
+</style>
+
+</head>
+
+<body style="background:#eeeeef">
+#parse("layout/header.vm")
+
+<!---------------内容---------------->
+<div class="FortuneBox1-1"></div>
+<div class="FortuneBox1">战略合作伙伴</div>
+<div class="FortuneBox2">
+	<div class="help1_1">
+    	<div class="help1_1_L">重庆市巴南区向南小额贷款有限公司</div>
+        <div class="help1_1_R"></div>
+    </div>
+    <div class="help2">
+    
+    <P>重庆市巴南区向南小额贷款有限公司于2011年1月7日经重庆市金融办公室"渝金【2011】1号"批准成立。公司注册资本金人民币30000万元，其主要经营范围包括办理各项贷款、票据贴现、资产转让等业务。</P>
+    <P>公司拥有一支高素质的专业团队，具有资深的银行、投资、证券业及相关人才。公司制度健全、管理规范、服务优良、信誉良好，以"服务企业、回报社会"为经营理念，本着"手续从简、放款从快、利率从活"的服务宗旨，坚持"小额、分散"原则，发挥灵活、快捷、方便的优势，为中小企业、个体工商户特别是"三农"和微企客户提供便捷、高效、优质的融资服务。</P><br/>
+    <b>
+    <P>公司地址：重庆市巴南区鱼洞新市街79号附16-2号。</P>
+    <P>服务内容：办理各项贷款、票据贴现、资产转让。</P>
+    <P>贷款利率：人民银行同期基准利率的四倍；融资咨询服务费：年化5%</P>
+    <P>投诉电话：023-66275551</P></b><br/><br/>
+    <P><span style="font-size:18px; color:#333;">开业批复：</span></P><br/>
+    <img src="$static_url/images/Partner/01.jpg"/><br/><br/>
+    <img src="$static_url/images/Partner/02.jpg" /><br/><br/>
+    <P><span style="font-size:18px; color:#333;">营业执照：</span></P><br/>
+    <img src="$static_url/images/Partner/03.jpg" /><br/><br/>
+    </div>
+    <div class="help3"><a href="javascript:history.go(-1);">返回</a></div>
+
+</div>
+
+<div class="AboutUs_xian"></div>
+
+<!---------------尾部-------------->
+#parse("layout/footer.vm")
+</body>
+</html>

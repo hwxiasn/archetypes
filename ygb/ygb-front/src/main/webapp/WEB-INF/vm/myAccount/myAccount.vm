@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+#set($left = "account")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/menu.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color: #FFF;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+</style>
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+#parse("myAccount/header.vm")
+
+<div class="customer_main2_Upload">
+	#parse("myAccount/left.vm")
+    
+    <div class="customer_main2_R_new">
+    <div class="customer_main2_R_all">
+    	<div class="customer_main2_R_u">
+        	<div class="customer_main2_R_uL">
+           	  <div class="customer_main2_R_uL1">
+
+				#if($!needRegister=="1")
+				## 未开通支付平台账户
+				#if($!{account.locked} =="A")
+				## 用户账户正常状态
+                <div class="customer_main2_R_uL1_L">
+                  	<span class=" color_Red14">温馨提示：</span><br/>
+                  	你尚未开通平台支付账户，请开通平台支付账户<br/><br/>
+                  	<a href="$front_url/account/payRegister.html" class="anniuGreen">点击开通</a>
+                </div>
+                #end
+                #if($!{account.locked} =="L")
+                ## 用户账户锁定状态（暂未支持）
+                #end
+                #end
+           	  	
+           	  	#if($!needRegister=="0")
+           	  	## 已开通支付平台账户
+           	    <div class="customer_main2_R_uL1_L">账户可用余额&nbsp;
+           	    	<a href="$front_url/account/index.html"><span style="color:#0290d7">刷新</span></a> <br/><br/>
+                  	<span class="font5" style="display:none" >查询中</span>	
+           	      	<span class="font5" style="">$!{account.balance}元</span></br>
+           	      	<span class="font1" style="">不可用余额：$!{account.lockBalance}元</span>
+					#if($!needAuthorised=="1")
+					## 支付平台账户未审核
+					#if($!{account.locked} =="A")
+					## 用户账户正常状态
+					<br>
+					<span class="font1" >请点此&nbsp;&nbsp;
+						<a href="$front_url/account/payAudit.html" style="color:#0290d7"  target="_blank"><span style="color:#0290d7">开通支付授权</span></a>
+					</span>
+					#if($!{account.locked} =="L")
+	                ## 用户账户锁定状态 （暂未支持）
+	                #end
+					#end
+					#end				  
+                </div>
+                #end
+                  
+                <div class="customer_main2_R_uL1_R">
+     				#if($!needAuthorised=="0" && $!{account.locked} =="A")
+                  	<a href="$front_url/account/accountIn.html" class="anniuOrange01">从银行划入</a><br/><br/>
+                    <a href="$front_url/account/accountOut.html" class="anniuOrange01">转出到银行</a><br/><br/>
+					#if($!shiro.hasRole("I"))
+					<a href="$front_url/goInvest.html" class="anniuOrange01">投资</a>
+					#end
+    				#end				  
+                </div>
+            </div>
+            
+            <div class="customer_main2_R_uL2">
+                	<div class="customer_main2_R_uL2_1"></div>
+                    
+					#if($!shiro.hasRole("I"))
+						<div class="customer_main2_R_uL2_2">
+							投资统计（元）<br/>
+							已投资：<span style="color:#d3322d">#if($!account.investCount)$!{account.investCount}#else 0 #end</span>&nbsp;
+							笔，累计投资金额：<span style="color:#eb833b">￥#if($!{account.totalInvest})$!{account.totalInvest}#else 0 #end 元</span>
+						</div>
+						##融资人的融资金额
+					#end
+					
+					#if($!shiro.hasRole("B"))
+						<div class="customer_main2_R_uL2_2">
+                        	融资统计（元）<br/>
+                        	累计申请融资：#if($!account.investCount) $!{account.investCount}#else 0 #end 笔，累计融资金额：
+                        	<span style="color:#d3322d">￥#if($!{account.totalInvest})$!{account.totalInvest}#else 0 #end</span>&nbsp;
+                        	<br/>
+						</div>
+					#end
+			</div>
+          </div>
+          
+          <div class="customer_main2_R_uR">
+            	<div class="customer_main2_R_uR1">
+					#if($!account.isBinding == "1")
+						<a href="$front_url/account/accountDetail.html?info=bank">
+							<img src="$static_url/images/bank/$!{account.bank}.png" width="212" height="77" /><br/>
+							<span style="color:#0290d7">银行卡信息（重新绑定）</span>
+						</a>
+					#else
+						<a href="$front_url/account/bindBankCard.html"><img src="$static_url/images/add_banks.png"/></a><br/>
+					#end
+				</div>
+          </div>
+        </div>
+        
+        <div class="customer_main2_R_b">
+        	<div class="customer_main2_R_b_1"><img src="$static_url/images/customer4.png" width="138" height="37" /></div>
+        	
+            <div class="customer_main2_R_b_2 line_bottom">
+            	<div class="customer_main2_R_b_2_L"><span class="font4">001</span>&nbsp;&nbsp;用户安全>设置登录密码</div>
+                <div class="customer_main2_R_b_2_R"><a href="$front_url/security/index.html" class="anniuBlue1">立即完成</a></div>
+            </div>
+            
+        	<div class="customer_main2_R_b_2">
+            	<div class="customer_main2_R_b_2_L"><span class="font4">002</span>&nbsp;&nbsp;资金安全>设置交易密码</div>
+                <div class="customer_main2_R_b_2_R"><a href="$front_url/security/index.html" class="anniuBlue1">立即完成</a></div>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+</div>
+<script >
+if("$!error") alert("$!error");
+</script>
+#parse("layout/footer.vm")
+</body>
+</html>

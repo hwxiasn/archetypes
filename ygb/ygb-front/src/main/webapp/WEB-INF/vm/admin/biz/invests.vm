@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>业务运营管理系统</title>
+#parse("admin/layout/head.vm")
+  <link href="$static_url/admin/css/css.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+a:link {
+	color: #8e8e8e;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #8E8E8E;
+}
+a:hover {
+	text-decoration: none;
+	color: #F00;
+}
+a:active {
+	text-decoration: none;
+	color: #F00;
+}
+#current,#options { border:1px solid #a0a0a0;}
+#replace {cursor:default;overflow:visible;position:relative;}
+#current { background:url("$static_url/images/dropdown.png") right center no-repeat;margin-bottom:0;}
+#current,#replace,#options li { width:150px;}
+#options { border-top:0 none; display:none;list-style-type:none;margin-top:0;position:absolute;width:160px;}
+#current,#options li {padding:5px;}
+#current,#options,#options li {background-color:#FFF;}
+</style>
+<script type="text/javascript">
+	$(function(){
+		$("select[name='byRole'] > option[value='$!register.byRole']").attr("selected",true);
+		$("select[name='period'] > option[value='$!register.period']").attr("selected",true);
+	});
+	function exportData(){
+		$("input[name='pageSize']").val("0");
+		$("form").submit();
+		$("input[name='pageSize']").val("$!pager.pageSize");
+	}
+	function page(num) {
+		$("form").attr("action", $("form").attr("action")+"?totalRows="+$!pager.totalRows+"&currentPage="+num).submit();
+	}
+</script>
+</head>
+<body>
+<!--  主要内容  -->
+<div class="divMain">
+	<!--  查询开始  -->
+    <form action="" method="post">
+	<div class="divMain_chaxun">
+    	<!--  标题  -->
+    	<div class="divMain_chaxun_bt line_botoom">数据统计</div>
+        <!--  查询条件  -->
+        <div class="divMain_chaxun_m">
+        <!--  查询条件比较多多的情况，字段尽量为4个字，特别是每排第一个字段，尽量让排整齐板式好看；查询条件少，一排显示就不管  -->
+        <!-- div高度不定,多了自动挤到下一排   -->
+        	<div class="divMain_chaxun_mOne">统计类型：
+				<select name="byRole" class="select100">
+					<option value="broker">经纪人</option>
+					<option value="agency">营销机构</option>
+				</select>
+			</div>
+			<!-- 时间查询是情况选着可以两个文本框，也可一个文本框  -->
+        	<div class="divMain_chaxun_mOne">时间区间：
+        	<input name="timeFrom" id="beginDate" onfocus="WdatePicker({isShowClear:false,readOnly:true,dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'jsDate\')}'})" type="text" class="text100" value="$!register.timeFrom"/><input type="hidden" name="timeFrom" id="beginDate" disabled="disabled" />
+        	~<input name="timeTo" id="jsDate" onfocus="WdatePicker({isShowClear:false,readOnly:true,dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'beginDate\')}'})" type="text" class="text100" /><input type="hidden" name="timeTo" id="jsDate" disabled="disabled" /></div>
+			<div class="divMain_chaxun_mOne">项目期限：
+				<select name="period" class="select100">
+					<option value="">全部</option>
+					<option value="1">一月期</option>
+			        <option value="3">三月期</option>
+			        <option value="6">半年期</option>
+			        <option value="12">一年期</option>
+				</select>
+			</div>
+			<!-- 隐藏按钮-->
+			<input type="hidden" name="pageSize" value="$!pager.pageSize"/>
+            <!--  按钮  -->
+        	<div class="divMain_chaxun_mAnniu"><input type="submit" value="提交查询" class="anniu_blue"></div>
+        </div>
+    </div>
+    </form>
+    <!--  查询结束  -->
+    <!--  列表开始  -->
+	<div class="divMain_chaxun">
+        <!--  标题  -->
+    	<div class="divMain_liebiao_bt line_botoom">
+        	<!--每个divMain_liebiao_one01宽度未定，根据具体情况定百分比，加起来总的等于100%-->
+        	<span class="divMain_liebiao_one01" style="width:5%;">&nbsp;</span><span class="divMain_liebiao_one01" style="width:10%;">序号</span><span class="divMain_liebiao_one01" style="width:15%;">登录名</span>#if("broker"=="$!register.byRole")<span class="divMain_liebiao_one01" style="width:15%;">经纪人</span>#end<span class="divMain_liebiao_one01" style="width:20%;">营销机构</span><span class="divMain_liebiao_one01" style="width:10%;">投资人数</span><span class="divMain_liebiao_one01" style="width:10%;">投资笔数</span><span class="divMain_liebiao_one01" style="width:15%;">&nbsp;业绩（万）</span>
+        </div>
+        <!-- 一条内容   -->
+		#if($!pager.elements.size()>0)
+		   #set($byBroker=("broker"=="$!register.byRole"))
+			#foreach($register in $pager.elements)
+			#set($lineNumber=($pager.currentPage - 1) * $pager.pageSize + $velocityCount)
+            <div class="divMain_liebiao_all line_botoom">
+            <span class="divMain_liebiao_one01" style="width:5%;">&nbsp;</span><span class="divMain_liebiao_all01" style="width:10%;">$!lineNumber</span><span class="divMain_liebiao_all01" style="width:15%;">$!register[1]</span>#if($byBroker)<span class="divMain_liebiao_all01" style="width:15%;">$!register[2]</span><span class="divMain_liebiao_all01" style="width:20%;">$!register[3]</span><span class="divMain_liebiao_all01" style="width:10%;">$!register[4]</span><span class="divMain_liebiao_all01" style="width:10%;">$!register[5]</span><span class="divMain_liebiao_all01" style="width:15%;">&nbsp;$!register[6]</span>#else<span class="divMain_liebiao_all01" style="width:20%;">$!register[2]</span><span class="divMain_liebiao_all01" style="width:10%;">$!register[3]</span><span class="divMain_liebiao_all01" style="width:10%;">$!register[4]</span><span class="divMain_liebiao_all01" style="width:15%;">&nbsp;$!register[5]</span>#end
+            </div>
+            #end
+		#else
+			<div class="divNone line_botoom">暂无信息</div>
+		#end
+          <!-- 分页开始   -->
+        <div class="divMain_fenye">
+           <div class="divMain_fenyeL"><a href=""><input name="" type="button" value="导出查询结果" class="anniu1"/></a>&nbsp;</td></div>
+			#parse("admin/layout/pager.vm")
+        </div>
+    </div>
+   <!--  列表结束  -->
+</div>
+</body>
+</html>

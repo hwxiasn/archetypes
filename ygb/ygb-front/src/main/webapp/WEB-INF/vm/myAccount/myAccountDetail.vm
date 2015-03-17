@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+#set($left="account")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/menu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Pop-up_layer.css" rel="stylesheet" type="text/css" />
+
+<script src="$static_url/admin/js/jquery.min.js"></script>
+<script src="$static_url/admin/js/jquery.validate.js"></script>
+<script src="$static_url/admin/js/jquery.metadata.js"></script>
+<script src="$static_url/admin/js/messages_cn.js"></script>
+
+<script language="javascript">
+
+function switchTab(infoType){
+	if(!infoType || infoType == "base"){
+		$("#base").show();
+		$("#bank").hide();
+		$("#baseT").attr("class", "color_RedB");
+		$("#bankT").attr("class", "color_hui");
+	}else{
+		$("#base").hide();
+		$("#bank").show();
+		$("#baseT").attr("class", "color_hui");
+		$("#bankT").attr("class", "color_RedB");
+	}
+}
+
+$(function(){
+	switchTab("$!info");
+	$("form").validate();
+});
+</script>
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color: #FFF;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+</style>
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<div class="customer_main2_new">
+#parse("myAccount/header.vm")
+
+<div class="customer_main2">
+	#parse("myAccount/left.vm")
+	
+    <div class="customer_main2_R">
+    	<div class="quick_signing">
+			<a href="javascript:void(0)" onclick="javascript:switchTab('base')"><span id="baseT">基本信息</span></a>
+			<a href="javascript:void(0)" onclick="javascript:switchTab('bank')"><span id="bankT">&nbsp;|&nbsp;银行卡信息</span></a>
+      	</div>
+
+
+		<div id="base" style="display:none">
+      		<div class="Bank_Information2">
+                <div class="Bank_Information2_L"><span class="color_Orange">*</span>&nbsp;用户序号：</div>
+                <div class="Bank_Information2_R_new1">$!account.userNum</div>
+          	</div>
+            <div class="Bank_Information2">
+                <div class="Bank_Information2_L"><span class="color_Orange">*</span>&nbsp;用户名：</div>
+                <div class="Bank_Information2_R_new1">$!account.userName</div>
+          	</div>
+            <div class="Bank_Information2">
+                <div class="Bank_Information2_L"><span class="color_Orange">*</span>&nbsp;用户真实姓名：</div>
+                <div class="Bank_Information2_R_new1">$!account.realName</div>
+          	</div>
+            <div class="Bank_Information2">
+                <div class="Bank_Information2_L"><span class="color_Orange">*</span>&nbsp;身份证号：</div>
+                <div class="Bank_Information2_R_new1">$!account.cardNum</div>
+          	</div>
+        
+            <div class="Bank_Information2">
+                <div class="Bank_Information2_L"><span class="color_Orange">*</span>&nbsp;联系邮箱：</div>
+                <div class="Bank_Information2_R_new1">$!account.email</div>
+          	</div>
+        
+            <div class="Bank_Information2">
+                <div class="Bank_Information2_L"><span class="color_Orange">*</span>&nbsp;联系电话：</div>
+                <div class="Bank_Information2_R_new1">$!account.telephone</div>
+          	</div>
+        
+			<div class="Bank_Information2">
+                <div class="Bank_Information2_L"></div>
+                <div class="Bank_Information2_R_new1">
+                </div>
+			</div>
+		</div>
+
+
+		<div id="bank" style="display:none;">
+			<div class="Bank_Information1">
+				&nbsp;&nbsp;<img src="$static_url/images/speaker.png" width="13" height="13" />
+				请确保绑定的银行账户信息与你的实名认证信息匹配，否则无法进入资金划入划出。
+			</div>
+        	<div class="Bank_Information2">
+                <div class="Bank_Information2_L"><span class="color_Orange">*</span>&nbsp;银行开户名：</div>
+                <div class="Bank_Information2_R"><input type="text" class="Bank_Information_text1" value="$!account.realName" disabled="disabled" /></div>
+          	</div>
+			<div class="Bank_Information2">
+				<div class="Bank_Information2_L"><span class="color_Orange">*</span>&nbsp;开户银行：</div>
+				#foreach($bankItem in $!banks)
+					#if($!account.bank == $!bankItem.code) #set ($bankName =$!bankItem.name)#end
+				#end
+				<div class="Bank_Information2_R"><input type="text" class="Bank_Information_text1" value="$!bankName" disabled="disabled" /></div>
+			</div>
+			<div class="Bank_Information2">
+				<div class="Bank_Information2_L"><span class="color_Orange">*</span>&nbsp;银行卡信息：</div>
+				<div class="Bank_Information2_R"><input name="" type="text" class="Bank_Information_text1" value="$!account.bankCardNum" disabled="disabled" /></div>
+			</div>
+			<div class="Bank_Information2">
+				<div class="Bank_Information2_L"><span class="color_Orange">*</span>&nbsp;开户行所在地：</div>
+				<div class="Bank_Information2_R">
+					#foreach($item in $!provinces)
+						#if($!account.province == $!item.code) #set ($bankProvince =  $!item.name) #end
+					#end
+					#foreach($item in $!cities)
+						#if($!account.city == $!item.code)#set ($bankCity = $!item.name )#end
+					#end
+
+					<input type="text" class="Bank_Information_text2" value="$!bankProvince" disabled="disabled" />&nbsp;&nbsp;
+					<input type="text" class="Bank_Information_text2" value="$!bankCity" disabled="disabled" />
+				</div>
+			</div>
+        
+			<div class="Bank_Information2">
+				<div class="Bank_Information2_L"></div>
+				<div class="Bank_Information2_R">
+					<a href="$front_url/account/bindBankCard.html" class="anniuRed">重新绑定</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+#parse("layout/footer.vm")
+</body>
+</html>

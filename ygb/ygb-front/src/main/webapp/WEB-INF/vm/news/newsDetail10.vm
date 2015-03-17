@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+#parse("layout/head.vm")
+<title>倍赢金融财富箱--公告</title>
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/AboutUs.css" rel="stylesheet" type="text/css" />
+
+<script src='$static_url/js/jquery.min.js'></script>
+<script src='$static_url/js/jquery.museum.js'></script>
+<script>
+$(document).ready(function() {
+	$.museum($('#content img'));
+});
+</script>
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color:#eeeeef;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+.AboutUs_c1_1_a {
+	height:30px;
+	width: 125px;
+	background:#ffffff;
+	color:#000000;
+	margin-bottom: 2px;
+	float:left;
+	line-height:30px;
+	font-size: 15px;
+	padding-left: 40px;
+}
+a:hover{
+	color:red;
+	background:#b6b6b7;
+}
+#content img { height: 120px;border: 1px solid #FFF; padding: 2px; }
+#content img:hover { border: 1px solid #d3332d; }
+
+</style>
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<div class="AboutUs1">
+	<div class="AboutUs1_L">
+    	<div class="AboutUs1_L_u"><img src="$static_url/images/aboutus1.png" width="191" height="67" /></div>
+        <div class="AboutUs1_L_b">
+        	<a href="$front_url/platformNotice.html">平台公告</a>
+            <a href="$front_url/platformNotice.html?hy" class="on">行业新闻</a>
+        </div>
+   </div>
+  <div class="AboutUs1_R">
+    <div class="AboutUs1_R1">
+      <div class="AboutUs1_R1_L"><b>行业新闻</b></div>
+        <div class="AboutUs1_R1_R"></div>
+    </div>
+     <div class="AboutUs1_R2_news"><b>“普惠”，互联网金融平台未来之路</b><br/><span style="font-size:13px;">转载：本文来源于2014年11月11日  中国产经新闻报 记者 齐庆华报道 </span></div>
+    <div class="AboutUs1_R3">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创业缺乏资金时有渠道筹集，闲钱有可选择的地方投资——这是百姓渴望看到、得到并实现的愿望。而就在以互联网金融为代表的普惠金融的发展过程中，曾经的愿望才真正拥有了牢固的实现基础。<br /><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“发展普惠金融，鼓励金融创新，丰富金融市场层次和产品。”2013年十八届三中全会正式提出发展普惠金融。一年来，金融创新产品层出不穷，尤其以互联网为依托的互联网金融企业产品的发展如雨后春笋般。<br /><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有人说，互联网金融是普惠金融反映在互联网时代的产物。的确如此，互联网与金融的结合拓宽了金融的维度，给不同阶层的客户提供了不同的服务，让更多的老百姓有机会参与其中。去年以来，包括P2P、众筹等在内的互联网金融业态得到迅猛的发展，也不同程度地反映并解决了草根阶层的资金需求。<br /><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“野蛮生长”之后，互联网金融进入了“大浪淘沙”阶段。而就在这个阶段，行业内出现了互联网金融公司转向做利润较高的大额业务、偏离普惠金融方向的情况，业内人士普遍认为，只有回归普惠金融，真正做到服务小微、特色经营、高效风控的企业，才能避免被“大浪”卷走，随之淘汰。<br /><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>“野蛮生长”</b><br /><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在刚刚过去的第十届北京国际金融博览会上，记者感受到今年博览会最大的一个不同点就是互联网金融公司的扎堆出现，几乎每家互联网金融公司展台都门庭若市，其中尤以P2P网贷公司最抢眼，成为大家理财投资的首选。<br /><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“这些互联网金融公司门槛低，收益率也高，对我们这些资金少的人来说是不错的选择。”市民黎先生告诉《中国产经新闻》记者。和李先生一样的投资者还有很多，他们走在各展台之间询问相关业务情况，场面异常火暴。<br /><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;事实上，互联网金融的火暴正反映当前的一个现实：传统的金融压抑了需求，而互联网金融则顺应了这种需求。虽然互联网金融的发展给传统金融业带去了压力，但是有分析人士指出，以P2P为代表的互联网金融，并非要“革银行的命”，而是要坚定其普惠性。<br /><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;也有分析人士表示，P2P网贷作为普惠金融的一部分，为那些银行等传统金融机构不愿服务的小微企业、草根阶层等弱势群体服务，有效地弥补了资金供求市场的空白，解决了众多中小企业融资问题。<br /><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;资料显示，2007年P2P网贷开始进入中国，诞生了“拍拍贷”和“宜信金融”等早期网贷公司。经历近5年的发展，2013年“互联网金融元年”的概念让P2P平台出现爆发式的增长。<br /><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“2014年以来，P2P平台呈现出了新的特点，很多银行、大型国企开始进入P2P领域，出现了许多有国企背景的P2P平台。同时，平台投资项目类型更加细分，专注于保理、票据融资、车贷以及产业链金融等领域的平台出现。未来几年P2P网贷仍将是一个高速发展期。”一位互联网金融分析人士告诉《中国产经新闻》记者。<br /><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目前，全国P2P网贷平台超过2000家。零壹财经研究总监李耀东在零壹财经壹席谈上介绍，100个交易额最大的P2P借贷平台今年9月份单月总成交量大约是160亿元。预计到年底，整个P2P行业的交易额将在2500亿到3000亿左右。<br /><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;李耀东列举数据显示，今年1月份，有25家小额的借贷平台（人均借款额在20万以下），交易规模所占的市场比率是23%；到9月份的时候，减少到16家的小额借贷平台，但是占比规模却达到29%。“小额借款平台数量越来越少，交易额占的比例反而越来越高。说明小额借款开始向少数几家平台集中。说明行业集中度在上升，产品的特色开始突出，小额借贷已经开始逐渐走向成熟。”<br /><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目前对于互联网金融行业的监管政策思路已经渐渐明晰，越来越多的资本也争相涌入互联网金融的主力军P2P行业。据零壹财经报告指出，今年以来有26家线上平台获得风险投资。11月3日，联想控股宣布战略投资P2P企业翼龙贷。零壹财经分析师赵金龙介绍，自6月开始，各路资本开始密集投资P2P行业，包括线上线下的交易平台、第三方服务机构以及创新理财等方向。“这次联想控股投资翼龙贷，据有关人士透露资金约为9亿元，如果属实，将刷新年初人人贷创下的1.3亿美元投资记录。”<br /><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;服务于小微企业融资和个人创业，促进民间融资阳光化，为百姓提供丰富的投资产品等是互联网金融平台的真正价值也是其普惠性所在。<br /><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>未来之路</b><br /><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基于互联网金融平台的真正价值，回归与坚持普惠金融的本质是以P2P为代表的互联网金融平台未来发展的方向。<br /><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;事实上，目前管理层在积极引导互联网金融发展，其中主要内容就是引导互联网金融平台回归普惠。上海银监局副局长张光平在2014陆家嘴(22.97, 0.39, 1.73%)互联网新兴金融行业发展大会上表示，“一行三会”等相关部门正在密切研究互联网金融相关政策，《关于促进互联网金融健康发展的指导意见》（以下简称《意见》）将于近期出台。<br /><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;监管层面一直希望P2P网贷作为银行的补充，服务于中小微企业。<br /><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“银行都愿意去做高额高利润的业务，对于进入P2P等互联网金融领域的动力比较小，银行做垄断业务做习惯了，对于互联网金融这种比较琐碎、比较灵活，又在不断变更发展的业态进入的动力比较小。”梁振鹏坦言。<br /><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;事实上，这也说明互联网金融平台与银行将采用不同的商业模式。不过，虽然采用不同的模式，但是在梁振鹏看来，银行和互联网金融平台并不是竞争的关系，银行其实也可以参与到互联网金融的平台中来，而银行的参与将有利于普惠金融的发展。他对记者分析道：“很多互联网金融的业态在资金链上很脆弱，资金也不雄厚，如果能跟银行进行相关的合作，会更有利于普惠金融的发展。银行以合作合资的形式进入这个领域，甚至于财产保险公司有没有可能介入，为互联网金融的交易信贷行为提供相关的担保等这些内容政府、行业协会都可以一起研究一起推进。”<br /><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;投哪网CEO吴显勇也表达了同样的观点，他在零壹财经壹席谈上指出，P2P借贷的竞争对象不是银行内的金融机构，而是民间借贷。P2P借贷对民间借贷以互联网的方式，通过标准化、规范化、信息化来提升整个借贷的质量，达到规模化、体系化，跟银行从来就不是一个竞争关系。<br /><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;事实上，不论是从管理层还是业内分析人士亦或是行业负责人，对于P2P、众筹等互联网金融业态的定位都在于“普惠金融”，而未来的互联网金融的发展也应当是沿着普惠的方向继续前行。<br /><br />
+    <div class="news_fanhui"><a href="javascript:history.go(-1);">返回</a></div>
+     </div>
+  </div>
+</div>
+
+<div class="AboutUs_xian"></div>
+
+#parse("layout/footer.vm")
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+#parse("layout/head.vm")
+<title>倍赢金融财富箱--帮助中心</title>
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/AboutUs.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<script src="$static_url/js/jquery.museum.js"></script>
+<script type="text/javascript">
+function switchTo(index) {
+	$("#right"+index).show().siblings(".AboutUs1_R").hide();
+	$("#mark"+index).addClass("on").siblings().removeClass("on");
+}
+</script>
+
+<style type="text/css">
+body {
+	background-color:#eeeeef;
+}
+</style>
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<div class="AboutUs1">
+	<div class="AboutUs1_L">
+    	<div class="AboutUs1_L_u"><img src="$static_url/images/help.png" width="191" height="67" /></div>
+        <div class="AboutUs1_L_b">
+        	<a href="javascript:switchTo(1);" class="on" id="mark1">客户常见问题</a>
+            <a href="javascript:switchTo(2);" id="mark2">投资须知</a>
+            <a href="$front_url/statics/partners.html">战略合作伙伴</a>
+        </div>
+   </div>
+  <div class="AboutUs1_R" style="display:block" id="right1">
+    <div class="AboutUs1_R1">
+      <div class="AboutUs1_R1_L">客户常见问题</div>
+      <div class="AboutUs1_R1_R"></div>
+    </div>
+    <div class="AboutUs1_R3">
+      <span class="color_Blue"><b>1、了解财富箱：</b></span>
+      <p>财富箱"是重庆倍赢金融服务有限公司倾力打造的互联网投融资中介平台，同时为投资人、融资人提供互联网的投融资服务。</p>
+      "财富箱"以创新、共赢作为核心理念，以投资人、融资人满意作为最终目标，致力于建立一个安全、高效、诚信、专业、客户利益至上的金融服务平台。</p>
+
+	  <span class="color_Blue"><b>2、划入到平台的资金是否安全？</b></span>
+      <p>1）委托银行（或中国人民银行批准的第三方支付公司）对用户资金进行管理，不与公司运营资金混用；</p>
+      <p>2）对用户进行严格的实名认证，绑定到银行卡只能是用户信息匹配的银行卡，资金转出就只能到绑定的银行账号上，从而确保出金安全；</p>
+      <p>3）倍赢金融内部制定了严格的资金管理和监控系统，能快速解决可能出现资金异常情况和资金纠纷。</p>
+
+	  <span class="color_Blue"><b>3、平台的投资收益如何？</b></span>
+      <p>预期10%~12%的年化收益（具体参考投资的期限和当时的投资收益率）；</p>
+
+	  <span class="color_Blue"><b>4、投资期限和收益率：</b></span>
+      <p>投资期限一般有：3月、6月、9月、12月，具体以财富箱发布为准；</p>
+      
+      <span class="color_Blue"><b>5、银行快捷划入、划出说明：</b></span>
+      <p><img src="$static_url/images/help1.png" width="645" height="297"></p>
+	  
+      <span class="color_Blue"><b>6、页面显示不正常，密码输入框老是不出来，无法绑定银行卡？</b></span>
+      <p>如果页面显示不正常或无法绑定银行卡，您可以尝试使用其他浏览器，如谷歌chrome和火狐firefox，360浏览器，如果密码框出不来，请安装最新版Adobe Flash Player，我们也在一直努力提高用户体验，期待给您带来最好的服务！</p>
+
+      <span class="color_Blue"><b>7、什么是借款接受人？</b></span>
+      <p>借款接受人是指有项目资金需求，且有担保公司的履约担保承诺，接受平台注册出借人对其项目定向借款的人。</p>
+    
+      <span class="color_Blue"><b>8、什么是投资权益？</b></span>
+      <p>投资人对项目投资以后，形成"本金+收益"的投资权益。</p>
+    
+      <span class="color_Blue"><b>9、什么是投资权益回购？</b></span>
+      <p>投资接受人以全部投资人"本金+收益"等额的资金，购买投资人的投资权益。</p>
+    
+      <span class="color_Blue"><b>10、什么是权益回购履约担保？</b></span>
+      <p>如果投资接受人到期不回购投资人的投资权益，则担保人替他履行回购义务，并向投资人全额兑付"本金+收益"。</p>
+    
+      <span class="color_Blue"><b>11、收益怎样计算？</b></span>
+      <p>收益=投资本金*平台公布的相关投资收益率*期限（月）/12</p>
+    
+      <span class="color_Blue"><b>12、财富箱的投资风险是什么？</b></span>
+      <p>风险是担保公司不能履约，因为对财富箱业务做履约担保的都是重庆本地的国营担保公司，这种情况难以发生。</p>
+    </div>
+
+  </div>
+  <div class="AboutUs1_R" style="display:block" id="right2">
+    <div class="AboutUs1_R1">
+      <div class="AboutUs1_R1_L">投资须知</div>
+        <div class="AboutUs1_R1_R"></div>
+      </div>
+    <div class="AboutUs1_R3">
+      <p><b><span class="color_Blue">一、注册及登录</span></b></p>
+      <p><b>1.设置密码有什么要求吗？</b></p>
+      <p>密码必须包含数字和英文字母（区分大小写），至少6位字符，不超过20位字符；</p>
+      <p>提示：为了您的账户安全，密码不可设置为纯字母或纯数字形式。</p>
+      <p><b>2.注册的用户名有什么要求吗？</b></p>
+      <p>(1)注册的用户名只能为数字、英文字母（不区分大小写）、"-"、"_"， 其他特殊字符不可以使用；</p>
+      <p>(2)注册的用户名为6—20位字符；</p>
+      <p>(3)注册的用户名可以是自己名字英文拼音，也可以不是真实姓名；</p>
+      <p>(4)注册的用户名必须是唯一的，且一旦注册成功不可更改用户名。</p>
+      <p><b>3.为什么会登录失败？</b></p>
+      <p>请您核对以下几点，这些可能是导致您登录失败的原因：</p>
+      <p>(1)请您确认输入的用户名是否正确；</p>
+      <p>(2)请您确认输入的密码是否正确。如果忘记密码，您可以点击右侧【忘记密码】重新设置；</p>
+      <p>(3)请您确认输入的验证码是否正确。如果看不清楚，可以点击【换一张】重新获取；</p>
+      <p>(4)用户名或密码错误。若24小时内同一用户名连续输错5次密码，将锁定该用户名4小时。</p>
+      <p>(5)网络问题也会造成登录失败，如果提示网页有错误，建议您稍后尝试。</p>
+      <p>(6)浏览器不兼容，建议更换通用的浏览器进行访问。</p>
+      <p><b>4.我忘记了用户名怎么办？</b></p>
+      <p>为了账户安全，请提交相关信息，或通过联系客服找回用户名。</p>
+      <p><b>5.忘记密码怎么办？</b></p>
+      <p>(1)点击"忘记密码"，输入您的用户名或邮箱地址，通过发送邮件找回密码；</p>
+      <p>(2)请及时与在线客服联系。</p>
+      <p><b><span class="color_Blue">二、充值</span></b></p>
+      <p><b>1.充值、提现是否有上限？</b></p>
+      <p>具体额度请以实际网站公布的列表情况为准。</p>
+      <p><b>2.使用信用卡是否可以给账户充值？</b></p>
+      <p>目前不支持信用卡充值。</p>
+      <p><b>3.有哪些方式可以给账户充值？</b></p>
+      <p>目前财富箱提供的充值方式：目前支持的是网银划入方式；</p>
+
+      <p><b><span class="color_Blue">三、提现</span></b></p>
+      <p><b>1.为什么我申请提现失败？</b></p>
+      <p>造成您提现失败的原因可能有以下几种：</p>
+      <p>(1)未设定银行账户</p>
+      <p>(2)银行开户行信息错误</p>
+      <p>(3)银行账号/户名错误，或是账号和户名不符</p>
+      <p>(4)使用信用卡提现</p>
+      <p>(5)银行账户冻结或正在办理挂失</p>
+      <p>如果遇到以上情况，我们会在收到支付机构转账失败的的通知后解除您的资金冻结（手续费不退还），请您不必担心资金安全。</p>
+      <p><b>2.最多能取现多少金额？</b></p>
+      <p>财富箱账户单日不限制取现总额，单笔最小取现金额为1元（当您的账户余额不足1元，提出取现申请时，须取现全部余额），单笔、累积最大取现金额请以各银行支付上限金额为准，您可以在财富箱网站取现页面点击"各银行取现限额表"查询详情。</p>
+      <p><b>3.取现多久可以到账？</b></p>
+      <p>T+0到账，不同银行有相应地延迟； * 详情请参照取现页中的预计到账时间。</p>
+      <p><b>4.取现手续费怎么收取？</b></p>
+      <p>目前暂时取现不收手续费，具体以网站公布为准；</p>
+      <p><b>5. 为什么我的账户显示金额冻结？什么时候可以解冻？</b></p>
+      <p>在进行取现时或者在个人投资过后到项目募集完成时，资金会在从其托管账户到其认证的银行账户的途中显示冻结。资金到达认证的银行账户，冻结金额、可用投资资金相应减少。</p>
+        
+    </div>
+         
+  </div>  
+</div>
+
+<div class="AboutUs_xian"></div>
+
+#parse("layout/footer.vm")
+</body>
+</html>

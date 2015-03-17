@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	
+	<dubbo:application name="ginkgo-account-provider" />
+	<dubbo:registry address="zookeeper://192.168.1.201:2181" />
+	<dubbo:protocol name="dubbo" port="20883" />
+	
+	<import resource="base-consumer.xml"/>
+	<import resource="customer-consumer.xml"/>
+	<import resource="trade-consumer.xml"/>
+	
+	<import resource="account-service.xml"/>
+	
+	<import resource="account-provider.xml"/>
+</beans>

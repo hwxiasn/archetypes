@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+#parse("layout/header.vm")
+<div class="banner">
+<iframe src="$static_url/banner.html" width="100%" height="300" frameborder="0" scrolling="no"></iframe>
+</div>
+
+
+<!--    投资步骤     -->
+<div class="main1All">
+    <div class="main1">
+      <div class="main1_R">
+        <a href="$front_url/register.html" class="main1_R1_new01"></a>
+        <a #if($!shiro.isFrontAuthenticated()) href="$front_url/account/payRegister.html" #else href="$front_url/login.html" #end class="main1_R1_new02"></a>
+        <a #if($!shiro.isFrontAuthenticated()) href="$front_url/account/accountIn.html" #else href="$front_url/login.html" #end class="main1_R1_new03"></a>
+        <a href="$front_url/goInvest.html" class="main1_R1_new04"></a>
+      </div>
+    </div>
+</div>
+
+#parse("indexPage.vm")
+
+#parse("indexNews.vm")
+
+#parse("layout/footer.vm")
+</body>
+</html>

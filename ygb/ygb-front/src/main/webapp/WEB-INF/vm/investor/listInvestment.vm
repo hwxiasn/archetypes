@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+#set($left="customer")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/enroll.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/menu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Trading_inquiry.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Customer_Management.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color: #FFF;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+</style>
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+#parse("myAccount/header.vm")
+
+<div class="customer_main2_new">
+<div class="customer_main2_new_all">
+	#parse("myAccount/left.vm")
+	
+<div class="customer_main2_R">
+    <div class="customer_main2_R_all">
+    	<div class="quick_signing_cx">
+        <span class="Trading_inquiry_color1">投资记录管理</span>
+        
+        <div class="inquiry4">
+        <span class="inquiry4_bt09">交易名称/申请号</span>
+        <span class="inquiry4_bt09">投资人</span>
+        <span class="inquiry4_bt09">投资日期</span>
+        <span class="inquiry4_bt09">成立日期</span>
+        <span class="inquiry4_bt09">到期日期</span>
+        <span class="inquiry4_bt09">投资金额(元)</span>
+        <span class="inquiry4_bt09">佣金(元)</span>
+        <span class="inquiry4_bt09">投资状态</span>
+    </div>
+	#if($pager.getElements().size()>0)
+        #foreach($info in $pager.getElements())
+    <!-- 信息摘要 -->
+    <div class="inquiry4_xq line_bottom">
+    	<span class="inquiry4_bt09_xq">$!info.getInvestNo()</span>
+        <span class="inquiry4_bt09_xq">$!info.getInvestorName()</span>
+    	<span class="inquiry4_bt09_xq">$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!info.getIssueDate())</span>
+        <span class="inquiry4_bt09_xq">$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!info.getSettledDate())</span>
+        <span class="inquiry4_bt09_xq">$!dateTool.format("yyyy-MM-dd HH:mm:ss",$!info.getDueDate())</span>
+        <span class="inquiry4_bt09_xq color_Orange">$!numberTool.format("0.00",$!info.getBalance())</span>
+        <span class="inquiry4_bt09_xq color_Orange">$!numberTool.format("0.00",$!info.getCommissionFee())</span>
+        <span class="inquiry4_bt09_xq color_Green">$!Map_CodeList_InvestmentStatus.get($!info.getStatus())</span>
+    </div>
+
+		#end
+    #else
+    <!-- 暂无信息 -->
+    <div class="inquiry4_none" style="display:none;">暂无信息</div>
+    #end
+    
+		#parse("myAccount/commonPager.vm")
+		<script type="text/javascript">
+        	function page(num) {
+        		$("#search").attr("action", $("#search").attr("action")+"?totalRows="+$!pager.totalRows+"&currentPage="+num+"&pagerSize=4").submit();
+        	}
+        </script>
+        
+  	</div>
+    </div>
+  
+</div>
+</div>
+
+#parse("layout/footer.vm")
+</body>
+</html>
+

@@ -1,0 +1,9 @@
+#if(!$!role) #set($role="$!user.role") #end
+#foreach($item in $!roles)
+<input name="role" type="radio" value="$!item.code" #if($velocityCount==1) checked="checked" #end/>$!item.name</br>
+#end
+<script type="text/javascript">
+	$(function(){
+		$("input[name='role'][value='$!role']").attr("checked","checked");
+	});
+</script>

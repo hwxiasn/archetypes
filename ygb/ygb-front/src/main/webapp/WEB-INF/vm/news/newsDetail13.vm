@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+#parse("layout/head.vm")
+<title>倍赢金融财富箱--公告</title>
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/AboutUs.css" rel="stylesheet" type="text/css" />
+
+<script src='$static_url/js/jquery.min.js'></script>
+<script src='$static_url/js/jquery.museum.js'></script>
+<script>
+$(document).ready(function() {
+	$.museum($('#content img'));
+});
+</script>
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color:#eeeeef;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+.AboutUs_c1_1_a {
+	height:30px;
+	width: 125px;
+	background:#ffffff;
+	color:#000000;
+	margin-bottom: 2px;
+	float:left;
+	line-height:30px;
+	font-size: 15px;
+	padding-left: 40px;
+}
+a:hover{
+	color:red;
+	background:#b6b6b7;
+}
+#content img { height: 120px;border: 1px solid #FFF; padding: 2px; }
+#content img:hover { border: 1px solid #d3332d; }
+
+</style>
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<div class="AboutUs1">
+	<div class="AboutUs1_L">
+    	<div class="AboutUs1_L_u"><img src="$static_url/images/aboutus1.png" width="191" height="67" /></div>
+        <div class="AboutUs1_L_b">
+        	<a href="$front_url/platformNotice.html">平台公告</a>
+            <a href="$front_url/platformNotice.html?hy" class="on">行业新闻</a>
+        </div>
+   </div>
+  <div class="AboutUs1_R">
+    <div class="AboutUs1_R1">
+      <div class="AboutUs1_R1_L"><b>行业新闻</b></div>
+        <div class="AboutUs1_R1_R"></div>
+    </div>
+     <div class="AboutUs1_R2_news"><b>大数据时代互联网金融创新与传统银行转型</b><br/><span style="font-size:13px;">转载内容来源：金融时报  2014-11-14</span></div>
+    <div class="AboutUs1_R3">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;互联网金融是当前金融领域最引人瞩目的潮流之一。近年来，互联网金融的蓬勃兴起成为金融领域最引人瞩目的潮流之一，它正在深刻影响着现有银行竞争格局。互联网金融是是借助于互联网技术和移动通信技术实现资金融通、支付和信息中介功能的金融模式。从发展历程上看，互联网金融的发展离不开大数据、云计算、社交网络、搜索引擎等互联网技术的突破和运用，是伴随着电子商务而迅速发展起来的。<br /><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;互联网金融与传统银行的本质差异：作为工业化时代的产物，银行不可避免的带有工业化思维烙印。大规模组织、大规模营销与大规模网点为本质特征，依靠本部中心制进行指挥运营，依靠信息不对称和特殊渠道建立竞争优势与垄断壁垒，依靠金融媒介与中间环节获取利润空间。但在信息碎片化、媒介透明化、需求个性化的大数据时代，这种模式却面临日益严峻的考验。金融脱媒的趋势不可逆转、加速推进。商业银行的可持续盈利能力日趋下降。商业银行传统的风控手段中，实时监控与过程监管，却几乎一片空白。<br /><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在项目已经出现重大风险时，银行往往成为最后一个知道船要沉没的人。另外，传统银行存款与理财收益远低于互联网金融，在市场竞争中越来越缺乏竞争力。<br /><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;互联网金融脱胎于信息化革命与大数据时代，“开放、平等、互动、合作”成为互联网金融的核心价值观；“去中介、去中心”，追求极致的用户体验，强调数据驱动运营则是本质特征。从实践中看，互联网金融通过对市场、用户、产品、价值链的逐步重构，正逐步改变传统银行产业链的全貌。<br /><br />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;互联网金融对传统银行并不是简单的颠覆作用。如何通过互联网金融把传统银行做的更好，实现对接融合，是我们重点思考的方向，而“智慧银行”或将是重要演进模式：把握“数据运用”这个核心问题，对不断增加的数据进行更深、更智慧的挖掘、为客户量身定做服务，获取价值，具体途径包括长尾效应、迭代效应和社区效应等。<br /><br />
+    <div class="news_fanhui"><a href="javascript:history.go(-1);">返回</a></div>
+     </div>
+  </div>
+</div>
+
+<div class="AboutUs_xian"></div>
+
+#parse("layout/footer.vm")
+</body>
+</html>

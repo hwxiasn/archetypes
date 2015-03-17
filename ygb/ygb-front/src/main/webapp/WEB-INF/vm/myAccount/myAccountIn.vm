@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+#set($left="trade")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/menu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Trading_inquiry.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="$static_url/js/My97DatePicker/WdatePicker.js"></script>
+</head>
+
+<body>
+#parse("layout/header.vm")
+#parse("myAccount/header.vm")
+<form action="" method="post">
+<div class="customer_main2">
+<div class="customer_main2_all">
+	#parse("myAccount/left.vm")
+    <div class="customer_main2_R_new">
+    
+    	<div class="quick_signing_cx">
+			#set($record = "in")		
+	        #if($!shiro.hasRole("I"))<a href="$front_url/myAccount/investRecord.html"><span #if($!record == "invest") class="Trading_inquiry_color1" #else class="Trading_inquiry_color2" #end>投资记录</span></a> &nbsp;|&nbsp;#end
+			#if($!shiro.hasRole("B"))<a href="$front_url/myAccount/investAcceptRecord.html"><span #if($!record == "investAccept") class="Trading_inquiry_color1" #else class="Trading_inquiry_color2" #end>投资接受记录</span></a> &nbsp;|&nbsp;#end
+	        <a href="$front_url/account/myAccountIn.html"><span #if($!record == "in") class="Trading_inquiry_color1" #else class="Trading_inquiry_color2" #end>划入记录</span></a> &nbsp;|&nbsp;
+	        <a href="$front_url/account/myAccountOut.html"><span #if($!record == "out") class="Trading_inquiry_color1" #else class="Trading_inquiry_color2" #end>划出记录</span></a>
+      	</div>
+        
+        
+		<div class="Trading_inquiry2_2">
+			<div class="Trading_inquiry2_2_1">划入时间</div>
+		    <div class="Trading_inquiry2_2_1_new2">划入流水号</div>
+		    <div class="Trading_inquiry2_2_1">划入金额（元）</div>
+		    <div class="Trading_inquiry2_2_1">状态</div>
+		    <div class="Trading_inquiry2_2_1"></div> <!-- 划入使用银行 -->
+		    <div class="Trading_inquiry2_2_1"></div><!-- 划入类别 -->
+		    <div class="Trading_inquiry2_2_1"></div><!-- 划入凭据 -->
+		</div>
+          
+		#if($pager.getElements().size() > 0)
+			#foreach($myAccountIn in $pager.getElements())  
+				<div class="Trading_inquiry2_3_new1" style="">
+				         <div class="Trading_inquiry2_2_1_new1">$!myAccountIn.getFormatDealDate()</div>
+				         <div class="Trading_inquiry2_2_1_new1_1">$!myAccountIn.getId()</div>
+				         <div class="Trading_inquiry2_2_1_new1"><span class="Trading_inquiry_color1">$!myAccountIn.getTradeAmount()</span></div>
+				         <div class="Trading_inquiry2_2_1_new1">$!Map_Trade_Status.get($!myAccountIn.getTradeStatus())</div>
+				         <div class="Trading_inquiry2_2_1_new1">&nbsp;</div>
+				         <div class="Trading_inquiry2_2_1_new1">&nbsp;</div>
+				         <div class="Trading_inquiry2_2_1_new1"><a href=""><span class="Trading_inquiry_color3">&nbsp;</span></a></div>
+				</div>
+			#end
+		#else
+		    <div class="Trading_inquiry2_3_new2">暂时没有划入记录</div>
+		#end
+		
+        #parse("myAccount/commonPager.vm")
+  	</div>
+		
+    </div>
+</div>
+</form>
+#parse("layout/footer.vm")
+</body>
+<script type="text/javascript">
+	function page(num) {
+		$("form").attr("action", $("form").attr("action")+"?totalRows="+$!pager.totalRows+"&currentPage="+num+"&pagerSize=" + $!pager.pageSize).submit();
+	}
+</script>
+</html>

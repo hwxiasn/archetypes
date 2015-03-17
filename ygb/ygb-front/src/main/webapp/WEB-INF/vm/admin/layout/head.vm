@@ -1,0 +1,14 @@
+#set($front_url=$!props.getProperty('front_url',''))
+#set($upload=$!props.getProperty('upload',''))
+#set($static_url=$front_url+"/resources_admin")
+#set($admin_url=$front_url+"/admin")
+#set($uploads=$upload+"/uploads")
+<script src="$static_url/admin/js/jquery.min.js"></script>
+<script src="$static_url/admin/js/jquery.validate.js"></script>
+<script src="$static_url/admin/js/jquery.metadata.js"></script>
+<script src="$static_url/admin/js/messages_cn.js"></script>
+<script type="text/javascript" src="$static_url/admin/js/My97DatePicker/WdatePicker.js"></script>
+<script>
+	var static_url = "$static_url";
+	var upload = "$upload";
+</script>

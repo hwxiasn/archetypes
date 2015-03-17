@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/AboutUs.css" rel="stylesheet" type="text/css" />
+<script src='$static_url/js/jquery.min.js'></script>
+<script src='$static_url/js/jquery.museum.js'></script>
+<script>
+$(document).ready(function() {
+	$.museum($('#content img'));
+});
+</script>
+<style type="text/css">
+body {
+	background-color:#eeeeef;
+}
+</style>
+
+</head>
+
+<body>
+<!--    top     -->
+#parse("layout/header.vm")
+
+<!---------------内容---------------->
+<div class="AboutUs1">
+	<div class="AboutUs1_L">
+    	<div class="AboutUs1_L_u"><img src="$static_url/images/aboutus1.png" width="191" height="67" /></div>
+         <div class="AboutUs1_L_b">
+        	<a href="$front_url/platformNotice.html">平台公告</a>
+            <a href="$front_url/platformNotice.html?hy" class="on">行业新闻</a>
+          
+        </div>
+   </div>
+  <div class="AboutUs1_R">
+    <div class="AboutUs1_R1">
+      <div class="AboutUs1_R1_L"><b>行业新闻</b></div>
+        <div class="AboutUs1_R1_R"></div>
+    </div>
+    <div class="AboutUs1_R2_news"><b>两会开启农村互金新篇章 P2P助碎片理财</b><br/><span style="font-size:13px;">2015年03月06日 18:30:53 来源：和讯网</span></div>
+    <div class="AboutUs1_R3">
+    	<p>3月5日消息，两会行情开启，互联网金融引起代表委员热议。近日，齐鲁证券发布研报认为，2015年"两会"依然聚焦"三农"领域，将开启农业信息化和农村互联网金融创新大发展的新篇章。</p>
+        <p>齐鲁证券判断，农业信息化和农村互联网金融新业态将焕发出小草般顽强生长的蓬勃生命力，并将在如下几方面解决传统农业面临的囚徒困境：</p>
+        <p><b>(1)解决农民和农资经销商贷款难。</b>贷款难主要是由于农民及农资经销商信用体系不全，导致风险不可控。但通过大数据以及农村互联网交易平台的建设，农民的每一笔交易的数据记录都将成为其贷款的信用依据。同时，依靠大数据分析，可以有效降低风险。阿里巴巴通过其云数据平台，将小微不良贷款率将至0.84% ，低于商业银行的平均水平。</p>
+        <p><b>(2)解决农民理财难和资金使用渠道单一问题。</b>农村金融产品单一，导致有闲钱的农民财富增值困难，而需要资金的农民又无法及时获得资金，资金利用效率低下。<b>但是通过P2P小贷平台建立，一方面理财起点低，另一方面获得收益高，同时获得贷款的农民和经销商付息少，将会有效解决农民理财难的问题，实现碎片化理财。</b>截至2014年初，余额宝用户数量超过4900万，规模突破2500亿元，但人均投资额仅为1912.67元，体现出了碎片化理财的巨大长尾潜力。</p>
+        <p><b>(3)提高从生产到销售整体产业链效率。</b>利用移动互联网、物联网、电商平台、大数据等信息化手段，大大提高农业生产效率，降低生产及销售成本，拓宽销售渠道，以信息化推动智慧农业大发展。</p>
+        <p>研报认为，互联网大潮正加速渗透进传统的农业生产、营销、服务和金融领域，并将产业巨大的容量空间快速转化成预期透明弹性巨大的收入、现金流和利润。伴随着大数据在"三农"领域的推广和应用、农业云平台的建立、产业流量的导入、农村金融的快速渗透、小微信贷业务的快速复制、各种农业"宝"的推出┄┄将催生农业互联网金融以及农业信息化提供新的盈利格式和竞争格局，并将颠覆传统的粗放、缓慢、封闭式农耕生态链，进而加速中国农业现代化的发展进程，增强中国农业参与国际市场的核心竞争力。</p>
+        <p>当下，我们继续看好中国农业信息化、农村互联网金融、农垦改制(土地流转)领域的三大投资机会，2015年将成为领涨农业的主流核心机会，我们预计后期行情会纵深演绎，投资机会将进一步扩散。</p><br/>
+        <center><span style="color:#a50003; font-size:26px;">羊年大吉</span><br/>
+        <div style="height:1px; width:747px; background:#a50003;"></div>
+        <span style="color:#a50003; font-size:14px;">HAPPY 2015'S NEW YEAR</span><br/>
+        <img src="$static_url/images/newsImg/ewm.png" width="352" height="352"><br/>
+        <span class="color_hong">[ 微信扫描上方二维码，更多金融资讯一手掌握 ]</span></center>
+        
+    <br/>
+    	<div class="news_fanhui"><a href="javascript:history.go(-1);">返回</a></div>
+
+     </div>
+        
+  </div>
+</div>
+
+<div class="AboutUs_xian"></div>
+<!---------------尾部-------------->
+<!--    bottom     -->
+#parse("layout/footer.vm")
+</body>
+</html>

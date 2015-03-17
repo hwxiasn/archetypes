@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>倍赢金融财富箱</title>
+#parse("admin/layout/head.vm")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/enroll.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body style="background-color:#fefefe">
+<div style="height:20px; width:100%;">&nbsp;</div>
+<div class="logo">
+	<div class="logoL"><img src="$static_url/images/logo.png"/></div>
+</div>
+
+<div class="e_notice">
+尊敬的会员：<span class="e_color_hong">$!Project.getLoaneeRealName()</span>&nbsp;你好！<br/><br/>
+您在倍赢财富箱申请的于 $!Build_Date 成立的<br/>
+$!Project.getName() 产品即将于 $!T_Date 到期，请您在 $!T1_Date 16时前<br/>
+务必将本金以及利息总计$!Project.getDueAmount()元整，充值到您的财富箱还款账户里并及时进行还款操作。<br/>
+感谢您的配合，谢谢您对倍赢财富箱的支持。 <br/><br/>
+祝您工作顺利，万事如意！<br/>
+——重庆倍赢金融服务有限公司<br/>
+</div>
+
+<div class="e_notice_1">
+此为系统邮件，请勿回复<br/>
+请保管好您的邮箱，避免财富箱账户被他人盗用<br/>
+如由任何疑问，可致电财富箱服务热线：023-62559988
+</div>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>业务运营管理系统</title>
+#parse("admin/layout/head.vm")
+<link href="$static_url/admin/css/css.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+a:link {
+	color: #8e8e8e;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #8E8E8E;
+}
+a:hover {
+	text-decoration: none;
+	color: #F00;
+}
+a:active {
+	text-decoration: none;
+	color: #F00;
+}
+#current,#options { border:1px solid #a0a0a0;}
+#replace {cursor:default;overflow:visible;position:relative;}
+#current { background:url("images/dropdown.png") right center no-repeat;margin-bottom:0;}
+#current,#replace,#options li { width:150px;}
+#options { border-top:0 none; display:none;list-style-type:none;margin-top:0;position:absolute;width:160px;}
+#current,#options li {padding:5px;}
+#current,#options,#options li {background-color:#FFF;}
+</style>		
+</head>
+<body>
+<!--  主要内容  -->
+<div class="divMain">
+	<!--  查询开始  -->
+    <form action="$admin_url/product/guarantee.html" method="post">
+	<div class="divMain_chaxun">
+    	<!--  标题  -->
+    	<div class="divMain_chaxun_bt line_botoom">担保函管理</div>
+        <!--  查询条件  -->
+        <div class="divMain_chaxun_m">
+        <!--  查询条件比较多多的情况，字段尽量为4个字，特别是每排第一个字段，尽量让排整齐板式好看；查询条件少，一排显示就不管  -->
+        <!-- div高度不定,多了自动挤到下一排-->
+            <div class="divMain_chaxun_mOne">承诺函编号：<input name="commitmentLetterSn" type="text" class="text100" value="$!ENTITY_SEARCH.getCommitmentLetterSn()" maxlength="20"></div>
+        	<div class="divMain_chaxun_mOne">担保函状态：
+				<select name="status" class="select100">
+				    <option value="">==请选择==</option>
+					 	#foreach($status in $List_CodeList_GuaranteeStatus)
+		                  <option value="$status.getCode()" #if($!Entity_Search.getStatus() == $status.getCode()) selected="selected" #end>$!status.getName()</option>
+	                    #end
+				</select>
+			</div>
+			<div class="divMain_chaxun_mOne">担保机构：
+				<select name="userId" class="select100">
+				    <option value="">==请选择==</option>
+				      #foreach($ensureCompany in $List_User_Guarantee)
+		                <option value="$ensureCompany.getId()" #if($!Entity_Search.getUserId() == $ensureCompany.getId()) selected="selected" #end>$!ensureCompany.getEnterpriseProfile().getEnterpriseName()</option>
+	                  #end
+				</select>
+			</div>
+            <!--  按钮  -->
+        	<div class="divMain_chaxun_mAnniu"><input name="input5" type="submit" value="提交查询" class="anniu_blue"></div>
+        </div>
+    </div>
+    </form>
+    <!--  查询结束  -->
+    <!--  列表开始  -->
+	<div class="divMain_chaxun">
+        <!--  标题  -->
+    	<div class="divMain_liebiao_bt line_botoom">
+        	<!--每个divMain_liebiao_one01宽度未定，根据具体情况定百分比，加起来总的等于100%-->
+        	 <span class="divMain_liebiao_one01" style="width:3%;">&nbsp;</span><span class="divMain_liebiao_one01" style="width:12%;">承诺函编号</span><span class="divMain_liebiao_one01" style="width:9%;">合同编号</span><span class="divMain_liebiao_one01" style="width:9%;">担保函编号</span><span class="divMain_liebiao_one01" style="width:9%;">担保费（元）</span><span class="divMain_liebiao_one01" style="width:8%;">担保函年份</span><span class="divMain_liebiao_one01" style="width:13%;">担保函序号</span><span class="divMain_liebiao_one01" style="width:8%;">状态</span><span class="divMain_liebiao_one01" style="width:11%;">&nbsp;操作</span>
+        </div>
+        <!-- 一条内容   -->
+		#if($!Pager_Guarantee.getElements().size()>0)
+		  #foreach($guarantee in $Pager_Guarantee.getElements())
+            <div class="divMain_liebiao_all line_botoom">
+              <span class="divMain_liebiao_one01" style="width:3%;">&nbsp;</span><span class="divMain_liebiao_all01" style="width:12%;">$!guarantee.getCommitmentLetterSn()</span><span class="divMain_liebiao_all01" style="width:9%;">$!guarantee.getGuaranteeContractSn()</span><span class="divMain_liebiao_all01" style="width:9%;">$!guarantee.getGuaranteeLetterSn()</span><span class="divMain_liebiao_all01" style="width:9%;">$!guarantee.getFee()</span><span class="divMain_liebiao_all01" style="width:8%;">$!guarantee.getYear()</span><span class="divMain_liebiao_all01" style="width:13%;">$!guarantee.getSerial()</span><span class="divMain_liebiao_all01" style="width:8%;">$!{Map_CodeList_GuaranteeStatus.get($!{guarantee.getStatus()}).getName()}</span><span class="divMain_liebiao_all01" style="width:11%;"><a href="$admin_url/product/guaranteeDetail.html?id=$!guarantee.getId()" class="a1">查看详情</a></span>
+            </div>
+           #end
+		#else
+			<div class="divNone line_botoom">暂无信息</div>
+		#end
+          <!-- 分页开始   -->
+        <div class="divMain_fenye">
+			#parse("admin/layout/pager.vm")
+        </div>                                                           
+    </div>
+   <!--  列表结束  -->
+</div>
+</body>
+</html>
+<script type="text/javascript" src="$static_url/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+	function page(num) {
+		$("form").attr("action", $("form").attr("action")+"?totalRows="+$!pager.totalRows+"&currentPage="+num).submit();
+	}
+</script>

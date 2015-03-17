@@ -1,0 +1,31 @@
+<div class="feiyeAll">
+<div class="feiye">
+#if($!pager)
+	
+    #if($!pager.currentPage>1)
+        <a href="javascript:page($!{pager.currentPage}-1);">上一页</a>
+    #else
+        <a href="javascript:;">上一页</a>
+    #end
+    
+    #foreach($!page in [$!pager.startPage .. $!pager.endPage])
+    	#if($!page==$!pager.currentPage)
+    		<a href="javascript:;" class="Orange">$!page</a>
+    	#else
+    		<a href="javascript:page($!page);">$!page</a>
+    	#end
+    #end
+    
+    #if($!pager.currentPage<$!pager.totalPages)
+        <a href="javascript:page($!{pager.currentPage}+1);">下一页</a>
+    #else
+        <a href="javascript:;">下一页</a>
+    #end
+
+#else
+    <a href="javascript:;" >上一页</a>
+    <a href="javascript:;" class="Orange">1</a>
+    <a href="javascript:;" >下一页</a>	
+#end	
+</div>
+</div>

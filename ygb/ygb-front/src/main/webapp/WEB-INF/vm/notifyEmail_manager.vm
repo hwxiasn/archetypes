@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>倍赢金融财富箱</title>
+#parse("admin/layout/head.vm")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/enroll.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body style="background-color:#fefefe">
+<div style="height:20px; width:100%;">&nbsp;</div>
+<div class="logo">
+	<div class="logoL"><img src="$static_url/images/logo.png"/></div>
+</div>
+
+<div class="e_notice">
+尊敬的<span class="e_color_hong">$!Manager_Name </span>&nbsp;男士/女士：<br/><br/>
+您好，倍赢财富箱于 $!Build_Date 成立的<br/>
+$!Project.getName()  产品即将于 $!T_Date 到期，为避免造成逾期还款，请及时通知借款人:  $!Project.getLoaneeRealName()  做好还款准备，于 $!T1_Date 16时前<br/>
+务必将本金以及利息总计$!Project.getDueAmount()元整充值到财富箱平台账户，以便及时进行还款！<br/>
+——重庆倍赢金融服务有限公司<br/>
+</div>
+
+<div class="e_notice_1">
+此为系统邮件，请勿回复<br/>
+请保管好您的邮箱，避免财富箱账户被他人盗用<br/>
+如由任何疑问，可致电财富箱服务热线：023-62559988
+</div>
+
+</body>
+</html>

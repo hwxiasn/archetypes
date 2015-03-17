@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+#set($left="trade")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/menu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Trading_inquiry.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="$static_url/js/My97DatePicker/WdatePicker.js"></script>
+<script src="$static_url/admin/js/jquery.min.js"></script>
+<script src="$static_url/admin/js/jquery.validate.js"></script>
+<script src="$static_url/admin/js/jquery.metadata.js"></script>
+<script src="$static_url/admin/js/messages_cn.js"></script>
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color: #FFF;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+</style>
+<script type="text/javascript">
+	$(function() {
+		$("a[onclick='dateSearch($!tradSearch.searchDate)']>div").removeClass("a_text1").addClass("a_text1_1");
+		$("a[onclick='showStatus($!tradSearch.tradStatus)']>div").removeClass("a_text2").addClass("a_text2_1");
+		$("a[onclick='showStatusA($!tradSearch.tradStatus)']>div").removeClass("a_text3").addClass("a_text3_1");
+		
+	});
+	function dateSearch(num) {
+		$("input[name='searchDate']").val(num);
+		$("form").submit();
+	}
+</script>
+</head>
+
+<body>
+	#parse("layout/header.vm")
+	#parse("myAccount/header.vm")
+<form action="$front_url/myAccount/investRecord.html" method="post">
+<div class="customer_main2">
+<div class="customer_main2_all">
+	#parse("myAccount/left.vm")
+    
+    <div class="customer_main2_R_new">
+    <div class="customer_main2_R_all">
+    	<div class="quick_signing_cx">
+		#set($record = "invest")	
+        #if($!shiro.hasRole("I"))
+        <a href="/myAccount/investRecord.html">
+        	<span #if($!record == "invest") class="Trading_inquiry_color1" #else class="Trading_inquiry_color2" #end>投资记录</span>
+        </a> &nbsp;|&nbsp;
+        #end
+		#if($!shiro.hasRole("B"))
+		<a href="/myAccount/investAcceptRecord.html">
+			<span class="Trading_inquiry_color1" #if($!record == "investAccept") class="Trading_inquiry_color1" #else class="Trading_inquiry_color2" #end>投资接受记录</span>
+		</a> &nbsp;|&nbsp;
+		#end
+        <a href="/account/myAccountIn.html"">
+        	<span #if($!record == "in") class="Trading_inquiry_color1" #else class="Trading_inquiry_color2" #end>划入记录</span>
+        </a> &nbsp;|&nbsp;
+        <a href="/account/myAccountOut.html">
+        	<span #if($!record == "out") class="Trading_inquiry_color1" #else class="Trading_inquiry_color2" #end>划出记录</span>
+        </a>
+      	</div>
+        
+        <div class="Trading_inquiry1">
+       	  <div class="Trading_inquiry1_1">
+            <div class="Trading_inquiry1_1_1">起止日期：</div>
+                <div class="Trading_inquiry1_1_2"><input name="startDate" value="$!Entity_Search.getStartDate()" type="text" id="beginDate" onfocus="WdatePicker({isShowClear:false,readOnly:true,maxDate:'#F{$dp.$D(\'jsDate\')}',dateFmt:'yyyy-MM-dd'})" class="Trading_inquiry——text1" />&nbsp;&nbsp;-&nbsp;&nbsp;<input name="endDate" value="$!Entity_Search.getEndDate()" type="text" class="Trading_inquiry——text1" id="jsDate" onfocus="WdatePicker({isShowClear:false,readOnly:true,minDate:'#F{$dp.$D(\'beginDate\')}',dateFmt:'yyyy-MM-dd'})"/></div>
+                <div class="Trading_inquiry1_1_3">
+                <a href="javascript:void(0)" class="" onclick="dateSearch(0)"><div class="a_text1">今天</div></a>
+                <a href="javascript:void(0)" class="" onclick="dateSearch(7)"><div class="a_text1">最近7天</div></a>
+                <a href="javascript:void(0)" class="" onclick="dateSearch(30)"><div class="a_text1">1个月</div></a>
+                <a href="javascript:void(0)" class="" onclick="dateSearch(90)"><div class="a_text1" >3个月</div></a>
+                <a href="javascript:void(0)" class="" onclick="dateSearch(365)"><div class="a_text1" >1年前>></div></a>
+                </div>
+                <div class="Trading_inquiry1_1_4" onclick="show()">
+                	<a href="#"><span class="Trading_inquiry_color3">展开</span></a>&nbsp;
+                	<img src="$static_url/images/triangle.png" width="11" height="6" />
+                </div>
+                
+            </div>
+            
+            <div id="searchId" class="Trading_inquiry1_1" style="display:none">
+##            	<div class="Trading_inquiry1_1_1_new1">交易对方：</div>
+##                <div class="Trading_inquiry1_1_2_new2"><input name="tradSide" value="$!tradSearch.tradSide" type="text" class="Trading_inquiry——text1" /></div>
+            	<div class="Trading_inquiry1_1_1_new1">金额范围：</div>
+                <div class="Trading_inquiry1_1_2"><input name="minAmount" value="$!Entity_Search.getMinAmount()" onkeyup="value=value.replace(/[^\d\.]/g,'')" type="text" class="Trading_inquiry——text1" />&nbsp;&nbsp;-&nbsp;&nbsp;<input name="maxAmount" value="$!Entity_Search.getMaxAmount()" onkeyup="value=value.replace(/[^\d\.]/g,'')" type="text" class="Trading_inquiry——text1" /></div>
+                <div class="Trading_inquiry1_1_1_new1">交易号：</div>
+                <div class="Trading_inquiry1_1_2_new2"><input name="investNo" value="$!Entity_Search.getInvestNo()" type="text" class="Trading_inquiry——text1" /></div>
+            </div>
+            
+##            <div id="searchId2" class="Trading_inquiry1_1" style="display:none">
+##                <div class="Trading_inquiry1_1_1_new1">交易名称：</div>
+##				<div class="Trading_inquiry1_1_2_new2"><input name="tradName" type="text" class="Trading_inquiry——text1" value="$!tradSearch.tradName"/></div>
+            ##</div>
+            
+            <div class="Trading_inquiry1_1" >
+            	<div class="Trading_inquiry1_1_1"></div>
+                <div class="Trading_inquiry1_1_2_new1"><input type="submit" class="anniuBlue" value="查询" /></div>
+##                <div class="Trading_inquiry1_1_1"><a href="javascript:void(0)"><span class="Trading_inquiry_color3">重置</span></a></div>
+                
+            </div>
+            
+##            <div class="Trading_inquiry1_1" >
+##            	<div class="Trading_inquiry1_2_1">交易状态：</div>
+##                <div class="Trading_inquiry1_2_2">
+##                <a href="javascript:void(0)" onclick="showStatus()" class=""><div class="a_text2" >所有投资</div></a>
+##                <a href="javascript:void(0)" onclick="showStatus('WF')" class=""><div class="a_text2">待成立的投资</div></a>
+##                <a href="javascript:void(0)" onclick="showStatus('N')" class=""><div class="a_text2">未到期的投资</div></a>
+##                <a href="javascript:void(0)" onclick="showStatus('NG')" class=""><div class="a_text2">正常收款的投资</div></a>
+##                <a href="javascript:void(0)" onclick="showStatus('NF')" class=""><div class="a_text2">未成立的投资</div></a>
+##                </div>
+##            </div>
+##            <div class="Trading_inquiry1_1" >
+##            	<div class="Trading_inquiry1_2_1">&nbsp;</div>
+##                <div class="Trading_inquiry1_2_2">
+##                <a href="javascript:void(0)" class="" onclick="showStatusA('PNG')"><div class="a_text3">到期未还款的投资</div></a>
+##                <a href="javascript:void(0)" class="" onclick="showStatusA('V')"><div class="a_text3">担保机构审核中的投资</div></a>
+##                <a href="javascript:void(0)" class="" onclick="showStatusA('WT')"><div class="a_text3">等待还款的投资</div></a>
+##                <a href="javascript:void(0)" class="" onclick="showStatusA('TG')"><div class="a_text3">超期收款的投资</div></a>
+##                </div>
+##            </div>
+        	<input type="hidden" name="searchDate" #if($!tradSearch.searchDate) value="$!tradSearch.searchDate" #else value="7" #end/>
+##        	<input type="hidden" name="tradStatus" #if($!tradSearch.tradStatus) value="$!tradSearch.tradStatus" #else value="0" #end/>
+        	<input type="hidden" name="totalRows">
+        	<input type="hidden" name="currentPage">
+        </div>
+        
+         <div class="Trading_inquiry2">
+        	<div class="Trading_inquiry2_1">个人总投资金额：<span class="Trading_inquiry_color5" >$!tradeTotalAmount.getAmount()</span>&nbsp;元&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  个人总投资笔数：<span class="Trading_inquiry_color5" >$!tradeTotalAmount.getCount()</span>&nbsp;笔</div>
+            <div class="Trading_inquiry2_2_New">
+            	<div class="Trading_inquiry2_2_1">投资流水号</div>
+                <div class="Trading_inquiry2_2_1">名称</div>
+##                <div class="Trading_inquiry2_2_1">投资接受人</div>
+                <div class="Trading_inquiry2_2_1">投资时间</div>
+                <div class="Trading_inquiry2_2_1">到期时间</div>
+                <div class="Trading_inquiry2_2_1">交易金额（元）</div>
+                <div class="Trading_inquiry2_2_1">预期收益（元）</div>
+                <div class="Trading_inquiry2_2_1">交易状态</div>
+                <div class="Trading_inquiry2_2_1">操作</div>
+            </div>
+            
+        </div>
+        
+			#if($pager.getElements().size()>0)
+                #foreach($investRecord in $pager.getElements())
+				<div class="Trading_inquiry2_3_new1">
+    				<div class="Trading_inquiry2_2_1_new1">$!{investRecord.getInvestNo()}</div>
+                    <div class="Trading_inquiry2_2_1_new1"><span class="Trading_inquiry_color3">$!investRecord.getProject().getName()</span></div>
+##                    <div class="Trading_inquiry2_2_1_new1">$!investRecord.userName</div>
+                    <div class="Trading_inquiry2_2_1_new1">$!investRecord.getFormatIssueDate()</div>
+                    <div class="Trading_inquiry2_2_1_new1">$!investRecord.getFormatDueDate()</div>
+                    <div class="Trading_inquiry2_2_1_new1"><span class="Trading_inquiry_color5" >$!investRecord.getBalance()</span></div>
+                    <div class="Trading_inquiry2_2_1_new1"><span class="Trading_inquiry_color5" >$!investRecord.getBalanceDue()</span></div>
+                    <div class="Trading_inquiry2_2_1_new1"><span class="Trading_inquiry_color6" >$!Map_CodeList_InvestmentStatus.get($!investRecord.status)</span></div>
+                    <div class="Trading_inquiry2_2_1_new1"><a href="$front_url/myAccount/investRecordDetail.html?id=$!investRecord.getId()"><span class="Trading_inquiry_color3">详情</span></a></div>
+                </div>
+				#end
+            #else
+            	 <div class="Trading_inquiry2_3">暂时没有投资记录</div>
+            #end
+            
+			#parse("myAccount/commonPager.vm")
+        
+         
+        
+  	</div>
+    </div>
+  
+</div>
+</div>
+</form>
+
+ #parse("layout/footer.vm")
+</body>
+<script type="text/javascript">
+
+function show(){
+	if($("#searchId").css("display")=="none" && $("#searchId2").css("display")){
+		$("#searchId").show();
+//		$("#searchId2").show();
+	}else{
+		$("#searchId").hide();
+//		$("#searchId2").hide();
+	}
+}
+
+function page(num) {
+	$("form").attr("action", $("form").attr("action") + "?totalRows=" + $!pager.totalRows + "&currentPage=" + num + "&pagerSize=" + $!pager.pageSize).submit();
+}
+	
+	
+</script>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>业务运营管理系统</title>
+#parse("admin/layout/head.vm")
+<link href="$static_url/admin/css/lanrenzhijia.css" type="text/css" rel="stylesheet" />
+<script src="$static_url/admin/js/jquery.min.js"></script>
+<script src="$static_url/admin/js/lanrenzhijia.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+body {
+	margin-left: 10px;
+	margin-top: 10px;
+}
+</style>
+</head>
+<body>
+<div class="lanrenzhijia" style="float:left">
+      <div class="left1">后台首页</div>
+      <ul id="nav_dot">
+      <li>
+          <h4>客户管理</h4>
+          <div class="list-item none">
+          	<!--  点击添加样式class="on"  -->
+            <a href='$admin_url/customer/user.html' target="mainFrame">个人用户管理</a>
+            <a href='$admin_url/customer/agency.html' target="mainFrame">机构用户管理</a>
+            <a href='$admin_url/customer/listMarketingAgency.html' target="mainFrame">营销人员管理</a>
+##            <a href='' target="mainFrame">实名认证查询</a>
+          </div>
+        </li>
+        <li>
+          <h4>产品管理</h4>
+          <div class="list-item none">
+            <a href='$admin_url/product/productAdd.html' target="mainFrame">发布新产品</a>
+##            <a href='' target="mainFrame">草稿箱</a>
+	        #if($!shiro.hasPermission("product:audit"))
+				<a href='$admin_url/product/productReviewing.html' target="mainFrame">产品发布审核</a>
+			#end
+          	<a href='$admin_url/product/productReviewed.html' target="mainFrame">产品发布审核结果</a>
+            <a href='$admin_url/product/project.html' target="mainFrame">项目管理</a>
+            <a href='$admin_url/product/guarantee.html' target="mainFrame">担保函管理</a>
+                    
+           </div>
+        </li>
+##        <li>
+##          <h4 >交易管理</h4>
+##          <div class="list-item none">
+##          	<a href='' target="mainFrame">交易查询</a>
+##            <a href='' target="mainFrame">充值查询</a>
+##            <a href='' target="mainFrame">提现查询</a>
+##            <a href='' target="mainFrame">账户收支查询</a>
+##   
+##          </div>
+##        </li>
+        
+	    <li>
+          <h4 >借款人预约管理</h4>
+          <div class="list-item none">
+          <a href='$admin_url/borrower/query.html' target="mainFrame">查询</a>
+          </div>
+        </li>
+		
+##        <li>
+##          <h4 >信息管理</h4>
+##          <div class="list-item none">
+##          <a href='' target="mainFrame">添加</a>
+##          <a href='' target="mainFrame">查询</a>
+##      
+##          </div>
+##        </li>
+        
+        <li>
+          <h4 >费用配置管理</h4>
+          <div class="list-item none">
+			<a href='$admin_url/cost/commission.html' target="mainFrame">佣金管理</a>
+##          <a href='' target="mainFrame">收费管理</a>
+          </div>
+        </li>
+        
+        <li>
+          <h4 >业务管理</h4>
+          <div class="list-item none">
+			<a href='$admin_url/biz/invests.html' target="mainFrame">投资统计</a>
+##          <a href='$admin_url/biz/register.html' target="mainFrame">注册统计</a>
+##          <a href='$admin_url/biz/project.html' target="mainFrame">项目统计</a>
+##          <a href='$admin_url/biz/fund.html' target="mainFrame">资金统计</a>
+##          <a href='$admin_url/biz/accountOut.html' target="mainFrame">充值统计</a>
+##          <a href='$admin_url/biz/accountIn.html' target="mainFrame">提现统计</a>
+##          <a href='$admin_url/biz/agency.html' target="mainFrame">业务一览图</a>
+##          <a href='$admin_url/biz/product.html' target="mainFrame">业务明细图</a>
+          </div>
+        </li>
+        
+##        <li>
+##          <h4 >系统管理</h4>
+##          <div class="list-item none">
+##          <a href='' target="mainFrame">系统用户管理</a>
+##          <a href='' target="mainFrame">系统角色管理</a>
+##      
+##          </div>
+##        </li>
+  </ul>
+</div>
+<script>
+  navList(12);
+</script>
+</body>
+</html>

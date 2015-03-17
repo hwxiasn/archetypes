@@ -1,0 +1,391 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+<link rel="stylesheet" type="text/css" href="$static_url/css/index.css"/>
+<link rel="stylesheet" type="text/css" href="$static_url/css/loan.css">
+
+<script src="$static_url/admin/js/jquery.min.js"></script>
+<script src="$static_url/admin/js/jquery.validate.js"></script>
+<script src="$static_url/admin/js/jquery.metadata.js"></script>
+<script src="$static_url/admin/js/messages_cn.js"></script>
+
+<script>
+
+//验证姓名(2~15位汉字)
+function checkName() { 
+	if (/^[\u4e00-\u9fa5]{2,15}$/.test($("#name").val())) {
+		$("#nameWarning").html("");
+		return true;
+	} else {
+		$("#nameWarning").html("&nbsp;<img src='$static_url/images/zhuyi.png' width='13' height='13'>&nbsp;请输入合法的真实姓名");
+		$("#name").focus();
+		return false;
+	}
+}
+
+// 验证年龄(正整数)
+function checkAge() {
+	if (/^\d+$/.test($("#age").val())) {
+		$("#ageWarning").html("");
+		return true;
+	} else {
+		$("#ageWarning").html("&nbsp;<img src='$static_url/images/zhuyi.png' width='13' height='13'>&nbsp;请输入合法的年龄");
+		$("#age").focus();
+		return false;
+	}
+}
+
+//验证身份证号
+function checkIdentity() { 
+	var result = identityCodeValid($("#idSerial").val());
+	if (!result) {
+		$("#idSerialWarning").html("");
+		return true;
+	} else {
+		$("#idSerialWarning").html("&nbsp;<img src='$static_url/images/zhuyi.png' width='13' height='13'>&nbsp;" + result + "&nbsp;请输入合法的身份证号");
+		$("#idSerial").focus();
+		return false;
+	}
+}
+
+//验证手机号
+function checkPhone(){
+	if (/^1\d{10}$/.test($("#phone").val())) {
+		$("#phoneWarning").html("");
+		return true;
+	} else {
+		$("#phoneWarning").html("&nbsp;<img src='$static_url/images/zhuyi.png' width='13' height='13'>&nbsp;请输入正确的手机号码");
+		$("#phone").focus();
+		return false;
+	}
+}
+
+//验证借款金额(正整数)
+function checkAmount() {
+	if (/^\d+$/.test($("#loanAmount").val())) {
+		$("#amountWarning").html("");
+		return true;
+	} else {
+		$("#amountWarning").html("&nbsp;<img src='$static_url/images/zhuyi.png' width='13' height='13'>&nbsp;请输入正整数");
+		$("#loanAmount").focus();
+		return false;
+	}
+}
+
+//验证资金用途(2~30位汉字)
+function checkPurpose() { 
+	if (/^[\u4e00-\u9fa5]{2,30}$/.test($("#purpose").val())) {
+		$("#purposeWarning").html("");
+		return true;
+	} else {
+		$("#purposeWarning").html("&nbsp;<img src='$static_url/images/zhuyi.png' width='13' height='13'>&nbsp;请输入纯汉字（2~30个）");
+		$("#purpose").focus();
+		return false;
+	}
+}
+
+//验证还款来源(2~15位汉字)
+function checkSource() { 
+	if (/^[\u4e00-\u9fa5]{2,15}$/.test($("#returnSource").val())) {
+		$("#sourceWarning").html("");
+		return true;
+	} else {
+		$("#sourceWarning").html("&nbsp;<img src='$static_url/images/zhuyi.png' width='13' height='13'>&nbsp;请输入纯汉字（2~30个）");
+		$("#returnSource").focus();
+		return false;
+	}
+}
+
+$(function(){
+	// 装入表单验证
+	$("#theForm").validate();
+	
+	// 验证
+	$("#name").blur(checkName);
+	$("#age").blur(checkAge);
+	$("#idSerial").blur(checkIdentity);
+	$("#phone").blur(checkPhone);
+	$("#loanAmount").blur(checkAmount);
+	$("#purpose").blur(checkPurpose);
+	$("#returnSource").blur(checkSource);
+	
+	// 提交
+	$("#submitAdd").click(function(){
+		if(	!checkName() || !checkAge() || !checkIdentity() || !checkPhone() || !checkAmount() || !checkPurpose() || !checkSource() ||
+			!/^(\d+)?$/.test($("#registerCapital").val()) || !/^(\d+)?$/.test($("#foundYear").val()) || !/^(\d+)?$/.test($("#foundMonth").val()) 	
+			){
+				//alert("非常抱歉，您所填内容无法通过校验，\n 烦请您仔细检查并完善填写");
+				return;
+			}
+			$("#theForm").submit();
+		});
+});
+
+function showDiv(success){
+	document.getElementById('popDiv').style.display='block';
+	document.getElementById('popIframe').style.display='block';
+	document.getElementById('bg').style.display='block';
+	if(success){
+		document.getElementById('successPrompt').style.display='block';
+	}else{
+		document.getElementById('failPrompt').style.display='block';
+	}
+}
+
+function closeDiv(success){
+	if(success){
+		window.location = "$front_url/index.html";
+	}else{
+		document.getElementById('popDiv').style.display='none';
+		document.getElementById('popIframe').style.display='none';
+		document.getElementById('bg').style.display='none';
+	}
+}
+
+function identityCodeValid(code) { 
+    var city={11:"北京",12:"天津",13:"河北",14:"山西",15:"内蒙古",21:"辽宁",22:"吉林",23:"黑龙江 ",31:"上海",32:"江苏",33:"浙江",34:"安徽",35:"福建",36:"江西",37:"山东",41:"河南",42:"湖北 ",43:"湖南",44:"广东",45:"广西",46:"海南",50:"重庆",51:"四川",52:"贵州",53:"云南",54:"西藏 ",61:"陕西",62:"甘肃",63:"青海",64:"宁夏",65:"新疆",71:"台湾",81:"香港",82:"澳门",91:"国外 "};
+    var tip = "";
+    var pass= true;
+    
+    if(!code || !(/(^\d{15}$)|(^\d{17}([0-9]|X|x)$)/.test(code))){
+        tip = "身份证号格式错误";
+    }else if(!city[code.substr(0,2)]){
+        tip = "身份证号地址编码错误";
+    }else{
+        //18位身份证需要验证最后一位校验位
+        if(code.length == 18){
+            code = code.split('');
+            //∑(ai×Wi)(mod 11)
+            //加权因子
+            var factor = [ 7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2 ];
+            //校验位
+            var parity = [ 1, 0, 'X', 9, 8, 7, 6, 5, 4, 3, 2 ];
+            var sum = 0;
+            var ai = 0;
+            var wi = 0;
+            for (var i = 0; i < 17; i++){
+                ai = code[i];
+                wi = factor[i];
+                sum += ai * wi;
+            }
+            var last = parity[sum % 11];
+            if(parity[sum % 11] != code[17]){
+                tip = "身份证号校验位错误";
+            }
+        }
+    }
+    return tip;
+}
+
+</script>
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<!--    内容     -->
+<form id="theForm" action="$front_url/fundraising.html" method="post">
+<div class="loanAll">
+	
+	<div class="loanMain">
+    	<div class="loanBg"></div>
+    	<div class="loanMain1">
+        	<div class="loanMain1All">
+        	
+            	<div class="loanMain1_all">
+                    <div class="loanMain1L"><span class="loanBlue">*</span>&nbsp;&nbsp;姓名：</div>
+                    <div class="loanMain1R">
+	                    <input id="name" name="name" value="$!info.name" type="text" class="loanMainText {required:true, messages:{required:'<img src=\'$static_url/images/zhuyi.png\' width=\'13\' height=\'13\' />&nbsp;&nbsp;<span class=\'loanHong\'>请输入姓名</span>'}}">
+						<span id="nameWarning" class="loanHong"></span>
+                    </div>
+                </div>
+                
+                <div class="loanMain1_all">
+                    <div class="loanMain1L"><span class="loanBlue">*</span>&nbsp;&nbsp;年龄：</div>
+                    <div class="loanMain1R">
+	                    <input id="age" name="age" value="$!info.age" type="text" maxlength="3" class="loanMainText60 {required:true, messages:{required:'<img src=\'$static_url/images/zhuyi.png\' width=\'13\' height=\'13\' />&nbsp;&nbsp;<span class=\'loanHong\'>请输入年龄</span>'}}">&nbsp;岁
+	                    <span id="ageWarning" class="loanHong"></span>
+                    </div>
+                </div>
+                
+                <div class="loanMain1_all">
+                    <div class="loanMain1L"><span class="loanBlue">*</span>&nbsp;&nbsp;身份证号：</div>
+                    <div class="loanMain1R">
+	                    <input id="idSerial" name="idSerial" value="$!info.idSerial" type="text" maxlength="18" class="loanMainText {required:true, messages:{required:'<img src=\'$static_url/images/zhuyi.png\' width=\'13\' height=\'13\' />&nbsp;&nbsp;<span class=\'loanHong\'>请输入身份证号</span>'}}">
+	                    <span id="idSerialWarning" class="loanHong"></span>
+                    </div>
+                </div>
+                
+                <div class="loanMain1_all">
+                    <div class="loanMain1L"><span class="loanBlue">*</span>&nbsp;&nbsp;我的性别：</div>
+                    <div class="loanMain1R">
+	                    <input name="sex" type="radio" value="M" checked>&nbsp;先生&nbsp;
+	                    <input name="sex" type="radio" value="F">&nbsp;女士
+	                </div>
+                </div>
+                
+                <div class="loanMain1_all">
+                    <div class="loanMain1L"><span class="loanBlue">*</span>&nbsp;&nbsp;婚姻状况：</div>
+                    <div class="loanMain1R">
+	                    <input name="maritalStatus" type="radio" value="1" checked>&nbsp;未婚&nbsp;
+	                    <input name="maritalStatus" type="radio" value="2">&nbsp;已婚&nbsp;
+	                    <input name="maritalStatus" type="radio" value="3">&nbsp;离异
+                    </div>
+                </div>
+                
+                <div class="loanMain1_all">
+                    <div class="loanMain1L"><span class="loanBlue">*</span>&nbsp;联系电话：</div>
+                    <div class="loanMain1R">
+	                    <input id="phone" name="phone" value="$!info.phone" type="text" maxlength="11" class="loanMainText {required:true, messages:{required:'<img src=\'$static_url/images/zhuyi.png\' width=\'13\' height=\'13\' />&nbsp;&nbsp;<span class=\'loanHong\'>请输入手机号</span>'}}">
+	                    <span id="phoneWarning" class="loanHong"></span>
+                    </div>
+                </div>
+                
+                <div class="loanMain1_all">
+                    <div class="loanMain1L">&nbsp;QQ：</div>
+                    <div class="loanMain1R">
+                    	<input name="contactQq" type="text" value="$!info.contactQq" class="loanMainText">
+                    </div>
+                </div>
+                
+                <div class="loanMain1_all">
+                    <div class="loanMain1L">居住地址：</div>
+                    <div class="loanMain1R">
+                    	<input name="address" type="text" value="$!info.address" class="loanMainTextD">
+                    </div>
+                </div>
+                <div class="loanMain1_font">例：XX区XX街XX路XX号</div>
+
+            </div>
+            
+        </div>
+        
+        <div class="loanMain2">
+        	<div class="loanMain2_1">借款信息</div>
+        	<div class="loanMain1All">
+        	
+            	<div class="loanMain1_all">
+                    <div class="loanMain1L"><span class="loanBlue">*</span>&nbsp;&nbsp;借款金额：</div>
+                    <div class="loanMain1R">
+						<input id="loanAmount" name="loanAmount" value="$!info.loanAmount" type="text" class="loanMainText {required:true, messages:{required:'<img src=\'$static_url/images/zhuyi.png\' width=\'13\' height=\'13\' />&nbsp;&nbsp;<span class=\'loanHong\'>请输入借款金额</span>'}}">&nbsp;万元
+                    	<span id="amountWarning" class="loanHong"></span>
+                    </div>
+                </div>
+                
+                <div class="loanMain1_all">
+                    <div class="loanMain1L"><span class="loanBlue">*</span>&nbsp;&nbsp;借款期限：</div>
+                    <div class="loanMain1R">
+	                    <input name="loanTerm" type="radio" value="1" >			&nbsp;一月期&nbsp;
+	                    <input name="loanTerm" type="radio" value="3" checked>	&nbsp;三月期&nbsp;
+	                    <input name="loanTerm" type="radio" value="6" >			&nbsp;半年期&nbsp;
+	                    <input name="loanTerm" type="radio" value="9" >			&nbsp;九月期&nbsp;
+	                    <input name="loanTerm" type="radio" value="12">			&nbsp;一年期&nbsp;
+                    </div>
+                </div>
+                
+                <div class="loanMain1_all">
+                    <div class="loanMain1L"><span class="loanBlue">*</span>&nbsp;&nbsp;资金用途：</div>
+                    <div class="loanMain1R">
+	                    <input id="purpose" name="purpose" type="text" value="$!info.purpose" class="loanMainTextD {required:true, messages:{required:'<img src=\'$static_url/images/zhuyi.png\' width=\'13\' height=\'13\' />&nbsp;&nbsp;<span class=\'loanHong\'>请输入资金用途</span>'}}">
+                    	<span id="purposeWarning" class="loanHong"></span>
+                    </div>
+                </div>
+                <div class="loanMain1_font">例：补充流动资金、购买原材料、经营性支出等。</div>
+                
+                <div class="loanMain1_all">
+                    <div class="loanMain1L"><span class="loanBlue">*</span>&nbsp;&nbsp;还款来源：</div>
+                    <div class="loanMain1R">
+	                    <input id="returnSource" name="returnSource" value="$!info.returnSource" type="text" class="loanMainTextD {required:true, messages:{required:'<img src=\'$static_url/images/zhuyi.png\' width=\'13\' height=\'13\' />&nbsp;&nbsp;<span class=\'loanHong\'>请输入还款来源</span>'}}">&nbsp;
+	                    <span id="sourceWarning" class="loanHong"></span>
+                    </div>
+                </div>
+                <div class="loanMain1_font">例：贷款回笼</div>
+                
+                <div class="loanMain1_all">
+                    <div class="loanMain1L">经营范围：</div>
+                    <div class="loanMain1R">
+                    <input name="businessScope" value="$!info.businessScope" type="text" class="loanMainTextD">&nbsp;
+                    
+                    </div>
+                </div>
+                <div class="loanMain1_all">
+                    <div class="loanMain1L">注册资金：</div>
+                    <div class="loanMain1R">
+                    <input id="registerCapital" name="registerCapital" value="$!info.registerCapital" type="text" class="loanMainText">&nbsp;万元
+                    
+                    </div>
+                </div>
+                <div class="loanMain1_all">
+                    <div class="loanMain1L">成立时间：</div>
+                    <div class="loanMain1R">
+	                    <input id="foundYear" name="foundYear" value="$!info.foundYear" type="text" class="loanMainText100">&nbsp;年&nbsp;
+	                    <input id="foundMonth" name="foundMonth" value="$!info.foundMonth" type="text" class="loanMainText60">&nbsp;月
+                    </div>
+                </div>
+                
+                <div class="loanMain1_LY">
+                    <div class="loanMainLYL">留言：</div>
+                    <div class="loanMainLYR">
+                    <textarea name="message" cols="50" rows="10">$!info.message</textarea>
+                    
+                    </div>
+                 </div>
+               
+                <div class="loanMain1_all">
+                    <div class="loanMain1L"></div>
+                    <div class="loanMain1R">
+                    <a id="submitAdd" class="loanOrange">确认预约</a>
+                    
+                    
+                    	<!--  弹出层   -->
+                        <div id="popDiv" class="mydiv" style="display:none;">
+                        	<!--  成功提示   -->
+							<div id="successPrompt" style="display:none;">
+	                            <div class="mydiv1"><a href="javascript:closeDiv(true)" class="mydivGB"></a></div>
+	                            <div class="mydiv2">
+		                            <img src="$static_url/images/chenggong.png" width="31" height="31">&nbsp;&nbsp;
+		                            <span style="font-size:15px;"><b>恭喜您，借款预约成功！</b></span><br/>
+		                            <span class="loanHui">平台工作人员将在三个工作日内与您取得联系</span>
+	                            </div>
+                            </div>
+                            <!--  失败提示   -->
+                            <div id="failPrompt" style="display:none;">
+	                            <div class="mydiv1"><a href="javascript:closeDiv(false)" class="mydivGB"></a></div>
+	                            <div class="mydiv2_1">
+	                            	<img src="$static_url/images/fail.png" width="31" height="31">
+	                            	&nbsp;&nbsp;&nbsp;&nbsp;
+	                            	<span style="font-size:15px;"><b>$!msg</b></span><br/>
+                            	</div>
+                         	</div>
+                        </div>
+                        
+                        <div id="bg" class="bg" style="display:none;"></div>
+                        <iframe id='popIframe' class='popIframe' frameborder='0' ></iframe>
+                    	<!--  弹出层   -->
+                    	
+                    	
+                  </div>
+                </div>
+            </div>
+        </div>
+        
+  </div>
+</div>
+</form>
+
+#parse("layout/footer.vm")
+
+
+<script type="text/javascript">
+	#if($!ok == "Y")
+		showDiv(true);
+	#elseif($!ok == "N")
+		showDiv(false);
+	#end
+</script>
+
+</body>
+</html>

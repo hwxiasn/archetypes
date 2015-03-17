@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/AboutUs.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+body {
+	background-color:#eeeeef;
+}
+</style>
+
+</head>
+
+<body>
+<!--    top     -->
+#parse("layout/header.vm")
+
+<!---------------内容---------------->
+<div class="AboutUs1">
+	<div class="AboutUs1_L">
+    	<div class="AboutUs1_L_u"><img src="$static_url/images/aboutus1.png" width="191" height="67" /></div>
+         <div class="AboutUs1_L_b">
+        	<a href="$front_url/platformNotice.html" class="on">平台公告</a>
+            <a href="$front_url/platformNotice.html?hy">行业新闻</a>
+          
+        </div>
+   </div>
+  <div class="AboutUs1_R">
+    <div class="AboutUs1_R1">
+      <div class="AboutUs1_R1_L"><b>平台公告</b></div>
+        <div class="AboutUs1_R1_R"></div>
+    </div>
+    <div class="AboutUs1_R2_news"><b>[接力贷第0010期]个人经营项目流动资金需求320万元还款公告</b><br/><span style="font-size:13px;">2015年03月15日 16:20:23 </span></div>
+    <div class="AboutUs1_R3">
+    <p>亲爱的香粉们(财富箱的粉丝)，本次还款项目信息如下：</p><br/>
+    <p><b>项目名称: </b><span class="color_hong">[接力贷第0010期]个人经营项目流动资金需求320万元</span></p>
+    <p><b>担保函编号: </b><span class="color_hong">向南接力贷CN【2014】字0010号</span></p>
+    <p><b>项目期限：</b><span class="color_hong">3个月</span></p>
+    <p><b>年化收益率：</b><span class="color_hong">11.7%</span></p><br/>
+    <p>借款接受人成功还款本金（人民币） 3,200,000.00元，并于今日还款总利息93,600.00元。 该项目在3月期内向28名香粉提供利息收益（人民币）93,600.00元。 请香粉们登录账户查看明细。</p>
+    <p>借款接受人在此委托财富箱向所有香粉表示感谢，感谢各位香粉在借款接受人急需帮助的时候提供了资金支持。</p>
+    <p>对资金信息有疑问的香粉们，欢迎致电详询：023-62559988。</p>
+    <p>财富箱在这里祝您生活愉快。</p>
+    
+	<span style="float:right; padding-right:20px;">财富箱运营团队<br/>
+    2015年03月15日</span>
+    <br/><br/>
+   
+    <div class="news_fanhui"><a href="javascript:history.go(-1);">返回</a></div>
+
+     </div>
+        
+  </div>
+</div>
+
+<div class="AboutUs_xian"></div>
+
+<!---------------尾部-------------->
+<!--    bottom     -->
+#parse("layout/footer.vm")
+
+</body>
+</html>

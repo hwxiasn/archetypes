@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>业务运营管理系统</title>
+#parse("admin/layout/head.vm")
+<link href="$static_url/admin/css/css.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/admin/css/admin.css" rel="stylesheet" type="text/css" />
+	##放大担保函的
+<script src="$static_url/layer/layer.min.js"></script>
+<style type="text/css">
+.box{width:100%; height:100%;}
+.box a{padding-right:15px;}
+#about_hide{display:none}
+.layer_text{background-color:#fff; padding:20px;}
+.layer_text p{margin-bottom: 10px; text-indent: 2em; line-height: 23px;}
+.button{display:inline-block; *display:inline; *zoom:1; line-height:30px; padding:0 20px; background-color:#56B4DC; color:#fff; font-size:14px; border-radius:3px; cursor:pointer; font-weight:normal;}
+.imgs img{width:200px; height:100px; padding:0 3px 3px; cursor:pointer;}	
+	
+a:link {
+	color: #8e8e8e;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #8E8E8E;
+}
+a:hover {
+	text-decoration: none;
+	color: #F00;
+}
+a:active {
+	text-decoration: none;
+	color: #F00;
+}
+#current,#options { border:1px solid #a0a0a0;}
+#replace {cursor:default;overflow:visible;position:relative;}
+#current { background:url("$static_url/admin/images/dropdown.png") right center no-repeat;margin-bottom:0;}
+#current,#replace,#options li { width:150px;}
+#options { border-top:0 none; display:none;list-style-type:none;margin-top:0;position:absolute;width:160px;}
+#current,#options li {padding:5px;}
+#current,#options,#options li {background-color:#FFF;}
+</style>
+<script language="javascript" type="text/javascript">
+;!function(){
+    layer.use('extend/layer.ext.js', function(){
+        //初始加载即调用，所以需放在ext回调里
+        layer.ext = function(){
+            layer.photosPage({
+                
+                title: '相关执照图片',
+                id: 100, //相册id，可选
+                parent:'#imgs'
+            });
+        };
+    });
+   }();
+</script>
+</head>
+<body>
+<!--  主要内容  -->
+<div class="divMain">
+	<!--  查询开始  -->
+    <form action="" method="post" name="form1">
+	<div class="divMain_chaxun">
+    	<!--  标题  -->
+    	<div class="divMain_add_bt line_botoom">担保信息</div>
+        <!--  内容  -->
+        <div class="divMain_xq_all line_botoom">
+        	<!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">担保机构：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!Entity_Project.guaranteeName</div>
+            </div>
+            
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">担保承诺函编号：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">
+					$!Entity_Project.commitmentLetterSn
+				</div>
+            </div>
+            
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">*&nbsp;担保类型：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">
+					<input type="radio" name="type" value="G" #if($!Entity_Project.project.type == "G") checked #end> 担保贷  
+		            <input type="radio" name="type" value="L" #if($!Entity_Project.project.type == "L") checked #end> 接力贷 
+				</div>
+            </div>
+            
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">担保承诺函：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">
+            	  <div class="box">
+					<div id="imgs" class="imgs">
+						<img src="$uploads/$!Entity_Project.guaranteeLetterPath" alt="担保承诺函"/>
+                    </div>
+		           </div>
+		           <a href="" class="a1">下载</a>
+                </div>
+            </div>
+       </div>
+        <!--  标题  -->
+    	<div class="divMain_add_bt line_botoom">项目基本信息</div>
+        <!--  内容  -->
+        <div class="divMain_xq_all line_botoom">
+        	<!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">项目编号：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!Entity_Project.project.id</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">用户名：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!Entity_Project.borrowerName</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">真实姓名：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!Entity_Project.realName</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">项目标题：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!Entity_Project.project.name </div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">借款金额：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!Entity_Project.totalAmount &nbsp;万元&nbsp;</div>
+            </div>
+            
+             <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">年利率：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!Entity_Project.interestPercent</div>
+            </div>
+            
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">借款期限：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!Map_CodeList_LoanType_Map.get($!{Entity_Project.project.periodType}).get($!{Entity_Project.project.period}).name</div>
+            </div>
+            
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">还款方式：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!{Map_CodeList_CommissionTemplateType.get($!{Entity_CommissionTemplate_Repay.getAllotType()}).getName()}</div>
+            </div>
+            
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">最低投资：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!Entity_Project.project.minimalInvestment 元</div>
+            </div>
+            
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">满标条件：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!Entity_Project.project.getSettleTermsAmount() &nbsp元</div>
+            </div>
+            
+            
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">借款用途：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!Entity_Project.project.purpose </div>
+            </div>
+            
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">截止日期：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!dateTool.format("yyyy-MM-dd", $!Entity_Project.project.investEndDate)</div>
+            </div>
+            
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">起始投资时间：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!dateTool.format("yyyy-MM-dd", $!Entity_Project.investStart)</div>
+            </div>
+          </div>   
+       <!--  标题  -->
+    	<div class="divMain_add_bt line_botoom">保荐人信息</div>     
+            <!--  内容  -->
+           <div class="divMain_xq_all line_botoom">
+             <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">保荐机构：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!Entity_Project.sponsorInstitution</div>
+            </div>
+              <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">保荐机构话语：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!Entity_Project.sponsorSay</div>
+            </div>
+           </div>    
+         <!--  标题  -->
+    	<div class="divMain_add_bt line_botoom">分润信息</div>     
+            <!--  内容  -->
+           <div class="divMain_xq_all line_botoom">
+             <!--   块   -->
+        	  <div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">筹资阶段：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">
+            	   $!Entity_CommissionTemplate_Funding.getName() &nbsp;&nbsp;&nbsp;
+            	   (<span class="Mcolor_1">$!{Map_CommissionTemplate_Fundrasing.get($!{Entity_CommissionTemplate_Funding.getId().toString()}).getRoleRates()}</span>)
+            	</div>
+              </div>
+                  <!--   块   -->
+        	  <div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">还款阶段：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">
+            	   $!Entity_CommissionTemplate_Repay.getName() &nbsp;&nbsp;&nbsp;
+            	  (<span class="Mcolor_1">$!{Map_CommissionTemplate_Repay.get($!{Entity_CommissionTemplate_Repay.getId().toString()}).getRoleRates()}</span>)
+            	</div>
+              </div>
+            </div>  
+            
+            <!--  标题  -->
+    	<div class="divMain_add_bt line_botoom">尽职调查</div>
+        <!--  内容  -->
+        <div class="divMain_xq_all line_botoom">
+                  <!--   块   -->
+        	  <div class="divMain_xq_allOne">
+				<div class="divMain_xq_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;借款人：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_alltwo_R">$!Entity_LoaneeInfo.loaneeName</div>
+                </div>
+				<div class="divMain_xq_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;身份证号：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_alltwo_R">$!Entity_LoaneeInfo.loaneeIdSerial</div>
+                </div>
+              </div>
+              
+              
+                <!--   块   -->
+        	  <div class="divMain_xq_allOne">
+				<div class="divMain_xq_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;年龄：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_alltwo_R">$!Entity_LoaneeInfo.loaneeAge 岁</div>
+                </div>
+				<div class="divMain_xq_alltwoAll">	
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;性别：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_alltwo_R">#if($!Entity_LoaneeInfo.getLoaneeSex()=="M")&nbsp;先生&nbsp;#else &nbsp;女士 #end</div>
+                </div>			
+              </div>
+              
+               <!--   块   -->
+        	  <div class="divMain_xq_allOne">
+				<div class="divMain_xq_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;居住地：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_alltwo_R">$!Entity_LoaneeInfo.loaneeAddress</div>
+                </div>
+				<div class="divMain_xq_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;婚姻状况：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_alltwo_R">#if($!Entity_LoaneeInfo.getLoaneeMaritalStatus()=="1")&nbsp;未婚&nbsp;#elseif($!Entity_LoaneeInfo.getLoaneeMaritalStatus()=="2")&nbsp;已婚&nbsp; #elseif($!Entity_LoaneeInfo.getLoaneeMaritalStatus()=="3")&nbsp;离异#end</div>
+                </div>
+			  </div>
+              
+              
+               <!--   块   -->
+        	  <div class="divMain_xq_allOne">
+				<div class="divMain_xq_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;累计成功借款：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_alltwo_R">$!Entity_LoaneeInfo.loaneeHadCount 笔</div>
+                </div>
+				<div class="divMain_xq_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;累计借款金额：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_alltwo_R">$!Entity_LoaneeInfo.loaneeHadAmount 万元</div>
+                </div>
+              </div>
+              
+              <!--   块   -->
+        	  <div class="divMain_xq_allOne">
+				<div class="divMain_xq_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;当前待还金额：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_alltwo_R">$!Entity_LoaneeInfo.loaneeNeedRepay 万元</div>
+                </div>
+				<div class="divMain_xq_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;累计逾期还款：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_alltwo_R">$!Entity_LoaneeInfo.loaneeMissedRepay 万元</div>
+                </div>	
+              </div>
+              
+              
+              <!--   块   -->
+        	  <div class="divMain_xq_allOne">
+				<div class="divMain_xq_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;资金用途：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_alltwo_R">$!Entity_LoaneeInfo.loaneePurpose</div>
+                </div>
+				<div class="divMain_xq_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;还款来源：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_alltwo_R">$!Entity_LoaneeInfo.loaneeSource</div>
+                </div>
+              </div>
+              
+               <!--   块   -->
+        	  <div class="divMain_xq_allOne">
+				<div class="divMain_xq_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;经营地址：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_alltwo_R">$!Entity_LoaneeInfo.loaneeEntAddress</div>
+                </div>
+				<div class="divMain_xq_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;经营范围：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_alltwo_R">$!Entity_LoaneeInfo.loaneeEntScope</div>
+                </div>	
+					
+              </div>
+              
+              <!--   块   -->
+        	  <div class="divMain_xq_allOne">
+				<div class="divMain_xq_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;注册资金：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_alltwo_R">$!Entity_LoaneeInfo.loaneeEntMoney 万元</div>
+                </div>	
+				<div class="divMain_xq_alltwoAll">	
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;成立时间：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_alltwo_R">$!Entity_LoaneeInfo.loaneeEntBorn</div>
+                </div>	
+              </div>
+              
+               <!--   块   -->
+        	  <div class="divMain_xq_allOne">
+				<div class="divMain_xq_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;上年营业收入：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_alltwo_R">$!Entity_LoaneeInfo.loaneeEntLastYear 万元</div>
+                </div>
+				<div class="divMain_xq_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;本年当前营业收入：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_alltwo_R">$!Entity_LoaneeInfo.loaneeEntThisYear 万元</div>
+                </div>
+              </div>
+              
+               <!--   块   -->
+        	  <div class="divMain_xq_allOne">
+				<div class="divMain_xq_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;人民银行征信查询：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_alltwo_R">$!Entity_LoaneeInfo.loaneePbVoucher</div>
+                </div>
+				<div class="divMain_xq_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">*&nbsp;全国法院被执行人信息查询：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_alltwo_R">$!Entity_LoaneeInfo.loaneeLoaneeVoucher</div>
+                </div>
+              </div>
+          <!--   块   -->
+          <div class="divMain_xq_allOne">
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">全国企业信用信息公示系统查询：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!Entity_LoaneeInfo.getLoaneeEntVoucher()</div>
+            </div>
+          </div>  
+         </div>    
+            
+           <!--  标题  -->
+    	<div class="divMain_add_bt line_botoom">发布信息</div>
+        <!--  内容  -->
+        <div class="divMain_xq_all line_botoom">   
+            <!--   块   -->
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">提交时间：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!dateTool.format("yyyy-MM-dd HH:mm:ss", $!Entity_Project.project.createAt)</div>
+            </div>
+        </div>    
+        <!--  标题  -->
+    	<div class="divMain_add_bt line_botoom">募集阶段</div>
+        <!--  内容  -->
+        <div class="divMain_chaxun">
+        <div class="divMain_liebiao_bt line_botoom">   
+           <span class="divMain_liebiao_one01" style="width:3%;">&nbsp;</span><span class="divMain_liebiao_one01" style="width:30%;">投资流水号</span><span class="divMain_liebiao_one01" style="width:15%;">投资时间</span><span class="divMain_liebiao_one01" style="width:17%;">投资金额(元)</span><span class="divMain_liebiao_one01" style="width:15%;">项目成立日</span><span class="divMain_liebiao_one01" style="width:10%;">交易状态</span><span class="divMain_liebiao_one01" style="width:10%;">合同下载</span>
+        </div> 
+        #if($!Pager_Investment.getElements().size()>0)
+	       #foreach($investDetail in $Pager_Investment.getElements())
+         <div class="divMain_liebiao_all line_botoom">   
+             <span class="divMain_liebiao_all01" style="width:3%;">&nbsp;</span><span class="divMain_liebiao_all01" style="width:30%;">$!investDetail.getInvestNo()</span><span class="divMain_liebiao_all01" style="width:15%;">$!investDetail.getFormatIssueDate()</span><span class="divMain_liebiao_all01" style="width:17%;">$!investDetail.getBalance()</span><span class="divMain_liebiao_all01" style="width:15%;">$!Entity_Project.getProject().getFormatSettleDate()</span><span class="divMain_liebiao_all01" style="width:10%;">$!{Map_CodeList_InvestmentStatus.get($!{investDetail.getStatus()})}</span><span class="divMain_liebiao_one01" style="width:10%;"><a href="$upload/uploads/contract/$!{investDetail.getInvestPath()}" target="_blank" class="a1">下载</a></span>
+         </div> 
+           #end
+	   #end
+	   
+	   
+	   <div class="divMain_add_bt line_botoom">还款阶段</div>
+	   
+	  #if($!Pager_Repayment.getElements().size()>0)
+          #foreach($investDetail in $Pager_Repayment.getElements())
+	    <!--  内容  -->
+        <div class="divMain_xq_all line_botoom">
+        
+                <!--   块   -->
+          <div class="divMain_xq_allOne">
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">还款流水号：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!investDetail.getId()</div>
+            </div>
+          </div> 
+              
+               <!--   块   -->
+        	  <div class="divMain_xq_allOne">
+				<div class="divMain_xq_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">预计还款日期：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_alltwo_R">$!investDetail.getFormatIssueDate()</div>
+                </div>
+				<div class="divMain_xq_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_alltwo_L">还款状态：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_alltwo_R">$!{Map_CodeList_RepaymentStatus.get($!{investDetail.getStatus()}).getName()}</div>
+                </div>
+				
+              </div>
+              
+                  <!--   块   -->
+        	  <div class="divMain_xq_allOne">
+				<div class="divMain_xq_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_allOne_L">应付总计：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_allOne_R_new">$!investDetail.getBalance()</div>
+                </div>
+				<div class="divMain_xq_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_allOne_L">还款时间：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_allOne_R">$!investDetail.getFormatRepayDate()</div>
+				</div>
+              </div>
+	     </div>  
+	     #end
+        #end
+         #if($!Entity_Project.status=="PS")
+	   <div class="divMain_add_bt line_botoom">发布信息</div>
+	    <!--  内容  -->
+        <div class="divMain_xq_all line_botoom">
+          <!--   块   -->
+          <div class="divMain_xq_allOne">
+        	<div class="divMain_xq_allOne">
+            	<!--   左   -->
+            	<div class="divMain_xq_allOne_L">提交时间：</div>
+                <!--   右   -->
+            	<div class="divMain_xq_allOne_R">$!dateTool.format("yyyy-MM-dd HH:mm:ss", $!Entity_Project.project.createAt)</div>
+            </div>
+          </div> 
+              
+               <!--   块   -->
+        	  <div class="divMain_xq_allOne">
+				<div class="divMain_xq_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_allOne_L">预计还款日期：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_allOne_R_new">$!investDetail.getFormatIssueDate()</div>
+                </div>
+				<div class="divMain_xq_alltwoAll">
+                	<!--   左   -->
+                	<div class="divMain_xq_allOne_L">还款状态：</div>
+                    <!--   右   -->
+                	<div class="divMain_xq_allOne_R">$!{Map_CodeList_RepaymentStatus.get($!{investDetail.getStatus()}).getName()}</div>
+                </div>
+              </div>
+	     </div>  
+             #end
+        </div>
+        
+	  </div>
+	   
+        <!--  提交部分  -->
+      </div>
+	   <div class="divMain_fenye line_top">
+        <div class="divMain_fenyeL">
+           <input  type="button"  onclick="javascript:history.go(-1);" class="anniu_hui100" value="返 回"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+     </div>
+    </form>
+  </div>
+ </body>
+</html>

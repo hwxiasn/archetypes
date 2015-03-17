@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+#parse("layout/head.vm")
+<title>倍赢金融财富箱--公告</title>
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/AboutUs.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+body {
+	background-color:#eeeeef;
+}
+</style>
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<div class="AboutUs1">
+	<div class="AboutUs1_L">
+    	<div class="AboutUs1_L_u"><img src="$static_url/images/aboutus1.png" width="191" height="67" /></div>
+        <div class="AboutUs1_L_b">
+        	<a href="$front_url/platformNotice.html">平台公告</a>
+            <a href="$front_url/platformNotice.html?hy" class="on">行业新闻</a>
+        </div>
+   </div>
+  <div class="AboutUs1_R">
+    <div class="AboutUs1_R1">
+      <div class="AboutUs1_R1_L"><b>行业新闻</b></div>
+        <div class="AboutUs1_R1_R"></div>
+    </div>
+    <div class="AboutUs1_R2_news"><b>存管转为托管 大型国有银行分食P2P托管市场</b><br/><span style="font-size:13px;">转载内容来源： 搜狐证券 2014-11-17</span></div>
+    <div class="AboutUs1_R3">
+    <p><b>摘要：</b>证券时报记者获悉，某国有大行目前正与P2P巨头合拍在线进行洽谈，最快下月与后者签署资金托管协议。合拍在线也因此有望成为国内首个与国有大行达成资金托管合作的网贷平台。</p>
+    <p>网贷平台(P2P)日益强大的资金出表功能和渐行渐近的监管细则，推动商业银行加快为P2P提供资金托管的脚步。 继少数股份制银行试水P2P资金托管业务后，国有行也将破冰。证券时报记者获悉，某国有大行目前正与P2P平台合拍在线进行洽谈，最快下月与后者签署资金托管协议。合拍在线也因此有望成为国内首个与国有大行达成资金托管合作的网贷平台。</p>
+    <p>在第一阶段，银行对于托管服务非常谨慎，托管的范围仅限于平台风险准备金(包括风险备付金和风险保证金)，而非全部借贷资金;投资人遇到兑付风险时，银行会动用平台存放在托管专户的准备金进行赔付，但不对资金划转和可能的归属权争议负责。 人人贷与招商银行、合时代与交通银行的合作都属于这种模式。但值得注意的是，投资人与借款人开设的独立子账户仍旧挂在第三方支付的托管系统，人人贷是财付通，而合时代是汇付天下。</p>
+    <p>第二阶段则以"资金监管"为名，践行者是投哪网和交行深圳分行。从投哪网公布的信息来看，该平台在交行开立人民币对公结算账户，作为平台运营资金监管专户。此账户与平台隔离，投哪网不能以转账和支付的方式挪动托管账户内的资金;交行则在托管该账户资金之余，提供资金定向支付管理功能。</p>
+    <p>第三阶段就是王实说的"实质性托管"，指全部借贷资金托管，并且借贷双方均实现开户。以已经达成托管协议的拍拍贷与长沙银行为例，投资人与借款人均将在合作银行开设个人账户，银行按照指令做资金划转，这也就是有媒体报道的"点对点资金托管"模式。尽管要让银行进行资金托管的呼声一直很高，但系统的落地并不是一件容易的事情，所以，银行需要一定的时间另行开发系统和流程，而且这需要向银监会报备。</p>
+    <p>对这一块井喷的市场，银行将加快行军速度抢食已是不争的事实。银行为P2P进行资金托管是趋势，未来肯定有更多的银行涌入。</p>
+
+    <br/>
+    <div class="news_fanhui"><a href="javascript:history.go(-1);">返回</a></div>
+
+     </div>
+        
+  </div>
+</div>
+
+<div class="AboutUs_xian"></div>
+
+#parse("layout/footer.vm")
+</body>
+</html>

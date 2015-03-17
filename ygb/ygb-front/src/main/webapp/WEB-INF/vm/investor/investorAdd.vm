@@ -1,0 +1,304 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+#set($left="customer")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/enroll.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/menu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Trading_inquiry.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Operator_Management.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Customer_Management.css" rel="stylesheet" type="text/css" />
+
+<script src="$static_url/admin/js/jquery.min.js"></script>
+<script src="$static_url/admin/js/jquery.validate.js"></script>
+<script src="$static_url/admin/js/jquery.metadata.js"></script>
+<script src="$static_url/admin/js/messages_cn.js"></script>
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color: #FFF;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+</style>
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+#parse("myAccount/header.vm")
+
+<div class="customer_main2_new">
+<div class="customer_main2_new_all">
+	#parse("myAccount/left.vm")
+	<script type="text/javascript">
+		exist=false;		## 用户名
+		emailComfirm=false;		## 邮箱
+		realNameComfirm = false;
+		phoneComfirm = false;
+		$(function(){
+			$("form").validate();
+			
+			$("#username").blur(function(){  ## 验证用户名
+    		var name = $(this).val();
+			var reg = /^[a-zA-Z0-9]{6,20}$/;
+			var reg1 = /[\uff00-\uffff]/g;
+			if(name.match(reg1))
+			{
+				$("#nameTishi").html("请转化为半角再输入");
+				return;
+			}
+			if(!reg.test(name)){
+				$("#nameTishi").html("请输入6-20个由字母、数字或字母与数字组合的字符串");
+				exist = false;
+				return;
+			}else{
+				jQuery.ajax({
+    				url:"$front_url/checkUsername.json",
+        			data:{"username":name},
+    				dataType:"json",
+					type:"post",
+    				success:function(response){
+    					if(response.msg == "exist"){
+        					$("#nameTishi").html("该用户名已经存在");
+    						exist=false;
+							return false;
+    					}else{
+    						$("#nameTishi").html("");
+    						exist = true;
+							return true;
+    					}
+    				},
+    				error:function(response){
+    					alert("出错了");
+    				}
+        		});
+			}
+    	});
+		
+			
+		$("#email").blur(function(){  ## 验证邮箱
+		  	var szReg=/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/; 
+			var ema=$(this).val();
+			if(ema!="")
+			{
+				var arrEmail = ema.split("@");
+				var flag = false;
+				if(arrEmail.length>1)
+				{
+					 var email_varlidate = arrEmail[1];
+					 var des = "'qq.com' || '126.com' || 'yahoo.com' || 'yahoo.com.cn' || 'gmail.com' || 'hotmail.com' || 'sina.com' || '21.com' || 'msn.com' || '163.com' || 'yeah.net' || 'yahoo.cn' || 'foxmail.com' || 'sohu.com' || 'sogou.com' || 'tom.com' || '21cn.com' || 'live.cn' || 'live.com' || 'hexun.com' || '139.com' || '189.cn' || '91.com' || '56.com' || 'eyou.com' || 'people.com.cn' || 'sh.com'";
+					if(des.indexOf("'"+email_varlidate+"'")!=-1){
+    					flag = true;
+  					}
+				}
+				if(flag==false)
+				{
+					$("#emailTishi").html("请输入正确格式的邮箱");
+					emailComfirm = false;
+					return;
+				}
+			}
+			if(!szReg.test(ema)){
+				$("#emailTishi").html("请输入正确格式的邮箱");
+    			emailComfirm = false;
+				return false;
+			}else{
+				jQuery.ajax({
+    				url:"$front_url/checkEmail.json",
+        			data:{"email":ema},
+    				dataType:"json",
+					type:"post",
+    				success:function(response){
+    					if(response.msg == "n"){
+        					$("#emailTishi").html("该邮箱已经注册过");
+    						emailComfirm = false;
+							return false;
+    					}else{
+    						$("#emailTishi").html("");
+    						emailComfirm = true;
+							return true;
+    					}
+    				},
+    				error:function(response){
+    					alert("出错了");
+    				}
+        		});
+			}
+		  });
+			
+			
+	##验证手机号是否正确
+	$("#mobile").blur(function(){
+		var mobile = $(this).val();
+		var reg = /^0?(13[0-9]|15[012356789]|18[012356789]|14[57]|17[0-9])[0-9]{8}$/;
+		if(!reg.test(mobile)){
+			$("#mobileTishi").html("输入的手机号码格式不正确");
+			phoneComfirm = false;
+		}else{
+			jQuery.ajax({
+				url:"$front_url/checkPhone.json",
+    			data:{"mobile":$(this).val()},
+				dataType:"json",
+				type:"post",
+				success:function(response){
+					if(response.msg == "n"){
+    					$("#mobileTishi").html("该手机号码已经注册过");
+						phoneComfirm = false;
+						return false;
+					}else{
+						$("#mobileTishi").html("");
+						phoneComfirm = true;
+						return true;
+					}
+				},
+				error:function(response){
+					alert("出错了");
+				}
+    		});
+		}
+	});
+	
+	
+			$("#realName").blur(function(){  ## 验证真实姓名
+    			var realName = $(this).val();
+    ##			var reg=/^[\u4E00-\u9FA5]{2,5}(?:·[\u4E00-\u9FA5]{2,5})*$/; 
+    			var reg=/^[\u4e00-\u9fa5]{2,10}$/; 
+    			if(reg.test(realName)){
+    				$("#realNameTishi").html("");
+    				realNameComfirm = true;
+    				return false;
+    			}else{
+    				$("#realNameTishi").html("真实姓名只能是汉字");
+    				realNameComfirm=false;
+    			}
+    		});
+		});
+		function comfirmSubmit(){
+    		if(exist && emailComfirm && realNameComfirm && phoneComfirm){
+    			return true;
+    		}else{
+    			return false;
+    		}
+		}
+    </script>
+    
+    <div class="customer_main2_R">
+    <div class="customer_main2_R_all">
+    	
+        <div class="Customer_Management1">
+       	  <div class="Customer_Management1_1">1.填写开户信息</div>
+            <div class="Customer_Management1_2">2.开户成功</div>
+            <div class="Customer_Management1_3"></div>
+        </div>
+	<form action="$front_url/investor/investorAdd.html" onsubmit="return comfirmSubmit()" method="post">
+        
+      <div class="Customer_Management3 Line_bottom">注册账户</div>
+        
+      <div class="Operator_Management_xq3">
+        	<div class="Operator_Management_xq3_L"><span class="color2">*</span>&nbsp;用户名：</div>
+            <div class="Operator_Management_xq3_R">&nbsp;&nbsp;
+                <input name="userName" id="username" maxlength="20" type="text" class="Operator_Management_text1 {required:true,rangelength:[6,20],messages:{required:'<img src=\'$static_url/images/zhuyi.png\' width=\'16\' height=\'17\' />&nbsp;&nbsp;<span class=\'Customer_Management_color1\'>请输入用户名</span>'}}" />
+				<span style="color:red;" id="nameTishi"></span>
+            </div>
+       </div>
+        ##验证用户名是否已经存在
+##		<script type="text/javascript">
+##			exist=false;		## 用户名
+##			function checkUserName(ele){
+##				var reg = /^[a-zA-Z0-9]{6,20}$/;
+##        		if($(ele).val().length > 6){
+##					if(!reg.test($(ele).val())){
+##					$("#nameTishi").html("请输入6-20个有字母和数字组成的用户名");
+##					exist=true;
+##					return;
+##				}
+##            		jQuery.ajax({
+##    					url:"$front_url/checkUsername.json",
+##            			data:{"username":$(ele).val()},
+##        				dataType:"json",
+##        				success:function(response){
+##							if(response.msg == "exist"){
+##            					$("#nameTishi").html("该用户名已经存在");
+##    							exist=true;
+##							}else{
+##								$("#nameTishi").html("");
+##								exist = false;
+##							}
+##        				},
+##        				error:function(response){
+##        					alert("出错了");
+##        				}
+##            		});
+##				 }
+##			 }
+##			 
+##			 function comfirmSubmit(){
+##			 	if(exist){
+##					return false;
+##				}
+##				return true;
+##			 }
+##        </script>
+##       <div class="Customer_Management4">
+##			若名称包含生僻字，请点此<a href="javascript:void(0)"><span class="Customer_Management_color2">打开生僻字库</span></a>进行选择。 
+##       </div>
+
+       <div class="Operator_Management_xq3">
+        	<div class="Operator_Management_xq3_L"><span class="color2">*</span>&nbsp;真实姓名：</div>
+            <div class="Operator_Management_xq3_R">&nbsp;&nbsp;
+                <input name="realName" id="realName" maxlength="20" type="text" class="Operator_Management_text1 {required:true,minlength:2,messages:{required:'<img src=\'$static_url/images/zhuyi.png\' width=\'16\' height=\'17\' />&nbsp;&nbsp;<span class=\'Customer_Management_color1\'>请输入真实姓名</span>',minlength:'<span style=\'color:red;\'>真实姓名不能少于2位</span>'}}" />
+				<span id="realNameTishi" style="color:red"></span>
+            </div>
+       </div>
+        <div class="Operator_Management_xq3">
+        	<div class="Operator_Management_xq3_L"><span class="color_orange">*</span>&nbsp;手机号码：</div>
+            <div class="Operator_Management_xq3_R">&nbsp;&nbsp;
+            <input name="mobile" id="mobile" maxlength="11" type="text" class="Operator_Management_text1 {required:true,messages:{required:'<img src=\'$static_url/images/zhuyi.png\' width=\'16\' height=\'17\' />&nbsp;&nbsp;<span class=\'Customer_Management_color1\'>请输入正确的手机号码</span>'}}"/>
+           ## &nbsp;&nbsp;<img src="images/zhuyi.png" width="16" height="17" />&nbsp;&nbsp;<span class="Customer_Management_color1">请输入真实姓名</span>
+		   <span id="mobileTishi" style="color:red"></span>
+          </div>
+        </div>
+##	   经纪人的编号
+	   <input type="hidden" name="brokerNum" value="$!account.userNum" />
+	   
+       <div class="Operator_Management_xq3">
+        	<div class="Operator_Management_xq3_L"><span class="color2">*</span>&nbsp;常用电子邮箱：</div>
+            <div class="Operator_Management_xq3_R">&nbsp;&nbsp;
+            <input name="email" id="email" type="email" class="Operator_Management_text1 {required:true,messages:{required:'<img src=\'$static_url/images/zhuyi.png\' width=\'16\' height=\'17\' />&nbsp;&nbsp;<span class=\'Customer_Management_color1\'>请输入常用电子邮箱</span>'}}" />
+			<span style="color:red;" id="emailTishi"></span>
+            </div>
+       </div>
+        
+       <div class="Customer_Management4">
+        	&nbsp;&nbsp;
+			注册完成后需要通过邮箱激活用户 
+       </div>
+       <div class="Customer_Management4">
+        	&nbsp;&nbsp;
+            <span class="Customer_Management_color1">温馨提示：开户过程需要发送邮件，可能会由于网络原因稍有延时，请您耐心等待开户结果！</span> 
+       </div>
+       <div class="Customer_Management4">&nbsp; </div>
+       <div class="Operator_Management_xq3 Line_top">
+        	<div class="Operator_Management_xq3_L"></div>
+            <div class="Operator_Management_xq3_R">&nbsp;&nbsp;
+            	<input type="submit" value="立即开户" class="Operator_Management_anniu2_1" />
+            </div>
+       </div>
+    </form>  
+  	</div>
+    </div>
+</div>
+</div>
+
+#parse("layout/footer.vm")
+</body>
+</html>

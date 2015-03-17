@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+#parse("layout/head.vm")
+<title>倍赢金融财富箱--帮助中心</title>
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/AboutUs.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/FortuneBox.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+body {
+	background-color:#eeeeef;
+}
+</style>
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<div class="FortuneBox1-1"></div>
+<div class="FortuneBox1">战略合作伙伴</div>
+<div class="FortuneBox2">
+	<div class="help1" >
+    <img src="$static_url/images/Partner/jiaotongD.png" /></div>
+    <div class="help2" >
+        <p>重庆市交通融资担保有限公司（国有控股的担保机构），成立于2000年4月，前身为重庆市高新技术产业化贷款风险担保资金管理中心，2009年12月经公司化改制，更名为重庆市渝超高新技术担保有限公司；2011年3月，正式更名为重庆市交通融资担保有限公司。为使公司更好适应市场竞争，2013年，公司引进民营企业增资扩股实现了股权多元化改革，其中重庆城市交通开发投资（集团）有限公司占比95%，重庆航蓝资产管理有限公司占比5%。公司有完善的企业法人治理结构；健全的企业管理制度和风险控制制度；丰富担保业务经验的高级管理人才和相应的金融、贸易、法律、会计等方面的专业人才，具备较高的管理水平和赢利能力...
+    		<a href="$front_url/statics/partner_jtrz.html"><span class="help2_a" >了解更多 &nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+    	</p>
+	</div>
+    <div class="help1" >
+    <img src="$static_url/images/Partner/huiquanD.png" /></div>
+    <div class="help2" >
+        <p>重庆市惠泉信用担保有限公司是由渝惠食品集团公司（原重庆市商务集团有限公司）投资组建的国有独资公司，于2005年7月在工商行政管理局登记注册，系重庆市中小企业金融服务促进会理事单位、重庆市中小企业信用担保协会会员单位，重庆市首批备案中小企业信用担保机构...
+    		<a href="$front_url/statics/partner_hqxy.html"><span class="help2_a" >了解更多 &nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+    	</p>
+	</div>
+	<div class="help1" >
+    <img src="$static_url/images/Partner/xianglanD.jpg" /></div>
+    <div class="help2" >
+        <p>重庆市巴南区向南小额贷款有限公司于2011年1月7日经重庆市金融办公室"渝金【2011】1号"批准成立。公司注册资本金人民币30000万元，其主要经营范围包括办理各项贷款、票据贴现、资产转让等业务...
+    		<a href="$front_url/statics/partner_xnxd.html"><span class="help2_a" >了解更多 &nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+    	</p>
+	</div>
+
+    <div class="help3"><a href="javascript:history.go(-1);">返回</a></div>
+    
+    
+</div>
+
+#parse("layout/footer.vm")
+</body>
+</html>

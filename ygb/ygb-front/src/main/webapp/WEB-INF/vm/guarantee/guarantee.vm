@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+#set($left="guarantee")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/menu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/Trading_inquiry.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+#parse("myAccount/header.vm")
+
+<div class="customer_main2_new">
+<div class="customer_main2_new_all">
+	#parse("myAccount/left.vm")
+    
+    <div class="customer_main2_R">
+    <div class="customer_main2_R_all">
+    	<div class="quick_signing_cx">
+        <span class="Trading_inquiry_color1">担保函管理</span>
+        
+      	</div>
+        <form action="/guarantee/guarantee.html" method="post">
+        <div class="Trading_inquiry1_dbh1">
+
+            <div class="Trading_inquiry1_1" style="">
+            	<div class="Trading_inquiry1_1_1_new2">承诺函编号：</div>
+                <div class="Trading_inquiry1_1_2_new2"><input name="commitmentLetterSn" value="$!search.getCommitmentLetterSn()" type="text" class="Trading_inquiry——text1" /></div>
+##                <div class="Trading_inquiry1_1_1_new2">担保函名称：</div>
+##                <div class="Trading_inquiry1_1_2_new2"><input name="guaranteeName" value="$!search.guaranteeName" type="text" class="Trading_inquiry——text1" /></div>
+            </div>
+            
+            <div class="Trading_inquiry1_1" style="">
+            	<div class="Trading_inquiry1_1_1_new2">担保函状态：</div>
+                <div class="Trading_inquiry1_1_2_new2">
+                <select name="status" class="Trading_inquiry——text1">
+                <option value="">全部</option>
+                #foreach($!sta in $!List_CodeList_GuaranteeStatus)
+					<option value="$sta.getCode()" #if($!sta.getCode()==$!search.getStatus()) selected="selected" #end>$!sta.getName()</option>
+				#end
+                </select>
+                </div>
+##                <div class="Trading_inquiry1_1_1_new2">起止日期：</div> <div class="Trading_inquiry1_1_2"><input name="dateFrom" type="text" id="beginDate" onfocus="WdatePicker({isShowClear:false,readOnly:true,maxDate:'#F{$dp.$D(\'jsDate\')}'})" value="$!search.dateFrom" class="Trading_inquiry——text1" />&nbsp;-&nbsp;<input name="dateTo" value="$!search.dateTo" id="jsDate" onfocus="WdatePicker({isShowClear:false,readOnly:true,minDate:'#F{$dp.$D(\'beginDate\')}'})" type="text" class="Trading_inquiry——text1" /></div>
+                <div class="Trading_inquiry1_1_2_new1">&nbsp;<input type="submit" value="查 询" class="anniuBlue"></div>
+            </div>
+        </div>
+        </form>
+        
+        <div class="Trading_inquiry2_2">
+            <div class="Trading_inquiry2_2_1_dbh1">承诺函编号</div>
+##<!--            <div class="Trading_inquiry2_2_1_dbh1">担保函名称</div> -->
+            <div class="Trading_inquiry2_2_1_dbh1">合同编号</div>
+            <div class="Trading_inquiry2_2_1_dbh1">担保函编号</div>
+            <div class="Trading_inquiry2_2_1_dbh1">担保费（元）</div>
+##            <div class="Trading_inquiry2_2_1_dbh1">担保函年份</div>
+##            <div class="Trading_inquiry2_2_1_dbh1">担保函序号</div>
+            <div class="Trading_inquiry2_2_1_dbh1">状态</div>
+            <div class="Trading_inquiry2_2_1_dbh1">操作</div>
+           
+        </div>
+        
+		
+		#if($!pager.getElements().size()>0)
+            #foreach($!guarantee in $!pager.getElements())
+			<div class="Trading_inquiry2_3_dbh1" style="">
+				<div class="Trading_inquiry2_2_1_dbh2">$!guarantee.getCommitmentLetterSn()</div>
+##<!--				<div class="Trading_inquiry2_2_1_dbh2">$!guarantee.guaranteeName</div> -->
+				<div class="Trading_inquiry2_2_1_dbh2"><span class="Trading_inquiry_color5">$!guarantee.getGuaranteeContractSn()</span></div>
+				<div class="Trading_inquiry2_2_1_dbh2">$!guarantee.getGuaranteeLetterSn()</div>
+				<div class="Trading_inquiry2_2_1_dbh2">$!guarantee.getFee()</div>
+##				<div class="Trading_inquiry2_2_1_dbh2">$!guarantee.getYear()</div>
+##				<div class="Trading_inquiry2_2_1_dbh2">$!guarantee.getSerial()</div>
+				<div class="Trading_inquiry2_2_1_dbh2">$!{Map_CodeList_GuaranteeStatus.get($!{guarantee.getStatus()}).getName()}</div>
+				<div class="Trading_inquiry2_2_1_dbh2"><a href="$front_url/guarantee/guaranteeDetail.html?id=$guarantee.id"><span class="Trading_inquiry_color3" >详情</span></a></div>
+            </div>
+			#end
+			#parse("myAccount/commonPager.vm")
+        #else
+        	<div class="Trading_inquiry2_3_none" style="">暂时没有担保函记录</div>
+        #end
+		
+  	</div>
+    </div>
+	</div>
+</div>
+
+</div>
+
+#parse("layout/footer.vm")
+<script type="text/javascript" src="$static_url/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+	function page(num) {
+		$("form").attr("action", $("form").attr("action")+"?totalRows="+$!pager.totalRows+"&currentPage="+num+"&pagerSize=" + $!pager.pageSize).submit();
+	}
+</script>
+</body>
+</html>

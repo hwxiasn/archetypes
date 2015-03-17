@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+#parse("layout/head.vm")
+<title>倍赢金融财富箱</title>
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<meta http-equiv="Refresh" content="3;url=/index.html" />
+<style type="text/css">
+body,td,th {
+	background:#EEEEEF;
+}
+.error{
+	width:998px;
+	height:550px;
+	margin:0 auto;
+	background:#FFF;
+	margin-top:10px;
+	-moz-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	box-shadow:5px 5px 8px #d5d3d3;
+	}
+.error_L{
+	width:350px;
+	height:250px;
+	line-height:35px;
+	float:left;
+	font-size:18px;
+	background:url($static_url/images/404.png);
+	background-repeat:no-repeat;
+	margin-left:80px;
+	margin-top:40px;
+	padding-top:260px;
+	}
+.error_R{
+	width:374px;
+	height:550px;
+	float:right;
+	background:url($static_url/images/404_1.png);
+	background-repeat:no-repeat;
+	background-position:0px 160px;
+	}
+.annniu_error{
+	display:inline-block;
+	width:106px;
+	height:30px;
+	line-height:30px;
+	text-align:center;
+	color:#fff;
+	background:#e6640a;
+	font-size:13px;
+	-moz-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	margin-top:10px;
+	}
+.annniu_error:hover{
+	background:#ff7b20;
+	}
+</style>
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<div class="error">
+	<div class="error_L">
+    非常抱歉，您访问的地址并不存在。<br/>
+    可能的原因有：<br/>
+    1.我们的程序出错了<br/>
+    2.您正在访问一个已经过期的旧网页<br/>
+    
+    <a href="$front_url/index.html" class="annniu_error">返回首页</a>
+    </div>
+    <div class="error_R"></div>
+</div>
+<script>
+if("$!error") console.log("$!error");
+</script>
+</body>
+</html>

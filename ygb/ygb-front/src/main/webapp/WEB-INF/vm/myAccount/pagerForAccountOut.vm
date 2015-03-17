@@ -1,0 +1,40 @@
+<div class="Trading_inquiry3">
+	 <div style="float:left; padding-left:20px;">
+        <span style="font-size:16px;">已成功划出：<span class="Trading_inquiry_color1">$!totalAmount</span>&nbsp;元</span>
+     </div>
+		#set($startRow=$!pager.startRow+1)
+	#if($!pager.endRow < $!pager.totalRows)
+		#set($endRow=$!pager.endRow+1)
+	#else
+    	#set($endRow=$!pager.totalRows)
+	#end
+	显示第  $!startRow - $!endRow 条记录，共 $!pager.totalRows 记录 | 
+	#if($!pager.currentPage>1)
+        <a href="javascript:page(1);"><span class="Trading_inquiry_color4">首页</span></a> | 
+        <a href="javascript:page($!{pager.currentPage}-1);"><span class="Trading_inquiry_color4">上一页</span></a> | 
+	#else
+		首页 | 
+		上一页 | 
+	#end
+	#if($!pager.currentPage<$!pager.totalPages)
+        <a href="javascript:page($!{pager.currentPage}+1);"><span class="Trading_inquiry_color4">下一页</span></a> | 
+        <a href="javascript:page($!{pager.totalPages});"><span class="Trading_inquiry_color4">尾页</span></a> |
+	#else
+		下一页 | 
+		尾页 | 
+	#end
+	<input name="gotoPage" id="gotoPage" size="1" maxlength="3" class="Trading_inquiry——text2"/>&nbsp;
+    <span class="Trading_inquiry_color4" onclick="javascript:gotoPage();">跳转</span>	
+</div>
+<script type="text/javascript">
+	function gotoPage(){
+		var gotoPage = $('#gotoPage');
+		var pageNum = gotoPage.val();
+		if(!pageNum || /\d*/.exec(pageNum)!=pageNum || pageNum<1 || pageNum>$!{pager.totalPages}){
+			alert('请输入页码！(1~'+$!{pager.totalPages}+')');
+			gotoPage.focus();
+		}else{
+			page(pageNum);
+		}
+	}
+</script>	

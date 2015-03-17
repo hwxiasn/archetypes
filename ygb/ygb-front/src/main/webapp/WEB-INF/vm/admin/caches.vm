@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	#parse("admin/layout/head.vm")
+<script >
+$(function(){
+    $("select[name='name'] > option[value='$!name']").attr("selected",true);
+})
+</script>		
+</head>
+<body>
+<form>
+cache:<select name="name">
+#foreach($cache in $!caches)
+	<option value="$cache">$cache</option>
+#end
+</select>
+<br/>
+key:<input name="key" value="$!key">
+<input type="checkbox" name="remove" value="true" title="remove key or clear cache">	
+<br/>
+<input type="submit">	
+</form>
+$!message
+</body>
+</html>

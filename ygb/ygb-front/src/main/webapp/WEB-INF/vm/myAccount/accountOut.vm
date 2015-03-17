@@ -1,0 +1,322 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+#set($left="account")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/menu.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="$static_url/css/loan.css">
+
+<script src="$static_url/admin/js/jquery.min.js"></script>
+<script src="$static_url/admin/js/jquery.validate.js"></script>
+<script src="$static_url/admin/js/jquery.metadata.js"></script>
+<script src="$static_url/admin/js/messages_cn.js"></script>
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color: #FFF;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+.Tips{
+	height:250px;
+	width:450px;
+	background-color: #FFF;
+	position:fixed;
+	border:#CCC solid 1px;
+	left:50%;
+	top:30%;
+	margin-left:-270px!important;/*FF IE7 该值为本身宽的一半 */
+	margin-top:35px!important;/*FF IE7 该值为本身高的一半*/
+	margin-top:0px;
+	position:fixed!important;/* FF IE7*/
+	position:absolute;/*IE6*/
+
+_top:       expression(eval(document.compatMode &&
+            document.compatMode=='CSS1Compat') ?
+            documentElement.scrollTop + (document.documentElement.clientHeight-this.offsetHeight)/2 :/*IE6*/
+            document.body.scrollTop + (document.body.clientHeight - this.clientHeight)/2);/*IE5 IE5.5*/
+	}
+.Tips a,.Tips img{
+	text-decoration:none;
+	border:none;
+	}
+.Tips1{
+	width:450px;
+	height:40px;
+	background:#d3332d;
+	}
+.Tips1 span{
+	display:block;
+	overflow:hidden;
+	padding:0 20px;
+	width:100px;
+	height:40px;
+	line-height:40px;
+	color:#FFF;
+	font-family:"微软雅黑";
+	font-size:16px;
+	float:left;
+	text-decoration:none;
+	}
+.Tips1 img{
+	margin-top:10px;
+	margin-right:20px;
+	float:right;
+	}
+.Tips2{
+	width:450px;
+	height:120px;
+	font-family:"微软雅黑";
+	font-size:16px;
+	padding:0 20px;
+	padding-top:50px;
+	}
+.Tips2 img{
+	vertical-align: middle;
+	float:left;
+	}
+.Tips3{
+	width:450px;
+	height:55px;
+	text-align:center;
+	}
+.Tips_anniu1{
+	width:100px;
+	height:30px;
+	line-height:30px;
+	display:inline-block;
+	overflow:hidden;
+	background:#d3332d;
+	border:none;
+	color:#FFF;
+	font-family:"微软雅黑";
+	font-size:14px;
+	font-weight:bold;
+	-moz-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	}
+.Tips_anniu1:hover{
+	background:#C62F30;
+	cursor:pointer;
+	}
+.Tips_anniu2{
+	width:100px;
+	height:30px;
+	line-height:30px;
+	display:inline-block;
+	overflow:hidden;
+	background:#e0e0e2;
+	border:none;
+	color:#5f5d5d;
+	font-family:"微软雅黑";
+	font-size:14px;
+	font-weight:bold;
+	-moz-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	}
+.Tips_anniu2:hover{
+	background:#eeeeef;
+	cursor:pointer;
+	}
+
+</style>
+
+<script>
+	function checkMoney(){
+		var strAmount = $("#money").val();
+		if(isNaN(strAmount)){
+			$("#moneyTishi").html("&nbsp;<img src='$static_url/images/zhuyi.png' width='13' height='13'>&nbsp;请输入数字");
+			return false;
+		}
+		var accountBalance = $!account.balance;
+		if(isNaN(accountBalance)){
+			$("#moneyTishi").html("&nbsp;<img src='$static_url/images/zhuyi.png' width='13' height='13'>&nbsp;余额不正常，请查证");
+			return false;
+		}
+		if(Number(strAmount) > Number(accountBalance)){
+			$("#moneyTishi").html("&nbsp;<img src='$static_url/images/zhuyi.png' width='13' height='13'>&nbsp;您的账户余额不足");
+			return false;
+		}else{
+			$("#moneyTishi").html("");
+			return true;
+		}
+	}
+
+	$(function(){
+		$("form").validate();
+		
+		$("#money").blur(function(){
+			checkMoney();
+		});
+		
+		$("#btn_accountOut").click(function(){
+			if($!account.isBinding == 1){
+				if(!checkMoney()){
+					return false;
+				}else{
+					$("#tishi").css("display", "block");
+					$("#theForm").submit();
+				}
+			}else{
+				alert("请先添加银行卡");
+				return false;
+			}
+		});
+	});
+
+	function close(){
+		if(document.getElementById("bank_biao").style.display=="none"){
+			document.getElementById("bank_biao").style.display="";
+		}else{
+			document.getElementById("bank_biao").style.display="none";
+		}
+	}
+
+	function charge(){
+		if(document.getElementById("Charges_tishi").style.display=="none"){
+			document.getElementById("Charges_tishi").style.display="";
+		}else{
+			document.getElementById("Charges_tishi").style.display="none";
+		}
+	}
+	
+	##划出完成
+	function markOffOver(){
+		document.getElementById('tishi').style.display='none';
+		window.location = "$front_url/account/myAccountOut.html";
+	}
+	
+	##划出继续
+	function markOff(){
+		document.getElementById('tishi').style.display='none';
+		window.location = "$front_url/account/accountOut.html";
+	}
+	
+	##返回
+	function fanhui(){
+		document.getElementById('tishi').style.display='none';
+	}
+</script>
+
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+#parse("myAccount/header.vm")
+
+<form action="/account/accountOut.html" method="post" name="form1" id="theForm" target="_blank">
+<div class="customer_main2_new" style="display:block">
+<div class="customer_main2_new_all" style="">
+	#parse("myAccount/left.vm")
+    
+    <div class="customer_main2_R">
+    <div class="customer_main2_R_all">
+    
+	<div id="tishi" class="Tips" style="display:none">
+		<div class="Tips1">
+			<span>提示</span>
+			<a href="javascript:void(0);" onclick="fanhui()"><img src="$static_url/images/Tips.png" width="20" height="20" /></a>
+		</div>
+    	<div class="Tips2">
+   			<img src="$static_url/images/Tips1.png" width="44" height="43" />&nbsp;
+   			请在新打开的乾多多页面完成支付，操作成功后才能完成划出操作！
+    	</div>
+    	<div class="Tips3">
+	        <a href="javascript:void(0);" onclick="markOffOver()" class="atc"><input type="button" class="Tips_anniu1" value="划出完成" /></a>
+	        &nbsp;&nbsp;
+	        <a href="javascript:void(0);" onclick="markOff()" class="atc"><input type="button" class="Tips_anniu2" value="继续划出" /></a>
+		</div>
+	</div>
+    	
+    
+        <div class="quick_signing">划出申请&nbsp;&nbsp;&nbsp;<a href="/account/myAccountOut.html" class="Express_included_color1">划出记录</a></div>
+
+         <div class="Express_included2_new">
+            	划出是指将平台账户对应的支付账号中的可用余额，提取到您本人银行账户中。
+            	<span class="color_blue" style="display:none">查看银行支付能力</span>
+            <a href="javascript:close()" style="display:none"><span class="color_blue">关闭</span></a>
+		 </div> 
+        <div id="bank_biao" class="HC_bank_biao" style="display:none"><img src="$static_url/images/biao.png" width="584" height="222" /></div>
+ 		
+ 		<div class="Bank_Information2_new1_HC">
+            <div class="Bank_Information2_L_HC">我的银行卡：</div>
+            <div class="Bank_Information2_R_HC">
+				#if($!account.isBinding == "1")
+						<a href="$front_url/account/accountDetail.html?info=bank">
+							<img src="$static_url/images/bank/$!{account.bank}.png" width="200" height="70" /><br/>
+						</a>
+				#else
+						<a href="$front_url/account/bindBankCard.html">
+						<img src="$static_url/images/HC_add.png"  /></a><br/>
+				#end
+            	
+            </div>
+   	    </div>
+
+        <div class="Bank_Information2">
+            <div class="Bank_Information2_L">划出金额：</div>
+            <div class="Bank_Information2_R">
+              <input id="money" name="money" type="text" class="Bank_Information_text1" value="" />&nbsp;元
+              <span id="moneyTishi" class="loanHong"></span>
+            </div>
+      	</div>
+      	
+        <div class="Bank_Information2">
+            <div class="Bank_Information2_L">服务费：</div>
+            <div class="Bank_Information2_R">
+            	<span class="Bank_Information_color">0</span>
+            	&nbsp;元&nbsp;&nbsp;&nbsp;
+            	<a href="javascript:charge()"><span class="color_blue" style="color:#0290d7">收费标准</span></a>
+            </div>
+		</div>
+	    
+	    <!-----------收费标注----------->
+        <div class="Express_included_Charges" id="Charges_tishi" style="display:none">
+			<div class="Express_included_Charges1">
+                <div class="Express_included_Charges1_L_new">乾多多服务费率：&nbsp;&nbsp;2.2‰</div>
+            </div>
+        </div>
+		<!-----------收费标注----------->
+        
+        <div class="toCach1">
+			#if($!needRegister=="1" )
+			<br>
+			<span class="font1" style="">
+				您尚未开通支付账号，请点此&nbsp;&nbsp;
+				<a href="$front_url/account/payRegister.html"  target="_blank"><span style="color:#0290d7">开通乾多多账户</span></a>
+			</span>
+			#end				  
+			#if($!needRegister!="1" && $!needAuthorised=="1" )
+			<br>
+			<span class="font1" >
+				您尚未完成支付授权，请点此&nbsp;&nbsp;
+				<a href="$front_url/account/payAudit.html" style="color:#0290d7"  target="_blank"><span style="color:#0290d7">开通支付授权</span></a>
+				</span>
+			#end				  
+			#if($!needRegister !="1" &&  $!needAuthorised !="1")
+			<input id="btn_accountOut" type="button" class="HC_anniu1" style="width:90px"  value="申请划出"/>
+			#end
+		</div>
+  	</div>
+    </div>
+  
+</div>
+</div>
+</form>
+
+#parse("layout/footer.vm")
+</body>
+</html>

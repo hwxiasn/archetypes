@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/AboutUs.css" rel="stylesheet" type="text/css" />
+<script src='$static_url/js/jquery.min.js'></script>
+<script src='$static_url/js/jquery.museum.js'></script>
+<style type="text/css">
+body {
+	background-color:#eeeeef;
+}
+</style>
+
+</head>
+
+<body>
+<!--    top     -->
+#parse("layout/header.vm")
+
+<!---------------内容---------------->
+<div class="AboutUs1">
+	<div class="AboutUs1_L">
+    	<div class="AboutUs1_L_u"><img src="$static_url/images/aboutus1.png" width="191" height="67" /></div>
+         <div class="AboutUs1_L_b">
+        	<a href="$front_url/platformNotice.html">平台公告</a>
+            <a href="$front_url/platformNotice.html?hy" class="on">行业新闻</a>
+          
+        </div>
+   </div>
+  <div class="AboutUs1_R">
+    <div class="AboutUs1_R1">
+      <div class="AboutUs1_R1_L"><b>行业新闻</b></div>
+        <div class="AboutUs1_R1_R"></div>
+    </div>
+    <div class="AboutUs1_R2_news"><b>政府工作报告称互联网金融异军突起</b><br/><span style="font-size:13px;">2015年03月09日 17:30:33 来源：速途网</span></div>
+    <div class="AboutUs1_R3">
+    	<center><img src="$static_url/images/newsImg/20150309.png" width="474" height="334"></center>
+   	    <p><b>3月5日消息：</b>今日上午9时，十二届全国人大三次会议在人民大会堂举行开幕会，国务院总理李克强作政府工作报告。对于去年首次提到的互联网金融，今年李克强报告中称：互联网金融异军突起。</p>
+        <P>大力调整产业结构。着力培育新的增长点，促进服务业加快发展，支持发展移动互联网、集成电路、高端装备制造、新能源汽车等战略性新兴产业，互联网金融异军突起，电子商务、物流快递等新业态快速成长，众多"创客"脱颖而出，文化创意产业蓬勃发展。</P>
+        <p>同时，李克强总理表示，民营银行试点迈出新步伐。报告称，存款利率和汇率浮动区间扩大，民营银行试点迈出新步伐，"沪港通"试点启动，外汇储备、保险资金运用范围拓展。能源、交通、环保、通信等领域价格改革加快。</p>
+        <p>报告指出，灵活运用货币政策工具，采取定向降准、定向再贷款、非对称降息等措施，加大对经济社会发展薄弱环节的支持力度，小微企业、"三农"贷款增速比各项贷款平均增速分别高4.2和0.7个百分点。同时，完善金融监管，坚决守住不发生区域性系统性风险的底线。</p>
+        <p>加强多层次资本市场体系建设，实施股票发行注册制改革，发展服务中小企业的区域性股权市场，推进信贷资产证券化，扩大企业债券发行规模，发展金融衍生品市场。推出巨灾保险、个人税收递延型商业养老保险。创新金融监管，防范和化解金融风险。大力发展普惠金融，让所有市场主体都能分享金融服务的雨露甘霖。</p>
+        <p>资深互联网观察家、速途研究院院长丁道师分析称李克强总理在2015《政府工作报告》中提及互联网金融，总体肯定了互联网金融在过去的一年发展成绩，从一个侧面释放出了中国政府未来将继续支持和扶持互联网金融发展的信号。</p>
+        <p>丁道师同时表示在过去的2014年，中国互联网金融个人理财和企业信贷等方面都取得了高速发展的态势，速途研究院发布的《2014年产业互联网发展报告》也显示，国内P2P市场整体交易规模在2010年仅有13.7亿元，而到了2014年整体市场交易规模已达2514.7亿元，增长了183倍!而仅2014年一年较2013年交易规模上涨了157.8%，我们相信2015年依然是高速增长的一年。</p><br/>
+        
+      <center>
+        <div style="height:1px; width:747px; background:#a50003;"></div>
+        <img src="$static_url/images/newsImg/ewm.png" width="352" height="352"><br/>
+        <span class="color_hong">[ 微信扫描上方二维码，更多金融资讯一手掌握 ]</span></center>
+        
+    <br/>
+    	<div class="news_fanhui"><a href="javascript:history.go(-1);">返回</a></div>
+
+     </div>
+        
+  </div>
+</div>
+
+<div class="AboutUs_xian"></div>
+
+<!---------------尾部-------------->
+<!--    bottom     -->
+#parse("layout/footer.vm")
+</body>
+</html>

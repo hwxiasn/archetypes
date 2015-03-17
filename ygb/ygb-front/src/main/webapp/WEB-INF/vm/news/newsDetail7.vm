@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+#parse("layout/head.vm")
+<title>倍赢金融财富箱--公告</title>
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/AboutUs.css" rel="stylesheet" type="text/css" />
+
+<script src='$static_url/js/jquery.min.js'></script>
+<script src='$static_url/js/jquery.museum.js'></script>
+<script>
+$(document).ready(function() {
+	$.museum($('#content img'));
+});
+</script>
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color:#eeeeef;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+.AboutUs_c1_1_a {
+	height:30px;
+	width: 125px;
+	background:#ffffff;
+	color:#000000;
+	margin-bottom: 2px;
+	float:left;
+	line-height:30px;
+	font-size: 15px;
+	padding-left: 40px;
+}
+a:hover{
+	color:red;
+	background:#b6b6b7;
+}
+#content img { height: 120px;border: 1px solid #FFF; padding: 2px; }
+#content img:hover { border: 1px solid #d3332d; }
+
+</style>
+
+</head>
+
+<body>
+#parse("layout/header.vm")
+
+<div class="AboutUs1">
+	<div class="AboutUs1_L">
+    	<div class="AboutUs1_L_u"><img src="$static_url/images/aboutus1.png" width="191" height="67" /></div>
+        <div class="AboutUs1_L_b">
+        	<a href="$front_url/platformNotice.html">平台公告</a>
+            <a href="$front_url/platformNotice.html?hy" class="on">行业新闻</a>
+        </div>
+   </div>
+  <div class="AboutUs1_R">
+    <div class="AboutUs1_R1">
+      <div class="AboutUs1_R1_L"><b>行业新闻</b></div>
+        <div class="AboutUs1_R1_R"></div>
+    </div>
+    <div class="AboutUs1_R2_news"><b>互联网金融未来的20年！不可想象！</b><br/><span style="font-size:13px;">转载：本文来源于2014-11-06 成都商报吴宇宸   微信客户端： 互联网金融网</span></div>
+    <div class="AboutUs1_R3">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;未来20年，传统意义上的银行会消失么？<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;《成都商报》连续推出“我看未来20年”大型公益演讲的巨大影响持续扩散。继本周一和周二成都商报记者先后向汽车和房地产行业大胆发问“未来20年，你最看好哪家企业”之后，今天，我们将目光聚焦在金融行业。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在过去的20年里，金融业尤其是银行业的赚钱能力之强让人咋舌；然而，当下金融业也面临前所未有的挑战。随着中国的互联网巨头———腾讯和阿里都申请到银行牌照，金融行业正以未曾预想过的速度或主动或被动地进行着改变。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;未来20年，中国的金融行业将出现怎样的变化和趋势？成都商报邀请金融业专业人士，把脉行业走向，畅想未来20年人们的理财新生活。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;　<b>趋势一 互联网金融 最变化多端的“搅局者”</b><br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;财经作家吴晓波曾表示，过去300多年几乎所有的行业都已面目全非，然而银行业的基本制度和运营逻辑并无大变，“这几乎是没有天理的事情。”<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;然而到了2013年，以余额宝的出现为标志，互联网金融开始让传统金融业猝不及防———余额宝挑战银行的不是产品和利息，而是一种新的服务和思维：它的服务便捷性、客户获取成本的低廉、对信用的理解以及互动的服务链，是银行业完全陌生的。也就是说，你并没有做错，但已被击败。<br/>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 如今，阿里、腾讯都已获得银行牌照。以刚更名为“蚂蚁金服”的阿里金融为例，把支付宝、余额宝、蚂蚁小贷及筹备中的网商银行等全都融于旗下，这是一个多么恐怖的组合。业内人士分析，阿里做金融的真正优势并不在于其客户量，金融业本质上也是一种信息产业，而阿里在获取判定客户的身份信用记录的真实信息以及监控客户的交易行为和踪迹上，具有传统金融业无法匹敌的优势。<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;传统商业银行所使用的风险管理，是一种在信息不透明不对称的情况下不得已使用的手段；但电子商务与其最明显的差异在于：交易行为被置于信息越来越透明的环境当中，同时交易行为也是一种数据积累过程，而且采集获取信息的成本是超低甚至是零成本的，而这对于传统商业银行来说是不可能的使命。这也就解释了为何成立仅两年的蚂蚁小贷可以向13万客户提供融资服务，贷款规模超过260亿元，而不良率只有0.72%。<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有鉴于此，平安集团董事长马明哲预测，未来金融业发展有三大趋势：10年内，60%以上的现金和信用卡会消失；15年内，大部分中小金融机构的前台由互联网企业完成；金融机构的前台将向小型化、社区化、智能化、多元化发展。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>趋势二 综合金融 一个账户搞定所有问题</b><br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;试想，消费者在一家金融机构就能满足所有金融需求———银行、保险、证券、信托、基金……这意味着，客户的钱包里不再需要很多银行卡，只凭一个账户就能省时省力地完成多元化、个性化、一站式的服务———这些，只有综合金融能够做到。<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所谓综合金融，是指在符合监管要求的前提下，金融集团至少从事银行、证券、保险中两个或两个以上的经营活动。这种经营模式可以实现内部资源共享，提高效率，节省成本，并因满足客户多样化需求而赢得市场。<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;国内综合金融的代表是平安集团，旗下已拥有银行、保险、信托、证券、基金等多个金融牌照，平安综合金融被认为已经进入2.0时代。按照集团总经理任汇川的解释，平安综合金融第二代与第一代最大的差别在于，不是如何让客户方便买到产品，而是怎样帮助客户找到最需要的东西；甚至如果平安商品无法满足客户，还可以为客户提供其他品牌的服务。<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;而在证券业，综合金融也被认为是创新转型的方向。“得账户者得金融”———证券业未来可能通过实体账户和虚拟账户结合的创新，集成客户各类金融资产和金融交易账户，打通客户投资理财资金的支付渠道，构建了综合账户和综合理财平台，借此大大提高营销服务效率。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>趋势三 社区金融 下楼买菜顺便“捎”个理财产品</b><br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;未来的银行服务，或许在你家楼下就能实现，而这已是不可阻挡的趋势。<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;今年以来，民生、中信、兴业、平安、浦发、光大、华夏等多家股份行皆把发展社区金融提至战略高度，并大举铺设轻型社区银行、智能旗舰店、综合金融服务门店等智能网点。<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这样的场景消费者也许很快就会经历：手机银行推送楼下卤肉店的新品上市，你用手机银行预定并支付，获得了折扣；当你下楼拿卤肉的时候，顺路走到社区银行，发现刚好有一款最新的短期理财产品很适合自己，于是举手投足之间，用3个月内暂时闲置着的20万元买了这款产品。<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以现在的眼光看，未来银行干的都好像不是银行所干的事情。平安银行近期在自身的手机银行移动客户端“口袋银行”中启动“口袋社区”功能，尝试将线上到线下(O2O)模式植入移动客户端当中，届时用户可以通过口袋社区浏览周边的商户和产品服务信息，在线预约下单，选择送货上门或到店消费；商户可通过该平台免费在线开网点，线上向居民推送商品和服务。民生银行则与特斯拉签订协议，双方在该行营业厅及小区金融门店建立至少400个充电桩……每家银行的策略不一样，但社区金融却已成为兵家必争之地。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>银行业未来将呈现“兵分两路”新格局</b><br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;郭田勇(中央财经大学中国银行业研究中心主任)<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;未来影响中国银行业发展有四大因素，分别是新型城镇化、利率市场化、投资多元化和金融合理化，而中国银行业可能呈现“兵分两路”的新格局：其中一路“朝上走”，即主要做大客户、高端客户，搞国际化经营，主要是国有控股的大型商业银行如工行、中行等；而另外一路则是“朝下走”，即做社区银行，扎根基层，深挖小微企业，主要以股份制和新兴民营银行为主，如民生、兴业、微众等。以往商业银行资产规模迅速做大的膨胀轨迹，在未来恐难以持续，整个银行业须思考如何瘦身发展。<br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>资产管理行业将告别“一种产品打天下”模式</b><br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;翟立宏(西南财大信托与理财研究所所长)<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;金融体系以往的扩张方式难以为继，但同时也为资产管理行业提供了难得的发展机遇。以下3个方面应当是资产管理行业未来创新着力的重点：第一，通过渠道效率重构以弥补金融体系效率损失是资产管理行业的近中期策略；第二，通过金融工具的创新来解决长期资本供应难题是资产管理行业的核心优势；第三，通过扩展服务内容满足投融资双方的多样化多层次需求是资产管理行业长期发展的方向。随着越来越多颇具竞争力的金融产品和金融子市场将出现，靠一种产品打天下的模式将不可避免地经历更大的经营风险和瞬间失去客户资源的可能。<br/><br/>
+    <div class="news_fanhui"><a href="javascript:history.go(-1);">返回</a></div>
+
+     </div>
+        
+  </div>
+</div>
+
+<div class="AboutUs_xian"></div>
+
+#parse("layout/footer.vm")
+</body>
+</html>

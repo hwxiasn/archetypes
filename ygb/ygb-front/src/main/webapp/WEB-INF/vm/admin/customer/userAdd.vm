@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>业务运营管理系统</title>
+#parse("admin/layout/head.vm")
+<link href="$static_url/admin/css/css.css" rel="stylesheet" type="text/css" />
+<!--  上传图片  -->
+<link href="$static_url/admin/js/uploadify-3.2.1/uploadify.css" rel="stylesheet" type="text/css" />
+<script src="$static_url/admin/js/uploadify-3.2.1/jquery.uploadify.min.js"></script>
+<script src="$static_url/admin/js/uploadify-3.2.1/uploadify.settings.js"></script>
+<!--  时间插件  -->
+<script src="$static_url/admin/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+idNumComfirm = false; // 身份证号码
+exist=false;// 用户名
+emailComfirm = false;//验证邮箱
+phoneComfirm = false;
+realNameComfirm = false;
+$(function(){
+	$("form").validate();
+	##身份证验证
+	$("#idNum").blur(function(){
+				var idNum = $(this).val();
+			if(idNum.length == 18){
+				var str = idNum.split("");
+				for(var i = 0;i < str.length-2;i++){
+					if(isNaN(str[i])){
+						$("#idNumTishi").html("请输入正确的身份证号码");
+						idNumComfirm = false;
+						return;
+					}else{
+						idNumComfirm = true;
+						$("#idNumTishi").html("");
+					}
+				}
+				var lastChar = str[str.length-1];
+				if(isNaN(lastChar) && lastChar.toUpperCase() != "X"){
+					idNumComfirm = false;
+					$("#idNumTishi").html("请填写正确的身份证号码");
+				}else{
+					idNumComfirm = true;
+					$("#idNumTishi").html("");
+				}
+			}else{
+				idNumComfirm = false;
+				return;
+			}
+		});
+		##用户名验证
+		$("#username").blur(function(){
+    		var name = $(this).val();
+			if(name==""){
+				$("#nameTishi").html("请输入用户名");
+				return;
+			}
+			var reg1 = /[\uff00-\uffff]/g;
+			if(name.match(reg1))
+			{
+				$("#nameTishi").html("请转化为半角再输入");
+				return;
+			}
+			var reg = /^[a-zA-Z0-9]{6,20}$/;
+			if(!reg.test(name)){
+				$("#nameTishi").html("用户名不能是中文汉字");
+				return;
+			}
+    		if(name.length>=6){
+        		jQuery.ajax({
+    				url:"$front_url/checkUsername.json",
+        			data:{"username":name},
+    				dataType:"json",
+    				success:function(response){
+    					if(response.msg == "exist"){
+        					$("#nameTishi").html("该用户名已经存在");
+    						exist=false;
+    					}else{
+    						$("#nameTishi").html("");
+    						exist = true;
+    					}
+    				},
+    				error:function(response){
+    					alert("出错了");
+    				}
+        		});
+    		 }
+    	});
+		##验证邮箱
+		$("#email").blur(function(){  //验证邮箱
+		  	var szReg=/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/; 
+			var ema=$(this).val();
+			if(ema!="")
+			{
+				var arrEmail = ema.split("@");
+				var flag = false;
+				if(arrEmail.length>1)
+				{
+					 var email_varlidate = arrEmail[1];
+					 var des = "'qq.com' || '126.com' || 'yahoo.com' || 'yahoo.com.cn' || 'gmail.com' || 'hotmail.com' || 'sina.com' || '21.com' || 'msn.com' || '163.com' || 'yeah.net' || 'yahoo.cn' || 'foxmail.com' || 'sohu.com' || 'sogou.com' || 'tom.com' || '21cn.com' || 'live.cn' || 'live.com' || 'hexun.com' || '139.com' || '189.cn' || '91.com' || '56.com' || 'eyou.com' || 'people.com.cn' || 'sh.com'";
+					if(des.indexOf("'"+email_varlidate+"'")!=-1){
+    					flag = true;
+  					}
+				}
+				if(flag==false)
+				{
+					$("#emailTishi").html("请输入正确格式的邮箱");
+					emailComfirm = false;
+					return;
+				}
+			}
+			if(!szReg.test(ema)){
+				$("#emailTishi").html("请输入正确格式的邮箱");
+    			emailComfirm = false;
+				return false;
+			}else{
+				jQuery.ajax({
+    				url:"$front_url/checkEmail.json",
+        			data:{"email":ema},
+    				dataType:"json",
+					type:"post",
+    				success:function(response){
+    					if(response.msg == "n"){
+        					$("#emailTishi").html("该邮箱已经注册过");
+    						emailComfirm = false;
+							return false;
+    					}else{
+    						$("#emailTishi").html("");
+    						emailComfirm = true;
+							return true;
+    					}
+    				},
+    				error:function(response){
+    					alert("出错了");
+    				}
+        		});
+			}
+		 });
+		 ##验证手机
+		$("#mobile").blur(function(){
+		var mobile = $(this).val();
+		var reg = /^0?(13[0-9]|15[012356789]|18[012356789]|14[57]|17[0-9])[0-9]{8}$/;
+		if(!reg.test(mobile)){
+			$("#mobileTishi").html("输入的手机号码格式不正确");
+			phoneComfirm = false;
+		}else{
+			jQuery.ajax({
+				url:"$front_url/checkPhone.json",
+    			data:{"mobile":$(this).val()},
+				dataType:"json",
+				type:"post",
+				success:function(response){
+					if(response.msg == "n"){
+    					$("#mobileTishi").html("该手机号码已经注册过");
+						phoneComfirm = false;
+						return false;
+					}else{
+						$("#mobileTishi").html("");
+						phoneComfirm = true;
+						return true;
+					}
+				},
+				error:function(response){
+					alert("出错了");
+				}
+    		});
+		}
+	});
+	##真实姓名	 
+	$("#realName").blur(function(){
+			var realName = $(this).val();
+			var reg=/^[\u4e00-\u9fa5]{2,10}$/; 
+			if(reg.test(realName)){
+				$('#bankCardAccountName').val(this.value)
+				$("#realNameTishi").html("");
+				realNameComfirm = true;
+			}else{
+				$("#realNameTishi").html("");
+				realNameComfirm=false;
+			}
+	});
+	##开户行所在地下拉菜单	
+	$("#province").change(function(){
+    		var province = $(this).val();
+    		if(province) {
+    			$("#city").load("$front_url/data/cities.html?pid=" + province);
+    		}else{
+    			$("#city option:gt(0)").remove();
+    		}
+    });
+	##上传
+	uploadify("#idCopyFrontFile", "#idCopyFront");
+	uploadify("#idCopyBankFile", "#idCopyBank");
+});
+##身份证到期时间
+function foreverDate(ele){
+		if(ele.checked){
+			$("#idValidTo").val("长期");
+			$("#idValidTo").attr("disabled",true);
+			$("#idValidToSure").attr("disabled",false);
+			$("#idValidToSure").val("2999-12-31");
+		}else{
+			$("#idValidTo").attr("disabled",false);
+			$("#idValidToSure").attr("disabled",true);
+			$("#idValidTo").val("");
+		}
+	}
+##提交菜单
+	function comfirmSubmit(){
+		if($("#username").val()=="") $("#nameTishi").html("请输入用户名");
+		if($("#realName").val()=="") $("#realNameTishi").html("请输入真实姓名");
+		if($("#email").val()=="") $("#emailTishi").html("请输入邮箱");
+		if($("#mobile").val()=="") $("#mobileTishi").html("请输入手机号码");
+##		if($("#idNum").val()=="") $("#idNumTishi").html("请输入证件号码");
+##		alert("用户名： "+ exist + "  真实姓名：" + realNameComfirm + "  邮箱：" + emailComfirm + " 身份证：" + idNumComfirm);
+	 	if(exist && realNameComfirm && emailComfirm && phoneComfirm){
+			return true;
+		}else{
+    		return false;
+		}
+	 }
+
+
+</script>
+</head>
+<body>
+<!--  主要内容  -->
+<div class="divMain">
+	<!--  查询开始  -->
+    <form action="$admin_url/customer/userAddSave.html" onsubmit="return comfirmSubmit()" method="post" enctype="multipart/form-data">
+	<div class="divMain_chaxun">
+    	<!--  标题  -->
+    	<div class="divMain_add_bt line_botoom">开户基本信息</div>
+        <!--  内容  -->
+        <div class="divMain_add_all line_botoom">
+        	<!--   必填项字段前加*号   -->
+        	<!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">*&nbsp;用户名：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R"><input name="userName" id="username" type="text"  class="text270 {required:true,rangelength:[6,20],messages:{required:'<span style=\'color:#27a9e3;\'>请填写用户名</span>'}}" />用户名为6-20位字母或数字字母组合&nbsp;<span id="nameTishi" style="color:#27a9e3;"></span>&nbsp;</div>
+            </div>
+            
+            <!--   块   -->
+        	<div class="divMain_add_radioOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_radioOne_L">*&nbsp;用户角色：</div>
+                <!--   右   -->
+            	<div class="divMain_add_radioOne_R">
+                	#parse("admin/pieces/roles.vm")
+                </div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">*&nbsp;邮箱：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R"><input name="email" type="text" id="email" class="text270 {required:true,email:true,messages:{required:'<span style=\'color:#27a9e3;\'>请填写邮箱地址</span>'}}"><span id="emailTishi" style="color:#27a9e3"></span>&nbsp;</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_add_allOne">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">*&nbsp;手机号码：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R"><input name="mobile" type="text" id="mobile"   maxlength="11" class="text270 {required:true,digits:true,messages:{required:'<span style=\'color:#27a9e3;\'>请填写手机号码</span>',digits:'<span style=\'color:#27a9e3;\'>请填写正确的手机号码</span>'}}" /><span id="mobileTishi" style="color:#27a9e3;"></span>&nbsp;</div>
+            </div>
+            
+        </div>
+        <!--  标题  -->
+    	<div class="divMain_add_bt line_botoom">其它信息</div>
+        <!--  内容  -->
+        <div class="divMain_add_all line_botoom">
+        	<!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">*&nbsp;真实姓名：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R"><input name="realName" id="realName" type="text" maxlength="20"  class="text270 {required:true,messages:{required:'<span style=\'color:#27a9e3;\'>请填写真实姓名</span>'}}" />&nbsp;<span id="realNameTishi" style="color:#27a9e3"></span></div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">证件号码：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R"><input name="idNum" id="idNum" maxlength="18" type="text"  class="text270 {rangelength:[18,18],messages:{required:'<span style=\'color:#27a9e3;\'>请填写18位身份证号码</span>',rangelength:'<span style=\'color:#27a9e3;\'>请填写正确的身份证号码</span>'}}" />&nbsp;只能是身份证号码<span id="idNumTishi" style="color:red"></span>&nbsp;</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">身份证到期日期：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+                <input name="idValidTo" id="idValidTo" onfocus="WdatePicker({isShowClear:false,readOnly:true,dateFmt:'yyyy-MM-dd'})" type="text" class="text270" />&nbsp;
+				<input type="hidden" name="idValidTo" id="idValidToSure" disabled="disabled" />
+				<input onclick="foreverDate(this)" type="checkbox">&nbsp;&nbsp;长期
+                </div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">上传身份证正面照片：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+					<div class="button-all">
+                		<div class="button-left">
+                    		<input id="idCopyFront" name="idCopyFront" class="text270" readonly /><a href="" target="_blank"></a>
+                		</div>
+                		<div class="button-right">
+                        	<input id="idCopyFrontFile" type="file" name="idCopyFrontFile" />
+            			</div>
+				   </div>	
+				</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">上传身份证反面照片：</div>
+				
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+					<div class="button-all">
+                		<div class="button-left">
+                    		<input id="idCopyBank" name="idCopyBank" class="text270" readonly  /><a href="" target="_blank"></a>
+                		</div>
+                		<div class="button-right">
+                        	<input id="idCopyBankFile" type="file" name="idCopyBankFile" />
+            			</div>
+					</div>	
+				</div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">银行开户名：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R"><input name="bankCardAccountName" id="bankCardAccountName" maxlength="20" type="text" class="text270" /></div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">银行卡号：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R"><input name="bankCardNum" maxlength="30" type="text" class="text270"></div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">开户银行：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+                <select name="bankCode" id="bankCode" class="select270">
+                	<option value="">==请选择银行==</option>
+                    #foreach($item in $!banks)
+						<option value="$!item.code">$!item.name</option>
+					#end
+                </select>
+                </div>
+            </div>
+            <!--   块   -->
+        	<div class="divMain_add_allOne line_botoom">
+            	<!--   左   -->
+            	<div class="divMain_add_allOne_L">开户银行所在地：</div>
+                <!--   右   -->
+            	<div class="divMain_add_allOne_R">
+                <select id="province" name="province" class="select100" >
+                    <option selected="selected" value="">==请选择省==</option>
+                    #foreach($item in $!provinces)
+                    <option value="$!item.code" #if($!account.provice == $!item.code) selected="selected" #end>$!item.name</option>
+                    #end
+                </select>
+                <select id="city" name="city" class="select100">
+                    <option value="">==请选择市==</option>
+                    #foreach($item in $!cities)
+                    <option value="$!item.code" #if($!account.city == $!item.code) selected="selected" #end>$!item.name</option>
+                    #end
+                </select>
+                </div>
+            </div>
+             <!--   文本域：文本编辑   -->
+        	<div class="divMain_add_allOne">
+            	<div class="divMain_add_allOne_L">备注：</div>
+            	<div class="divMain_add_allOne_R">
+					<input name="memo" type="text" maxlength="20" class="text270"  value=""/>
+				</div>
+            </div>
+        </div>
+        <div class="divMain_fenye">
+        	<div class="divMain_fenyeL">
+				<input type="hidden" name="marketingUserId" value="$!id">
+				<input type="submit" value="创 建" class="anniu_blue">&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="reset" value="取 消" class="anniu_hui100" onclick="history.go(-1); return false">
+			</div>
+        </div>
+    </div>
+    </form>
+    <!--  查询结束  -->
+</div>
+
+</body>
+</html>

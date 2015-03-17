@@ -1,0 +1,417 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>倍赢金融财富箱</title>
+#parse("layout/head.vm")
+#set($left="account")
+<link href="$static_url/css/index.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/anniu.css" rel="stylesheet" type="text/css" />
+<link href="$static_url/css/menu.css" rel="stylesheet" type="text/css" />
+
+<script src="$static_url/admin/js/jquery.min.js"></script>
+<script src="$static_url/admin/js/jquery.validate.js"></script>
+<script src="$static_url/admin/js/jquery.metadata.js"></script>
+<script src="$static_url/admin/js/messages_cn.js"></script>
+
+<script language="javascript">
+$(function(){
+	$("form").validate();
+	
+	$("#theForm").submit(function(){
+		var reg = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;
+		var mon = $("#money").val();
+##		alert(mon + "---" + reg.test(mon));
+		if(reg.test(mon)){
+			$("#moneyTishi").html("");
+    		document.getElementById('tishi').style.display='block';
+			document.testForm.action = "$front_url/account/accountIn.html";
+    		document.testForm.submit();
+		}else{
+			$("#moneyTishi").html("您输入的金额不正确");
+			return false;
+		}
+	});
+});
+
+</script>
+
+<style type="text/css">
+body {
+	background-repeat: repeat-x;
+	background-color: #FFF;
+}
+body,td,th {
+	font-family: "微软雅黑";
+	color: #8b8b8c;
+}
+.Tips{
+	height:250px;
+	width:450px;
+	background-color: #FFF;
+	position:fixed;
+	border:#CCC solid 1px;
+	left:50%;
+	top:30%;
+	z-index:9;
+	margin-left:-270px!important;/*FF IE7 该值为本身宽的一半 */
+	margin-top:35px!important;/*FF IE7 该值为本身高的一半*/
+	margin-top:0px;
+	position:fixed!important;/* FF IE7*/
+	position:absolute;/*IE6*/
+
+_top:       expression(eval(document.compatMode &&
+            document.compatMode=='CSS1Compat') ?
+            documentElement.scrollTop + (document.documentElement.clientHeight-this.offsetHeight)/2 :/*IE6*/
+            document.body.scrollTop + (document.body.clientHeight - this.clientHeight)/2);/*IE5 IE5.5*/
+	}
+.Tips a,.Tips img{
+	text-decoration:none;
+	border:none;
+	}
+.Tips1{
+	width:450px;
+	height:40px;
+	background:#d3332d;
+	}
+.Tips1 span{
+	display:block;
+	overflow:hidden;
+	padding:0 20px;
+	width:100px;
+	height:40px;
+	line-height:40px;
+	color:#FFF;
+	font-family:"微软雅黑";
+	font-size:16px;
+	float:left;
+	text-decoration:none;
+	}
+.Tips1 img{
+	margin-top:10px;
+	margin-right:20px;
+	float:right;
+	}
+.Tips2{
+	width:420px;
+	height:120px;
+	font-family:"微软雅黑";
+	font-size:16px;
+	padding:0 20px;
+	padding-top:50px;
+	}
+.Tips2 img{
+	vertical-align: middle;
+	float:left;
+	}
+.Tips3{
+	width:450px;
+	height:55px;
+	text-align:center;
+	}
+.Tips_anniu1{
+	width:100px;
+	height:30px;
+	line-height:30px;
+	display:inline-block;
+	overflow:hidden;
+	background:#d3332d;
+	border:none;
+	color:#FFF;
+	font-family:"微软雅黑";
+	font-size:14px;
+	font-weight:bold;
+	-moz-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	}
+.Tips_anniu1:hover{
+	background:#C62F30;
+	cursor:pointer;
+	}
+.Tips_anniu2{
+	width:100px;
+	height:30px;
+	line-height:30px;
+	display:inline-block;
+	overflow:hidden;
+	background:#e0e0e2;
+	border:none;
+	color:#5f5d5d;
+	font-family:"微软雅黑";
+	font-size:14px;
+	font-weight:bold;
+	-moz-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	}
+.Tips_anniu2:hover{
+	background:#eeeeef;
+	cursor:pointer;
+	}
+</style>
+</head>
+
+<body>
+#parse("layout/header.vm")
+#parse("myAccount/header.vm")
+<form action="$front_url/account/accountIn.html" method="post" target="_blank" name="testForm" id="theForm">
+
+	<div id="tishi" class="Tips" style="display:none">
+	<div class="Tips1"><span>提示</span><a href="javascript:void(0);" onclick="fanhui()"><img src="$static_url/images/Tips.png" width="20" height="20" /></a></div>
+    <div class="Tips2">
+   	<img src="$static_url/images/Tips1.png" width="44" height="43" />&nbsp;请在新打开的乾多多网银充值页面完成支付，操作成功后才能完成划入操作！
+    </div>
+    <div class="Tips3">
+        <a href="javascript:void(0);" onclick="skipCutOut()" class="atc"><input type="button" class="Tips_anniu1" onclick="skipCutOut()" value="划入完成" /></a>&nbsp;&nbsp;
+        <a href="javascript:void(0);" onclick="skipGo()" class="atc"><input type="button" class="Tips_anniu2" value="继续划入" /></a>
+	</div>
+</div>
+<div class="customer_main2_new" >
+<div class="customer_main2_new_all">
+	#parse("myAccount/left.vm")
+    
+	##if($!account.isBinding)
+    <div class="customer_main2_R_new" style="position:relative">
+    <div class="customer_main2_R_all">
+    
+    	<div class="quick_signing">
+    		划入申请&nbsp;&nbsp;&nbsp;
+    		<a href="/account/myAccountIn.html" class="Express_included_color1">划入记录</a>
+    	</div>
+        <div class="Bank_Information2">
+            <div class="Bank_Information2_L">网银划入金额：</div>
+            <div class="Bank_Information2_R">
+				<input name="fastInMoney" id="money" type="text" maxlength="8" onblur="showNum(this)" class="Bank_Information_text1 {required:true,number:true,min:2,messages:{required:'<span><img src=\'$static_url/images/zhuyi.png\'/>&nbsp;<span class=\'color_hong\'>请输入金额</span></span>',min:'<span class=\'color_hong\'>充值金额不能低于2元</span>',number:'<span class=\'color_hong\'>金额只能是数字</span>'}}" />&nbsp;元
+				<span id="moneyTishi" style="color:red;"></span>
+            </div>
+      	</div>
+        <script type="text/javascript">
+			function showNum(ele){
+				var num = ele.value;
+				if(!isNaN(num)){
+    				$("#fastin").html(num)
+				}else{
+					$("#fastin").html("0.00");
+				}
+				var ch = numtoch(num);		
+				$("input[name=caps]").val(ch);
+				if(!isNaN(num) && num != ""){
+					$("#fastin").html(num);
+##					jQuery.ajax({
+##						url:"$front_url/myAccount/checkMoney.json",
+##						data:{"money":num},
+##						dataType:"json",
+##						success:function(response){
+##							$("#s1").html(response.serviceFee);
+##							$("#ss").html(response.serviceFee);
+##							$("#rr").html(response.realToMoney);
+##							flag=false;
+##						},
+##						error:function(response){
+##							alert("后台出错了");
+##						}
+##					});
+				}
+			}
+			
+        </script>
+        
+        <div class="Express_included1" style="width:262px">
+	        &nbsp;&nbsp;<img src="$static_url/images/speaker.png" width="13" height="13" />
+	        <span style="color:#787676">&nbsp;您申请网银划入<span id="fastin" class="Express_included_color1">0.00</span>元</span>
+        </div>
+		
+        <div class="Bank_Information2">
+            <div class="Bank_Information2_L">网银划入金额大写：</div>
+            <div class="Bank_Information2_R">
+              <input name="caps" type="text" disabled="disabled" class="Bank_Information_text1" value="" />&nbsp;元
+            </div>
+      	</div>
+
+		#if($!shiro.hasRole('B') || $!shiro.hasRole('G') || $!shiro.hasRole('AG') || $!shiro.hasRole('SE') || $!shiro.hasRole('IE'))
+        <div class="Bank_Information2">
+            <div class="Bank_Information2_L">划入方式：</div>
+            <div class="Bank_Information2_R">
+              <input name="type" type="radio" value="" checked>普通网银&nbsp;&nbsp;<input name="type" type="radio" value="4">企业网银
+            </div>
+      	</div>
+        
+        <!--  银行限额开始 -->
+        <div class="yinhangTS" style=" ">
+        	<div class="yinhangTSAll">
+                <div class="yinhangTS01 line_bottom">普通网银限额（万）：</div>
+            </div>
+            <div class="yinhangTSAll">
+                <div class="yinhangTS01"><span class="color_Blue">(温馨提示：以下内容仅为参考)</span></div>
+            </div>
+            <div class="yinhangTSAll_F">工商银行：100</div>
+            <div class="yinhangTSAll_F">农业银行：30</div>
+            <div class="yinhangTSAll_F">建设银行：50</div>
+            <div class="yinhangTSAll_F">招商银行：无限制</div>
+            <div class="yinhangTSAll_F">交通银行：100</div>
+            <div class="yinhangTSAll_F">兴业银行：100</div>
+            <div class="yinhangTSAll_F">光大银行：50</div> 
+        	<div class="yinhangTSAll">
+                <div class="yinhangTS01 line_bottom">企业网银无限额（手续费20）</div>
+            </div>			
+        </div>
+		<!--  银行限额结束 -->		
+		#end
+		
+	    <div class="Bank_Information_bank_new1">
+			#if($!needRegister=="1" )
+			<br>
+			<span class="font1" style="">
+				您尚未开通支付账号，请点此&nbsp;&nbsp;
+				<a href="$front_url/account/payRegister.html"  target="_blank"><span style="color:#0290d7">开通乾多多账户</span></a>
+			</span>
+			#end				  
+			#if($!needRegister!="1" && $!needAuthorised=="1" )
+			<br>
+			<span class="font1" >
+				您尚未完成支付授权，请点此&nbsp;&nbsp;
+				<a href="$front_url/account/payAudit.html" style="color:#0290d7"  target="_blank"><span style="color:#0290d7">开通支付授权</span></a>
+			</span>
+			#end				  
+			#if($!needRegister !="1" &&  $!needAuthorised !="1")
+			<input type="submit" value="申请划入" class="anniuRed">
+			#end      
+		</div>
+  	</div>
+  	</div>
+	##end
+</div>
+</div>
+</form>
+
+#parse("layout/footer.vm")
+<script type="text/javascript">
+	##点击划入申请
+    function test(){
+		var reg = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;
+		var mon = $("#money").val();
+##		alert(mon + "---" + reg.test(mon));
+		if(reg.test(mon)){
+			$("#moneyTishi").html("");
+    		document.getElementById('tishi').style.display='block';
+			document.testForm.action = "$front_url/myAccount/doFastInApply.html";
+    		document.testForm.submit();
+		}else{
+			$("#moneyTishi").html("您输入的金额不正确");
+			return false;
+		}
+    }
+	##划入完成
+	function skipCutOut(){
+		document.getElementById('tishi').style.display='none';
+		window.location = "$front_url/account/myAccountIn.html";
+	}
+	##继续划入
+	function skipGo(){
+		document.getElementById('tishi').style.display='none';
+		window.location = "$front_url/account/accountIn.html";
+	}
+	##返回
+	function fanhui()
+	{
+		document.getElementById('tishi').style.display='none';
+	}
+　　function numtoch(Num) 
+　　{ 
+　　for(i=Num.length-1;i>=0;i--) 
+　　{ 
+　　Num = Num.replace(",","");
+　　Num = Num.replace(" ","");
+　　} 
+　　Num = Num.replace("￥","");
+　　if(isNaN(Num)) 
+　　{ 
+##　　//alert("请检查小写金额是否正确"); 
+　　return; 
+　　} 
+　　part = String(Num).split("."); 
+　　newchar = ""; 
+　　for(i=part[0].length-1;i>=0;i--) 
+　　{ 
+　　if(part[0].length > 10) 
+　　{ 
+　　alert("位数过大，无法计算"); 
+　　return ""; 
+　　}
+　　tmpnewchar = "" 
+　　perchar = part[0].charAt(i); 
+　　switch(perchar) 
+　　{ 
+　　case "0": tmpnewchar="零" + tmpnewchar ;break; 
+　　case "1": tmpnewchar="壹" + tmpnewchar ;break; 
+　　case "2": tmpnewchar="贰" + tmpnewchar ;break; 
+　　case "3": tmpnewchar="叁" + tmpnewchar ;break; 
+　　case "4": tmpnewchar="肆" + tmpnewchar ;break; 
+　　case "5": tmpnewchar="伍" + tmpnewchar ;break; 
+　　case "6": tmpnewchar="陆" + tmpnewchar ;break; 
+　　case "7": tmpnewchar="柒" + tmpnewchar ;break; 
+　　case "8": tmpnewchar="捌" + tmpnewchar ;break; 
+　　case "9": tmpnewchar="玖" + tmpnewchar ;break; 
+　　} 
+　　switch(part[0].length-i-1) 
+　　{ 
+　　case 0: tmpnewchar = tmpnewchar +"元" ;break; 
+　　case 1: if(perchar!=0)tmpnewchar= tmpnewchar +"拾" ;break; 
+　　case 2: if(perchar!=0)tmpnewchar= tmpnewchar +"佰" ;break; 
+　　case 3: if(perchar!=0)tmpnewchar= tmpnewchar +"仟" ;break; 
+　　case 4: tmpnewchar= tmpnewchar +"万" ;break; 
+　　case 5: if(perchar!=0)tmpnewchar= tmpnewchar +"拾" ;break; 
+　　case 6: if(perchar!=0)tmpnewchar= tmpnewchar +"佰" ;break; 
+　　case 7: if(perchar!=0)tmpnewchar= tmpnewchar +"仟" ;break; 
+　　case 8: tmpnewchar= tmpnewchar +"亿" ;break; 
+　　case 9: tmpnewchar= tmpnewchar +"拾" ;break; 
+　　} 
+　　newchar = tmpnewchar + newchar; 
+　　}
+　　if(Num.indexOf(".")!=-1) 
+　　{ 
+　　if(part[1].length > 2) 
+　　{ 
+　　part[1] = part[1].substr(0,2) 
+　　} 
+　　for(i=0;i<part[1].length;i++) 
+　　{
+　　tmpnewchar = "" 
+　　perchar = part[1].charAt(i) 
+　　switch(perchar) 
+　　{
+　　case "0": tmpnewchar="零" + tmpnewchar ;break; 
+　　case "1": tmpnewchar="壹" + tmpnewchar ;break; 
+　　case "2": tmpnewchar="贰" + tmpnewchar ;break; 
+　　case "3": tmpnewchar="叁" + tmpnewchar ;break; 
+　　case "4": tmpnewchar="肆" + tmpnewchar ;break; 
+　　case "5": tmpnewchar="伍" + tmpnewchar ;break; 
+　　case "6": tmpnewchar="陆" + tmpnewchar ;break; 
+　　case "7": tmpnewchar="柒" + tmpnewchar ;break; 
+　　case "8": tmpnewchar="捌" + tmpnewchar ;break; 
+　　case "9": tmpnewchar="玖" + tmpnewchar ;break;
+　　}
+　　if(i==0)tmpnewchar =tmpnewchar + "角"; 
+　　if(i==1)tmpnewchar = tmpnewchar + "分"; 
+　　newchar = newchar + tmpnewchar; 
+　　}//for2
+　　}
+　　while(newchar.search("零零") != -1) 
+　　newchar = newchar.replace("零零", "零"); 
+　　newchar = newchar.replace("亿零万", "亿"); 
+　　newchar = newchar.replace("零亿", "亿"); 
+　　newchar = newchar.replace("亿万", "亿"); 
+　　newchar = newchar.replace("零万", "万"); 
+　　newchar = newchar.replace("零元", "元"); 
+　　newchar = newchar.replace("零角", ""); 
+　　newchar = newchar.replace("零分", ""); 
+　　if (newchar.charAt(newchar.length-1) == "元" || newchar.charAt(newchar.length-1) == "角") 
+　　newchar = newchar+"整" 
+　　return newchar; 
+　　}
+</script>
+</body>
+</html>

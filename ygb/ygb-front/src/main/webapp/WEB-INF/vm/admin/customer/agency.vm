@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>业务运营管理系统</title>
+	#parse("admin/layout/head.vm")
+	<link href="$static_url/admin/css/css.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+    $(function(){
+    	$("select[name='role'] > option[value='$!agency.role']").attr("selected",true);
+    	$("select[name='status'] > option[value='$!agency.status']").attr("selected",true);
+	});
+	function userStatus(id, status, a){
+		if(confirm("确认要"+$(a).text()+"吗？")){
+    		jQuery.get("$admin_url/customer/userStatus.json?id="+id+"&status="+status,function(data){
+    			if(data.success){
+    				if(status=="L"){
+        				$(a).text("解冻").attr("onclick","userStatus('"+id+"', 'J', this)");
+    					$("#status-"+id).text(data.user.statusName);
+    				}else if(status=="D"){
+        				$(a).text("解禁").attr("onclick","userStatus('"+id+"', 'A', this)");
+    					$("#status-"+id).text(data.user.statusName);
+						$(a).siblings("a").each(function(){
+							if($(this).text()=="解冻"){
+								$(this).off("click");			##//去掉jquery绑定的
+								$(this).removeAttr("onclick");
+								$(this).css("color","gray");
+							}else if($(this).text()=="冻结"){		
+								$(this).off("click");
+								$(this).removeAttr("onclick");
+								$(this).css("color","gray");
+							}
+						});
+					}else if(status=="A"){
+        				$(a).text("禁用").attr("onclick","userStatus('"+id+"', 'D', this)");
+    					$("#status-"+id).text(data.user.statusName);
+						$(a).siblings("a").each(function(){
+							if($(this).text()=="解冻"){
+								$(this).attr("onclick","userStatus('"+id+"', 'L', this)");			##click传参
+								$(this).removeAttr("style");
+							}else if($(this).text()=="冻结"){								
+								$(this).attr("onclick","userStatus('"+id+"', 'L', this)");
+								$(this).removeAttr("style");
+							}
+						});
+					}else if(status=="J"){
+        				$(a).text("冻结").attr("onclick","userStatus('"+id+"', 'L', this)");
+##    					//$("#status-"+id).text(data.user.statusName);
+    					$("#status-"+id).text("正常");
+					}
+    			}
+    		});
+		}
+	}
+    </script>
+</head>
+<body>
+<!--  主要内容  -->
+<div class="divMain">
+	<!--  查询开始  -->
+    <form action="$admin_url/customer/agency.html" method="post" id="queryForm">
+	<div class="divMain_chaxun">
+    	<!--  标题  -->
+    	<div class="divMain_chaxun_bt line_botoom">查询</div>
+        <!--  查询条件  -->
+        <div class="divMain_chaxun_m">
+        <!--  查询条件比较多多的情况，字段尽量为4个字，特别是每排第一个字段，尽量让排整齐板式好看；查询条件少，一排显示就不管  -->
+        <!--   div高度不定,多了自动挤到下一排   -->
+        	<div class="divMain_chaxun_mOne">用户名：<input name="userName" type="text" class="text100" value="$!agency.userName"></div>
+        	<div class="divMain_chaxun_mOne">企业名称：<input name="enterpriseName" type="text" class="text100" value="$!agency.enterpriseName"></div>
+        	<div class="divMain_chaxun_mOne">用户角色：
+				<select name="role" class="select100">
+					<option value="">全部</option>
+					#foreach($item in $!roles)
+						<option value="$!item.code">$!item.name</option>
+					#end
+				</select>
+			</div>
+			<div class="divMain_chaxun_mOne">用户状态：
+				<select name="status" class="select100">
+					<option value="">全部</option>
+					#foreach($item in $!statuses)
+						<option value="$!item.code">$!item.name</option>
+					#end
+				</select>
+			</div>
+        	<div class="divMain_chaxun_mAnniu"><input type="submit" value="查 询" class="anniu_blue"></div>
+            
+        </div>
+    </div>
+    </form>
+    <!--  查询结束  -->
+    <!--  列表开始  -->
+	<div class="divMain_chaxun">
+   		<!--  标题  -->
+    	<div class="divMain_liebiao_bt line_botoom">
+        	<!--每个divMain_liebiao_one01宽度未定，根据具体情况定百分比，加起来总的等于100%-->
+        	<span class="divMain_liebiao_one01" style="width:1%;">&nbsp;</span><span class="divMain_liebiao_one01" style="width:10%;">用户名</span><span class="divMain_liebiao_one01" style="width:15%;">企业名称</span><span class="divMain_liebiao_one01" style="width:11%;">用户角色</span><span class="divMain_liebiao_one01" style="width:9%;">联系人姓名</span><span class="divMain_liebiao_one01" style="width:12%;">创建时间</span><span class="divMain_liebiao_one01" style="width:8%;">状态</span><span class="divMain_liebiao_one01" style="width:18%;">操作</span>
+        </div>
+        
+       #if($!pager && $!pager.elements && $!pager.elements.size()>0)
+			  #foreach($agency in $pager.elements)
+            <div class="divMain_liebiao_all line_botoom">
+            	<span class="divMain_liebiao_one01" style="width:1%;"></span><span class="divMain_liebiao_all01" style="width:10%;">$!agency.userName</span><span class="divMain_liebiao_all01" style="width:15%;">$!agency.enterpriseName</span><span class="divMain_liebiao_all01" style="width:11%;">$!Map_Agency_role.get($!{agency.role}).getName()</span><span class="divMain_liebiao_all01" style="width:9%;">$!agency.contactName</span><span class="divMain_liebiao_all01" style="width:12%;">$!agency.createTime</span><span class="divMain_liebiao_all01" style="width:8%;" id="status-$!agency.userId">#if($!agency.status=="J")正常 #else$!Map_user_status.get($!{agency.status}).getName()#end</span><span class="divMain_liebiao_all01 color_blue" style="width:18%;"><a href="$admin_url/customer/agencyEdit.html?id=$!agency.userId">修改</a>|
+        				#if("$!agency.status"=="L")
+    						<a href="javascript:void(0)" #if("$!agency.status"!="D") onclick="userStatus('$!agency.userId', 'J', this)" #else style="color:gray" #end>解冻</a>|
+    					#else
+    						<a href="javascript:void(0)" #if("$!agency.status"!="D") onclick="userStatus('$!agency.userId', 'L', this)" #else style="color:gray" #end>冻结</a>|
+    					#end
+    					#if("$!agency.status"=="D")
+    					<a href="javascript:void(0)" onclick="userStatus('$!agency.userId', 'A', this)">解禁</a>|
+    					#else
+    					<a href="javascript:void(0)" onclick="userStatus('$!agency.userId', 'D', this)">禁用</a>|
+    					#end
+					<a href="$admin_url/customer/agencyDetail.html?id=$!agency.userId">详情</a>
+    			</span>
+            </div>
+            #end
+		#else
+			 <div class="divNone line_botoom">暂无信息</div>
+		#end
+        
+        
+        <!--   分页开始   -->
+##        <form action="" method="post" name="form1">
+        <div class="divMain_fenye">
+        	<div class="divMain_fenyeL"><a href="$admin_url/customer/agencyAdd.html" class="anniu_blue">新增机构用户</a></div>
+            #parse("admin/layout/pager.vm")
+        </div>
+##        </form>
+        <!--   分页结束   -->
+    </div>
+   <!--  列表结束  -->
+</div>
+
+</body>
+</html>

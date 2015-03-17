@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>业务运营管理系统</title>
+#parse("admin/layout/head.vm")
+<link href="$static_url/admin/css/css.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+a:link {
+	color: #8e8e8e;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #8E8E8E;
+}
+a:hover {
+	text-decoration: none;
+	color: #F00;
+}
+a:active {
+	text-decoration: none;
+	color: #F00;
+}
+#current,#options { border:1px solid #a0a0a0;}
+#replace {cursor:default;overflow:visible;position:relative;}
+#current { background:url("images/dropdown.png") right center no-repeat;margin-bottom:0;}
+#current,#replace,#options li { width:150px;}
+#options { border-top:0 none; display:none;list-style-type:none;margin-top:0;position:absolute;width:160px;}
+#current,#options li {padding:5px;}
+#current,#options,#options li {background-color:#FFF;}
+</style>
+<script type="text/javascript">
+	$(function(){
+    	$("select[name='guaranteeEnterprise'] > option[value='$!request.guaranteeEnterprise']").attr("selected",true);
+    	$("select[name='projectStatus'] > option[value='$!request.projectStatus']").attr("selected",true);
+	})	
+</script>		
+</head>
+<body>
+<!--  主要内容  -->
+<div class="divMain">
+	<!--  查询开始  -->
+    <form action="$admin_url/product/project.html" method="post">
+	<div class="divMain_chaxun">
+    	<!--  标题  -->
+    	<div class="divMain_chaxun_bt line_botoom">项目管理</div>
+        <!--  查询条件  -->
+        <div class="divMain_chaxun_m">
+        <!--  查询条件比较多多的情况，字段尽量为4个字，特别是每排第一个字段，尽量让排整齐板式好看；查询条件少，一排显示就不管  -->
+        <!-- div高度不定,多了自动挤到下一排-->
+        	<div class="divMain_chaxun_mOne">担保机构：
+				<select name="guaranteeUserId" class="select100">
+				    <option value="">==请选择==</option>
+					 	#foreach($ensure in $!List_User_Guarantee)
+			              <option value="$!ensure.id" #if($!Entity_Search.guaranteeUserId == $!ensure.id) selected="selected" #end>$!ensure.enterpriseProfile.enterpriseName</option>
+		  	            #end
+				</select>
+			</div>
+			<div class="divMain_chaxun_mOne">项目标题：<input name="name" type="text" class="text100" value="$!Entity_Search.name" maxlength="20"></div>
+			<div class="divMain_chaxun_mOne">项目状态：
+				<select name="status" class="select100">
+				    <option value="">==请选择==</option>
+				      #foreach($statusKey in $!Map_Project_Status.keySet())
+		               <option value="$statusKey" #if($statusKey == $!Entity_Search.status) selected="selected" #end>$!Map_Project_Status.get($statusKey)</option>
+	                  #end
+				</select>
+			</div>
+            <!--  按钮  -->
+        	<div class="divMain_chaxun_mAnniu"><input name="input5" type="submit" value="提交查询" class="anniu_blue"></div>
+        </div>
+    </div>
+    </form>
+    <!--  查询结束  -->
+    <!--  列表开始  -->
+	<div class="divMain_chaxun">
+        <!--  标题  -->
+    	<div class="divMain_liebiao_bt line_botoom">
+        	<!--每个divMain_liebiao_one01宽度未定，根据具体情况定百分比，加起来总的等于100%-->
+        	 <span class="divMain_liebiao_one01" style="width:3%;">&nbsp;</span><span class="divMain_liebiao_one01" style="width:13%;">项目标题</span><span class="divMain_liebiao_one01" style="width:11%;">投资接受人</span><span class="divMain_liebiao_one01" style="width:12%;">项目标的金额(元)</span><span class="divMain_liebiao_one01" style="width:11%;">项目成立金额(元)</span><span class="divMain_liebiao_one01" style="width:12%;">担保机构</span><span class="divMain_liebiao_one01" style="width:11%;">成立日期</span><span class="divMain_liebiao_one01" style="width:11%;">还款日期</span><span class="divMain_liebiao_one01" style="width:7%;">状态</span><span class="divMain_liebiao_one01" style="width:9%;">&nbsp;操作</span>
+        </div>
+        <!-- 一条内容   -->
+		#if($pager.elements.size()>0)
+		   #foreach($project in $pager.elements)
+            <div class="divMain_liebiao_all line_botoom">
+              <span class="divMain_liebiao_one01" style="width:3%;">&nbsp;</span><span class="divMain_liebiao_all01" style="width:13%;">$!project.project.name</span><span class="divMain_liebiao_all01" style="width:11%;">$!project.realName</span><span class="divMain_liebiao_all01" style="width:12%;">$!project.project.totalAmount</span><span class="divMain_liebiao_all01" style="width:11%;">$!project.project.settleAmout</span><span class="divMain_liebiao_all01" style="width:12%;">$!project.guaranteeName</span><span class="divMain_liebiao_all01" style="width:11%;">$!dateTool.format("yyyy-MM-dd", $!project.project.settleDate)</span><span class="divMain_liebiao_all01" style="width:11%;">$!dateTool.format("yyyy-MM-dd", $!project.project.dueDate)</span><span class="divMain_liebiao_all01" style="width:7%;">$!Map_Project_Status.get($!project.project.status)</span><span class="divMain_liebiao_all01" style="width:9%;"><a href="$admin_url/product/projectDetail.html?id=$!project.project.id" class="a1">查看详情</a></span>
+            </div>
+            #end
+		#else
+			<div class="divNone line_botoom">暂无信息</div>
+		#end
+          <!-- 分页开始   -->
+        <div class="divMain_fenye">
+			#parse("admin/layout/pager.vm")
+        </div>                                                           
+    </div>
+   <!--  列表结束  -->
+</div>
+</body>
+<script type="text/javascript" src="$static_url/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+		function page(num) {
+		$("form").attr("action", $("form").attr("action")+"?totalRows="+$!pager.totalRows+"&currentPage="+num).submit();
+	}
+</script>
+</html>
